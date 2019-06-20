@@ -23,6 +23,7 @@ namespace UT
 		void SetWindow(Window* window);
 	private:
 		Window* window;
+		GLFWwindow* winPtr;
 		std::vector<Object*> objects;
 	};
 }

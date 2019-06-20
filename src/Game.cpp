@@ -7,6 +7,7 @@ namespace UT
 {
 	Game::Game(Window* window)
 	{
+		this->winPtr = window->GetWin();
 		this->window = window;
 	}
 
@@ -19,6 +20,7 @@ namespace UT
 
 	void Game::Render()
 	{
+		// Clear screen
 		glClearColor(0.f, 0.f, 0.f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
@@ -28,7 +30,8 @@ namespace UT
 			objects[i]->Render();
 		}
 
-		glfwSwapBuffers(this->window->GetWin());
+		// Show rendered buffer
+		glfwSwapBuffers(winPtr);
 	}
 
 	void Game::AddObject(Object* object)
@@ -45,6 +48,7 @@ namespace UT
 	// Setters
 	void Game::SetWindow(Window* window)
 	{
+		this->winPtr = window->GetWin();
 		this->window = window;
 	}
 }
