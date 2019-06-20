@@ -3,15 +3,15 @@
 
 namespace UT
 {
-	class Object
-	{
-	public:
-		Object();
-		
-		static void Render();
-	private:
+    class Object
+    {
+    public:
+        Object();
+        
+        static void Render();
+    private:
 
-	};
+    };
 }
 
 #endif
