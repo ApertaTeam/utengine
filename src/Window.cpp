@@ -26,4 +26,26 @@ namespace UT
             throw "Failed to create GLFW window.";
         }
     }
+
+	// Getters
+	std::string Window::GetTitle()
+	{
+		return this->title;
+	}
+
+	glm::vec2 Window::GetSize()
+	{
+		return this->size;
+	}
+
+	// Setters
+	void Window::SetTitle(std::string title)
+	{
+		this->title = title;
+	}
+
+	void Window::SetSize(glm::vec2 size)
+	{
+		this->size = size;
+	}
 }
