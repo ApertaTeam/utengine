@@ -1,26 +1,31 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include "Game.h"
 #include "Window.h"
+#include "Object.h"
 
 #include <iostream>
+
+
+using namespace UT;
 
 int main()
 {
     glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+    
+	Window mainWindow = Window("Undertale", { 640, 480 }, {
+		WindowFlags::Visible,
+		WindowFlags::Decorated,
+		WindowFlags::Focused,
+		WindowFlags::FocusOnShow
+	});
+	mainWindow.CenterWindow();
 
-    GLFWwindow* window = glfwCreateWindow(640, 480, "C++ Undertale Engine", NULL, NULL);
-    glfwMakeContextCurrent(window);
-    if (window == NULL)
-    {
-        std::cout << "Failed to create GLFW window." << std::endl;
-        glfwTerminate();
-        return -1;
-    }
+	Game mainGame = Game(&mainWindow);
+
+	GLFWwindow* mainWindowPtr = mainWindow.GetWin();
+    glfwMakeContextCurrent(mainWindowPtr);
 
     if (glewInit() != GLEW_OK)
     {
@@ -31,14 +36,9 @@ int main()
     // This might be better set at 320x240
     glViewport(0, 0, 640, 480);
 
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(mainWindowPtr))
     {
-        glfwPollEvents();
-
-        glClearColor(0.f, 0.f, 0.f, 1.f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        glfwSwapBuffers(window);
+		mainGame.Loop();
     }
 
     glfwTerminate();
