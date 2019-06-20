@@ -6,26 +6,26 @@
 
 namespace UT
 {
-	class Game
-	{
-	public:
-		Game(Window* window);
+    class Game
+    {
+    public:
+        Game(Window* window);
 
-		void Loop();
-		void Render();
+        void Loop();
+        void Render();
 
-		void AddObject(Object* object);
+        void AddObject(Object* object);
 
-		// Getters
-		Window* GetWindow();
+        // Getters
+        Window* GetWindow();
 
-		// Setters
-		void SetWindow(Window* window);
-	private:
-		Window* window;
-		GLFWwindow* winPtr;
-		std::vector<Object*> objects;
-	};
+        // Setters
+        void SetWindow(Window* window);
+    private:
+        Window* window;
+        GLFWwindow* winPtr;
+        std::vector<Object*> objects;
+    };
 }
 
 #endif

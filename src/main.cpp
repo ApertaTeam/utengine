@@ -14,17 +14,17 @@ int main()
 {
     glfwInit();
     
-	Window mainWindow = Window("Undertale", { 640, 480 }, {
-		WindowFlags::Visible,
-		WindowFlags::Decorated,
-		WindowFlags::Focused,
-		WindowFlags::FocusOnShow
-	});
-	mainWindow.CenterWindow();
+    Window mainWindow = Window("Undertale", { 640, 480 }, {
+        WindowFlags::Visible,
+        WindowFlags::Decorated,
+        WindowFlags::Focused,
+        WindowFlags::FocusOnShow
+    });
+    mainWindow.CenterWindow();
 
-	Game mainGame = Game(&mainWindow);
+    Game mainGame = Game(&mainWindow);
 
-	GLFWwindow* mainWindowPtr = mainWindow.GetWin();
+    GLFWwindow* mainWindowPtr = mainWindow.GetWin();
     glfwMakeContextCurrent(mainWindowPtr);
 
     if (glewInit() != GLEW_OK)
@@ -38,7 +38,7 @@ int main()
 
     while (!glfwWindowShouldClose(mainWindowPtr))
     {
-		mainGame.Loop();
+        mainGame.Loop();
     }
 
     glfwTerminate();

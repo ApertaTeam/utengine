@@ -2,13 +2,13 @@
 
 namespace UT
 {
-	Object::Object()
-	{
+    Object::Object()
+    {
 
-	}
+    }
 
-	void Object::Render()
-	{
+    void Object::Render()
+    {
 
-	}
+    }
 }
