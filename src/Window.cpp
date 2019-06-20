@@ -35,6 +35,30 @@ namespace UT
         }
     }
 
+	void Window::CenterWindow()
+	{
+		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+
+		if (!monitor)
+		{
+			return;
+		}
+
+		const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+		if (!mode)
+		{
+			return;
+		}
+
+		int monitorX, monitorY;
+		glfwGetMonitorPos(monitor, &monitorX, &monitorY);
+
+		int windowWidth, windowHeight;
+		glfwGetWindowSize(this->win, &windowWidth, &windowHeight);
+
+		glfwSetWindowPos(this->win, monitorX + (mode->width - windowWidth) / 2, monitorY + (mode->height - windowHeight) / 2);
+	}
+
 	// Getters
 	GLFWwindow* Window::GetWin()
 	{

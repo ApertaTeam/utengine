@@ -7,20 +7,24 @@
 
 #include <iostream>
 
+
+using namespace UT;
+
 int main()
 {
     glfwInit();
     
-	UT::Window mainWindow = UT::Window("Undertale", { 640, 480 }, {
-		UT::WindowFlags::Visible,
-		UT::WindowFlags::Decorated,
-		UT::WindowFlags::Focused,
-		UT::WindowFlags::FocusOnShow
-		});
-	UT::Game mainGame = UT::Game(&mainWindow);
+	Window mainWindow = Window("Undertale", { 640, 480 }, {
+		WindowFlags::Visible,
+		WindowFlags::Decorated,
+		WindowFlags::Focused,
+		WindowFlags::FocusOnShow
+	});
+	mainWindow.CenterWindow();
+
+	Game mainGame = Game(&mainWindow);
 
 	GLFWwindow* mainWindowPtr = mainWindow.GetWin();
-
     glfwMakeContextCurrent(mainWindowPtr);
 
     if (glewInit() != GLEW_OK)
