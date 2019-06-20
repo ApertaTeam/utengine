@@ -31,6 +31,7 @@ namespace UT
         Window(std::string title = "C++ Undertale Engine", glm::vec2 size = {640, 480}, std::vector<WindowFlags> flags = {});
         
         // Getters
+		GLFWwindow* GetWin();
         std::string GetTitle();
         glm::vec2 GetSize();
 

@@ -28,6 +28,11 @@ namespace UT
     }
 
 	// Getters
+	GLFWwindow* Window::GetWin()
+	{
+		return this->win;
+	}
+
 	std::string Window::GetTitle()
 	{
 		return this->title;
