@@ -11,7 +11,12 @@ int main()
 {
     glfwInit();
     
-	UT::Window mainWindow = UT::Window();
+	UT::Window mainWindow = UT::Window("Undertale", { 640, 480 }, {
+		UT::WindowFlags::Visible,
+		UT::WindowFlags::Decorated,
+		UT::WindowFlags::Focused,
+		UT::WindowFlags::FocusOnShow
+		});
 	UT::Game mainGame = UT::Game(&mainWindow);
 
 	GLFWwindow* mainWindowPtr = mainWindow.GetWin();

@@ -13,12 +13,20 @@ namespace UT
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+
+		// Clear all window flags
+		for (int i = WindowFlags::Focused; i != WindowFlags::FocusOnShow; i++)
+		{
+			glfwWindowHint(i, GL_FALSE);
+		}
+
+		// Set inputted window flags
         for (int i = 0; i < flags.size(); i++)
         {
             glfwWindowHint(flags[i], GL_TRUE);
         }
 
-        this->win = glfwCreateWindow(size.x, size.y, title.c_str(), NULL, NULL);
+        this->win = glfwCreateWindow((int)size.x, (int)size.y, title.c_str(), NULL, NULL);
         glfwMakeContextCurrent(this->win);
         if (this->win == NULL)
         {

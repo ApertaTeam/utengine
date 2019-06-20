@@ -4,10 +4,12 @@ project(utengine)
 find_package(glfw3 3.3 REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(OpenGL REQUIRED)
+find_package(glm REQUIRED)
 
 include_directories(includes/
                     ${GLEW_INCLUDE_DIRS}
-                    ${OPENGL_INCLUDE_DIR})
+                    ${OPENGL_INCLUDE_DIR}
+                    ${GLM_INCLUDE_DIRS})
 
 file(GLOB PROJECT_HEADERS includes/*.h)
 file(GLOB PROJECT_SOURCES src/*.cpp)
