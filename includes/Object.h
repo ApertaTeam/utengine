@@ -8,7 +8,7 @@ namespace UT
     public:
         Object();
         
-        static void Render();
+        virtual void Render();
     private:
 
     };
