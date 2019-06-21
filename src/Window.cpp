@@ -79,10 +79,12 @@ namespace UT
     void Window::SetTitle(std::string title)
     {
         this->title = title;
+        glfwSetWindowTitle(this->win, title.c_str());
     }
 
     void Window::SetSize(glm::vec2 size)
     {
         this->size = size;
+        glfwSetWindowSize(this->win, (int)size.x, (int)size.y);
     }
 }
