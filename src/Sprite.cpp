@@ -4,10 +4,12 @@ namespace UT
 {
     Sprite::Sprite()
     {
+        
     }
 
     void Sprite::Render()
     {
+        
     }
 
     GLuint Sprite::GetTexture()
