@@ -11,7 +11,7 @@ namespace UT
         this->window = window;
     }
 
-    void Game::Loop()
+    void Game::Update()
     {
         glfwPollEvents();
 

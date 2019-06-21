@@ -11,7 +11,7 @@ namespace UT
     public:
         Game(Window* window);
 
-        void Loop();
+        void Update();
         void Render();
 
         void AddObject(Object* object);

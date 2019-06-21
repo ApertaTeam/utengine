@@ -38,7 +38,7 @@ int main()
 
     while (!glfwWindowShouldClose(mainWindowPtr))
     {
-        mainGame.Loop();
+        mainGame.Update();
     }
 
     glfwTerminate();

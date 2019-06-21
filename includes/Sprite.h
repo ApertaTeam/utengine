@@ -1,20 +1,13 @@
 #ifndef UT_SPRITE_H
 #define UT_SPRITE_H
 
-#include <glm/vec2.hpp>
 #include <GL/glew.h>
 
+#include "Common.h"
 #include "Object.h"
 
 namespace UT
 {
-    // Should we move this to it's own file?
-    struct Transform
-    {
-        glm::vec2 position;
-        glm::vec2 size;
-    };
-
     class Sprite : public Object
     {
     public:
@@ -33,6 +26,7 @@ namespace UT
     private:
         Transform transform;
         GLuint texture;
+        int depth;
     };
 }
 
