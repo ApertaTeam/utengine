@@ -28,7 +28,7 @@ source_group("Headers" FILES ${PROJECT_HEADERS})
 source_group("Sources" FILES ${PROJECT_SOURCES})
 
 add_library(${PROJECT_NAME} STATIC ${PROJECT_SOURCES} ${PROJECT_HEADERS})
-target_link_libraries(${PROJECT_NAME} ${GLEW_LIBRARIES}
+target_link_libraries(${PROJECT_NAME} GLEW::GLEW
     ${OPENGL_gl_LIBRARY}
     glfw
     SOIL2)

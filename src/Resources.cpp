@@ -3,6 +3,8 @@
 #include <iostream>
 #include <fstream>
 
+#include "SOIL2.h"
+
 namespace UT
 {
     Resources::Resources()
@@ -51,8 +53,7 @@ namespace UT
             char infoLog[512];
             glGetShaderInfoLog(shader, 512, NULL, infoLog);
 
-            std::cout << "ERROR: Could not compile shader." << std::endl;
-            std::cout << infoLog << std::endl;
+            std::cout << "ERROR: Could not compile shader.\n" << infoLog << std::endl;
 
             return -1;
         }
