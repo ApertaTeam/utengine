@@ -2,6 +2,10 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace UT
 {
@@ -33,6 +37,11 @@ namespace UT
             glfwTerminate();
             throw "Failed to create GLFW window.";
         }
+    }
+
+    Window::~Window()
+    {
+        glfwDestroyWindow(win);
     }
 
     void Window::CenterWindow()
