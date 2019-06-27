@@ -44,6 +44,6 @@ namespace UT
 
     void Camera::SetTrackedObject(Object* trackedObject)
     {
-       this->trackedObject = trackedObject 
+        this->trackedObject = trackedObject;
     }
 }
