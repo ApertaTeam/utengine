@@ -12,6 +12,37 @@ namespace UT
         
     }
 
+    GLuint Resources::CreateProgram()
+    {
+        GLuint program = glCreateProgram();
+
+
+        return program;
+    }
+
+    void Resources::LinkProgram(GLuint program, GLuint vertexShader, GLuint fragmentShader)
+    {
+        GLint isProgramLinked;
+
+        glAttachShader(program, vertexShader);
+        glAttachShader(program, fragmentShader);
+
+        glLinkProgram(program);
+
+        glGetProgramiv(program, GL_LINK_STATUS, &isProgramLinked);
+        if (!isProgramLinked)
+        {
+            char infoLog[512];
+            glGetProgramInfoLog(program, 512, NULL, infoLog);
+
+            std::cout << "ERROR: Could not link program.\n" << infoLog << std::endl;
+
+            return;
+        }
+
+        glUseProgram(0);
+    }
+
     GLuint Resources::LoadShader(std::string shaderPath, GLenum shaderType)
     {
         GLint isShaderCompiled;

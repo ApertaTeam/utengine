@@ -29,6 +29,7 @@ namespace UT
     {
     public:
         Window(std::string title = "C++ Undertale Engine", glm::vec2 size = {640, 480}, std::vector<WindowFlags> flags = {});
+        ~Window();
 
         void CenterWindow();
         
