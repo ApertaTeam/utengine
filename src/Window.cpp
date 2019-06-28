@@ -9,7 +9,7 @@
 
 namespace UT
 {
-    Window::Window(std::string title, glm::vec2 size, std::vector<WindowFlags> flags)
+    Window::Window(std::string title, glm::vec2 size, std::vector<WindowFlags> flags, Camera* camera)
         : title(title),
           size(size)
     {
@@ -37,6 +37,9 @@ namespace UT
             glfwTerminate();
             throw "Failed to create GLFW window.";
         }
+
+        // Camera
+        this->camera = camera;
     }
 
     Window::~Window()
@@ -84,6 +87,11 @@ namespace UT
         return this->size;
     }
 
+    Camera* Window::GetCamera()
+    {
+        return this->camera;
+    }
+
     // Setters
     void Window::SetTitle(std::string title)
     {
@@ -95,5 +103,10 @@ namespace UT
     {
         this->size = size;
         glfwSetWindowSize(this->win, (int)size.x, (int)size.y);
+    }
+
+    void Window::SetCamera(Camera* camera)
+    {
+        this->camera = camera;
     }
 }

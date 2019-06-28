@@ -1,7 +1,7 @@
 #ifndef UT_COMMON_H
 #define UT_COMMON_H
 
-#include "glm/vec2.hpp"
+#include <glm/vec2.hpp>
 
 namespace UT
 {

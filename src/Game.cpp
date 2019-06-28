@@ -1,6 +1,5 @@
 #include "Game.h"
 
-#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -9,7 +8,6 @@ namespace UT
 {
     Game::Game(Window* window, unsigned int FPS)
     {
-        this->winPtr = window->GetWin();
         this->window = window;
         this->FPS = FPS;
     }
@@ -49,7 +47,7 @@ namespace UT
         }
 
         // Show rendered buffer
-        glfwSwapBuffers(winPtr);
+        glfwSwapBuffers(window->GetWin());
         glFlush();
 
         glActiveTexture(0);
@@ -97,7 +95,7 @@ namespace UT
 
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ModelMatrix"), 1, GL_FALSE, glm::value_ptr(ModelMatrix));
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ViewMatrix"), 1, GL_FALSE, glm::value_ptr(ViewMatrix));
-        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ProjectionMatrix"), 1, GL_FALSE, glm::value_ptr(curView->getProjectionMatrix()));
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ProjectionMatrix"), 1, GL_FALSE, glm::value_ptr(window->GetCamera()->GetProjectionMatrix()));
 
         glUseProgram(0);
 
@@ -126,7 +124,6 @@ namespace UT
     // Setters
     void Game::SetWindow(Window* window)
     {
-        this->winPtr = window->GetWin();
         this->window = window;
     }
 }
