@@ -1,6 +1,8 @@
 #ifndef UT_GAME_H
 #define UT_GAME_H
 
+#include <GL/glew.h>
+
 #include "Window.h"
 #include "Object.h"
 
@@ -26,7 +28,6 @@ namespace UT
         void SetWindow(Window* window);
     private:
         Window* window;
-        GLFWwindow* winPtr;
         GLuint shaderProgram;
 
         unsigned int FPS;

@@ -23,8 +23,7 @@ namespace UT
         Object* GetTrackedObject();
 
         // Setters
-        void SetProjectionMatrix(glm::mat4 ProjectionMatrix);
-        void SetTrackedObject(Object*);
+        void SetTrackedObject(Object* trackedObject);
 
     private:
         glm::vec2 viewSize;

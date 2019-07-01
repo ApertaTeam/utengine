@@ -6,7 +6,7 @@ namespace UT
     {
         this->viewSize = viewSize;
         this->projectionRect = glm::vec4(0);
-        this->projectionMatrix = glm::mat4(0);
+        this->projectionMatrix = glm::mat4(1.0f);
         this->trackedObject = trackedObject;
     }
 
@@ -37,11 +37,6 @@ namespace UT
     }
 
     // Setters
-    void Camera::SetProjectionMatrix(glm::mat4 projectionMatrix)
-    {
-        this->projectionMatrix = projectionMatrix;
-    }
-
     void Camera::SetTrackedObject(Object* trackedObject)
     {
         this->trackedObject = trackedObject;
