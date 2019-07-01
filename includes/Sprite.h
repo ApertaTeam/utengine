@@ -8,7 +8,7 @@
 
 namespace UT
 {
-    class Sprite : public Object
+    class Sprite : Object
     {
     public:
         Sprite();
@@ -18,15 +18,18 @@ namespace UT
         // Getters
         GLuint GetTexture();
         Transform GetTransform();
+        bool GetIsStatic();
 
         // Setters
         void SetTexture(GLuint texture);
         void SetTransform(Transform transform);
+        void SetIsStatic(bool isStatic);
 
     private:
         Transform transform;
         GLuint texture;
         int depth;
+        bool isStatic;
     };
 }
 

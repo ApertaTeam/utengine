@@ -4,7 +4,10 @@ namespace UT
 {
     Sprite::Sprite()
     {
-        
+        this->transform = Transform();
+        this->texture = 0;
+        this->depth = 0;
+        this->isStatic = true;
     }
 
     void Sprite::Render()
@@ -12,6 +15,7 @@ namespace UT
         
     }
 
+    // Getters
     GLuint Sprite::GetTexture()
     {
         return this->texture;
@@ -22,6 +26,12 @@ namespace UT
         return this->transform;
     }
 
+    bool Sprite::GetIsStatic()
+    {
+        return this->isStatic;
+    }
+
+    // Setters
     void Sprite::SetTexture(GLuint texture)
     {
         this->texture = texture;
@@ -30,5 +40,10 @@ namespace UT
     void Sprite::SetTransform(Transform transform)
     {
         this->transform = transform;
+    }
+
+    void Sprite::SetIsStatic(bool isStatic)
+    {
+        this->isStatic = isStatic;
     }
 }
