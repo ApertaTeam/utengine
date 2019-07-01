@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 
-#include <SOIL2.h>
+#include <SOIL2/SOIL2.h>
 
 namespace UT
 {

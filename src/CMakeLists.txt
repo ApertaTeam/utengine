@@ -1,0 +1,9 @@
+target_sources(utengine
+    PRIVATE
+        Camera.cpp
+        Game.cpp
+        Object.cpp
+        Resources.cpp
+        Sprite.cpp
+        Window.cpp
+)
