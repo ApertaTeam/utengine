@@ -20,6 +20,8 @@ const char* LevelToString(UT::Logger::LogLevel level)
 
 namespace UT
 {
+    static Logger globalLogger = Logger();
+    
     Logger::Logger()
     {
 
@@ -33,6 +35,11 @@ namespace UT
     Logger::~Logger()
     {
         // TODO: Close said log file
+    }
+
+    Logger* Logger::GetGlobalLogger()
+    {
+        return &globalLogger;
     }
 
     void Logger::_unique_Log(LogLevel level, std::string message, const char* calling, const char* file, int line)

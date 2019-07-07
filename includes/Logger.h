@@ -22,9 +22,12 @@ namespace UT
             Warning
         };
         void _unique_Log(LogLevel level, std::string message, const char* calling, const char* file, int line);
+        static Logger* GetGlobalLogger();
     private:
     };
 }
+
+#define GlobalLogger UT::Logger::GetGlobalLogger()
 
 #if defined(WIN32) || defined(_WIN32)
     #define Log(level, message) \
