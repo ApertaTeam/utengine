@@ -1,7 +1,6 @@
 target_sources(utengine
     PRIVATE
         BinaryReader.cpp
-        main.cpp
         Camera.cpp
         Game.cpp
         Object.cpp
