@@ -1,5 +1,7 @@
 #include "BinaryReader.h"
 
+#include <limits.h>
+
 #if defined(_MSC_VER)
 #include <intrin.h>
 
@@ -17,7 +19,7 @@ uint64_t swapbits(uint64_t src)
 {
     return _byteswap_uint64(src);
 }
-#elif defined(__GNUC__)
+#elif defined(__GLIBC__)
 #include <byteswap.h>
 uint16_t swapbits(uint16_t src)
 {
