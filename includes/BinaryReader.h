@@ -5,9 +5,6 @@
 #include <stdio.h>
 #include <string>
 
-#define LITTLE_ENDIAN   1234
-#define BIG_ENDIAN      4321
-
 namespace UT
 {
     //class Buffer;

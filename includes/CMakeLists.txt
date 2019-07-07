@@ -8,6 +8,7 @@ target_sources(utengine
         Sprite.h
         Window.h
         BinaryReader.h
+        BinaryWriter.h
         Logger.h
 )
 
