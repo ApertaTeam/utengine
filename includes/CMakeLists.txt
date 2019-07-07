@@ -7,6 +7,7 @@ target_sources(utengine
         Resources.h
         Sprite.h
         Window.h
+        BinaryReader.h
 )
 
 target_include_directories(utengine PUBLIC ${CMAKE_CURRENT_LIST_DIR})

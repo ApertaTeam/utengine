@@ -6,7 +6,7 @@ add_definitions("-std=c++11")
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-add_library(utengine)
+add_executable(utengine)
 
 add_subdirectory(src)
 add_subdirectory(includes)
