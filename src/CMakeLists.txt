@@ -8,4 +8,5 @@ target_sources(utengine
         Resources.cpp
         Sprite.cpp
         Window.cpp
+        Logger.cpp
 )
