@@ -5,6 +5,9 @@
 #include <stdio.h>
 #include <string>
 
+#define LITTLE_ENDIAN   1234
+#define BIG_ENDIAN      4321
+
 namespace UT
 {
     //class Buffer;
@@ -26,8 +29,12 @@ namespace UT
 
         std::string ReadString();
         //Buffer ReadBuffer(size_t size);
+
+        void CheckMagic(uint32_t magic);
     private:
-        virtual int Read(void* ptr, size_t size, size_t n) = 0;
+        virtual int Read(void* ptr, size_t size) = 0;
+    protected:
+        int endian = LITTLE_ENDIAN;
     };
 
     class BinaryFileReader : public BinaryReader
@@ -37,7 +44,7 @@ namespace UT
         ~BinaryFileReader();
     private:
         FILE* fd;
-        virtual int Read(void* ptr, size_t size, size_t n);
+        virtual int Read(void* ptr, size_t size);
     };
 
     // TODO: BinaryBufferReader
