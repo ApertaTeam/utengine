@@ -24,3 +24,7 @@
 *.exe
 *.out
 *.app
+
+# Ignore build directories
+build/
+CMakeFiles/
