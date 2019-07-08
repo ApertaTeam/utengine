@@ -6,6 +6,7 @@
 #include "Object.h"
 #include "Logger.h"
 #include "Resources.h"
+#include "Camera.h"
 
 #include <iostream>
 
@@ -16,6 +17,12 @@ int main()
 {
     // Create main game object
     Game mainGame = Game("Undertale", 30);
+
+    // Create main camera object
+    Camera mainCamera = Camera();
+
+    // Attach camera
+    mainGame.SetCamera(&mainCamera);
 
     // Initialize game object
     if (!mainGame.Init())

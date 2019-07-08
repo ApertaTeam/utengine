@@ -1,5 +1,7 @@
 #include "Camera.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+
 namespace UT
 {
     Camera::Camera(glm::vec2 viewSize, Object* trackedObject)
@@ -12,7 +14,7 @@ namespace UT
 
     void Camera::Update()
     {
-
+        projectionMatrix = glm::ortho(0.0f, 320.0f, 240.0f, 0.0f, -9000.0f, 1000.0f);
     }
 
     // Getters

@@ -31,7 +31,7 @@ namespace UT
 
     void Game::Update()
     {
-        glfwPollEvents();
+        camera->Update();
 
         double FPSTime = glfwGetTime();
         double deltaFPSTime = FPSTime - lastFPSTime;
@@ -42,6 +42,8 @@ namespace UT
 
             Render();
         }
+
+        glfwPollEvents();
     }
 
     void Game::Render()
@@ -52,12 +54,28 @@ namespace UT
         
         glUseProgram(shaderProgram);
 
+        // Update uniforms
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ProjectionMatrix"), 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
+
+        glUniform1i(glGetUniformLocation(shaderProgram, "texture0"), 0);
+
+        // Move, rotate and scale (Model Matrix)
+        modelMatrix = glm::mat4(1.0f);
+        modelMatrix = glm::translate(modelMatrix, glm::vec3(0));
+        modelMatrix = glm::rotate(modelMatrix, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        modelMatrix = glm::rotate(modelMatrix, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        modelMatrix = glm::rotate(modelMatrix, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+        modelMatrix = glm::scale(modelMatrix, glm::vec3(1.0f));
+
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ModelMatrix"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
+
+
         // Render all objects
-        for (int i = 0; i < this->objects.size(); i++)
+        /*for (int i = 0; i < this->objects.size(); i++)
         {
             objects[i]->Render();
-        }
-
+        }*/
+        
         // Show rendered buffer
         glfwSwapBuffers(window.GetWin());
         glFlush();
@@ -113,8 +131,8 @@ namespace UT
 
         // Setup shader program
         shaderProgram = glCreateProgram();
-        GLuint shaderVertexPlain = Resources::LoadShader("assets/shaders/shaderVertexPlain.glsl", GL_VERTEX_SHADER);
-        GLuint shaderFragmentPlain = Resources::LoadShader("assets/shaders/shaderFragmentPlain.glsl", GL_FRAGMENT_SHADER);
+        GLuint shaderVertexPlain = Resources::LoadShader(GetExecutableDirectory() + "/assets/shaders/shaderVertexPlain.glsl", GL_VERTEX_SHADER);
+        GLuint shaderFragmentPlain = Resources::LoadShader(GetExecutableDirectory() + "/assets/shaders/shaderFragmentPlain.glsl", GL_FRAGMENT_SHADER);
         Resources::LinkProgram(shaderProgram, shaderVertexPlain, shaderFragmentPlain);
 
         // OpenGL properties
@@ -135,12 +153,12 @@ namespace UT
         glm::vec3 scale(1.0f);
 
         // Model matrix
-        glm::mat4 ModelMatrix(1.0f);
-        ModelMatrix = glm::translate(ModelMatrix, position);
-        ModelMatrix = glm::rotate(ModelMatrix, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-        ModelMatrix = glm::rotate(ModelMatrix, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-        ModelMatrix = glm::rotate(ModelMatrix, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-        ModelMatrix = glm::scale(ModelMatrix, scale);
+        modelMatrix = glm::mat4(1.0f);
+        modelMatrix = glm::translate(modelMatrix, position);
+        modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+        modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+        modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+        modelMatrix = glm::scale(modelMatrix, scale);
 
         // View matrix
         glm::vec3 worldUp(0.0f, 1.0f, 0.0f);
@@ -152,7 +170,7 @@ namespace UT
         // Send matrices
         glUseProgram(shaderProgram);
 
-        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ModelMatrix"), 1, GL_FALSE, glm::value_ptr(ModelMatrix));
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ModelMatrix"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ViewMatrix"), 1, GL_FALSE, glm::value_ptr(ViewMatrix));
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ProjectionMatrix"), 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
 
