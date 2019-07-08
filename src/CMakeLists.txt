@@ -11,4 +11,5 @@ target_sources(utengine
         Logger.cpp
         Common.cpp
         Buffer.cpp
+        Input.cpp
 )
