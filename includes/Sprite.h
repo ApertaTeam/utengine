@@ -8,6 +8,7 @@
 
 namespace UT
 {
+    // A type of object which has a sprite.
     class Sprite : Object
     {
     public:
@@ -27,7 +28,7 @@ namespace UT
 
     private:
         Transform transform;
-        GLuint texture;
+        GLuint texture; // TODO: work with texture pages
         int depth;
         bool isStatic;
     };

@@ -3,6 +3,7 @@
 
 namespace UT
 {
+    // The abstract parent of all game objects
     class Object
     {
     public:

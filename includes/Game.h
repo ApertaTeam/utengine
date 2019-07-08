@@ -8,6 +8,7 @@
 
 namespace UT
 {
+    // Handles a running instance of the game.
     class Game
     {
     public:

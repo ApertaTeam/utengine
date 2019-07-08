@@ -1,12 +1,16 @@
 #ifndef UT_BINARY_READER_H
 #define UT_BINARY_READER_H
 
+#include "Buffer.h"
+
 #include <stdint.h>
 #include <stdio.h>
 #include <string>
 
-#define LITTLE_ENDIAN   1234
-#define BIG_ENDIAN      4321
+#ifndef LITTLE_ENDIAN
+#define LITTLE_ENDIAN 0
+#define BIG_ENDIAN 1
+#endif
 
 namespace UT
 {
@@ -28,7 +32,11 @@ namespace UT
         double ReadDouble();
 
         std::string ReadString();
-        //Buffer ReadBuffer(size_t size);
+        Buffer ReadBuffer();
+        Buffer ReadBuffer(uint32_t length);
+        Buffer ReadCompressedBuffer();
+        Buffer ReadCompressedBuffer(uint32_t uncompressedLength);
+        Buffer ReadCompressedBuffer(uint32_t uncompressedLength, uint32_t length);
 
         void CheckMagic(uint32_t magic);
     private:

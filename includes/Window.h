@@ -28,6 +28,7 @@ namespace UT
         FocusOnShow
     };
 
+    // Handles a game window
     class Window
     {
     public:
@@ -40,7 +41,7 @@ namespace UT
         GLFWwindow* GetWin();
         std::string GetTitle();
         glm::vec2 GetSize();
-        Camera* GetCamera();
+        Camera* GetCamera(); // TODO: move game state outside of this class
         Room* GetRoom();
 
         // Setters
