@@ -23,7 +23,7 @@ namespace UT
 
         // Getters
         Window* GetWindow();
-        unsigned int GetFPS();
+        double GetFPS();
 
         // Setters
         void SetWindow(Window* window);

@@ -122,7 +122,7 @@ namespace UT
         return this->window;
     }
 
-    unsigned int Game::GetFPS()
+    double Game::GetFPS()
     {
         return this->FPS;
     }
