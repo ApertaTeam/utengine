@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "Window.h"
 #include "Object.h"
+#include "Logger.h"
 
 #include <iostream>
 
@@ -29,12 +30,9 @@ int main()
 
     if (glewInit() != GLEW_OK)
     {
-        std::cout << "Failed to initialize GLEW" << std::endl;
+        GlobalLogger->Log(Logger::Error, "Failed to initialize GLEW.");
         return -1;
     }
-
-    // This might be better set at 320x240
-    glViewport(0, 0, 640, 480);
 
     while (!glfwWindowShouldClose(mainWindowPtr))
     {

@@ -4,6 +4,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Logger.h"
+
+#include <sstream>
+
 namespace UT
 {
     Game::Game(Window* window, unsigned int FPS)
@@ -11,10 +15,8 @@ namespace UT
         this->window = window;
         this->shaderProgram = 0;
 
-        this->FPS = FPS;
-        this->FPSTime = 0;
+        this->FPS = 1.0 / FPS;
         this->lastFPSTime = 0;
-        this->deltaFPSTime = 0;
     }
 
     Game::~Game()
@@ -27,12 +29,13 @@ namespace UT
     {
         glfwPollEvents();
 
-        FPSTime = glfwGetTime();
-        deltaFPSTime = FPSTime - lastFPSTime;
+        double FPSTime = glfwGetTime();
+        double deltaFPSTime = FPSTime - lastFPSTime;
 
         if (deltaFPSTime > FPS)
         {
             lastFPSTime = FPSTime;
+
             Render();
         }
     }
@@ -105,8 +108,6 @@ namespace UT
         glUseProgram(0);
 
         // Initialize FPS variables
-        FPSTime = glfwGetTime();
-        deltaFPSTime = 0.0;
         lastFPSTime = 0.0;
     }
 
