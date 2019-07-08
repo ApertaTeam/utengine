@@ -11,61 +11,61 @@ namespace UT
     }
 
     void BinaryWriter::WriteUInt8(uint8_t value)
-	{
-		Write(&value, 1);
-	}
-	
+    {
+        Write(&value, 1);
+    }
+    
     void BinaryWriter::WriteUInt16(uint16_t value)
-	{
-		Write(&value, 2);
-	}
-	
+    {
+        Write(&value, 2);
+    }
+    
     void BinaryWriter::WriteUInt32(uint32_t value)
-	{
-		Write(&value, 4);
-	}
-	
+    {
+        Write(&value, 4);
+    }
+    
     void BinaryWriter::WriteUInt64(uint64_t value)
-	{
-		Write(&value, 8);
-	}
-	
+    {
+        Write(&value, 8);
+    }
+    
 
     void BinaryWriter::WriteInt8(int8_t value)
-	{
-		Write(&value, 1);
-	}
-	
+    {
+        Write(&value, 1);
+    }
+    
     void BinaryWriter::WriteInt16(int16_t value)
-	{
-		Write(&value, 2);
-	}
-	
+    {
+        Write(&value, 2);
+    }
+    
     void BinaryWriter::WriteInt32(int32_t value)
-	{
-		Write(&value, 4);
-	}
-	
+    {
+        Write(&value, 4);
+    }
+    
     void BinaryWriter::WriteInt64(int64_t value)
-	{
-		Write(&value, 8);
-	}
-	
+    {
+        Write(&value, 8);
+    }
+    
 
     void BinaryWriter::WriteFloat(float value)
-	{
-		Write(&value, sizeof(value));
-	}
-	
+    {
+        Write(&value, sizeof(value));
+    }
+    
     void BinaryWriter::WriteDouble(double value)
-	{
-		Write(&value, sizeof(value));
-	}
-	
+    {
+        Write(&value, sizeof(value));
+    }
+    
 
     void BinaryWriter::WriteString(std::string value)
-	{
-		if (value[value.size() - 1] != '\0')
+    {
+        if (value[value.size() - 1] != '\0')
         {
             value.push_back('\0');
         }
@@ -74,7 +74,7 @@ namespace UT
         {
             Write(&(value[i]), 1);
         }
-	}
+    }
     
     void BinaryWriter::WriteBuffer(Buffer value)
     {
