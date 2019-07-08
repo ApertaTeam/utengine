@@ -4,25 +4,30 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Resources.h"
 #include "Logger.h"
 
 #include <sstream>
 
 namespace UT
 {
-    Game::Game(Window* window, unsigned int FPS)
+    Game::Game(std::string title, unsigned int FPS)
     {
-        this->window = window;
         this->shaderProgram = 0;
 
+        this->title = title;
         this->FPS = 1.0 / FPS;
         this->lastFPSTime = 0;
+
+        this->room = nullptr;
+        this->camera = nullptr;
     }
 
     Game::~Game()
     {
         glfwTerminate();
-        glDeleteProgram(shaderProgram);
+
+        if (shaderProgram != 0) glDeleteProgram(shaderProgram);
     }
 
     void Game::Update()
@@ -55,7 +60,7 @@ namespace UT
         }
 
         // Show rendered buffer
-        glfwSwapBuffers(window->GetWin());
+        glfwSwapBuffers(window.GetWin());
         glFlush();
 
         glActiveTexture(0);
@@ -64,8 +69,56 @@ namespace UT
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
-    void Game::Init()
+    void ERRLOG(int foo, const char* bar)
     {
+        GlobalLogger->Log(Logger::Debug, bar);
+    }
+
+    bool Game::Init()
+    {
+        // GLFW initialization
+        if (!glfwInit())
+        {
+            GlobalLogger->Log(Logger::Error, "Failed to initialize GLFW");
+            return false;
+        }
+        
+        glfwSetErrorCallback(ERRLOG);
+
+        // Create & initialize main window
+        window = Window(title, { 640, 480 }, {
+            WindowFlags::Visible,
+            WindowFlags::Decorated,
+            WindowFlags::Focused,
+            WindowFlags::FocusOnShow
+            });
+        
+        if (window.GetWin() == NULL)
+        {
+            glfwTerminate();
+            GlobalLogger->Log(Logger::Error, "Failed to create main game window.");
+            return false;
+        }
+
+        // Center window
+        //window.CenterWindow();
+
+        // GLEW initialization
+        //glewExperimental = GL_TRUE;
+
+        if (glewInit() != GLEW_OK)
+        {
+            glfwTerminate();
+            GlobalLogger->Log(Logger::Error, "Failed to initialize GLEW.");
+            return false;
+        }
+
+        // Setup shader program
+        /*shaderProgram = glCreateProgram();
+        GLuint shaderVertexPlain = Resources::LoadShader("assets/shaders/shaderVertexPlain.glsl", GL_VERTEX_SHADER);
+        GLuint shaderFragmentPlain = Resources::LoadShader("assets/shaders/shaderFragmentPlain.glsl", GL_FRAGMENT_SHADER);
+        Resources::LinkProgram(shaderProgram, shaderVertexPlain, shaderFragmentPlain);*/
+
         // OpenGL properties
         glEnable(GL_DEPTH_TEST);
 
@@ -103,12 +156,14 @@ namespace UT
 
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ModelMatrix"), 1, GL_FALSE, glm::value_ptr(ModelMatrix));
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ViewMatrix"), 1, GL_FALSE, glm::value_ptr(ViewMatrix));
-        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ProjectionMatrix"), 1, GL_FALSE, glm::value_ptr(window->GetCamera()->GetProjectionMatrix()));
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ProjectionMatrix"), 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
 
         glUseProgram(0);
 
         // Initialize FPS variables
         lastFPSTime = 0.0;
+
+        return true;
     }
 
     void Game::AddObject(Object* object)
@@ -117,7 +172,7 @@ namespace UT
     }
 
     // Getters
-    Window* Game::GetWindow()
+    Window Game::GetWindow()
     {
         return this->window;
     }
@@ -127,9 +182,39 @@ namespace UT
         return this->FPS;
     }
 
+    Room* Game::GetRoom()
+    {
+        return this->room;
+    }
+
+    Camera* Game::GetCamera()
+    {
+        return this->camera;
+    }
+
+    GLuint Game::GetShaderProgram()
+    {
+        return this->shaderProgram;
+    }
+
     // Setters
-    void Game::SetWindow(Window* window)
+    void Game::SetWindow(Window window)
     {
         this->window = window;
+    }
+
+    void Game::SetRoom(Room* room)
+    {
+        this->room = room;
+    }
+
+    void Game::SetCamera(Camera* camera)
+    {
+        this->camera = camera;
+    }
+
+    void Game::SetShaderProgram(GLuint shaderProgram)
+    {
+        this->shaderProgram = shaderProgram;
     }
 }

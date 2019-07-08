@@ -9,19 +9,6 @@
 
 namespace UT
 {
-    Resources::Resources()
-    {
-        
-    }
-
-    GLuint Resources::CreateProgram()
-    {
-        GLuint program = glCreateProgram();
-
-
-        return program;
-    }
-
     void Resources::LinkProgram(GLuint program, GLuint vertexShader, GLuint fragmentShader)
     {
         GLint isProgramLinked;

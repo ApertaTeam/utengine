@@ -12,30 +12,38 @@ namespace UT
     class Game
     {
     public:
-        Game(Window* window, unsigned int FPS = 30);
+        Game(std::string title = "Undertale", unsigned int FPS = 30);
         ~Game();
 
         void Update();
         void Render();
 
-        void Init();
+        bool Init();
         void AddObject(Object* object);
 
         // Getters
-        Window* GetWindow();
+        Window GetWindow();
         double GetFPS();
+        Room* GetRoom();
+        Camera* GetCamera();
+        GLuint GetShaderProgram();
 
         // Setters
-        void SetWindow(Window* window);
+        void SetWindow(Window window);
+        void SetRoom(Room* room);
+        void SetCamera(Camera* camera);
+        void SetShaderProgram(GLuint shaderProgram);
     private:
-        Window* window;
+        Window window;
         GLuint shaderProgram;
 
+        std::string title;
         double FPS;
-        std::vector<Object*> objects;
-
-
         double lastFPSTime;
+
+        Room* room;
+        Camera* camera;
+        std::vector<Object*> objects;
     };
 }
 

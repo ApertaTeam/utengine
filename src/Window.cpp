@@ -1,5 +1,7 @@
 #include "Window.h"
 
+#include "Logger.h"
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/vec2.hpp>
@@ -12,11 +14,9 @@ namespace UT
     Window::Window(std::string title, glm::vec2 size, std::vector<WindowFlags> flags, Camera* camera)
         : title(title),
           size(size)
-    {
-        this->camera = camera;
-        this->room = nullptr;
-        
-        
+    {        
+        this->title = title;
+
         // OpenGL version
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -39,11 +39,8 @@ namespace UT
         glfwMakeContextCurrent(this->win);
         if (this->win == NULL)
         {
-            glfwTerminate();
-            throw "Failed to create GLFW window.";
+            GlobalLogger->Log(Logger::Error, "Failed to create GLFW window.");
         }
-
-
     }
 
     Window::~Window()
@@ -91,16 +88,6 @@ namespace UT
         return this->size;
     }
 
-    Camera* Window::GetCamera()
-    {
-        return this->camera;
-    }
-
-    Room* Window::GetRoom()
-    {
-        return this->room;
-    }
-
     // Setters
     void Window::SetTitle(std::string title)
     {
@@ -112,15 +99,5 @@ namespace UT
     {
         this->size = size;
         glfwSetWindowSize(this->win, (int)size.x, (int)size.y);
-    }
-
-    void Window::SetCamera(Camera* camera)
-    {
-        this->camera = camera;
-    }
-
-    void Window::SetRoom(Room* room)
-    {
-        this->room = room;
     }
 }

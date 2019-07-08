@@ -8,12 +8,9 @@
 namespace UT
 {
     // Handles resource management/loading
-    class Resources
+    static class Resources
     {
     public:
-        Resources();
-
-        static GLuint CreateProgram();
         static void LinkProgram(GLuint program, GLuint vertexShader, GLuint fragmentShader);
         static GLuint LoadShader(std::string shaderPath, GLenum shaderType);
         static GLuint LoadTexture(const char* filename);
