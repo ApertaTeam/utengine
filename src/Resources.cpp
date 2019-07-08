@@ -97,12 +97,9 @@ namespace UT
 
     GLuint Resources::LoadTexture(const char* filename)
     {
-        int image_width = 0;
-        int image_height = 0;
+        int widthVar, heightVar;
 
-        GLuint texture = LoadTexture(filename, &image_width, &image_height);
-
-        return texture;
+        return LoadTexture(filename, &widthVar, &heightVar);
     }
 
     GLuint Resources::LoadTexture(const char* filename, int* widthVar, int* heightVar)

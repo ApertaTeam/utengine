@@ -31,13 +31,11 @@ namespace UT
         Window* window;
         GLuint shaderProgram;
 
-        unsigned int FPS;
+        double FPS;
         std::vector<Object*> objects;
 
 
         double lastFPSTime;
-        double FPSTime;
-        double deltaFPSTime;
     };
 }
 
