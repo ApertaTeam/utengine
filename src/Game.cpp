@@ -9,7 +9,12 @@ namespace UT
     Game::Game(Window* window, unsigned int FPS)
     {
         this->window = window;
+        this->shaderProgram = 0;
+
         this->FPS = FPS;
+        this->FPSTime = 0;
+        this->lastFPSTime = 0;
+        this->deltaFPSTime = 0;
     }
 
     Game::~Game()
