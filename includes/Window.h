@@ -41,21 +41,14 @@ namespace UT
         GLFWwindow* GetWin();
         std::string GetTitle();
         glm::vec2 GetSize();
-        Camera* GetCamera(); // TODO: move game state outside of this class
-        Room* GetRoom();
 
         // Setters
         void SetTitle(std::string title);
         void SetSize(glm::vec2 size);
-        void SetCamera(Camera* camera);
-        void SetRoom(Room* curRoom);
     private:
         GLFWwindow* win;
         std::string title;
         glm::vec2 size;
-
-        Camera* camera;
-        Room* room;
     };
 }
 

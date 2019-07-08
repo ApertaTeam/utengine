@@ -5,6 +5,7 @@
 #include "Window.h"
 #include "Object.h"
 #include "Logger.h"
+#include "Resources.h"
 
 #include <iostream>
 
@@ -13,32 +14,24 @@ using namespace UT;
 
 int main()
 {
-    glfwInit();
-    
-    Window mainWindow = Window("Undertale", { 640, 480 }, {
-        WindowFlags::Visible,
-        WindowFlags::Decorated,
-        WindowFlags::Focused,
-        WindowFlags::FocusOnShow
-    });
-    mainWindow.CenterWindow();
+    // Create main game object
+    Game mainGame = Game("Undertale", 30);
 
-    Game mainGame = Game(&mainWindow);
-
-    GLFWwindow* mainWindowPtr = mainWindow.GetWin();
-    glfwMakeContextCurrent(mainWindowPtr);
-
-    if (glewInit() != GLEW_OK)
+    // Initialize game object
+    if (!mainGame.Init())
     {
-        GlobalLogger->Log(Logger::Error, "Failed to initialize GLEW.");
+        GlobalLogger->Log(Logger::Error, "Failed to initialize game object.");
         return -1;
     }
 
+    // Get pointer to main GLFW window
+    GLFWwindow* mainWindowPtr = mainGame.GetWindow().GetWin();
+
+    // Main loop
     while (!glfwWindowShouldClose(mainWindowPtr))
     {
         mainGame.Update();
     }
 
-    glfwTerminate();
     return 0;
 }
