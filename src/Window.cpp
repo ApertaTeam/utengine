@@ -11,20 +11,20 @@
 
 namespace UT
 {
-    Window::Window(std::string title, glm::vec2 size, std::vector<WindowFlags> flags, Camera* camera)
-        : title(title),
-          size(size)
+    Window::Window()
+    {
+        this->title = "";
+        this->win = NULL;
+        this->size = glm::vec2(0, 0);
+    }
+
+    void Window::Init(std::string title, glm::vec2 size, std::vector<WindowFlags> flags, Camera* camera)
     {        
         this->title = title;
-
-        // OpenGL version
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
+        this->size = size;
 
         // Clear all window flags
-        for (int i = WindowFlags::Focused; i != WindowFlags::FocusOnShow; i++)
+        /*for (int i = WindowFlags::Focused; i != WindowFlags::FocusOnShow; i++)
         {
             glfwWindowHint(i, GL_FALSE);
         }
@@ -33,10 +33,11 @@ namespace UT
         for (int i = 0; i < flags.size(); i++)
         {
             glfwWindowHint(flags[i], GL_TRUE);
-        }
+        }*/
 
         this->win = glfwCreateWindow((int)size.x, (int)size.y, title.c_str(), NULL, NULL);
         glfwMakeContextCurrent(this->win);
+        
         if (this->win == NULL)
         {
             GlobalLogger->Log(Logger::Error, "Failed to create GLFW window.");

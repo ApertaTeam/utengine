@@ -7,7 +7,6 @@
 #include "Resources.h"
 #include "Logger.h"
 
-#include <sstream>
 
 namespace UT
 {
@@ -69,11 +68,6 @@ namespace UT
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
-    void ERRLOG(int foo, const char* bar)
-    {
-        GlobalLogger->Log(Logger::Debug, bar);
-    }
-
     bool Game::Init()
     {
         // GLFW initialization
@@ -82,11 +76,15 @@ namespace UT
             GlobalLogger->Log(Logger::Error, "Failed to initialize GLFW");
             return false;
         }
-        
-        glfwSetErrorCallback(ERRLOG);
+
+        // OpenGL version
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
         // Create & initialize main window
-        window = Window(title, { 640, 480 }, {
+        window = Window();
+        window.Init(title, { 640, 480 }, {
             WindowFlags::Visible,
             WindowFlags::Decorated,
             WindowFlags::Focused,
@@ -101,10 +99,10 @@ namespace UT
         }
 
         // Center window
-        //window.CenterWindow();
+        window.CenterWindow();
 
         // GLEW initialization
-        //glewExperimental = GL_TRUE;
+        glewExperimental = GL_TRUE;
 
         if (glewInit() != GLEW_OK)
         {
@@ -114,10 +112,10 @@ namespace UT
         }
 
         // Setup shader program
-        /*shaderProgram = glCreateProgram();
+        shaderProgram = glCreateProgram();
         GLuint shaderVertexPlain = Resources::LoadShader("assets/shaders/shaderVertexPlain.glsl", GL_VERTEX_SHADER);
         GLuint shaderFragmentPlain = Resources::LoadShader("assets/shaders/shaderFragmentPlain.glsl", GL_FRAGMENT_SHADER);
-        Resources::LinkProgram(shaderProgram, shaderVertexPlain, shaderFragmentPlain);*/
+        Resources::LinkProgram(shaderProgram, shaderVertexPlain, shaderFragmentPlain);
 
         // OpenGL properties
         glEnable(GL_DEPTH_TEST);

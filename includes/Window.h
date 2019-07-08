@@ -32,9 +32,10 @@ namespace UT
     class Window
     {
     public:
-        Window(std::string title = "C++ Undertale Engine", glm::vec2 size = glm::vec2(640, 480), std::vector<WindowFlags> flags = {}, Camera* camera = nullptr);
+        Window();
         ~Window();
 
+        void Init(std::string title = "Undertale", glm::vec2 size = { 640, 480 }, std::vector<WindowFlags> flags = {}, Camera* camera = nullptr);
         void CenterWindow();
         
         // Getters
