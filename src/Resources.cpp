@@ -5,6 +5,8 @@
 
 #include <SOIL2/SOIL2.h>
 
+#include "Logger.h"
+
 namespace UT
 {
     Resources::Resources()
@@ -35,7 +37,7 @@ namespace UT
             char infoLog[512];
             glGetProgramInfoLog(program, 512, NULL, infoLog);
 
-            std::cout << "ERROR: Could not link program.\n" << infoLog << std::endl;
+            GlobalLogger->Log(Logger::Error, "Could not link program.\n" + std::string(infoLog));
 
             return;
         }
@@ -64,7 +66,7 @@ namespace UT
         }
         else
         {
-            std::cout << "ERROR: Could not open shader file.\n" << shaderPath << std::endl;
+            GlobalLogger->Log(Logger::Error, "Could not open shader file.\n" + shaderPath);
             return -1;
         }
 
@@ -84,7 +86,7 @@ namespace UT
             char infoLog[512];
             glGetShaderInfoLog(shader, 512, NULL, infoLog);
 
-            std::cout << "ERROR: Could not compile shader.\n" << infoLog << std::endl;
+            GlobalLogger->Log(Logger::Error, "Could not compile shader.\n" + (std::string)infoLog);
 
             return -1;
         }
@@ -93,17 +95,17 @@ namespace UT
         return shader;
     }
 
-    GLuint Resources::loadTexture(const char* filename)
+    GLuint Resources::LoadTexture(const char* filename)
     {
         int image_width = 0;
         int image_height = 0;
 
-        GLuint texture = loadTexture(filename, &image_width, &image_height);
+        GLuint texture = LoadTexture(filename, &image_width, &image_height);
 
         return texture;
     }
 
-    GLuint Resources::loadTexture(const char* filename, int* widthVar, int* heightVar)
+    GLuint Resources::LoadTexture(const char* filename, int* widthVar, int* heightVar)
     {
         unsigned char* image = SOIL_load_image(filename, widthVar, heightVar, NULL, SOIL_LOAD_RGBA);
 
@@ -125,7 +127,7 @@ namespace UT
         }
         else
         {
-            std::cout << "ERROR: Texture loading failed.\n" << filename << std::endl;
+            GlobalLogger->Log(Logger::Error, "Texture loading failed.\n" + (std::string)filename);
         }
 
         glActiveTexture(0);

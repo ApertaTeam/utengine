@@ -3,6 +3,8 @@ glfw/3.3@bincrafters/stable
 glew/2.1.0@bincrafters/stable
 glm/0.9.9.4@g-truc/stable
 soil2/1.11@bincrafters/stable
+zlib/1.2.11@conan/stable
+openal/1.19.0@bincrafters/stable
 
 [generators]
 cmake

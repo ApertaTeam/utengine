@@ -9,6 +9,7 @@
 
 namespace UT
 {
+    // Handles the game camera movement
     class Camera
     {
     public:

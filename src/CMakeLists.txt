@@ -1,6 +1,7 @@
 target_sources(utengine
     PRIVATE
         BinaryReader.cpp
+        BinaryWriter.cpp
         Camera.cpp
         Game.cpp
         Object.cpp
@@ -8,4 +9,7 @@ target_sources(utengine
         Sprite.cpp
         Window.cpp
         Logger.cpp
+        Common.cpp
+        Buffer.cpp
+        Input.cpp
 )

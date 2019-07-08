@@ -2,7 +2,7 @@
 
 #include <ctime>
 
-std::string LevelToString(UT::Logger::LogLevel level)
+const char* LevelToString(UT::Logger::LogLevel level)
 {
     switch (level)
     {
@@ -10,15 +10,18 @@ std::string LevelToString(UT::Logger::LogLevel level)
         return "INFO";
     case UT::Logger::Error:
         return "ERROR";
-    case UT::Logger::Debug:
-        return "DEBUG";
     case UT::Logger::Warning:
         return "WARN";
+    // case UT::Logger::Debug:
+    default:
+        return "DEBUG";
     }
 }
 
 namespace UT
 {
+    static Logger globalLogger = Logger();
+    
     Logger::Logger()
     {
 
@@ -26,12 +29,17 @@ namespace UT
 
     Logger::Logger(std::string logfile)
     {
-        // TODO: Open a log file for appending shit to
+        // TODO: Open a log file for appending to
     }
 
     Logger::~Logger()
     {
         // TODO: Close said log file
+    }
+
+    Logger* Logger::GetGlobalLogger()
+    {
+        return &globalLogger;
     }
 
     void Logger::_unique_Log(LogLevel level, std::string message, const char* calling, const char* file, int line)
