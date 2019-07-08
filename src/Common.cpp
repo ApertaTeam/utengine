@@ -2,6 +2,31 @@
 
 #include <limits.h>
 
+#if defined(_WIN32) || defined(WIN32)
+#include <windows.h>
+#elif defined(__linux__)
+#include <unistd.h>
+#endif
+
+std::string GetExecutableDirectory()
+{
+    #if defined(_WIN32) || defined(WIN32)
+    HMODULE hModule = GetModuleHandle(NULL);
+    CHAR buff[MAX_PATH];
+    GetModuleFileName(hModule, buff, MAX_PATH);
+    std::string path(buff);
+    return path.substr(0, path.find_last_of("/\\"));
+    #elif defined(__linux__)
+    char buff[PATH_MAX];
+    ssize_t len = readlink("/proc/self/exe", buff, sizeof(buff)-1);
+    buff[len] = '\0';
+    std::string path(buff);
+    return path.substr(0, path.find_last_of("/\\"));
+    #else
+    return "./";
+    #endif
+}
+
 #if defined(_MSC_VER)
 #include <intrin.h>
 

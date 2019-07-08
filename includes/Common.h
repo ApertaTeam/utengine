@@ -2,6 +2,7 @@
 #define UT_COMMON_H
 
 #include <vector>
+#include <string>
 #include <glm/vec2.hpp>
 
 #include <stdint.h>
@@ -27,5 +28,7 @@ namespace UT
 uint16_t swapbits(uint16_t src);
 uint32_t swapbits(uint32_t src);
 uint64_t swapbits(uint64_t src);
+
+std::string GetExecutableDirectory();
 
 #endif
