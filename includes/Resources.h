@@ -8,7 +8,7 @@
 namespace UT
 {
     // Handles resource management/loading
-    static class Resources
+    class Resources
     {
     public:
         static void LinkProgram(GLuint program, GLuint vertexShader, GLuint fragmentShader);
@@ -17,7 +17,7 @@ namespace UT
         static GLuint LoadTexture(const char* filename, int* widthVar, int* heightVar);
 
     private:
-
+        Resources();
     };
 }
 
