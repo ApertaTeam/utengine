@@ -46,8 +46,11 @@ namespace UT
     public:
         BinaryFileWriter(std::string filePath);
         ~BinaryFileWriter();
+
+        bool CanWrite();
     private:
         FILE* fd;
+        bool canWrite;
         virtual int Write(const void* ptr, size_t size);
     };
 

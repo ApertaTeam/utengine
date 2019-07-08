@@ -38,7 +38,7 @@ namespace UT
         Buffer ReadCompressedBuffer(uint32_t uncompressedLength);
         Buffer ReadCompressedBuffer(uint32_t uncompressedLength, uint32_t length);
 
-        void CheckMagic(uint32_t magic);
+        bool CheckMagic(uint32_t magic);
     private:
         virtual int Read(void* ptr, size_t size) = 0;
     protected:
@@ -50,8 +50,11 @@ namespace UT
     public:
         BinaryFileReader(std::string filePath);
         ~BinaryFileReader();
+        
+        bool CanRead();
     private:
         FILE* fd;
+        bool canRead;
         virtual int Read(void* ptr, size_t size);
     };
 

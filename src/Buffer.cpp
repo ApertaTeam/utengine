@@ -61,7 +61,7 @@ namespace UT
         }
         buffer.assign(newBuffer, newBuffer + uncompressedLength);
         delete newBuffer;
-        length = uncompressedLength;
+        length = (uint32_t)uncompressedLength;
     }
 
     void Buffer::Compress()

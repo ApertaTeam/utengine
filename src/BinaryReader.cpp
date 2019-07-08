@@ -1,5 +1,8 @@
 #include "BinaryReader.h"
 #include "Common.h"
+#include "Logger.h"
+
+#include <cstring>
 
 namespace UT
 {
@@ -116,68 +119,81 @@ namespace UT
         return buffer;
     }
 
-    void BinaryReader::CheckMagic(uint32_t magic)
+    bool BinaryReader::CheckMagic(uint32_t magic)
     {
         uint32_t magic_chk = ReadUInt32();
         if (magic_chk == magic)
         {
             this->endian = BIG_ENDIAN;
-            return;
+            return true;
         }
         else if (swapbits(magic_chk) == magic)
         {
             this->endian = LITTLE_ENDIAN;
-            return;
+            return true;
         }
-
-        // TODO: Throw error or something because
-        // the bits grabbed doesn't actually
-        // equal the magic
+        return false;
     }
 
     BinaryFileReader::BinaryFileReader(std::string filePath)
     {
-        this->fd = fopen(filePath.c_str(), "rb");
+        errno_t err = fopen_s(&fd, filePath.c_str(), "rb");
+        if (err != 0)
+        {
+            canRead = false;
+            GlobalLogger->Log(Logger::Error, "Failed to open file for reading at path '" + filePath + "', error: " + std::string(strerror(err)));
+        } else
+        {
+            canRead = true;
+        }
     }
 
     BinaryFileReader::~BinaryFileReader()
     {
-        fclose(fd);
+        if (canRead)
+            fclose(fd);
+    }
+
+    bool BinaryFileReader::CanRead()
+    {
+        return canRead;
     }
 
     int BinaryFileReader::Read(void* ptr, size_t size)
     {
+        if (!canRead)
+            return 0;
         if (this->endian == BIG_ENDIAN)
         {
             switch (size)
             {
                 case 1:
-                    return fread(ptr, size, 1, fd);
+                    return (int)fread(ptr, size, 1, fd);
                 case 2:
                 {
                     uint16_t res = 0;
-                    int result = fread(&res, size, 1, fd);
+                    int result = (int)fread(&res, size, 1, fd);
                     *((uint16_t*)ptr) = swapbits(res);
                     return result;
                 }
                 case 4:
                 {
                     uint32_t res = 0;
-                    int result = fread(&res, size, 1, fd);
+                    int result = (int)fread(&res, size, 1, fd);
                     *((uint32_t*)ptr) = swapbits(res);
                     return result;
                 }
                 case 8:
                 {
                     uint64_t res = 0;
-                    int result = fread(&res, size, 1, fd);
+                    int result = (int)fread(&res, size, 1, fd);
                     *((uint64_t*)ptr) = swapbits(res);
                     return result;
                 }
                 default:
-                    return fread(ptr, size, 1, fd);
+                    return (int)fread(ptr, size, 1, fd);
             }
         }
-        return fread(ptr, size, 1, fd);
+        return (int)fread(ptr, size, 1, fd);
     }
 }

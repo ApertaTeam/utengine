@@ -1,5 +1,8 @@
 #include "BinaryWriter.h"
 #include "Common.h"
+#include "Logger.h"
+
+#include <cstring>
 
 namespace UT
 {
@@ -93,44 +96,60 @@ namespace UT
     BinaryFileWriter::BinaryFileWriter(std::string filePath)
         : BinaryWriter()
     {
-        this->fd = fopen(filePath.c_str(), "wb");
+        errno_t err = fopen_s(&fd, filePath.c_str(), "wb");
+        if (err != 0)
+        {
+            canWrite = false;
+            GlobalLogger->Log(Logger::Error, "Failed to open file for writing at path '" + filePath + "', error: " + std::string(strerror(err)));
+        } else
+        {
+            canWrite = true;
+        }
     }
 
     BinaryFileWriter::~BinaryFileWriter()
     {
-        fclose(this->fd);
+        if (canWrite)
+            fclose(this->fd);
+    }
+
+    bool BinaryFileWriter::CanWrite()
+    {
+        return canWrite;
     }
 
     int BinaryFileWriter::Write(const void* ptr, size_t size)
     {
+        if (!canWrite)
+            return 0;
         if (this->endian == BIG_ENDIAN)
         {
             switch (size)
             {
                 case 1:
-                    return fwrite(ptr, size, 1, fd);
+                    return (int)fwrite(ptr, size, 1, fd);
                 case 2:
                 {
                     uint16_t res = *((uint16_t*)ptr);
                     res = swapbits(res);
-                    return fwrite(&res, size, 1, fd);
+                    return (int)fwrite(&res, size, 1, fd);
                 }
                 case 4:
                 {
                     uint32_t res = *((uint32_t*)ptr);
                     res = swapbits(res);
-                    return fwrite(&res, size, 1, fd);
+                    return (int)fwrite(&res, size, 1, fd);
                 }
                 case 8:
                 {
                     uint64_t res = *((uint32_t*)ptr);
                     res = swapbits(res);
-                    return fwrite(&res, size, 1, fd);
+                    return (int)fwrite(&res, size, 1, fd);
                 }
                 default:
-                    return fwrite(ptr, size, 1, fd);
+                    return (int)fwrite(ptr, size, 1, fd);
             }
         }
-        return fwrite(ptr, size, 1, fd);
+        return (int)fwrite(ptr, size, 1, fd);
     }
 }
