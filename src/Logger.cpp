@@ -1,6 +1,8 @@
 #include "Logger.h"
+#include "Common.h"
 
 #include <ctime>
+#include <sstream>
 
 const char* LevelToString(UT::Logger::LogLevel level)
 {
@@ -20,21 +22,20 @@ const char* LevelToString(UT::Logger::LogLevel level)
 
 namespace UT
 {
-    static Logger globalLogger = Logger();
+    static Logger globalLogger{};
     
     Logger::Logger()
+        : logFile(GetExecutableDirectory() + "/engine.log", std::ios::app)
     {
-
     }
 
     Logger::Logger(std::string logfile)
+        : logFile(GetExecutableDirectory() + "/" + logfile, std::ios::app)
     {
-        // TODO: Open a log file for appending to
     }
 
     Logger::~Logger()
     {
-        // TODO: Close said log file
     }
 
     Logger* Logger::GetGlobalLogger()
@@ -46,14 +47,17 @@ namespace UT
     {
         std::time_t t = std::time(0);
         std::tm* now = std::localtime(&t);
+        std::stringstream out;
         // "2019-7-7@15:55 [INFO | main] This is a test log"
-        std::cout << now->tm_year + 1900 << '-'
+        out << now->tm_year + 1900 << '-'
             << (now->tm_mon + 1) << '-'
             << now->tm_mday
             << "@"
             << now->tm_hour << ":"
             << now->tm_min
             << " [" << LevelToString(level) << " | " << calling << "@" << file << ":" << line << "] "
-            << message << std::endl;
+            << message << "\n";
+        std::cout << out.str();
+        logFile << out.str();
     }
 }

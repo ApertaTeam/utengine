@@ -24,6 +24,10 @@ namespace UT
         void _unique_Log(LogLevel level, std::string message, const char* calling, const char* file, int line);
         static Logger* GetGlobalLogger();
     private:
+        Logger(Logger&);
+        void operator= (Logger&);
+
+        std::ofstream logFile;
     };
 }
 
