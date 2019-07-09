@@ -24,8 +24,9 @@ namespace UT
         this->size = size;
 
         // Clear all window flags
-        for (int i = WindowFlags::Focused; i != WindowFlags::FocusOnShow; i++)
+        for (int i = WindowFlags::Focused; i <= WindowFlags::FocusOnShow; i++)
         {
+            if (i == 0x00020002 || i == 0x0002000B) continue;
             glfwWindowHint(i, GL_FALSE);
         }
 
