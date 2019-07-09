@@ -33,21 +33,21 @@ namespace UT
         Window();
         ~Window();
 
-        void Init(std::string title = "Undertale", glm::vec2 size = { 640, 480 }, std::vector<WindowFlags> flags = {}, Camera* camera = nullptr);
+        void Init(std::string title = "Undertale", glm::ivec2 size = { 640, 480 }, std::vector<WindowFlags> flags = {});
         void CenterWindow();
         
         // Getters
         GLFWwindow* GetWin();
         std::string GetTitle();
-        glm::vec2 GetSize();
+        glm::ivec2 GetSize();
 
         // Setters
         void SetTitle(std::string title);
-        void SetSize(glm::vec2 size);
+        void SetSize(glm::ivec2 size);
     private:
         GLFWwindow* win;
         std::string title;
-        glm::vec2 size;
+        glm::ivec2 size;
     };
 }
 

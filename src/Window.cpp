@@ -15,10 +15,10 @@ namespace UT
     {
         this->title = "";
         this->win = NULL;
-        this->size = glm::vec2(0, 0);
+        this->size = glm::ivec2(0, 0);
     }
 
-    void Window::Init(std::string title, glm::vec2 size, std::vector<WindowFlags> flags, Camera* camera)
+    void Window::Init(std::string title, glm::ivec2 size, std::vector<WindowFlags> flags)
     {        
         this->title = title;
         this->size = size;
@@ -36,7 +36,7 @@ namespace UT
             glfwWindowHint(flags[i], GL_TRUE);
         }
 
-        this->win = glfwCreateWindow((int)size.x, (int)size.y, title.c_str(), NULL, NULL);
+        this->win = glfwCreateWindow(size.x, size.y, title.c_str(), NULL, NULL);
         glfwMakeContextCurrent(this->win);
         
         if (this->win == NULL)
@@ -85,7 +85,7 @@ namespace UT
         return this->title;
     }
 
-    glm::vec2 Window::GetSize()
+    glm::ivec2 Window::GetSize()
     {
         return this->size;
     }
@@ -97,9 +97,9 @@ namespace UT
         glfwSetWindowTitle(this->win, title.c_str());
     }
 
-    void Window::SetSize(glm::vec2 size)
+    void Window::SetSize(glm::ivec2 size)
     {
         this->size = size;
-        glfwSetWindowSize(this->win, (int)size.x, (int)size.y);
+        glfwSetWindowSize(this->win, size.x, size.y);
     }
 }
