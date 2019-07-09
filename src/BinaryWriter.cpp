@@ -96,11 +96,11 @@ namespace UT
     BinaryFileWriter::BinaryFileWriter(std::string filePath)
         : BinaryWriter()
     {
-        errno_t err = fopen_s(&fd, filePath.c_str(), "wb");
-        if (err != 0)
+        fd = fopen(filePath.c_str(), "wb");
+        if (fd == NULL)
         {
             canWrite = false;
-            GlobalLogger->Log(Logger::Error, "Failed to open file for writing at path '" + filePath + "', error: " + std::string(strerror(err)));
+            GlobalLogger->Log(Logger::Error, "Failed to open file for writing at path '" + filePath + "', error: " + std::string(strerror(errno)));
         } else
         {
             canWrite = true;

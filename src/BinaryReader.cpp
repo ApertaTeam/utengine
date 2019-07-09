@@ -137,11 +137,11 @@ namespace UT
 
     BinaryFileReader::BinaryFileReader(std::string filePath)
     {
-        errno_t err = fopen_s(&fd, filePath.c_str(), "rb");
-        if (err != 0)
+        fd = fopen(filePath.c_str(), "rb");
+        if (fd == NULL)
         {
             canRead = false;
-            GlobalLogger->Log(Logger::Error, "Failed to open file for reading at path '" + filePath + "', error: " + std::string(strerror(err)));
+            GlobalLogger->Log(Logger::Error, "Failed to open file for reading at path '" + filePath + "', error: " + std::string(strerror(errno)));
         } else
         {
             canRead = true;
