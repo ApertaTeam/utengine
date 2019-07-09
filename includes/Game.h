@@ -18,7 +18,7 @@ namespace UT
         void Update();
         void Render();
 
-        bool Init();
+        bool Start();
         void AddObject(Object* object);
 
         // Getters

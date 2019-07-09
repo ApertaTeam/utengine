@@ -25,19 +25,10 @@ int main()
     mainGame.SetCamera(&mainCamera);
 
     // Initialize game object
-    if (!mainGame.Init())
+    if (!mainGame.Start())
     {
         GlobalLogger->Log(Logger::Error, "Failed to initialize game object.");
         return -1;
-    }
-
-    // Get pointer to main GLFW window
-    GLFWwindow* mainWindowPtr = mainGame.GetWindow().GetWin();
-
-    // Main loop
-    while (!glfwWindowShouldClose(mainWindowPtr))
-    {
-        mainGame.Update();
     }
 
     return 0;

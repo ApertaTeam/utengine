@@ -24,7 +24,7 @@ namespace UT
 
     Game::~Game()
     {
-        glfwTerminate();
+        //glfwTerminate();
 
         if (shaderProgram != 0) glDeleteProgram(shaderProgram);
     }
@@ -48,10 +48,6 @@ namespace UT
 
     void Game::Render()
     {
-        // Clear screen
-        glClearColor(0.f, 0.f, 0.f, 1.f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        
         glUseProgram(shaderProgram);
 
         // Update uniforms
@@ -86,7 +82,7 @@ namespace UT
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
-    bool Game::Init()
+    bool Game::Start()
     {
         // GLFW initialization
         if (!glfwInit())
@@ -179,6 +175,25 @@ namespace UT
         // Initialize FPS variables
         lastFPSTime = 0.0;
 
+        while (!glfwWindowShouldClose(window.GetWin()))
+        {
+            // Clear screen
+            glClearColor(0.f, 0.f, 0.f, 1.f);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+            Update();
+
+            // Show rendered buffer
+            glfwSwapBuffers(window.GetWin());
+            glFlush();
+
+            glActiveTexture(0);
+            glBindVertexArray(0);
+            glUseProgram(0);
+            glBindTexture(GL_TEXTURE_2D, 0);
+        }
+
+        glfwTerminate();
         return true;
     }
 
