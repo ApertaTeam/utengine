@@ -10,8 +10,15 @@ namespace UT
         Object();
         
         virtual void Render();
-    private:
 
+        // Getters
+        int GetDepth();
+
+        // Setters
+        void SetDepth(int depth);
+
+    protected:
+        int depth;
     };
 }
 

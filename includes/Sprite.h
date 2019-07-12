@@ -19,18 +19,14 @@ namespace UT
         // Getters
         GLuint GetTexture();
         Transform GetTransform();
-        bool GetIsStatic();
 
         // Setters
         void SetTexture(GLuint texture);
         void SetTransform(Transform transform);
-        void SetIsStatic(bool isStatic);
 
-    private:
+    protected:
         Transform transform;
         GLuint texture; // TODO: work with texture pages
-        int depth;
-        bool isStatic;
     };
 }
 
