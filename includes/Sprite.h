@@ -9,7 +9,7 @@
 namespace UT
 {
     // A type of object which has a sprite.
-    class Sprite : Object
+    class Sprite : public Object
     {
     public:
         Sprite();
