@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
 
 #include <stdint.h>
 
@@ -22,6 +23,15 @@ namespace UT
     {
         glm::vec2 size;
         std::vector<Object*> objects;
+    };
+
+    // Represents the base values needed to render one point of a polygon
+    struct Vertex
+    {
+        glm::vec3 position;
+        glm::vec3 color;
+        glm::vec2 texcoord;
+        float alpha;
     };
 }
 

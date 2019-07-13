@@ -14,7 +14,7 @@ namespace UT
     public:
         Sprite();
 
-        virtual void Render();
+        virtual void Render() override;
 
         // Getters
         GLuint GetTexture();

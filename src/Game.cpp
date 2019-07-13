@@ -45,8 +45,14 @@ namespace UT
             // Sort objects by depth
             std::sort(objects.begin(), objects.end(), [](Object* obj1, Object* obj2)
                 {
-                    return (obj1->GetDepth() > obj2->GetDepth());
+                    return (obj1->GetRenderType() > obj2->GetRenderType());
                 });
+
+            // Run main update method for all objects
+            for (int i = 0; i < this->objects.size(); i++)
+            {
+                objects[i]->Update();
+            }
 
             // Render
             Render();
