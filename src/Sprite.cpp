@@ -5,7 +5,7 @@ namespace UT
     Sprite::Sprite()
     {
         this->transform = Transform();
-        this->texture = 0;
+        this->frames = {};
         this->depth = 0;
         this->isStatic = true;
     }
@@ -16,9 +16,10 @@ namespace UT
     }
 
     // Getters
-    GLuint Sprite::GetTexture()
+    TextureEntry Sprite::GetFrame(int idx)
     {
-        return this->texture;
+        // TODO: Check for out of bounds
+        return this->frames[idx];
     }
 
     Transform Sprite::GetTransform()
@@ -32,9 +33,9 @@ namespace UT
     }
 
     // Setters
-    void Sprite::SetTexture(GLuint texture)
+    void Sprite::SetFrame(int idx, TextureEntry entry)
     {
-        this->texture = texture;
+        this->frames[idx] = entry;
     }
 
     void Sprite::SetTransform(Transform transform)

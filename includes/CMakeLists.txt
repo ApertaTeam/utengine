@@ -12,6 +12,7 @@ target_sources(utengine
         Logger.h
         Buffer.h
         Input.h
+        Texture.h
 )
 
 target_include_directories(utengine PUBLIC ${CMAKE_CURRENT_LIST_DIR})

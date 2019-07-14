@@ -5,6 +5,7 @@
 
 #include "Common.h"
 #include "Object.h"
+#include "Texture.h"
 
 namespace UT
 {
@@ -17,18 +18,22 @@ namespace UT
         virtual void Render();
 
         // Getters
-        GLuint GetTexture();
+        TextureEntry GetFrame(int idx);
         Transform GetTransform();
         bool GetIsStatic();
 
         // Setters
-        void SetTexture(GLuint texture);
+        void SetFrame(int idx, TextureEntry entry);
         void SetTransform(Transform transform);
         void SetIsStatic(bool isStatic);
 
     private:
+        uint32_t id;
         Transform transform;
-        GLuint texture; // TODO: work with texture pages
+        std::vector<TextureEntry> frames;
+        glm::ivec2 origin;
+        glm::ivec4 mask;
+        //GLuint texture; // TODO: work with texture pages
         int depth;
         bool isStatic;
     };

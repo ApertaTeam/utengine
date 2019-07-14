@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.13)
 project(utengine)
 
 add_definitions("-std=c++11")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG")
+add_compile_definitions($<$<CONFIG:DEBUG>DEBUG>)
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall")
 
 option(BUILD_EXAMPLES "BUILD_EXAMPLES" ON)
