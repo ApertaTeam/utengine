@@ -10,24 +10,22 @@
 namespace UT
 {
     // A type of object which has a sprite.
-    class Sprite : Object
+    class Sprite : public Object
     {
     public:
         Sprite();
 
-        virtual void Render();
+        virtual void Render() override;
 
         // Getters
         TextureEntry GetFrame(int idx);
         Transform GetTransform();
-        bool GetIsStatic();
 
         // Setters
         void SetFrame(int idx, TextureEntry entry);
         void SetTransform(Transform transform);
-        void SetIsStatic(bool isStatic);
 
-    private:
+    protected:
         uint32_t id;
         Transform transform;
         std::vector<TextureEntry> frames;

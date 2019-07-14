@@ -4,6 +4,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include <algorithm>
+
 #include "Resources.h"
 #include "Logger.h"
 
@@ -40,6 +42,19 @@ namespace UT
         {
             lastFPSTime = FPSTime;
 
+            // Sort objects by depth
+            std::sort(objects.begin(), objects.end(), [](Object* obj1, Object* obj2)
+                {
+                    return (obj1->GetRenderType() > obj2->GetRenderType());
+                });
+
+            // Run main update method for all objects
+            for (int i = 0; i < this->objects.size(); i++)
+            {
+                objects[i]->Update();
+            }
+
+            // Render
             Render();
         }
 
@@ -67,10 +82,10 @@ namespace UT
 
 
         // Render all objects
-        /*for (int i = 0; i < this->objects.size(); i++)
+        for (int i = 0; i < this->objects.size(); i++)
         {
             objects[i]->Render();
-        }*/
+        }
         
         // Show rendered buffer
         glfwSwapBuffers(window.GetWin());

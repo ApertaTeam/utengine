@@ -8,10 +8,13 @@
 #include "Resources.h"
 #include "Camera.h"
 
+#include "ObjTest.h"
+
 #include <iostream>
 
 
 using namespace UT;
+using namespace UTEXAMPLE;
 
 int main()
 {
@@ -23,6 +26,11 @@ int main()
 
     // Attach camera
     mainGame.SetCamera(&mainCamera);
+
+    // Add test object
+    ObjTest testObject = ObjTest();
+
+    mainGame.AddObject(&testObject);
 
     // Initialize game object
     if (!mainGame.Start())

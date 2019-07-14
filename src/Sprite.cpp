@@ -27,11 +27,6 @@ namespace UT
         return this->transform;
     }
 
-    bool Sprite::GetIsStatic()
-    {
-        return this->isStatic;
-    }
-
     // Setters
     void Sprite::SetFrame(int idx, TextureEntry entry)
     {
@@ -41,10 +36,5 @@ namespace UT
     void Sprite::SetTransform(Transform transform)
     {
         this->transform = transform;
-    }
-
-    void Sprite::SetIsStatic(bool isStatic)
-    {
-        this->isStatic = isStatic;
     }
 }
