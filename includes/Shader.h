@@ -18,12 +18,12 @@ namespace UT
         void Bind() const;
         void Unbind() const;
 
-        inline explicit operator int() const
+        inline explicit operator unsigned int() const
         {
             return glID;
         }
     private:
-        int glID;
+        unsigned int glID;
     };
 }
 
