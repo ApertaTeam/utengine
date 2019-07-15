@@ -14,6 +14,7 @@ target_sources(utengine
         Input.h
         Texture.h
         Shader.h
+        IndexBuffer.h
 )
 
 target_include_directories(utengine PUBLIC ${CMAKE_CURRENT_LIST_DIR})

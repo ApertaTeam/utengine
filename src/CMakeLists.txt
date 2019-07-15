@@ -13,4 +13,5 @@ target_sources(utengine
         Buffer.cpp
         Input.cpp
         Shader.cpp
+        IndexBuffer.cpp
 )
