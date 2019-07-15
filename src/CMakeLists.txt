@@ -12,4 +12,5 @@ target_sources(utengine
         Common.cpp
         Buffer.cpp
         Input.cpp
+        Shader.cpp
 )

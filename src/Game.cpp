@@ -1,5 +1,6 @@
 #include "Game.h"
 
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -14,8 +15,6 @@ namespace UT
 {
     Game::Game(std::string title, unsigned int FPS)
     {
-        this->shaderProgram = 0;
-
         this->title = title;
         this->FPS = 1.0 / FPS;
         this->lastFPSTime = 0;
@@ -27,8 +26,6 @@ namespace UT
     Game::~Game()
     {
         //glfwTerminate();
-
-        if (shaderProgram != 0) glDeleteProgram(shaderProgram);
     }
 
     void Game::Update()
@@ -63,12 +60,11 @@ namespace UT
 
     void Game::Render()
     {
-        glUseProgram(shaderProgram);
+        shaderProgram.Bind();
 
         // Update uniforms
-        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ProjectionMatrix"), 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
-
-        glUniform1i(glGetUniformLocation(shaderProgram, "texture0"), 0);
+        shaderProgram.SetUniform("ProjectionMatrix", camera->GetProjectionMatrix());
+        shaderProgram.SetUniform("texture0", 0);
 
         // Move, rotate and scale (Model Matrix)
         modelMatrix = glm::mat4(1.0f);
@@ -78,7 +74,7 @@ namespace UT
         modelMatrix = glm::rotate(modelMatrix, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
         modelMatrix = glm::scale(modelMatrix, glm::vec3(1.0f));
 
-        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ModelMatrix"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
+        shaderProgram.SetUniform("ModelMatrix", modelMatrix);
 
 
         // Render all objects
@@ -93,7 +89,7 @@ namespace UT
 
         glActiveTexture(0);
         glBindVertexArray(0);
-        glUseProgram(0);
+        shaderProgram.Unbind();
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
@@ -141,10 +137,7 @@ namespace UT
         }
 
         // Setup shader program
-        shaderProgram = glCreateProgram();
-        GLuint shaderVertexPlain = Resources::LoadShader(GetExecutableDirectory() + "/assets/shaders/shaderVertexPlain.glsl", GL_VERTEX_SHADER);
-        GLuint shaderFragmentPlain = Resources::LoadShader(GetExecutableDirectory() + "/assets/shaders/shaderFragmentPlain.glsl", GL_FRAGMENT_SHADER);
-        Resources::LinkProgram(shaderProgram, shaderVertexPlain, shaderFragmentPlain);
+        shaderProgram = Shader("/assets/shaders/shaderVertexPlain.glsl", "/assets/shaders/shaderFragmentPlain.glsl");
 
         // OpenGL properties
         glEnable(GL_DEPTH_TEST);
@@ -179,13 +172,13 @@ namespace UT
         ViewMatrix = glm::lookAt(camPosition, camPosition + camFront, worldUp);
 
         // Send matrices
-        glUseProgram(shaderProgram);
+        shaderProgram.Bind();
 
-        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ModelMatrix"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
-        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ViewMatrix"), 1, GL_FALSE, glm::value_ptr(ViewMatrix));
-        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "ProjectionMatrix"), 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
+        shaderProgram.SetUniform("ModelMatrix", modelMatrix);
+        shaderProgram.SetUniform("ViewMatrix", ViewMatrix);
+        shaderProgram.SetUniform("ProjectionMatrix", camera->GetProjectionMatrix());
 
-        glUseProgram(0);
+        shaderProgram.Unbind();
 
         // Initialize FPS variables
         lastFPSTime = 0.0;
@@ -238,7 +231,7 @@ namespace UT
         return this->camera;
     }
 
-    GLuint Game::GetShaderProgram()
+    Shader Game::GetShaderProgram()
     {
         return this->shaderProgram;
     }
@@ -259,7 +252,7 @@ namespace UT
         this->camera = camera;
     }
 
-    void Game::SetShaderProgram(GLuint shaderProgram)
+    void Game::SetShaderProgram(Shader shaderProgram)
     {
         this->shaderProgram = shaderProgram;
     }

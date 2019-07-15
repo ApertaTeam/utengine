@@ -1,8 +1,7 @@
 #ifndef UT_GAME_H
 #define UT_GAME_H
 
-#include <GL/glew.h>
-
+#include "Shader.h"
 #include "Window.h"
 #include "Object.h"
 
@@ -26,16 +25,16 @@ namespace UT
         double GetFPS();
         Room* GetRoom();
         Camera* GetCamera();
-        GLuint GetShaderProgram();
+        Shader GetShaderProgram();
 
         // Setters
         void SetWindow(Window window);
         void SetRoom(Room* room);
         void SetCamera(Camera* camera);
-        void SetShaderProgram(GLuint shaderProgram);
+        void SetShaderProgram(Shader shaderProgram);
     private:
         Window window;
-        GLuint shaderProgram;
+        Shader shaderProgram;
         glm::mat4 modelMatrix;
 
         std::string title;
