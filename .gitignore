@@ -27,4 +27,13 @@
 
 # Ignore build directories
 build/
-CMakeFiles/
+
+# Ignore conan build files
+graph_info.json
+conanbuildinfo.premake.lua
+conanbuildinfo.txt
+conaninfo.txt
+
+# Ignore premake build files
+*.make
+Makefile
