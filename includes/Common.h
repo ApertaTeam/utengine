@@ -16,7 +16,7 @@ namespace UT
         int x;
         int y;
 
-        Vector2();
+        Vector2() : x(0), y(0) {};
         Vector2(int x, int y) : x(x), y(y) {};
     };
 
@@ -28,7 +28,7 @@ namespace UT
         int z;
         int w;
 
-        Vector4();
+        Vector4() : x(0), y(0), z(0), w(0) {};
         Vector4(int x, int y, int z, int w) : x(x), y(y), z(z), w(w) {};
     };
 

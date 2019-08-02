@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-struct GLFWwindow; // Forward declare
+#include <SFML/Graphics/RenderWindow.hpp>
 
 namespace UT
 {    
@@ -32,11 +32,16 @@ namespace UT
         Window();
         ~Window();
 
-        void Init(std::string title = "Undertale", Vector2 size = { 640, 480 }, std::vector<WindowFlags> flags = {});
+        void Init(std::string title = "Undertale", Vector2 size = { 640, 480 }, int style = sf::Style::Default);
         void CenterWindow();
+
+        // Wrappers to RenderWindow
+        inline bool PollEvent(sf::Event& event) { return this->win.pollEvent(event); }
+        inline void Close() { this->win.close(); }
+        inline bool IsOpen() { this->win.isOpen(); }
         
         // Getters
-        GLFWwindow* GetWin();
+        sf::RenderWindow& GetWin();
         std::string GetTitle();
         Vector2 GetSize();
 
@@ -44,7 +49,7 @@ namespace UT
         void SetTitle(std::string title);
         void SetSize(Vector2 size);
     private:
-        GLFWwindow* win;
+        sf::RenderWindow win;
         std::string title;
         Vector2 size;
     };

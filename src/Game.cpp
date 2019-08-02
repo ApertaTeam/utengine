@@ -5,6 +5,8 @@
 #include "Resources.h"
 #include "Logger.h"
 
+#include <SFML/Graphics.hpp>
+
 
 namespace UT
 {
@@ -20,7 +22,8 @@ namespace UT
 
     Game::~Game()
     {
-        
+        if (this->window != NULL)
+            delete this->window;
     }
 
     void Game::Update()
@@ -30,7 +33,16 @@ namespace UT
         double FPSTime = 0; /* TODO */
         double deltaFPSTime = FPSTime - lastFPSTime;
 
-        if (deltaFPSTime > FPS)
+        sf::Event event;
+        while (window->PollEvent(event))
+        {
+            if (event.type == sf::Event::KeyPressed)
+            {
+                if (event.key.code == sf::Keyboard::Escape) window->Close();
+            }
+        }
+
+        if (/*deltaFPSTime > FPS*/true)
         {
             lastFPSTime = FPSTime;
 
@@ -53,6 +65,7 @@ namespace UT
 
     void Game::Render()
     {
+        window->GetWin().clear();
         shaderProgram.Bind();
 
 
@@ -61,6 +74,8 @@ namespace UT
         {
             objects[i]->Render();
         }
+        
+        window->GetWin().display();
     }
 
     bool Game::Start()
@@ -68,27 +83,22 @@ namespace UT
         
 
         // Create & initialize main window
-        window = Window();
-        window.Init(title, { 640, 480 }, {
-            WindowFlags::Visible,
-            WindowFlags::Decorated,
-            WindowFlags::Focused,
-            WindowFlags::FocusOnShow
-            });
+        window = new Window();
+        window->Init(title, { 640, 480 }, sf::Style::Close | sf::Style::Titlebar );
         
-        if (window.GetWin() == NULL)
+        /*if (window.GetWin() == NULL)
         {
             GlobalLogger->Log(Logger::Error, "Failed to create main game window.");
             return false;
-        }
+        }*/
 
         // Center window
-        window.CenterWindow();
+        window->CenterWindow();
 
         // Initialize FPS variables
         lastFPSTime = 0.0;
 
-        while (true /* TODO */)
+        while (window->IsOpen())
         {
             Update();
         }
@@ -102,7 +112,7 @@ namespace UT
     }
 
     // Getters
-    Window Game::GetWindow()
+    Window* Game::GetWindow()
     {
         return this->window;
     }
@@ -128,9 +138,9 @@ namespace UT
     }
 
     // Setters
-    void Game::SetWindow(Window window)
+    void Game::SetWindow(Window& window)
     {
-        this->window = window;
+        this->window = &window;
     }
 
     void Game::SetRoom(Room* room)

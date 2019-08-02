@@ -21,19 +21,19 @@ namespace UT
         void AddObject(Object* object);
 
         // Getters
-        Window GetWindow();
+        Window* GetWindow();
         double GetFPS();
         Room* GetRoom();
         Camera* GetCamera();
         Shader GetShaderProgram();
 
         // Setters
-        void SetWindow(Window window);
+        void SetWindow(Window& window);
         void SetRoom(Room* room);
         void SetCamera(Camera* camera);
         void SetShaderProgram(Shader shaderProgram);
     private:
-        Window window;
+        Window* window;
         Shader shaderProgram;
 
         std::string title;
