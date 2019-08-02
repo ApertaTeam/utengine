@@ -7,7 +7,6 @@
 
 #include <SFML/Graphics.hpp>
 
-
 namespace UT
 {
     Game::Game(std::string title, unsigned int FPS)
@@ -22,8 +21,6 @@ namespace UT
 
     Game::~Game()
     {
-        if (this->window != NULL)
-            delete this->window;
     }
 
     void Game::Update()
@@ -34,11 +31,11 @@ namespace UT
         double deltaFPSTime = FPSTime - lastFPSTime;
 
         sf::Event event;
-        while (window->PollEvent(event))
+        while (window->pollEvent(event))
         {
             if (event.type == sf::Event::KeyPressed)
             {
-                if (event.key.code == sf::Keyboard::Escape) window->Close();
+                if (event.key.code == sf::Keyboard::Escape) window->close();
             }
         }
 
@@ -65,7 +62,7 @@ namespace UT
 
     void Game::Render()
     {
-        window->GetWin().clear();
+        window->clear();
         shaderProgram.Bind();
 
 
@@ -75,16 +72,13 @@ namespace UT
             objects[i]->Render();
         }
         
-        window->GetWin().display();
+        window->display();
     }
 
     bool Game::Start()
     {
-        
-
         // Create & initialize main window
-        window = new Window();
-        window->Init(title, { 640, 480 }, sf::Style::Close | sf::Style::Titlebar );
+        window.Init(title, { 640, 480 }, sf::Style::Close | sf::Style::Titlebar );
         
         /*if (window.GetWin() == NULL)
         {
@@ -93,12 +87,12 @@ namespace UT
         }*/
 
         // Center window
-        window->CenterWindow();
+        window.CenterWindow();
 
         // Initialize FPS variables
         lastFPSTime = 0.0;
 
-        while (window->IsOpen())
+        while (window->isOpen())
         {
             Update();
         }
@@ -112,7 +106,7 @@ namespace UT
     }
 
     // Getters
-    Window* Game::GetWindow()
+    Window Game::GetWindow()
     {
         return this->window;
     }
@@ -138,9 +132,9 @@ namespace UT
     }
 
     // Setters
-    void Game::SetWindow(Window& window)
+    void Game::SetWindow(Window window)
     {
-        this->window = &window;
+        this->window = window;
     }
 
     void Game::SetRoom(Room* room)

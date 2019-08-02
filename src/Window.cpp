@@ -15,27 +15,23 @@ namespace UT
         this->title = title;
         this->size = size;
 
-        this->win.create(sf::VideoMode(size.x, size.y), title, flags);
-        
-        /*if (this->win == NULL)
-        {
-            GlobalLogger->Log(Logger::Error, "Failed to create GLFW window.");
-        }*/
+        this->win = new sf::RenderWindow(sf::VideoMode(size.x, size.y), title, flags);
     }
 
     Window::~Window()
     {
-        
+        if (this->win != NULL) delete this->win;
     }
 
     void Window::CenterWindow()
     {
-        Vector2 center{sf::VideoMode::getDesktopMode().width/2 - (this->win.getSize().x/2), sf::VideoMode::getDesktopMode().height/2 - (this->win.getSize().y/2)};
-        this->win.setPosition({center.x, center.y});
+        if (this->win == NULL) return;
+        sf::Vector2u center{sf::VideoMode::getDesktopMode().width/2 - (this->win->getSize().x/2), sf::VideoMode::getDesktopMode().height/2 - (this->win->getSize().y/2)};
+        this->win->setPosition((sf::Vector2i)center);
     }
 
     // Getters
-    sf::RenderWindow& Window::GetWin()
+    sf::RenderWindow* Window::GetWin()
     {
         return this->win;
     }
@@ -54,12 +50,12 @@ namespace UT
     void Window::SetTitle(std::string title)
     {
         this->title = title;
-        this->win.setTitle(title);
+        if (this->win != NULL) this->win->setTitle(title);
     }
 
     void Window::SetSize(Vector2 size)
     {
         this->size = size;
-        this->win.setSize({size.x, size.y});
+        if (this->win != NULL) this->win->setSize({(unsigned int)size.x, (unsigned int)size.y});
     }
 }
