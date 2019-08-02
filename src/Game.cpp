@@ -1,10 +1,5 @@
 #include "Game.h"
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
 #include <algorithm>
 
 #include "Resources.h"
@@ -25,14 +20,14 @@ namespace UT
 
     Game::~Game()
     {
-        //glfwTerminate();
+        
     }
 
     void Game::Update()
     {
         camera->Update();
 
-        double FPSTime = glfwGetTime();
+        double FPSTime = 0; /* TODO */
         double deltaFPSTime = FPSTime - lastFPSTime;
 
         if (deltaFPSTime > FPS)
@@ -54,27 +49,11 @@ namespace UT
             // Render
             Render();
         }
-
-        glfwPollEvents();
     }
 
     void Game::Render()
     {
         shaderProgram.Bind();
-
-        // Update uniforms
-        shaderProgram.SetUniform("ProjectionMatrix", camera->GetProjectionMatrix());
-        shaderProgram.SetUniform("texture0", 0);
-
-        // Move, rotate and scale (Model Matrix)
-        modelMatrix = glm::mat4(1.0f);
-        modelMatrix = glm::translate(modelMatrix, glm::vec3(0));
-        modelMatrix = glm::rotate(modelMatrix, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-        modelMatrix = glm::rotate(modelMatrix, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        modelMatrix = glm::rotate(modelMatrix, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-        modelMatrix = glm::scale(modelMatrix, glm::vec3(1.0f));
-
-        shaderProgram.SetUniform("ModelMatrix", modelMatrix);
 
 
         // Render all objects
@@ -82,30 +61,11 @@ namespace UT
         {
             objects[i]->Render();
         }
-        
-        // Show rendered buffer
-        glfwSwapBuffers(window.GetWin());
-        glFlush();
-
-        glActiveTexture(0);
-        glBindVertexArray(0);
-        shaderProgram.Unbind();
-        glBindTexture(GL_TEXTURE_2D, 0);
     }
 
     bool Game::Start()
     {
-        // GLFW initialization
-        if (!glfwInit())
-        {
-            GlobalLogger->Log(Logger::Error, "Failed to initialize GLFW");
-            return false;
-        }
-
-        // OpenGL version
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        
 
         // Create & initialize main window
         window = Window();
@@ -118,7 +78,6 @@ namespace UT
         
         if (window.GetWin() == NULL)
         {
-            glfwTerminate();
             GlobalLogger->Log(Logger::Error, "Failed to create main game window.");
             return false;
         }
@@ -126,82 +85,14 @@ namespace UT
         // Center window
         window.CenterWindow();
 
-        // GLEW initialization
-        glewExperimental = GL_TRUE;
-
-        if (glewInit() != GLEW_OK)
-        {
-            glfwTerminate();
-            GlobalLogger->Log(Logger::Error, "Failed to initialize GLEW.");
-            return false;
-        }
-
-        // Setup shader program
-        shaderProgram = Shader("/assets/shaders/shaderVertexPlain.glsl", "/assets/shaders/shaderFragmentPlain.glsl");
-
-        // OpenGL properties
-        glEnable(GL_DEPTH_TEST);
-
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_BACK);
-        glFrontFace(GL_CW);
-
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-        // All matrices
-        glm::vec3 position(0.0f);
-        glm::vec3 rotation(0.0f);
-        glm::vec3 scale(1.0f);
-
-        // Model matrix
-        modelMatrix = glm::mat4(1.0f);
-        modelMatrix = glm::translate(modelMatrix, position);
-        modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-        modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-        modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-        modelMatrix = glm::scale(modelMatrix, scale);
-
-        // View matrix
-        glm::vec3 worldUp(0.0f, 1.0f, 0.0f);
-        glm::vec3 camPosition(0.0f, 0.0f, 1.0f);
-        glm::vec3 camFront(0.0f, 0.0f, -1.0f);
-        glm::mat4 ViewMatrix(1.0f);
-        ViewMatrix = glm::lookAt(camPosition, camPosition + camFront, worldUp);
-
-        // Send matrices
-        shaderProgram.Bind();
-
-        shaderProgram.SetUniform("ModelMatrix", modelMatrix);
-        shaderProgram.SetUniform("ViewMatrix", ViewMatrix);
-        shaderProgram.SetUniform("ProjectionMatrix", camera->GetProjectionMatrix());
-
-        shaderProgram.Unbind();
-
         // Initialize FPS variables
         lastFPSTime = 0.0;
 
-        while (!glfwWindowShouldClose(window.GetWin()))
+        while (true /* TODO */)
         {
-            // Clear screen
-            glClearColor(0.f, 0.f, 0.f, 1.f);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
             Update();
-
-            // Show rendered buffer
-            glfwSwapBuffers(window.GetWin());
-            glFlush();
-
-            glActiveTexture(0);
-            glBindVertexArray(0);
-            glUseProgram(0);
-            glBindTexture(GL_TEXTURE_2D, 0);
         }
 
-        glfwTerminate();
         return true;
     }
 

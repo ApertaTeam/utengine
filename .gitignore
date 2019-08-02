@@ -28,6 +28,12 @@
 # Ignore build directories
 build/
 
+# Ignore Visual Studio files/directories
+.vs/
+*.sln
+*.vcxproj
+*.vcxproj.*
+
 # Ignore conan build files
 graph_info.json
 conanbuildinfo.premake.lua

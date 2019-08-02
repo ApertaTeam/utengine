@@ -1,8 +1,6 @@
 #ifndef UT_SPRITE_H
 #define UT_SPRITE_H
 
-#include <GL/glew.h>
-
 #include "Common.h"
 #include "Object.h"
 #include "Texture.h"
@@ -29,8 +27,8 @@ namespace UT
         uint32_t id;
         Transform transform;
         std::vector<TextureEntry> frames;
-        glm::ivec2 origin;
-        glm::ivec4 mask;
+        Vector2 origin;
+        Vector4 mask;
         //GLuint texture; // TODO: work with texture pages
         int depth;
         bool isStatic;

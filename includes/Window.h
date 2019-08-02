@@ -4,7 +4,6 @@
 #include "Common.h"
 #include "Camera.h"
 
-#include <glm/vec2.hpp>
 #include <string>
 #include <vector>
 
@@ -33,21 +32,21 @@ namespace UT
         Window();
         ~Window();
 
-        void Init(std::string title = "Undertale", glm::ivec2 size = { 640, 480 }, std::vector<WindowFlags> flags = {});
+        void Init(std::string title = "Undertale", Vector2 size = { 640, 480 }, std::vector<WindowFlags> flags = {});
         void CenterWindow();
         
         // Getters
         GLFWwindow* GetWin();
         std::string GetTitle();
-        glm::ivec2 GetSize();
+        Vector2 GetSize();
 
         // Setters
         void SetTitle(std::string title);
-        void SetSize(glm::ivec2 size);
+        void SetSize(Vector2 size);
     private:
         GLFWwindow* win;
         std::string title;
-        glm::ivec2 size;
+        Vector2 size;
     };
 }
 

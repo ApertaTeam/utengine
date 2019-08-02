@@ -35,7 +35,6 @@ namespace UT
     private:
         Window window;
         Shader shaderProgram;
-        glm::mat4 modelMatrix;
 
         std::string title;
         double FPS;

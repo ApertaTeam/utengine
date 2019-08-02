@@ -3,8 +3,6 @@
 
 #include <vector>
 #include <string>
-#include <glm/vec2.hpp>
-#include <glm/vec3.hpp>
 
 #include <stdint.h>
 
@@ -12,26 +10,42 @@ namespace UT
 {
     class Object; // Forward declare
 
+    // Vector 2
+    struct Vector2
+    {
+        int x;
+        int y;
+
+        Vector2();
+        Vector2(int x, int y) : x(x), y(y) {};
+    };
+
+    // Vector 4
+    struct Vector4
+    {
+        int x;
+        int y;
+        int z;
+        int w;
+
+        Vector4();
+        Vector4(int x, int y, int z, int w) : x(x), y(y), z(z), w(w) {};
+    };
+
+    // Transform
     struct Transform
     {
-        glm::vec2 position;
-        glm::vec2 size;
+        Vector2 position;
+        int rotation;
+
+        Transform() {};
     };
 
     // Represents a game room, containing game objects and tiles, etc.
     struct Room
     {
-        glm::vec2 size;
+        Vector2 size;
         std::vector<Object*> objects;
-    };
-
-    // Represents the base values needed to render one point of a polygon
-    struct Vertex
-    {
-        glm::vec3 position;
-        glm::vec3 color;
-        glm::vec2 texcoord;
-        float alpha;
     };
 }
 

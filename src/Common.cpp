@@ -12,9 +12,10 @@ std::string GetExecutableDirectory()
 {
     #if defined(_WIN32) || defined(WIN32)
     HMODULE hModule = GetModuleHandle(NULL);
-    CHAR buff[MAX_PATH];
+    WCHAR buff[MAX_PATH];
     GetModuleFileName(hModule, buff, MAX_PATH);
-    std::string path(buff);
+    std::wstring temp(buff);
+    std::string path(temp.begin(), temp.end());
     return path.substr(0, path.find_last_of("/\\"));
     #elif defined(__linux__)
     char buff[PATH_MAX];
