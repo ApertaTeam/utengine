@@ -3,7 +3,7 @@ include "conanbuildinfo.premake.lua"
 workspace "UndertaleEngine"
     conan_basic_setup()
     architecture "x64"
-    startproject "example"
+    startproject "Sandbox"
 
     configurations
     {
