@@ -27,6 +27,14 @@ namespace UT
         return this->transform;
     }
 
+	sf::Sprite Sprite::GetSprite() {
+		return this->sprite;
+	}
+
+	sf::Texture Sprite::GetTexture() {
+		return this->texture;
+	}
+
     // Setters
     void Sprite::SetFrame(int idx, TextureEntry entry)
     {
@@ -37,4 +45,12 @@ namespace UT
     {
         this->transform = transform;
     }
+
+	void Sprite::SetSprite(sf::Sprite sprite) {
+		this->sprite = sprite;
+	}
+
+	void Sprite::SetTexture(sf::Texture texture) {
+		this->texture = texture;
+	}
 }
