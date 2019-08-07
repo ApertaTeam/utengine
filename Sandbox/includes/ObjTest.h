@@ -1,11 +1,11 @@
-#ifndef UTEXAMPLE_OBJ_TEST_H
-#define UTEXAMPLE_OBJ_TEST_H
+#ifndef SANDBOX_OBJ_TEST_H
+#define SANDBOX_OBJ_TEST_H
 
 #include "Sprite.h"
 
 using namespace UT;
 
-namespace UTEXAMPLE
+namespace UTSandbox
 {
     class ObjTest : public Sprite
     {

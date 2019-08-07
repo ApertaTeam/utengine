@@ -1,11 +1,14 @@
-#include "Game.h"
-#include "Window.h"
-#include "Object.h"
-#include "Logger.h"
-#include "Resources.h"
-#include "Camera.h"
+// Engine
+#include <Common.h>
+#include <Game.h>
+#include <Window.h>
+#include <Object.h>
+#include <Logger.h>
+#include <Resources.h>
+#include <Camera.h>
 
-#include <iostream>
+// Sandbox
+#include "ObjTest.h"
 
 
 using namespace UT;
@@ -19,10 +22,22 @@ int main()
     // Create main game object
 	Game mainGame = Game("Undertale", 30, gameIcon);
 
-    // Create main camera object
-    Camera mainCamera = Camera();
+	// Main room
+	Room mainRoom = Room({ 320, 240 });
 
-    // Attach camera
+	//-- Main room objects start --//
+
+	// Test object
+	UTSandbox::ObjTest testObject = UTSandbox::ObjTest();
+	mainRoom.objects.push_back(&testObject);
+
+	//-- Main room objects end --//
+
+	mainGame.LoadRoom(&mainRoom);
+
+
+    // Main camera object
+    Camera mainCamera = Camera();
     mainGame.SetCamera(&mainCamera);
 
     // Initialize game object

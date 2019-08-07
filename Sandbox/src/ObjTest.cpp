@@ -1,6 +1,6 @@
 #include "ObjTest.h"
 
-namespace UTEXAMPLE
+namespace UTSandbox
 {
     ObjTest::ObjTest()
     {

@@ -1,6 +1,7 @@
 #ifndef UT_GAME_H
 #define UT_GAME_H
 
+#include "Common.h"
 #include "Shader.h"
 #include "Window.h"
 #include "Object.h"
@@ -18,7 +19,8 @@ namespace UT
         void Render();
 
         bool Start();
-        void AddObject(Object* object);
+
+		void LoadRoom(Room* room);
 
         // Getters
         Window GetWindow();
@@ -29,7 +31,6 @@ namespace UT
 
         // Setters
         void SetWindow(Window window);
-        void SetRoom(Room* room);
         void SetCamera(Camera* camera);
         void SetShaderProgram(Shader shaderProgram);
     private:

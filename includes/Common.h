@@ -47,6 +47,9 @@ namespace UT
     {
         Vector2 size;
         std::vector<Object*> objects;
+
+		Room() : size({ 0, 0 }), objects({}) {};
+		Room(Vector2 size) : size(size), objects({}) {};
     };
 }
 

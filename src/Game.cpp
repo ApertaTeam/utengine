@@ -103,10 +103,11 @@ namespace UT
         return true;
     }
 
-    void Game::AddObject(Object* object)
-    {
-        objects.push_back(object);
-    }
+	void Game::LoadRoom(Room* room) {
+		this->room = room;
+
+		objects = room->objects;
+	}
 
     // Getters
     Window Game::GetWindow()
