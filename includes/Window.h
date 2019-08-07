@@ -32,9 +32,9 @@ namespace UT
         Window();
         ~Window();
 
-        void Init(std::string title = "Undertale", Vector2 size = { 640, 480 }, int style = sf::Style::Default);
+        void Init(std::string title = "Undertale", Vector2 size = { 640, 480 }, int style = sf::Style::Default, sf::Image icon = sf::Image());
         void CenterWindow();
-
+		
         sf::RenderWindow* operator->() { return win; }
         
         // Getters

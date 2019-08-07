@@ -11,7 +11,7 @@ namespace UT
     class Game
     {
     public:
-        Game(std::string title = "Undertale", unsigned int FPS = 30);
+        Game(std::string title = "Undertale", unsigned int FPS = 30, sf::Image icon = sf::Image());
         ~Game();
 
         void Update();
@@ -37,6 +37,8 @@ namespace UT
         Shader shaderProgram;
 
         std::string title;
+		sf::Image icon;
+
         sf::Int32 FPS;
 		sf::Clock FPStimeObj;
 

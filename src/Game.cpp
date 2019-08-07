@@ -9,9 +9,11 @@
 
 namespace UT
 {
-    Game::Game(std::string title, unsigned int FPS)
+    Game::Game(std::string title, unsigned int FPS, sf::Image icon)
     {
         this->title = title;
+		this->icon = icon;
+
         this->FPS = FPS;
 		this->FPStimeObj = sf::Clock();
 
@@ -46,7 +48,6 @@ namespace UT
         if (FPStime >= FPS)
         {
 			FPStimeObj.restart();
-			std::cout << FPStime << std::endl;
 
             // Sort objects by depth
             std::sort(objects.begin(), objects.end(), [](Object* obj1, Object* obj2)
@@ -83,7 +84,7 @@ namespace UT
     bool Game::Start()
     {
         // Create & initialize main window
-        window.Init(title, { 640, 480 }, sf::Style::Close | sf::Style::Titlebar );
+        window.Init(title, { 640, 480 }, sf::Style::Close | sf::Style::Titlebar, icon);
         
         if (!window.GetWin())
         {

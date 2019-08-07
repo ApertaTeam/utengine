@@ -12,8 +12,12 @@ using namespace UT;
 
 int main()
 {
+	// Load game icon
+	sf::Image gameIcon = sf::Image();
+	gameIcon.loadFromFile("test.png");
+
     // Create main game object
-    Game mainGame = Game("Undertale", 30);
+	Game mainGame = Game("Undertale", 30, gameIcon);
 
     // Create main camera object
     Camera mainCamera = Camera();

@@ -10,12 +10,16 @@ namespace UT
         this->size = Vector2(0, 0);
     }
 
-    void Window::Init(std::string title, Vector2 size, int flags)
+    void Window::Init(std::string title, Vector2 size, int flags, sf::Image icon)
     {        
         this->title = title;
         this->size = size;
 
         this->win = new sf::RenderWindow(sf::VideoMode(size.x, size.y), title, flags);
+
+		if (icon.getSize().x != 0) {
+			this->win->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+		}
     }
 
     Window::~Window()
