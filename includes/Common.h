@@ -38,7 +38,8 @@ namespace UT
         Vector2 position;
         int rotation;
 
-        Transform() {};
+		Transform() : position({ 0, 0 }), rotation(0) {};
+		Transform(Vector2 position, int rotation) : position(position), rotation(rotation) {};
     };
 
     // Represents a game room, containing game objects and tiles, etc.

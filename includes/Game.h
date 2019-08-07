@@ -37,8 +37,8 @@ namespace UT
         Shader shaderProgram;
 
         std::string title;
-        double FPS;
-        double lastFPSTime;
+        sf::Int32 FPS;
+		sf::Clock FPStimeObj;
 
         Room* room;
         Camera* camera;

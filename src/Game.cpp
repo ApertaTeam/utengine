@@ -12,8 +12,8 @@ namespace UT
     Game::Game(std::string title, unsigned int FPS)
     {
         this->title = title;
-        this->FPS = 1.0 / FPS;
-        this->lastFPSTime = 0;
+        this->FPS = FPS;
+		this->FPStimeObj = sf::Clock();
 
         this->room = nullptr;
         this->camera = nullptr;
@@ -27,21 +27,26 @@ namespace UT
     {
         camera->Update();
 
-        double FPSTime = 0; /* TODO */
-        double deltaFPSTime = FPSTime - lastFPSTime;
+		sf::Int32 FPStime = FPStimeObj.getElapsedTime().asMilliseconds();
 
+		// Event polling
         sf::Event event;
         while (window->pollEvent(event))
         {
             if (event.type == sf::Event::KeyPressed)
             {
                 if (event.key.code == sf::Keyboard::Escape) window->close();
-            }
+			}
+			else if (event.type == sf::Event::Closed) {
+				window->close();
+			}
         }
 
-        if (/*deltaFPSTime > FPS*/true)
+		// FPS check
+        if (FPStime >= FPS)
         {
-            lastFPSTime = FPSTime;
+			FPStimeObj.restart();
+			std::cout << FPStime << std::endl;
 
             // Sort objects by depth
             std::sort(objects.begin(), objects.end(), [](Object* obj1, Object* obj2)
@@ -80,17 +85,14 @@ namespace UT
         // Create & initialize main window
         window.Init(title, { 640, 480 }, sf::Style::Close | sf::Style::Titlebar );
         
-        /*if (window.GetWin() == NULL)
+        if (!window.GetWin())
         {
             GlobalLogger->Log(Logger::Error, "Failed to create main game window.");
             return false;
-        }*/
+        }
 
         // Center window
         window.CenterWindow();
-
-        // Initialize FPS variables
-        lastFPSTime = 0.0;
 
         while (window->isOpen())
         {
