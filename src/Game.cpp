@@ -141,11 +141,6 @@ namespace UT
         this->window = window;
     }
 
-    void Game::SetRoom(Room* room)
-    {
-        this->room = room;
-    }
-
     void Game::SetCamera(Camera* camera)
     {
         this->camera = camera;
