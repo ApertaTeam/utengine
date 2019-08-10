@@ -1,16 +1,16 @@
 #include "TextureHandler.h"
 
-#include <map>
+#include <vector>
 #include <memory>
 
-static std::map<int, std::shared_ptr<sf::Texture>> textures;
-static int idOff = 0;
+static std::vector<std::shared_ptr<sf::Texture>> textures;
 
 namespace UT
 {
     sf::Texture* TextureHandler::GetTextureById(int texID)
     {
-        if (textures.find(texID) == textures.end()) return nullptr;
+        if (texID >= textures.size())
+            return nullptr;
         return textures[texID].get();
     }
 
@@ -22,8 +22,8 @@ namespace UT
             texture.reset();
             return -1;
         }
-        textures[idOff] = texture;
-        return idOff++;
+        textures.push_back(texture);
+        return textures.size() - 1;
     }
 
     int TextureHandler::LoadTextureFromMemory(const void* data, size_t size)
@@ -34,8 +34,8 @@ namespace UT
             texture.reset();
             return -1;
         }
-        textures[idOff] = texture;
-        return idOff++;
+        textures.push_back(texture);
+        return textures.size() - 1;
     }
 
     void TextureHandler::ClearTextures()
@@ -45,6 +45,5 @@ namespace UT
             textures[i].reset();
             textures.erase(i);
         }
-        idOff = 0;
     }
 }
