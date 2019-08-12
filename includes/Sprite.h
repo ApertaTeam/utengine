@@ -8,38 +8,22 @@
 
 namespace UT
 {
-    // A type of object which has a sprite.
-    class Sprite : public Object
+    class Sprite : public sf::Drawable, public sf::Transformable
     {
     public:
         Sprite();
+        Sprite(int texId, sf::IntRect texRect);
 
-        virtual void Render() override;
+        inline int GetTexture() const { return textureId; }
+        inline void SetTexture(int texId) { textureId = texId; }
 
-        // Getters
-        TextureEntry GetFrame(int idx);
-        Transform GetTransform();
-		sf::Sprite GetSprite();
-		sf::Texture GetTexture();
+        inline sf::IntRect GetTextureRect() const { return textureRect; }
+        inline void SetTextureRect(sf::IntRect texRect) { textureRect = texRect; }
+    private:
+        int textureId;
+        sf::IntRect textureRect;
 
-        // Setters
-        void SetFrame(int idx, TextureEntry entry);
-        void SetTransform(Transform transform);
-		void SetSprite(sf::Sprite sprite);
-		void SetTexture(sf::Texture texture);
-
-    protected:
-		sf::Sprite sprite;
-        std::vector<TextureEntry> frames;
-        sf::Texture texture; // TODO: work with texture pages
-
-        uint32_t id;
-
-        Vector2 origin;
-        Vector4 mask;
-        Transform transform;
-        int depth;
-        bool isStatic;
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     };
 }
 

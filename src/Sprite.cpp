@@ -1,56 +1,35 @@
 #include "Sprite.h"
+#include "BatchHandler.h"
 
 namespace UT
 {
     Sprite::Sprite()
     {
-        this->transform = Transform();
-        this->frames = {};
-        this->depth = 0;
-        this->isStatic = true;
+        textureId = -1;
+        textureRect = sf::IntRect(0, 0, 0, 0);
     }
 
-    void Sprite::Render()
+    Sprite::Sprite(int texId, sf::IntRect texRect)
     {
-        
+        textureId = texId;
+        textureRect = texRect;
     }
 
-    // Getters
-    TextureEntry Sprite::GetFrame(int idx)
+    void Sprite::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
-        // TODO: Check for out of bounds
-        return this->frames[idx];
+        states.transform *= getTransform();
+        sf::FloatRect transformRect(getPosition(), sf::Vector2f(GetTextureRect().width, GetTextureRect().height));
+        sf::VertexArray arr(sf::Quads, 4);
+        arr[0].position = sf::Vector2f(transformRect.left, transformRect.top);
+        arr[1].position = sf::Vector2f(transformRect.left + transformRect.width, transformRect.top);
+        arr[2].position = sf::Vector2f(transformRect.left + transformRect.width, transformRect.top + transformRect.height);
+        arr[3].position = sf::Vector2f(transformRect.left, transformRect.top + transformRect.height);
+
+        arr[0].texCoords = sf::Vector2f(textureRect.left, textureRect.top);
+        arr[1].texCoords = sf::Vector2f(textureRect.left +textureRect.width, textureRect.top);
+        arr[2].texCoords = sf::Vector2f(textureRect.left +textureRect.width, textureRect.top + textureRect.height);
+        arr[3].texCoords = sf::Vector2f(textureRect.left, textureRect.top + textureRect.height);
+
+        BatchHandler::getInstance().DrawSpriteRect(textureId, arr, target);
     }
-
-    Transform Sprite::GetTransform()
-    {
-        return this->transform;
-    }
-
-	sf::Sprite Sprite::GetSprite() {
-		return this->sprite;
-	}
-
-	sf::Texture Sprite::GetTexture() {
-		return this->texture;
-	}
-
-    // Setters
-    void Sprite::SetFrame(int idx, TextureEntry entry)
-    {
-        this->frames[idx] = entry;
-    }
-
-    void Sprite::SetTransform(Transform transform)
-    {
-        this->transform = transform;
-    }
-
-	void Sprite::SetSprite(sf::Sprite sprite) {
-		this->sprite = sprite;
-	}
-
-	void Sprite::SetTexture(sf::Texture texture) {
-		this->texture = texture;
-	}
 }

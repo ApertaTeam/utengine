@@ -21,11 +21,12 @@ namespace UT
 
         // Actual public method
         void DrawSpriteRect(int textureID, const sf::VertexArray& coords, sf::RenderTarget& target);
+        void DrawBatch();
+        inline bool BatchExists() const { return verticesSize != 0; }
     private:
         BatchHandler();
 
         // Methods
-        void DrawBatch();
         void InitializeVertices();
         void GrowVertices();
 
