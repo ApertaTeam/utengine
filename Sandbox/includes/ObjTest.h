@@ -12,7 +12,7 @@ namespace UTSandbox
     public:
         ObjTest();
 
-        virtual void Init() override;
+        void Init();
 
     private:
 

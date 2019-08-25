@@ -4,6 +4,8 @@
 
 #include "Resources.h"
 #include "Logger.h"
+#include "Sprite.h"
+#include "TextureHandler.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -23,6 +25,7 @@ namespace UT
 
     Game::~Game()
     {
+        TextureHandler::ClearTextures();
     }
 
     void Game::Update()
@@ -76,6 +79,11 @@ namespace UT
         for (int i = 0; i < this->objects.size(); i++)
         {
             objects[i]->Render();
+        }
+
+        for (int i = 0; i < this->room->sprites.size(); ++i)
+        {
+            window->draw(*this->room->sprites[i]);
         }
         
         window->display();

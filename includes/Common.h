@@ -9,6 +9,7 @@
 namespace UT
 {
     class Object; // Forward declare
+    class Sprite;
 
     // Vector 2
     struct Vector2
@@ -38,8 +39,8 @@ namespace UT
         Vector2 position;
         int rotation;
 
-		Transform() : position({ 0, 0 }), rotation(0) {};
-		Transform(Vector2 position, int rotation) : position(position), rotation(rotation) {};
+        Transform() : position({ 0, 0 }), rotation(0) {};
+        Transform(Vector2 position, int rotation) : position(position), rotation(rotation) {};
     };
 
     // Represents a game room, containing game objects and tiles, etc.
@@ -47,9 +48,10 @@ namespace UT
     {
         Vector2 size;
         std::vector<Object*> objects;
+        std::vector<Sprite*> sprites;
 
-		Room() : size({ 0, 0 }), objects({}) {};
-		Room(Vector2 size) : size(size), objects({}) {};
+        Room() : size({ 0, 0 }), objects({}) {};
+        Room(Vector2 size) : size(size), objects({}) {};
     };
 }
 

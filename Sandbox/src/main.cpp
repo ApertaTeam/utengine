@@ -6,34 +6,40 @@
 #include <Logger.h>
 #include <Resources.h>
 #include <Camera.h>
+#include <Sprite.h>
+#include <TextureHandler.h>
 
 // Sandbox
-#include "ObjTest.h"
+//#include "ObjTest.h"
 
 
 using namespace UT;
 
 int main()
 {
-	// Load game icon
-	sf::Image gameIcon = sf::Image();
-	gameIcon.loadFromFile("test.png");
+    // Load game icon
+    sf::Image gameIcon = sf::Image();
+    gameIcon.loadFromFile("test.png");
+
+    Sprite test{TextureHandler::LoadTextureFromFile("test.png"), {0, 0, 215, 215}};
+    test.setPosition((640.f/2)-(215.f/2), (480.f/2)-(215.f/2));
 
     // Create main game object
-	Game mainGame = Game("Undertale", 30, gameIcon);
+    Game mainGame = Game("Undertale", 30, gameIcon);
 
-	// Main room
-	Room mainRoom = Room({ 320, 240 });
+    // Main room
+    Room mainRoom = Room({ 320, 240 });
 
-	//-- Main room objects start --//
+    //-- Main room objects start --//
 
-	// Test object
-	UTSandbox::ObjTest testObject = UTSandbox::ObjTest();
-	mainRoom.objects.push_back(&testObject);
+    // Test object
+    mainRoom.sprites.push_back(&test);
+    //UTSandbox::ObjTest testObject = UTSandbox::ObjTest();
+    //mainRoom.objects.push_back(&testObject);
 
-	//-- Main room objects end --//
+    //-- Main room objects end --//
 
-	mainGame.LoadRoom(&mainRoom);
+    mainGame.LoadRoom(&mainRoom);
 
 
     // Main camera object

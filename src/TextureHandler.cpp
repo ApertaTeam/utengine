@@ -11,7 +11,7 @@ namespace UT
     {
         if (texID >= textures.size())
             return nullptr;
-        return textures[texID].get();
+        return std::move(textures[texID]).get();
     }
 
     int TextureHandler::LoadTextureFromFile(const std::string& path)
@@ -40,7 +40,7 @@ namespace UT
 
     void TextureHandler::ClearTextures()
     {
-        for (int i = textures.size() - 1; i <= 0; i--)
+        for (int i = textures.size() - 1; i >= 0; i--)
         {
             textures[i].reset();
             textures.erase(textures.begin() + i);
