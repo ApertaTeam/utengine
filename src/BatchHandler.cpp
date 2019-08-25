@@ -14,8 +14,6 @@ namespace UT
     void BatchHandler::DrawSpriteRect(int textureID, const sf::VertexArray& coords, sf::RenderTarget& target)
     {
         if (this->target == nullptr) this->target = &target;
-        if (textureID != currentTexID && currentTexID != -1)
-            DrawBatch();
         
         if (!verticesInitialized)
             InitializeVertices();
@@ -36,12 +34,17 @@ namespace UT
         quad[3].texCoords = coords[3].texCoords;
 
         offset += 4;
+
+        if (textureID != currentTexID)
+        {
+            currentTexID = textureID;
+            DrawBatch();
+        }
     }
 
     void BatchHandler::DrawBatch()
     {
-        sf::RenderStates states;
-        states.texture = TextureHandler::GetTextureById(currentTexID);
+        sf::RenderStates states(TextureHandler::GetTextureById(currentTexID).get());
         if (offset != verticesSize)
             vertices.resize(offset);
         target->draw(vertices, states);

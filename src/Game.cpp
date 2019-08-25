@@ -6,6 +6,7 @@
 #include "Logger.h"
 #include "Sprite.h"
 #include "TextureHandler.h"
+#include "BatchHandler.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -85,6 +86,8 @@ namespace UT
         {
             window->draw(*this->room->sprites[i]);
         }
+
+        if (BatchHandler::getInstance().BatchExists()) BatchHandler::getInstance().DrawBatch();
         
         window->display();
     }

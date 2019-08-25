@@ -1,17 +1,16 @@
 #include "TextureHandler.h"
 
 #include <vector>
-#include <memory>
 
 static std::vector<std::shared_ptr<sf::Texture>> textures;
 
 namespace UT
 {
-    sf::Texture* TextureHandler::GetTextureById(int texID)
+    std::shared_ptr<sf::Texture> TextureHandler::GetTextureById(int texID)
     {
         if (texID >= textures.size())
             return nullptr;
-        return std::move(textures[texID]).get();
+        return textures[texID];
     }
 
     int TextureHandler::LoadTextureFromFile(const std::string& path)
@@ -22,7 +21,8 @@ namespace UT
             texture.reset();
             return -1;
         }
-        textures.push_back(std::move(texture));
+        //textures.push_back(std::move(texture));
+        textures.emplace_back(texture);
         return textures.size() - 1;
     }
 
@@ -34,7 +34,7 @@ namespace UT
             texture.reset();
             return -1;
         }
-        textures.push_back(std::move(texture));
+        textures.emplace_back(texture);
         return textures.size() - 1;
     }
 
