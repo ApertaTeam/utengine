@@ -45,7 +45,7 @@ namespace UT
         int renderWidth = 0;
         for (auto& tv : grid)
         {
-            int temp;
+            int temp = 0;
             for (auto t : tv)
             {
                 temp += tileset.at(t).GetTextureRect().width;
@@ -60,7 +60,7 @@ namespace UT
         int renderHeight = 0;
         for (auto& tv : grid)
         {
-            int temp;
+            int temp = 0;
             for (auto& t : tv)
             {
                 temp += tileset.at(t).GetTextureRect().height;

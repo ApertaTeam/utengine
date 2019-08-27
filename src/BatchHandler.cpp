@@ -21,7 +21,7 @@ namespace UT
         if (offset >= verticesSize)
             GrowVertices();
         
-        sf::Vertex* quad = &vertices[offset * 4];
+        sf::Vertex* quad = &vertices[offset];
 
         quad[0].position = coords[0].position;
         quad[1].position = coords[1].position;
@@ -34,6 +34,13 @@ namespace UT
         quad[3].texCoords = coords[3].texCoords;
 
         offset += 4;
+        
+        if (currentTexID == -1)
+        {
+            // This is the first ever batch, so we should set the texture, but wait until
+            // the texture changes to actually draw it.
+            currentTexID = textureID;
+        }
 
         if (textureID != currentTexID)
         {
