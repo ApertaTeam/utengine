@@ -61,6 +61,7 @@ namespace UT
         vertices.resize(256);
         verticesSize = 256;
         offset = 0;
+        verticesInitialized = true;
     }
 
     void BatchHandler::GrowVertices()

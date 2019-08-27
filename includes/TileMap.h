@@ -15,7 +15,7 @@ namespace UT
     class EmptyTileException : public std::exception
     {
     public:
-        EmptyTileException() noexcept;
+        explicit EmptyTileException() {}
 
         virtual const char* what() const noexcept
         {
@@ -26,7 +26,7 @@ namespace UT
     class InvalidTileException : public std::exception
     {
     public:
-        InvalidTileException() noexcept;
+        explicit InvalidTileException() {}
 
         virtual const char* what() const noexcept
         {
@@ -53,6 +53,7 @@ namespace UT
         int tileHeight = -1;
 
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+        void Setup();
     };
 }
 

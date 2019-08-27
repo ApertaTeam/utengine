@@ -13,7 +13,7 @@ namespace UT
                 if (tileWidth == -1 || tileHeight == -1)
                 {
                     tileWidth = tileset.at(grid[y][x]).GetTextureRect().width;
-                    tileWidth = tileset.at(grid[y][x]).GetTextureRect().height;
+                    tileHeight = tileset.at(grid[y][x]).GetTextureRect().height;
                 }
                 else
                 {
@@ -83,8 +83,18 @@ namespace UT
     void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         states.transform *= getTransform();
+        int drawx = 0, drawy = 0;
         for (auto& tv : grid)
+        {
             for (auto& t : tv)
-                target.draw(tileset.at(t), states);
+            {
+                auto sprite = tileset.at(t);
+                sprite.setPosition(drawx, drawy);
+                target.draw(sprite, states);
+                drawx += tileWidth;
+            }
+            drawx = 0;
+            drawy += tileHeight;
+        }
     }
 }
