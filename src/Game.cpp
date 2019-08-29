@@ -15,10 +15,10 @@ namespace UT
     Game::Game(std::string title, unsigned int FPS, sf::Image icon)
     {
         this->title = title;
-		this->icon = icon;
+        this->icon = icon;
 
         this->FPS = FPS;
-		this->FPStimeObj = sf::Clock();
+        this->FPStimeObj = sf::Clock();
 
         this->room = nullptr;
         this->camera = nullptr;
@@ -33,31 +33,25 @@ namespace UT
     {
         camera->Update();
 
-		sf::Int32 FPStime = FPStimeObj.getElapsedTime().asMilliseconds();
+        sf::Int32 FPStime = FPStimeObj.getElapsedTime().asMilliseconds();
 
-		// Event polling
+        // Event polling
         sf::Event event;
         while (window->pollEvent(event))
         {
             if (event.type == sf::Event::KeyPressed)
             {
                 if (event.key.code == sf::Keyboard::Escape) window->close();
-			}
-			else if (event.type == sf::Event::Closed) {
-				window->close();
-			}
+            }
+            else if (event.type == sf::Event::Closed) {
+                window->close();
+            }
         }
 
-		// FPS check
+        // FPS check
         if (FPStime >= FPS)
         {
-			FPStimeObj.restart();
-
-            // Sort objects by depth
-            std::sort(objects.begin(), objects.end(), [](Object* obj1, Object* obj2)
-                {
-                    return (obj1->GetRenderType() > obj2->GetRenderType());
-                });
+            FPStimeObj.restart();
 
             // Run main update method for all objects
             for (int i = 0; i < this->objects.size(); i++)
@@ -79,12 +73,7 @@ namespace UT
         // Render all objects
         for (int i = 0; i < this->objects.size(); i++)
         {
-            objects[i]->Render();
-        }
-
-        for (int i = 0; i < this->room->sprites.size(); ++i)
-        {
-            window->draw(*this->room->sprites[i]);
+            window->draw(*objects[i]);
         }
 
         if (BatchHandler::getInstance().BatchExists()) BatchHandler::getInstance().DrawBatch();
@@ -106,6 +95,11 @@ namespace UT
         // Center window
         window.CenterWindow();
 
+        for (auto& object : objects)
+        {
+            object->Init();
+        }
+
         while (window->isOpen())
         {
             Update();
@@ -114,11 +108,11 @@ namespace UT
         return true;
     }
 
-	void Game::LoadRoom(Room* room) {
-		this->room = room;
+    void Game::LoadRoom(Room* room) {
+        this->room = room;
 
-		objects = room->objects;
-	}
+        objects = room->objects;
+    }
 
     // Getters
     Window Game::GetWindow()

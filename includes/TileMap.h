@@ -37,6 +37,7 @@ namespace UT
     class TileMap : public sf::Drawable, public sf::Transformable
     {
     public:
+        TileMap() : grid(), tileset() {}
         TileMap(const TileGrid &grid, const TileSet &tileset);
 
         int GetWidth() const;
@@ -53,7 +54,6 @@ namespace UT
         int tileHeight = -1;
 
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-        void Setup();
     };
 }
 
