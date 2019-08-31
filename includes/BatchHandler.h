@@ -23,6 +23,7 @@ namespace UT
         void DrawSpriteRect(int textureID, const sf::VertexArray& coords, sf::RenderTarget& target);
         void DrawBatch();
         inline bool BatchExists() const { return verticesSize != 0; }
+        inline void Reset() { currentTexID = -1; }
     private:
         BatchHandler();
 

@@ -13,8 +13,15 @@ namespace UT
 
     void BatchHandler::DrawSpriteRect(int textureID, const sf::VertexArray& coords, sf::RenderTarget& target)
     {
+        if (textureID != currentTexID)
+        {
+            if (currentTexID != -1)
+                DrawBatch();
+            currentTexID = textureID;
+        }
+
         if (this->target == nullptr) this->target = &target;
-        
+
         if (!verticesInitialized)
             InitializeVertices();
         
@@ -34,19 +41,6 @@ namespace UT
         quad[3].texCoords = coords[3].texCoords;
 
         offset += 4;
-        
-        if (currentTexID == -1)
-        {
-            // This is the first ever batch, so we should set the texture, but wait until
-            // the texture changes to actually draw it.
-            currentTexID = textureID;
-        }
-
-        if (textureID != currentTexID)
-        {
-            currentTexID = textureID;
-            DrawBatch();
-        }
     }
 
     void BatchHandler::DrawBatch()

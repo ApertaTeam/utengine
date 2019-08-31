@@ -69,6 +69,7 @@ namespace UT
         window->clear();
         shaderProgram.Bind();
 
+        BatchHandler::getInstance().Reset();
 
         // Render all objects
         for (int i = 0; i < this->objects.size(); i++)
