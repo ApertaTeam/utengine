@@ -17,7 +17,7 @@ namespace UT
                 }
                 else
                 {
-                    if (tileset.at(grid[y][x]).GetTextureRect().width != tileWidth || tileset.at(grid[y][x]).GetTextureRect().width != tileWidth) throw InvalidTileException();
+                    if (tileset.at(grid[y][x]).GetTextureRect().width != tileWidth || tileset.at(grid[y][x]).GetTextureRect().height != tileHeight) throw InvalidTileException();
                 }
             }
         }
@@ -30,14 +30,14 @@ namespace UT
         int width = 0;
         for (auto& t : grid)
         {
-            if (t.size() > width) width = t.size();
+            if (t.size() > width) width = (int)t.size();
         }
         return width;
     }
 
     int TileMap::GetHeight() const
     {
-        return grid.size();
+        return (int)grid.size();
     }
 
     int TileMap::GetRenderWidth() const
@@ -89,7 +89,7 @@ namespace UT
             for (auto& t : tv)
             {
                 auto sprite = tileset.at(t);
-                sprite.setPosition(drawx, drawy);
+                sprite.setPosition((float)drawx, (float)drawy);
                 target.draw(sprite, states);
                 drawx += tileWidth;
             }
