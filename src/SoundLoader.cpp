@@ -1,23 +1,54 @@
 #include "SoundLoader.h"
+#include <Logger.h>
+#include <vector>
+
+static std::vector<std::shared_ptr<sf::SoundBuffer>> sounds;
+static std::vector<std::string> paths;
 
 namespace UT
 {
-	SoundLoader* SoundLoader::inst_ = NULL;
-
-	SoundLoader* SoundLoader::GetInstance()
+	std::shared_ptr<sf::SoundBuffer> SoundLoader::GetSoundById(int soundID)
 	{
-		if(inst_ == NULL) 
-		{
-			inst_ = new SoundLoader();
-		}
-		return inst_ ;
+		if (soundID >= sounds.size())
+			return nullptr;
+		return sounds[soundID];
 	}
 
-	ALuint SoundLoader::LoadSoundFromPath(std::string path)
+	int SoundLoader::LoadSoundFromFile(const std::string& path)
 	{
+		int pos = std::distance(paths.begin(), std::find(paths.begin(), paths.end(), path));
+		std::cout << pos << std::endl;
+		if(pos < paths.size())
+		{
+			return pos;
+		}
+		else
+		{
+			std::shared_ptr<sf::SoundBuffer> buffer = std::make_shared<sf::SoundBuffer>();
+			if (!buffer->loadFromFile(path))
+			{
+				GlobalLogger->Log(Logger::Error, "Failed to load sound from path: '" + path + "'");
+				buffer.reset();
+				return -1;
+			}
 
 
-		return 0;
+			sounds.emplace_back(buffer);
+			paths.emplace_back(path);
+
+			return sounds.size() - 1;
+		}
+	}
+
+	void SoundLoader::ClearSounds()
+	{
+		for (int i = sounds.size() - 1; i >= 0; i--)
+		{
+			sounds[i].reset();
+			sounds.erase(sounds.begin() + i);
+		}
+
+		paths.erase(paths.begin(), paths.end());
 	}
 
 }
