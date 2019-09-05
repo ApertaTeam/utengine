@@ -18,7 +18,8 @@ namespace UT
     void Sprite::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         states.transform *= getTransform();
-        sf::FloatRect transformRect({0, 0}, sf::Vector2f(GetTextureRect().width, GetTextureRect().height));
+        const auto& rect = GetTextureRect();
+        sf::FloatRect transformRect({0, 0}, sf::Vector2f(rect.width, rect.height));
         transformRect = states.transform.transformRect(transformRect);
         sf::VertexArray arr(sf::Quads, 4);
         arr[0].position = sf::Vector2f(transformRect.left, transformRect.top);
