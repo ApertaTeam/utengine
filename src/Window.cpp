@@ -17,8 +17,8 @@ namespace UT
 
         this->win = new sf::RenderWindow(sf::VideoMode(size.x, size.y), title, flags);
 
-		if (icon.getSize().x != 0) {
-			this->win->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+		if (const auto& size = icon.getSize(); size.x != 0) {
+			this->win->setIcon(size.x, size.y, icon.getPixelsPtr());
 		}
     }
 
@@ -30,7 +30,9 @@ namespace UT
     void Window::CenterWindow()
     {
         if (this->win == NULL) return;
-        sf::Vector2u center{sf::VideoMode::getDesktopMode().width/2 - (this->win->getSize().x/2), sf::VideoMode::getDesktopMode().height/2 - (this->win->getSize().y/2)};
+        const auto& desktopMode = sf::VideoMode::getDesktopMode();
+        const auto& size = this->win->getSize();
+        sf::Vector2u center{desktopMode.width/2 - (size.x/2), desktopMode.height/2 - (size.y/2)};
         this->win->setPosition((sf::Vector2i)center);
     }
 
