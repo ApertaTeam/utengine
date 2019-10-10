@@ -5,18 +5,26 @@ namespace UT
     void Rectangle9Slice::Update() {
         if (rect.left != resizeRect.left) {
             rect.left -= resizeCalculations.x;
+            if (resizeCalculations.x >= 0 && rect.left < resizeRect.left) rect.left = resizeRect.left;
+            else if (resizeCalculations.x < 0 && rect.left > resizeRect.left) rect.left = resizeRect.left;
         }
 
         if (rect.top != resizeRect.top) {
             rect.top -= resizeCalculations.y;
+            if (resizeCalculations.y >= 0 && rect.top < resizeRect.top) rect.top = resizeRect.top;
+            else if (resizeCalculations.y < 0 && rect.top > resizeRect.top) rect.top = resizeRect.top;
         }
 
         if (rect.width != resizeRect.width) {
             rect.width -= resizeCalculations.z;
+            if (resizeCalculations.z >= 0 && rect.width < resizeRect.width) rect.width = resizeRect.width;
+            else if (resizeCalculations.z < 0 && rect.width > resizeRect.width) rect.width = resizeRect.width;
         }
 
         if (rect.height != resizeRect.height) {
             rect.height -= resizeCalculations.w;
+            if (resizeCalculations.w >= 0 && rect.height < resizeRect.height) rect.height = resizeRect.height;
+            else if (resizeCalculations.w < 0 && rect.height > resizeRect.height) rect.height = resizeRect.height;
         }
     }
 
@@ -26,10 +34,10 @@ namespace UT
         resizeSpeed = speed;
         
         resizeCalculations = {
-            (float)((this->rect.left - resizeRect.left) / resizeSpeed),
-            (float)((this->rect.top - resizeRect.top) / resizeSpeed),
-            (float)((this->rect.width - resizeRect.width) / resizeSpeed),
-            (float)((this->rect.height - resizeRect.height) / resizeSpeed)
+            ((float)(this->rect.left - resizeRect.left) / (float)resizeSpeed),
+            ((float)(this->rect.top - resizeRect.top) / (float)resizeSpeed),
+            ((float)(this->rect.width - resizeRect.width) / (float)resizeSpeed),
+            ((float)(this->rect.height - resizeRect.height) / (float)resizeSpeed)
         };
     }
 
