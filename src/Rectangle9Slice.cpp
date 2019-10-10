@@ -1,10 +1,36 @@
 #include "Rectangle9Slice.h"
-
+#include <iostream>
 namespace UT
 {
-    void Rectangle9Slice::MoveToRect(sf::IntRect rect)
+	void Rectangle9Slice::Update() {
+		if (rect.left != resizeRect.left) {
+			rect.left -= resizeCalculations.x;
+		}
+
+		if (rect.top != resizeRect.top) {
+			rect.top -= resizeCalculations.y;
+		}
+
+		if (rect.width != resizeRect.width) {
+			rect.width -= resizeCalculations.z;
+		}
+
+		if (rect.height != resizeRect.height) {
+			rect.height -= resizeCalculations.w;
+		}
+	}
+
+    void Rectangle9Slice::MoveToRect(sf::IntRect rect, int speed)
     {
-        // TODO: Implement
+		resizeRect = rect;
+		resizeSpeed = speed;
+		
+		resizeCalculations = {
+			(float)((this->rect.left - resizeRect.left) / resizeSpeed),
+			(float)((this->rect.top - resizeRect.top) / resizeSpeed),
+			(float)((this->rect.width - resizeRect.width) / resizeSpeed),
+			(float)((this->rect.height - resizeRect.height) / resizeSpeed)
+		};
     }
 
     void Rectangle9Slice::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -19,22 +45,29 @@ namespace UT
         int endx = (rect.left + rect.width) - upperRight.GetTextureRect().width;
         int endy = (rect.top + rect.height) - lowerLeft.GetTextureRect().height;
 
-		// Upper lien
+		// Upper line
         upperLeft.setPosition(x, y);
         target.draw(upperLeft);
 
         x += upperLeft.GetTextureRect().width;
 
-        auto ucRect = upperCenter.GetTextureRect();
+		auto ucRect = upperCenter.GetTextureRect();
+		auto mlRect = middleLeft.GetTextureRect();
+		auto mcRect = middleCenter.GetTextureRect();
+		auto mrRect = middleRight.GetTextureRect();
+		auto lcRect = lowerCenter.GetTextureRect();
 
         while (x < endx)
         {
             if (x + ucRect.width > endx)
             {
                 upperCenter.SetTextureRect({ ucRect.left, ucRect.top, ucRect.width - (endx - x), ucRect.height});
+				upperCenter.setPosition(x, y);
+				x = endx;
                 target.draw(upperCenter);
                 break;
             }
+
             upperCenter.setPosition(x, y);
             target.draw(upperCenter);
             x += ucRect.width;
@@ -47,21 +80,23 @@ namespace UT
         y += upperLeft.GetTextureRect().height;
 		
 		// Middle line
-		int localy = rect.top + ucRect.height;
+		int localy = rect.top + mcRect.height;
 
 		while (x < endx)
 		{
-			localy = rect.top + ucRect.height;
+			localy = rect.top + mcRect.height;
 
 			// If width cut off
-			if (x + ucRect.width > endx)
+			if (x + mcRect.width > endx)
 			{
-				while (localy + ucRect.height < endy) {
-					sf::IntRect texRect = { ucRect.left, ucRect.top, ucRect.width - (endx - x), ucRect.height - (endy - ucRect.height - localy) };
+				while (localy + mcRect.height < endy) {
+					std::cout << endy << ", " << localy << std::endl;
+					sf::IntRect texRect = { mcRect.left, mcRect.top, mcRect.width - (endx - x), mcRect.height };
 
 					// If height cut off
-					if (localy + ucRect.height > endy)
+					if (localy + mcRect.height > endy)
 					{
+						texRect.height = mcRect.height - (endy - localy);
 						if (x == origx) {
 							middleLeft.SetTextureRect(texRect);
 							target.draw(middleLeft);
@@ -76,14 +111,16 @@ namespace UT
 					// Standard repitition
 					if (x == origx) {
 						middleLeft.SetTextureRect(texRect);
+						middleLeft.setPosition(x, localy);
 						target.draw(middleLeft);
 					}
 					else {
 						middleCenter.SetTextureRect(texRect);
+						middleLeft.setPosition(x, localy);
 						target.draw(middleCenter);
 					}
 
-					localy += ucRect.height;
+					localy += mcRect.height;
 				}
 				break;
 			}
@@ -91,14 +128,14 @@ namespace UT
 			// Standard repetition
 			while (localy < endy) {
 				// If height cut off
-				if (localy + ucRect.height > endy)
+				if (localy + mcRect.height > endy)
 				{
 					if (x == origx) {
-						middleLeft.SetTextureRect({ ucRect.left, ucRect.top, ucRect.width, ucRect.height - (endy - ucRect.height - localy) });
+						middleLeft.SetTextureRect({ mlRect.left, mlRect.top, mlRect.width, mlRect.height - (endy - localy) });
 						target.draw(middleLeft);
 					}
 					else {
-						middleCenter.SetTextureRect({ ucRect.left, ucRect.top, ucRect.width, ucRect.height - (endy - ucRect.height - localy) });
+						middleCenter.SetTextureRect({ mcRect.left, mcRect.top, mcRect.width, mcRect.height - (endy - localy) });
 						target.draw(middleCenter);
 					}
 					break;
@@ -106,34 +143,38 @@ namespace UT
 
 				// Standard repitition
 				if (x == origx) {
+					middleLeft.SetTextureRect({ mlRect.left, mlRect.top, mlRect.width, mlRect.height });
 					middleLeft.setPosition(x, localy);
 					target.draw(middleLeft);
 				}
 				else {
+					middleCenter.SetTextureRect({ mcRect.left, mcRect.top, mcRect.width, mcRect.height });
 					middleCenter.setPosition(x, localy);
 					target.draw(middleCenter);
 				}
 
-				localy += ucRect.height;
+				localy += mcRect.height;
 			}
-			x += ucRect.width;
+			x += mcRect.width;
 		}
 
-		localy = rect.top + ucRect.height;
+		localy = rect.top + mcRect.height;
+		x = endx;
 
 		// Right side of middle line
 		while (localy < endy) {
-			if (localy + ucRect.height > endy)
+			if (localy + mrRect.height > endy)
 			{
-				middleRight.SetTextureRect({ ucRect.left, ucRect.top, ucRect.width, ucRect.height - (endy - ucRect.height - localy) });
+				middleRight.SetTextureRect({ mrRect.left, mrRect.top, mrRect.width, mrRect.height - (endy - localy) });
 				target.draw(middleRight);
+				localy += mrRect.height + (endy - localy);
 				break;
 			}
 
 			middleRight.setPosition(x, localy);
 			target.draw(middleRight);
 
-			localy += ucRect.height;
+			localy += mrRect.height;
 		}
 
 		x = origx;
@@ -148,15 +189,17 @@ namespace UT
 
 		while (x < endx)
 		{
-			if (x + ucRect.width > endx)
+			if (x + lcRect.width > endx)
 			{
-				lowerCenter.SetTextureRect({ ucRect.left, ucRect.top, ucRect.width - (endx - x), ucRect.height });
+				lowerCenter.SetTextureRect({ lcRect.left, lcRect.top, lcRect.width - (endx - x), lcRect.height });
 				target.draw(lowerCenter);
+				x = endx;
 				break;
 			}
+
 			lowerCenter.setPosition(x, y);
 			target.draw(lowerCenter);
-			x += ucRect.width;
+			x += lcRect.width;
 		}
 
 		lowerRight.setPosition(x, y);

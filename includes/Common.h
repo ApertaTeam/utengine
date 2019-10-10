@@ -33,6 +33,18 @@ namespace UT
         Vector4(int x, int y, int z, int w) : x(x), y(y), z(z), w(w) {};
     };
 
+	// Vector 4 Float
+	struct Vector4f
+	{
+		float x;
+		float y;
+		float z;
+		float w;
+
+		Vector4f() : x(0), y(0), z(0), w(0) {};
+		Vector4f(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {};
+	};
+
     // Transform
     struct Transform
     {

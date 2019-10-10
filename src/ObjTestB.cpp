@@ -26,14 +26,17 @@ namespace UTSandbox
 			Sprite(testRectTexture, {50, 50, 25, 25}),
 		};
 
-		sf::Rect rect = {20, 260, 600, 200};
+		sf::Rect rect = {80, 300, 70, 100};
 
 		testRectangle9Slice = Rectangle9Slice(rect, set);
+
+
+		testRectangle9Slice.MoveToRect({0, 0, 640, 480}, 200);
 	}
 
 	void ObjTestB::Update()
 	{
-		// No updating necessary
+		testRectangle9Slice.Update();
 	}
 
 	void ObjTestB::draw(sf::RenderTarget& target, sf::RenderStates states) const
