@@ -1,5 +1,5 @@
 #include "Rectangle9Slice.h"
-#include <iostream>
+
 namespace UT
 {
 	void Rectangle9Slice::Update() {
@@ -61,7 +61,6 @@ namespace UT
         {
             if (x + ucRect.width > endx)
             {
-				std::cout << endx << ", " << x << std::endl;
                 upperCenter.SetTextureRect({ ucRect.left, ucRect.top, endx - x, ucRect.height});
 				upperCenter.setPosition(x, y);
                 target.draw(upperCenter);

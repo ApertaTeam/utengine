@@ -31,7 +31,7 @@ namespace UTSandbox
 		testRectangle9Slice = Rectangle9Slice(rect, set);
 
 
-		testRectangle9Slice.MoveToRect({0, 0, 640, 480}, 200);
+		testRectangle9Slice.MoveToRect({0, 0, 640, 480}, 50);
 	}
 
 	void ObjTestB::Update()
