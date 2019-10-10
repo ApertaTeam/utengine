@@ -49,10 +49,10 @@ namespace UT
 		// Middle line
 		int localy = rect.top + ucRect.height;
 
-		while (localy + ucRect.height < endy - ucRect.height) {
-			if (localy + ucRect.height > endy - ucRect.height)
+		while (localy < endy) {
+			if (localy + ucRect.height > endy)
 			{
-				middleLeft.SetTextureRect({ ucRect.left, ucRect.top, ucRect.width, ucRect.height - (endy - ucRect.height - localy) });
+				middleLeft.SetTextureRect({ ucRect.left, ucRect.top, ucRect.width, ucRect.height - (endy - localy) });
 				target.draw(middleLeft);
 				break;
 			}
@@ -72,8 +72,8 @@ namespace UT
 
 			if (x + ucRect.width > endx)
 			{
-				while (localy + ucRect.height < endy - ucRect.height) {
-					if (localy + ucRect.height > endy - ucRect.height)
+				while (localy + ucRect.height < endy) {
+					if (localy + ucRect.height > endy)
 					{
 						middleCenter.SetTextureRect({ ucRect.left, ucRect.top, ucRect.width - (endx - x), ucRect.height - (endy - ucRect.height - localy) });
 						target.draw(middleCenter);
@@ -89,8 +89,8 @@ namespace UT
 			}
 
 
-			while (localy + ucRect.height < endy - ucRect.height) {
-				if (localy + ucRect.height > endy - ucRect.height)
+			while (localy < endy) {
+				if (localy + ucRect.height > endy)
 				{
 					middleCenter.SetTextureRect({ ucRect.left, ucRect.top, ucRect.width, ucRect.height - (endy - ucRect.height - localy) });
 					target.draw(middleCenter);
@@ -107,8 +107,8 @@ namespace UT
 
 		localy = rect.top + ucRect.height;
 
-		while (localy + ucRect.height < endy - ucRect.height) {
-			if (localy + ucRect.height > endy - ucRect.height)
+		while (localy < endy) {
+			if (localy + ucRect.height > endy)
 			{
 				middleRight.SetTextureRect({ ucRect.left, ucRect.top, ucRect.width, ucRect.height - (endy - ucRect.height - localy) });
 				target.draw(middleRight);
@@ -122,9 +122,6 @@ namespace UT
 		}
 
 		x = origx;
-		y += middleRight.GetTextureRect().height;
-
-
 		y = localy;
 		
 
