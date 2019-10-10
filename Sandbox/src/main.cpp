@@ -12,6 +12,7 @@
 
 // Sandbox
 #include "ObjTest.h"
+#include "ObjTestB.h"
 
 
 using namespace UT;
@@ -32,7 +33,10 @@ int main()
 
     // Test object
     UTSandbox::ObjTest testObject = UTSandbox::ObjTest();
-    mainRoom.objects.push_back(&testObject);
+    //mainRoom.objects.push_back(&testObject);
+
+	UTSandbox::ObjTestB testObjectB = UTSandbox::ObjTestB();
+	mainRoom.objects.push_back(&testObjectB);
 
     //-- Main room objects end --//
 
