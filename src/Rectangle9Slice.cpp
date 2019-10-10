@@ -47,32 +47,85 @@ namespace UT
         y += upperLeft.GetTextureRect().height;
 		
 		// Middle line
-		// TODO: Repeat along the Y like it does on the X
-		middleLeft.setPosition(x, y);
-		target.draw(middleLeft);
+		int localy = rect.top + ucRect.height;
 
-		x += middleLeft.GetTextureRect().width;
-
-		ucRect = middleCenter.GetTextureRect();
-		
-		while (x < endx)
-		{
-			if (x + ucRect.width > endx)
+		while (localy + ucRect.height < endy - ucRect.height) {
+			if (localy + ucRect.height > endy - ucRect.height)
 			{
-				middleCenter.SetTextureRect({ ucRect.left, ucRect.top, ucRect.width - (endx - x), ucRect.height });
-				target.draw(middleCenter);
+				middleLeft.SetTextureRect({ ucRect.left, ucRect.top, ucRect.width, ucRect.height - (endy - ucRect.height - localy) });
+				target.draw(middleLeft);
 				break;
 			}
-			middleCenter.setPosition(x, y);
-			target.draw(middleCenter);
+			
+			middleLeft.setPosition(x, localy);
+			target.draw(middleLeft);
+
+			localy += ucRect.height;
+		}
+
+		x += middleLeft.GetTextureRect().width;
+		
+
+		while (x < endx)
+		{
+			localy = rect.top + ucRect.height;
+
+			if (x + ucRect.width > endx)
+			{
+				while (localy + ucRect.height < endy - ucRect.height) {
+					if (localy + ucRect.height > endy - ucRect.height)
+					{
+						middleCenter.SetTextureRect({ ucRect.left, ucRect.top, ucRect.width - (endx - x), ucRect.height - (endy - ucRect.height - localy) });
+						target.draw(middleCenter);
+						break;
+					}
+
+					middleCenter.SetTextureRect({ ucRect.left, ucRect.top, ucRect.width - (endx - x), ucRect.height });
+					target.draw(middleCenter);
+
+					localy += ucRect.height;
+				}
+				break;
+			}
+
+
+			while (localy + ucRect.height < endy - ucRect.height) {
+				if (localy + ucRect.height > endy - ucRect.height)
+				{
+					middleCenter.SetTextureRect({ ucRect.left, ucRect.top, ucRect.width, ucRect.height - (endy - ucRect.height - localy) });
+					target.draw(middleCenter);
+					break;
+				}
+
+				middleCenter.setPosition(x, localy);
+				target.draw(middleCenter);
+
+				localy += ucRect.height;
+			}
 			x += ucRect.width;
 		}
 
-		middleRight.setPosition(x, y);
-		target.draw(middleRight);
+		localy = rect.top + ucRect.height;
+
+		while (localy + ucRect.height < endy - ucRect.height) {
+			if (localy + ucRect.height > endy - ucRect.height)
+			{
+				middleRight.SetTextureRect({ ucRect.left, ucRect.top, ucRect.width, ucRect.height - (endy - ucRect.height - localy) });
+				target.draw(middleRight);
+				break;
+			}
+
+			middleRight.setPosition(x, localy);
+			target.draw(middleRight);
+
+			localy += ucRect.height;
+		}
 
 		x = origx;
-		y += middleLeft.GetTextureRect().height;
+		y += middleRight.GetTextureRect().height;
+
+
+		y = localy;
 		
 
 		// Lower line
@@ -80,8 +133,6 @@ namespace UT
 		target.draw(lowerLeft);
 
 		x += lowerLeft.GetTextureRect().width;
-
-		ucRect = lowerCenter.GetTextureRect();
 
 		while (x < endx)
 		{
@@ -100,6 +151,6 @@ namespace UT
 		target.draw(lowerRight);
 
 		x = origx;
-		y += lowerLeft.GetTextureRect().height;
+		y += lowerRight.GetTextureRect().height;
     }
 }

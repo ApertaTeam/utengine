@@ -5,7 +5,7 @@
 namespace UTSandbox
 {
 	ObjTestB::ObjTestB()
-		: testRectTexture(TextureHandler::LoadTextureFromFile("tileset.png"))
+		: testRectTexture(TextureHandler::LoadTextureFromFile("rectslice.png"))
 	{
 	}
 
@@ -13,18 +13,18 @@ namespace UTSandbox
 	{
 		std::array<Sprite, 9> set =
 		{
-			Sprite(testRectTexture, {120, 0, 20, 20}),
-			Sprite(testRectTexture, {100, 0, 20, 20}),
-			Sprite(testRectTexture, {140, 0, 20, 20}),
-			Sprite(testRectTexture, {100, 0, 20, 20}),
-			Sprite(testRectTexture, {100, 0, 20, 20}),
-			Sprite(testRectTexture, {100, 0, 20, 20}),
-			Sprite(testRectTexture, {120, 20, 20, 20}),
-			Sprite(testRectTexture, {100, 0, 20, 20}),
-			Sprite(testRectTexture, {140, 20, 20, 20}),
+			Sprite(testRectTexture, {0, 0, 25, 25}),
+			Sprite(testRectTexture, {25, 0, 25, 25}),
+			Sprite(testRectTexture, {50, 0, 25, 25}),
+			Sprite(testRectTexture, {0, 25, 25, 25}),
+			Sprite(testRectTexture, {25, 25, 25, 25}),
+			Sprite(testRectTexture, {50, 25, 25, 25}),
+			Sprite(testRectTexture, {0, 50, 25, 25}),
+			Sprite(testRectTexture, {25, 50, 25, 25}),
+			Sprite(testRectTexture, {50, 50, 25, 25}),
 		};
 
-		sf::Rect rect = {20, 20, 450, 600};
+		sf::Rect rect = {20, 20, 450, 450};
 
 		testRectangle9Slice = Rectangle9Slice(rect, set);
 	}
