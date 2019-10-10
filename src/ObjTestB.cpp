@@ -4,44 +4,44 @@
 
 namespace UTSandbox
 {
-	ObjTestB::ObjTestB()
-		: testRectTexture(TextureHandler::LoadTextureFromFile("rectslice.png"))
-	{
-	}
+    ObjTestB::ObjTestB()
+        : testRectTexture(TextureHandler::LoadTextureFromFile("rectslice.png"))
+    {
+    }
 
-	void ObjTestB::Init()
-	{
-		std::array<Sprite, 9> set =
-		{
-			Sprite(testRectTexture, {0, 0, 25, 25}),
-			Sprite(testRectTexture, {25, 0, 25, 25}),
-			Sprite(testRectTexture, {50, 0, 25, 25}),
+    void ObjTestB::Init()
+    {
+        std::array<Sprite, 9> set =
+        {
+            Sprite(testRectTexture, {0, 0, 25, 25}),
+            Sprite(testRectTexture, {25, 0, 25, 25}),
+            Sprite(testRectTexture, {50, 0, 25, 25}),
 
-			Sprite(testRectTexture, {0, 25, 25, 25}),
-			Sprite(testRectTexture, {25, 25, 25, 25}),
-			Sprite(testRectTexture, {50, 25, 25, 25}),
+            Sprite(testRectTexture, {0, 25, 25, 25}),
+            Sprite(testRectTexture, {25, 25, 25, 25}),
+            Sprite(testRectTexture, {50, 25, 25, 25}),
 
-			Sprite(testRectTexture, {0, 50, 25, 25}),
-			Sprite(testRectTexture, {25, 50, 25, 25}),
-			Sprite(testRectTexture, {50, 50, 25, 25}),
-		};
+            Sprite(testRectTexture, {0, 50, 25, 25}),
+            Sprite(testRectTexture, {25, 50, 25, 25}),
+            Sprite(testRectTexture, {50, 50, 25, 25}),
+        };
 
-		sf::Rect rect = {80, 300, 70, 100};
+        sf::Rect rect = {80, 300, 70, 100};
 
-		testRectangle9Slice = Rectangle9Slice(rect, set);
+        testRectangle9Slice = Rectangle9Slice(rect, set);
 
 
-		testRectangle9Slice.MoveToRect({0, 0, 640, 480}, 50);
-	}
+        testRectangle9Slice.MoveToRect({0, 0, 640, 480}, 50);
+    }
 
-	void ObjTestB::Update()
-	{
-		testRectangle9Slice.Update();
-	}
+    void ObjTestB::Update()
+    {
+        testRectangle9Slice.Update();
+    }
 
-	void ObjTestB::draw(sf::RenderTarget& target, sf::RenderStates states) const
-	{
-		states.transform *= getTransform();
-		target.draw(testRectangle9Slice, states);
-	}
+    void ObjTestB::draw(sf::RenderTarget& target, sf::RenderStates states) const
+    {
+        states.transform *= getTransform();
+        target.draw(testRectangle9Slice, states);
+    }
 }

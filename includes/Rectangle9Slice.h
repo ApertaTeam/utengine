@@ -15,7 +15,7 @@ namespace UT
         Rectangle9Slice(sf::IntRect rect) : slice(), rect() {};
         Rectangle9Slice(sf::IntRect rect, std::array<Sprite, 9> slice) : slice(slice), rect(rect) {};
 
-		void Update();
+        void Update();
 
         inline void SetSlice(std::array<Sprite, 9> slice) { this->slice = slice; }
         inline void SetRect(sf::IntRect rect) { this->rect = rect; }
@@ -28,9 +28,9 @@ namespace UT
         std::array<Sprite, 9> slice;
         sf::IntRect rect;
 
-		sf::IntRect resizeRect = {};
-		Vector4f resizeCalculations = {};
-		int resizeSpeed = 0;
+        sf::IntRect resizeRect = {};
+        Vector4f resizeCalculations = {};
+        int resizeSpeed = 0;
 
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     };

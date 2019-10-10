@@ -8,19 +8,19 @@ using namespace UT;
 
 namespace UTSandbox
 {
-	class ObjTestB : public Object
-	{
-	public:
-		ObjTestB();
+    class ObjTestB : public Object
+    {
+    public:
+        ObjTestB();
 
-		void Init() override;
-		void Update() override;
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+        void Init() override;
+        void Update() override;
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-	private:
-		int testRectTexture;
-		Rectangle9Slice testRectangle9Slice;
-	};
+    private:
+        int testRectTexture;
+        Rectangle9Slice testRectangle9Slice;
+    };
 }
 
 #endif

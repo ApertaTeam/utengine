@@ -20,7 +20,7 @@ namespace UTSandbox
 
     private:
         int testTexture;
-		int testTileset;
+        int testTileset;
         Sprite testSprite;
         TileMap testMap;
     };
