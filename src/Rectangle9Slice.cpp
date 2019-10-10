@@ -61,10 +61,11 @@ namespace UT
         {
             if (x + ucRect.width > endx)
             {
-                upperCenter.SetTextureRect({ ucRect.left, ucRect.top, ucRect.width - (endx - x), ucRect.height});
+				std::cout << endx << ", " << x << std::endl;
+                upperCenter.SetTextureRect({ ucRect.left, ucRect.top, endx - x, ucRect.height});
 				upperCenter.setPosition(x, y);
-				x = endx;
                 target.draw(upperCenter);
+				x = endx;
                 break;
             }
 
@@ -89,20 +90,18 @@ namespace UT
 			// If width cut off
 			if (x + mcRect.width > endx)
 			{
-				while (localy + mcRect.height < endy) {
-					std::cout << endy << ", " << localy << std::endl;
-					sf::IntRect texRect = { mcRect.left, mcRect.top, mcRect.width - (endx - x), mcRect.height };
-
+				while (localy < endy) {
 					// If height cut off
 					if (localy + mcRect.height > endy)
 					{
-						texRect.height = mcRect.height - (endy - localy);
 						if (x == origx) {
-							middleLeft.SetTextureRect(texRect);
+							middleLeft.SetTextureRect({ mlRect.left, mlRect.top, endx - x, endy - localy });
+							middleLeft.setPosition(x, localy);
 							target.draw(middleLeft);
 						}
 						else {
-							middleCenter.SetTextureRect(texRect);
+							middleCenter.SetTextureRect({ mcRect.left, mcRect.top, endx - x, endy - localy });
+							middleCenter.setPosition(x, localy);
 							target.draw(middleCenter);
 						}
 						break;
@@ -110,13 +109,13 @@ namespace UT
 
 					// Standard repitition
 					if (x == origx) {
-						middleLeft.SetTextureRect(texRect);
+						middleLeft.SetTextureRect({ mlRect.left, mlRect.top, endx - x, mlRect.height });
 						middleLeft.setPosition(x, localy);
 						target.draw(middleLeft);
 					}
 					else {
-						middleCenter.SetTextureRect(texRect);
-						middleLeft.setPosition(x, localy);
+						middleCenter.SetTextureRect({ mcRect.left, mcRect.top, endx - x, mcRect.height });
+						middleCenter.setPosition(x, localy);
 						target.draw(middleCenter);
 					}
 
@@ -131,11 +130,13 @@ namespace UT
 				if (localy + mcRect.height > endy)
 				{
 					if (x == origx) {
-						middleLeft.SetTextureRect({ mlRect.left, mlRect.top, mlRect.width, mlRect.height - (endy - localy) });
+						middleLeft.SetTextureRect({ mlRect.left, mlRect.top, mlRect.width, endy - localy });
+						middleLeft.setPosition(x, localy);
 						target.draw(middleLeft);
 					}
 					else {
-						middleCenter.SetTextureRect({ mcRect.left, mcRect.top, mcRect.width, mcRect.height - (endy - localy) });
+						middleCenter.SetTextureRect({ mcRect.left, mcRect.top, mcRect.width, endy - localy });
+						middleCenter.setPosition(x, localy);
 						target.draw(middleCenter);
 					}
 					break;
@@ -165,9 +166,10 @@ namespace UT
 		while (localy < endy) {
 			if (localy + mrRect.height > endy)
 			{
-				middleRight.SetTextureRect({ mrRect.left, mrRect.top, mrRect.width, mrRect.height - (endy - localy) });
+				middleRight.SetTextureRect({ mrRect.left, mrRect.top, mrRect.width, endy - localy });
+				middleRight.setPosition(x, localy);
 				target.draw(middleRight);
-				localy += mrRect.height + (endy - localy);
+				localy += endy - localy;
 				break;
 			}
 
@@ -191,7 +193,8 @@ namespace UT
 		{
 			if (x + lcRect.width > endx)
 			{
-				lowerCenter.SetTextureRect({ lcRect.left, lcRect.top, lcRect.width - (endx - x), lcRect.height });
+				lowerCenter.SetTextureRect({ lcRect.left, lcRect.top, endx - x, lcRect.height });
+				lowerCenter.setPosition(x, y);
 				target.draw(lowerCenter);
 				x = endx;
 				break;
