@@ -40,6 +40,11 @@ namespace UT
         quad[2].texCoords = coords[2].texCoords;
         quad[3].texCoords = coords[3].texCoords;
 
+        quad[0].color = coords[0].color;
+        quad[1].color = coords[1].color;
+        quad[2].color = coords[2].color;
+        quad[3].color = coords[3].color;
+
         offset += 4;
     }
 

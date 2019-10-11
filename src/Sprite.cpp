@@ -7,12 +7,14 @@ namespace UT
     {
         textureId = -1;
         textureRect = sf::IntRect(0, 0, 0, 0);
+        color = sf::Color::White;
     }
 
     Sprite::Sprite(int texId, sf::IntRect texRect)
     {
         textureId = texId;
         textureRect = texRect;
+        color = sf::Color::White;
     }
 
     void Sprite::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -31,6 +33,11 @@ namespace UT
         arr[1].texCoords = sf::Vector2f(textureRect.left +textureRect.width, textureRect.top);
         arr[2].texCoords = sf::Vector2f(textureRect.left +textureRect.width, textureRect.top + textureRect.height);
         arr[3].texCoords = sf::Vector2f(textureRect.left, textureRect.top + textureRect.height);
+
+        arr[0].color = color;
+        arr[1].color = color;
+        arr[2].color = color;
+        arr[3].color = color;
 
         BatchHandler::getInstance().DrawSpriteRect(textureId, arr, target);
     }

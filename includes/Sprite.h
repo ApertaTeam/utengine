@@ -19,9 +19,13 @@ namespace UT
 
         inline sf::IntRect GetTextureRect() const { return textureRect; }
         inline void SetTextureRect(sf::IntRect texRect) { textureRect = texRect; }
+
+        inline void SetColor(sf::Color color) { this->color = color; }
+        inline sf::Color GetColor() const { return this->color; }
     private:
         int textureId;
         sf::IntRect textureRect;
+        sf::Color color;
 
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     };
