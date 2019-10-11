@@ -18,10 +18,12 @@ namespace UT
         /** Constructor that initially sets array of sprite slices */
         Rectangle9Slice(std::array<Sprite, 9> slice) : slice(slice), rect() {};
 
-        /** Constructor that initially sets rectangle points */
+        /** Constructor that initially sets rectangle points
+        * Define rectangle points in this order: left, top, right, bottom */
         Rectangle9Slice(sf::IntRect rect) : slice(), rect() {};
 
-        /** Constructor that initially sets rectangle points and array of sprite slices */
+        /** Constructor that initially sets rectangle points and array of sprite slices
+        * Define rectangle points in this order: left, top, right, bottom */
         Rectangle9Slice(sf::IntRect rect, std::array<Sprite, 9> slice) : slice(slice), rect(rect) {};
 
 
@@ -32,18 +34,21 @@ namespace UT
         /** Sets array of sprites used as slices */
         inline void SetSlice(std::array<Sprite, 9> slice) { this->slice = slice; }
 
-        /** Instantly defines rectangle points */
+        /** Instantly defines rectangle points
+        * Define rectangle points in this order: left, top, right, bottom */
         inline void SetRect(sf::IntRect rect) { this->rect = rect; }
 
         /** Returns array of sprites used as slices */
         inline const std::array<Sprite, 9> GetSlice() const { return this->slice; }
 
-        /** Returns rectangle points */
+        /** Returns rectangle points in this order: left, top, right, bottom*/
         inline const sf::IntRect GetRect() const { return this->rect; }
 
 
-        /** Begins the transition from the current points to the new points */
-        void MoveToRect(sf::IntRect rect, int speed = 2);
+        /** Begins the transition from the current points to the new points
+        * Define rectangle points in this order: left, top, right, bottom
+        * The higher the speed, the faster the transition is */
+        void MoveToRect(sf::IntRect rect, int speed = 40);
 
     private:
         std::array<Sprite, 9> slice;
