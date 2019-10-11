@@ -29,6 +29,7 @@ namespace UT
         sf::IntRect rect;
 
         sf::IntRect resizeRect = {};
+        Vector4f resizeRectSum = {};
         Vector4f resizeCalculations = {};
         int resizeSpeed = 0;
 

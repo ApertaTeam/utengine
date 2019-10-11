@@ -4,25 +4,29 @@ namespace UT
 {
     void Rectangle9Slice::Update() {
         if (rect.left != resizeRect.left) {
-            rect.left -= resizeCalculations.x;
+            resizeRectSum.x -= resizeCalculations.x;
+            rect.left = resizeRectSum.x;
             if (resizeCalculations.x >= 0 && rect.left < resizeRect.left) rect.left = resizeRect.left;
             else if (resizeCalculations.x < 0 && rect.left > resizeRect.left) rect.left = resizeRect.left;
         }
 
         if (rect.top != resizeRect.top) {
-            rect.top -= resizeCalculations.y;
+            resizeRectSum.y -= resizeCalculations.y;
+            rect.top = resizeRectSum.y;
             if (resizeCalculations.y >= 0 && rect.top < resizeRect.top) rect.top = resizeRect.top;
             else if (resizeCalculations.y < 0 && rect.top > resizeRect.top) rect.top = resizeRect.top;
         }
 
         if (rect.width != resizeRect.width) {
-            rect.width -= resizeCalculations.z;
+            resizeRectSum.z -= resizeCalculations.z;
+            rect.width = resizeRectSum.z;
             if (resizeCalculations.z >= 0 && rect.width < resizeRect.width) rect.width = resizeRect.width;
             else if (resizeCalculations.z < 0 && rect.width > resizeRect.width) rect.width = resizeRect.width;
         }
 
         if (rect.height != resizeRect.height) {
-            rect.height -= resizeCalculations.w;
+            resizeRectSum.w -= resizeCalculations.w;
+            rect.height = resizeRectSum.w;
             if (resizeCalculations.w >= 0 && rect.height < resizeRect.height) rect.height = resizeRect.height;
             else if (resizeCalculations.w < 0 && rect.height > resizeRect.height) rect.height = resizeRect.height;
         }
@@ -39,6 +43,8 @@ namespace UT
             ((float)(this->rect.width - resizeRect.width) / (float)resizeSpeed),
             ((float)(this->rect.height - resizeRect.height) / (float)resizeSpeed)
         };
+
+        resizeRectSum = {(float)this->rect.left, (float)this->rect.top, (float)this->rect.width, (float)this->rect.height};
     }
 
     void Rectangle9Slice::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -50,8 +56,8 @@ namespace UT
         int x = rect.left;
         int origx = x;
         int y = rect.top;
-        int endx = (rect.left + rect.width) - upperRight.GetTextureRect().width;
-        int endy = (rect.top + rect.height) - lowerLeft.GetTextureRect().height;
+        int endx = (rect.width) - upperRight.GetTextureRect().width;
+        int endy = (rect.height) - lowerLeft.GetTextureRect().height;
 
         // Upper line
         upperLeft.setPosition(x, y);
