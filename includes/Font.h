@@ -10,7 +10,7 @@ namespace UT
     {
         char character;
         sf::IntRect texture;
-        int shift; // Not sure what this is used for
+        int shift; // Probably used for the horizontal offset to the next glyph relative to the starting x of the current glyph
         int offset;
     };
 
