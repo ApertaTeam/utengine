@@ -109,7 +109,8 @@ namespace UT
         return true;
     }
 
-    void Game::LoadRoom(Room* room) {
+    void Game::LoadRoom(Room* room) 
+    {
         this->room = room;
 
         objects = room->objects;

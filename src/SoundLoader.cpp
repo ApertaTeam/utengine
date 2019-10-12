@@ -9,8 +9,7 @@ namespace UT
 {
 	std::shared_ptr<sf::SoundBuffer> SoundLoader::GetSoundById(int soundID)
 	{
-		if (soundID >= sounds.size())
-			return nullptr;
+		if (soundID >= sounds.size()) return nullptr;
 		return sounds[soundID];
 	}
 
@@ -18,7 +17,7 @@ namespace UT
 	{
 		int pos = std::distance(paths.begin(), std::find(paths.begin(), paths.end(), path));
 		std::cout << pos << std::endl;
-		if(pos < paths.size())
+		if (pos < paths.size())
 		{
 			return pos;
 		}
@@ -31,7 +30,6 @@ namespace UT
 				buffer.reset();
 				return -1;
 			}
-
 
 			sounds.emplace_back(buffer);
 			paths.emplace_back(path);

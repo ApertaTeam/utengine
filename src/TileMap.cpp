@@ -17,7 +17,10 @@ namespace UT
                 }
                 else
                 {
-                    if (tileset.at(grid[y][x]).GetTextureRect().width != tileWidth || tileset.at(grid[y][x]).GetTextureRect().height != tileHeight) throw InvalidTileException();
+                    if (tileset.at(grid[y][x]).GetTextureRect().width != tileWidth || tileset.at(grid[y][x]).GetTextureRect().height != tileHeight) 
+                    {
+                        throw InvalidTileException();
+                    }
                 }
             }
         }

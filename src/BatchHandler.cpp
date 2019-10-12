@@ -3,6 +3,8 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include "TextureHandler.h"
 
+#define BATCH_SIZE 512
+
 namespace UT
 {
     BatchHandler::BatchHandler()
@@ -15,18 +17,15 @@ namespace UT
     {
         if (textureID != currentTexID)
         {
-            if (currentTexID != -1)
-                DrawBatch();
+            if (currentTexID != -1) DrawBatch();
             currentTexID = textureID;
         }
 
         if (this->target == nullptr) this->target = &target;
 
-        if (!verticesInitialized)
-            InitializeVertices();
+        if (!verticesInitialized) InitializeVertices();
         
-        if (offset >= verticesSize)
-            GrowVertices();
+        if (offset >= verticesSize) GrowVertices();
         
         sf::Vertex* quad = &vertices[offset];
 
@@ -51,8 +50,7 @@ namespace UT
     void BatchHandler::DrawBatch()
     {
         sf::RenderStates states(TextureHandler::GetTextureById(currentTexID).get());
-        if (offset != verticesSize)
-            vertices.resize(offset);
+        if (offset != verticesSize) vertices.resize(offset);
         target->draw(vertices, states);
         verticesInitialized = false;
         offset = 0;
@@ -64,15 +62,15 @@ namespace UT
     void BatchHandler::InitializeVertices()
     {
         vertices.setPrimitiveType(sf::Quads);
-        vertices.resize(256);
-        verticesSize = 256;
+        vertices.resize(BATCH_SIZE);
+        verticesSize = BATCH_SIZE;
         offset = 0;
         verticesInitialized = true;
     }
 
     void BatchHandler::GrowVertices()
     {
-        verticesSize += 256;
+        verticesSize += BATCH_SIZE;
         vertices.resize(verticesSize);
     }
 }

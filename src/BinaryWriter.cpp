@@ -109,8 +109,7 @@ namespace UT
 
     BinaryFileWriter::~BinaryFileWriter()
     {
-        if (canWrite)
-            fclose(this->fd);
+        if (canWrite) fclose(this->fd);
     }
 
     bool BinaryFileWriter::CanWrite()
@@ -120,8 +119,7 @@ namespace UT
 
     int BinaryFileWriter::Write(const void* ptr, size_t size)
     {
-        if (!canWrite)
-            return 0;
+        if (!canWrite) return 0;
         if (this->endian == BIG_ENDIAN)
         {
             switch (size)

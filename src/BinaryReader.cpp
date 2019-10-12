@@ -150,8 +150,7 @@ namespace UT
 
     BinaryFileReader::~BinaryFileReader()
     {
-        if (canRead)
-            fclose(fd);
+        if (canRead) fclose(fd);
     }
 
     bool BinaryFileReader::CanRead()
@@ -161,8 +160,7 @@ namespace UT
 
     int BinaryFileReader::Read(void* ptr, size_t size)
     {
-        if (!canRead)
-            return 0;
+        if (!canRead) return 0;
         if (this->endian == BIG_ENDIAN)
         {
             switch (size)

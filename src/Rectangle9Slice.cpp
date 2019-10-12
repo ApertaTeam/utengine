@@ -2,29 +2,34 @@
 
 namespace UT
 {
-    void Rectangle9Slice::Update() {
-        if (rect.left != resizeRect.left) {
+    void Rectangle9Slice::Update() 
+    {
+        if (rect.left != resizeRect.left) 
+        {
             resizeRectSum.x -= resizeCalculations.x;
             rect.left = resizeRectSum.x;
             if (resizeCalculations.x >= 0 && rect.left < resizeRect.left) rect.left = resizeRect.left;
             else if (resizeCalculations.x < 0 && rect.left > resizeRect.left) rect.left = resizeRect.left;
         }
 
-        if (rect.top != resizeRect.top) {
+        if (rect.top != resizeRect.top) 
+        {
             resizeRectSum.y -= resizeCalculations.y;
             rect.top = resizeRectSum.y;
             if (resizeCalculations.y >= 0 && rect.top < resizeRect.top) rect.top = resizeRect.top;
             else if (resizeCalculations.y < 0 && rect.top > resizeRect.top) rect.top = resizeRect.top;
         }
 
-        if (rect.width != resizeRect.width) {
+        if (rect.width != resizeRect.width) 
+        {
             resizeRectSum.z -= resizeCalculations.z;
             rect.width = resizeRectSum.z;
             if (resizeCalculations.z >= 0 && rect.width < resizeRect.width) rect.width = resizeRect.width;
             else if (resizeCalculations.z < 0 && rect.width > resizeRect.width) rect.width = resizeRect.width;
         }
 
-        if (rect.height != resizeRect.height) {
+        if (rect.height != resizeRect.height) 
+        {
             resizeRectSum.w -= resizeCalculations.w;
             rect.height = resizeRectSum.w;
             if (resizeCalculations.w >= 0 && rect.height < resizeRect.height) rect.height = resizeRect.height;
@@ -37,7 +42,8 @@ namespace UT
         resizeRect = rect;
         resizeSpeed = speed;
         
-        resizeCalculations = {
+        resizeCalculations = 
+        {
             ((float)(this->rect.left - resizeRect.left) / (float)resizeSpeed),
             ((float)(this->rect.top - resizeRect.top) / (float)resizeSpeed),
             ((float)(this->rect.width - resizeRect.width) / (float)resizeSpeed),
@@ -103,16 +109,19 @@ namespace UT
             // If width cut off
             if (x + mcRect.width > endx)
             {
-                while (localy < endy) {
+                while (localy < endy) 
+                {
                     // If height cut off
                     if (localy + mcRect.height > endy)
                     {
-                        if (x == origx) {
+                        if (x == origx) 
+                        {
                             middleLeft.SetTextureRect({ mlRect.left, mlRect.top, endx - x, endy - localy });
                             middleLeft.setPosition(x, localy);
                             target.draw(middleLeft);
                         }
-                        else {
+                        else
+                        {
                             middleCenter.SetTextureRect({ mcRect.left, mcRect.top, endx - x, endy - localy });
                             middleCenter.setPosition(x, localy);
                             target.draw(middleCenter);
@@ -121,12 +130,14 @@ namespace UT
                     }
 
                     // Standard repitition
-                    if (x == origx) {
+                    if (x == origx)
+                    {
                         middleLeft.SetTextureRect({ mlRect.left, mlRect.top, endx - x, mlRect.height });
                         middleLeft.setPosition(x, localy);
                         target.draw(middleLeft);
                     }
-                    else {
+                    else 
+                    {
                         middleCenter.SetTextureRect({ mcRect.left, mcRect.top, endx - x, mcRect.height });
                         middleCenter.setPosition(x, localy);
                         target.draw(middleCenter);
@@ -138,16 +149,19 @@ namespace UT
             }
 
             // Standard repetition
-            while (localy < endy) {
+            while (localy < endy) 
+            {
                 // If height cut off
                 if (localy + mcRect.height > endy)
                 {
-                    if (x == origx) {
+                    if (x == origx) 
+                    {
                         middleLeft.SetTextureRect({ mlRect.left, mlRect.top, mlRect.width, endy - localy });
                         middleLeft.setPosition(x, localy);
                         target.draw(middleLeft);
                     }
-                    else {
+                    else 
+                    {
                         middleCenter.SetTextureRect({ mcRect.left, mcRect.top, mcRect.width, endy - localy });
                         middleCenter.setPosition(x, localy);
                         target.draw(middleCenter);
@@ -156,12 +170,14 @@ namespace UT
                 }
 
                 // Standard repitition
-                if (x == origx) {
+                if (x == origx) 
+                {
                     middleLeft.SetTextureRect({ mlRect.left, mlRect.top, mlRect.width, mlRect.height });
                     middleLeft.setPosition(x, localy);
                     target.draw(middleLeft);
                 }
-                else {
+                else 
+                {
                     middleCenter.SetTextureRect({ mcRect.left, mcRect.top, mcRect.width, mcRect.height });
                     middleCenter.setPosition(x, localy);
                     target.draw(middleCenter);
@@ -176,7 +192,8 @@ namespace UT
         x = endx;
 
         // Right side of middle line
-        while (localy < endy) {
+        while (localy < endy) 
+        {
             if (localy + mrRect.height > endy)
             {
                 middleRight.SetTextureRect({ mrRect.left, mrRect.top, mrRect.width, endy - localy });
