@@ -27,16 +27,20 @@ namespace UT
             {
                 if (rawText[position] == '\\')
                 {
-                    if (rawText[position + 1] == 'n')
+                    if (rawText[(size_t)position + 1] == 'n')
                     {
                         position += 2;
-                        timeout = 2;
+                        timeout = 1;
                     }
+                }
+                else if (rawText[position] == '^')
+                {
+                    
                 }
                 else
                 {
                     position++;
-                    timeout = 2;
+                    timeout = 1;
                 }
             }
 

@@ -27,7 +27,8 @@ namespace UT
 
             auto glyph = font->GetGlyph(rawText.at(i));
             auto sprite = font->GetGlyphSprite(rawText.at(i));
-            sprite.setPosition((x += glyph.shift), y);
+            sprite.setPosition(x, y);
+            x += glyph.shift;
             target.draw(sprite, states);
         }
     }
