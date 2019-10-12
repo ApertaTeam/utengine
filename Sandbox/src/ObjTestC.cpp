@@ -5,12 +5,13 @@
 namespace UTSandbox
 {
     ObjTestC::ObjTestC()
+        : testDialogboxTexture(0)
     {
     }
 
     void ObjTestC::Init()
     {
-        
+        testDialogbox = DialogBox();
     }
 
     void ObjTestC::Update()

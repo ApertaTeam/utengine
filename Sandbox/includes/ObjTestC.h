@@ -3,6 +3,8 @@
 
 #include <Object.h>
 
+#include <DialogBox.h>
+
 using namespace UT;
 
 namespace UTSandbox
@@ -17,7 +19,8 @@ namespace UTSandbox
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     private:
-        
+        int testDialogboxTexture;
+        DialogBox testDialogbox;
     };
 }
 

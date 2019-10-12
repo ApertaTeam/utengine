@@ -1,7 +1,9 @@
 #include "DialogBox.h"
 
-namespace UT {
-    DialogBox::DialogBox() {
+namespace UT
+{
+    DialogBox::DialogBox()
+    {
 
     }
 }

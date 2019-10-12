@@ -1,7 +1,9 @@
 #include "RichText.h"
 
-namespace UT {
-    RichText::RichText() {
+namespace UT
+{
+    RichText::RichText()
+    {
 
     }
 }
