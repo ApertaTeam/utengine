@@ -2,6 +2,12 @@
 
 namespace UT
 {
+    Font::Font()
+    {
+        this->texId = -1;
+        this->glyphs = {};
+    }
+
     Font::Font(int texId, std::map<char, Glyph> glyphs)
     {
         this->texId = texId;

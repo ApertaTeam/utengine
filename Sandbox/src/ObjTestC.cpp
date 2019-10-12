@@ -5,23 +5,32 @@
 namespace UTSandbox
 {
     ObjTestC::ObjTestC()
-        : testDialogboxTexture(0)
+        : testTextTexture(TextureHandler::LoadTextureFromFile("font.png"))
     {
     }
 
     void ObjTestC::Init()
     {
-        testDialogbox = DialogBox();
+        std::map testFontMap = std::map<char, Glyph>();
+
+        testFontMap.insert(std::pair<char, Glyph>('A', Glyph('A', {0, 0, 0, 0}, 6, 0)));
+
+
+        testFont = Font(testTextTexture, testFontMap);
+
+        testTextWriter = TextWriter(&testFont);
+
+        testTextWriter.SetRawText("A");
     }
 
     void ObjTestC::Update()
     {
-        // No need for updateing
+        testTextWriter.Update();
     }
 
     void ObjTestC::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         states.transform *= getTransform();
-        
+        target.draw(testTextWriter, states);
     }
 }
