@@ -33,12 +33,12 @@ int main()
     //-- Main room objects start --//
 
     // Test object
-    //UTSandbox::ObjTest testObject = UTSandbox::ObjTest();
-    //mainRoom.objects.push_back(&testObject);
+    UTSandbox::ObjTest testObject = UTSandbox::ObjTest();
+    mainRoom.objects.push_back(&testObject);
 
     // Test object B
-    //UTSandbox::ObjTestB testObjectB = UTSandbox::ObjTestB();
-    //mainRoom.objects.push_back(&testObjectB);
+    UTSandbox::ObjTestB testObjectB = UTSandbox::ObjTestB();
+    mainRoom.objects.push_back(&testObjectB);
 
     // Test object C
     UTSandbox::ObjTestC testObjectC = UTSandbox::ObjTestC();

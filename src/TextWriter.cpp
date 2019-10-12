@@ -23,20 +23,20 @@ namespace UT
     {
         if (timeout <= 0)
         {
-            if (rawText.length > position)
+            if (rawText.length() > position)
             {
                 if (rawText[position] == '\\')
                 {
                     if (rawText[position + 1] == 'n')
                     {
                         position += 2;
-                        timeout = 5;
+                        timeout = 2;
                     }
                 }
                 else
                 {
                     position++;
-                    timeout = 5;
+                    timeout = 2;
                 }
             }
 

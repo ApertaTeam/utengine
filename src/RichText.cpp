@@ -20,7 +20,8 @@ namespace UT
             // For now we'll just draw everything
             if (rawText.at(i) == '\n')
             {
-                y += font->GetGlyph('^').texture.height + 2;
+                y += font->GetGlyph('A').texture.height + font->GetGlyph('A').offset;
+                x = 0;
                 continue;
             }
 
@@ -28,7 +29,6 @@ namespace UT
             auto sprite = font->GetGlyphSprite(rawText.at(i));
             sprite.setPosition((x += glyph.shift), y);
             target.draw(sprite, states);
-            x += sprite.GetTextureRect().width;
         }
     }
 }
