@@ -17,10 +17,10 @@ namespace UT
 
         this->win = new sf::RenderWindow(sf::VideoMode(size.x, size.y), title, flags);
 
-		if (const auto& size = icon.getSize(); size.x != 0) 
+        if (const auto& size = icon.getSize(); size.x != 0) 
         {
-			this->win->setIcon(size.x, size.y, icon.getPixelsPtr());
-		}
+            this->win->setIcon(size.x, size.y, icon.getPixelsPtr());
+        }
     }
 
     Window::~Window()
