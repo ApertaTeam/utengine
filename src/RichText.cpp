@@ -9,6 +9,11 @@ namespace UT
         this->rawText = "";
         this->type = TextType::Normal;
         this->renderPosition = { 0, 0 };
+
+        this->colorPresets = std::map<std::string, int32_t>();
+        colorPresets.insert(std::pair<std::string, int32_t>("Yellow", 0xFFFF00));
+        colorPresets.insert(std::pair<std::string, int32_t>("Black", 0x000000));
+        colorPresets.insert(std::pair<std::string, int32_t>("White", 0xFFFFFF));
     }
 
     void RichText::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -46,9 +51,16 @@ namespace UT
 
                     if (temp[0] == 'c')
                     {
-                        int32_t hexColor = std::stoul((tempData.length() < 8) ? tempData + "FF" : tempData, 0, 16);
+                        if (colorPresets.count(tempData))
+                        {
+                            formatColor = sf::Color(colorPresets.at(tempData));
+                        }
+                        else
+                        {
+                            int32_t hexColor = std::stoul((tempData.length() < 8) ? tempData + "FF" : tempData, 0, 16);
 
-                        formatColor = sf::Color(hexColor);
+                            formatColor = sf::Color(hexColor);
+                        }
                     }
                     else if (temp[0] == '/')
                     {

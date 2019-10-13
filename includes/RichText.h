@@ -16,6 +16,7 @@ namespace UT
             Shakey,
             WavyShake
         };
+        
 
         RichText();
 
@@ -31,6 +32,7 @@ namespace UT
     private:
         Font* font;
         Vector2 renderPosition;
+        std::map<std::string, int32_t> colorPresets;
 
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     };
