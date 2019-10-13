@@ -7,13 +7,14 @@ namespace UT
         this->font = NULL;
         this->rawText = "";
         this->type = TextType::Normal;
+        this->renderPosition = { 0, 0 };
     }
 
     void RichText::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         states.transform *= getTransform();
 
-        int x = 0, y = 0;
+        int x = renderPosition.x, y = renderPosition.y;
 
         for (int i = 0; i < rawText.size(); i++)
         {
@@ -21,7 +22,7 @@ namespace UT
             if (rawText.at(i) == '\n')
             {
                 y += font->GetGlyph('A').texture.height + font->GetGlyph('A').offset;
-                x = 0;
+                x = renderPosition.x;
                 continue;
             }
 

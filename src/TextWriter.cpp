@@ -5,7 +5,8 @@ namespace UT
     TextWriter::TextWriter()
     {
         this->font = nullptr;
-        this->position = 0;
+        this->textPosition = 0;
+        this->renderPosition = {0, 0};
         this->richText = RichText();
         this->timeout = 0;
         this->cancelNext = false;
@@ -13,8 +14,9 @@ namespace UT
 
     TextWriter::TextWriter(Font* font)
     {
-        this->position = 0;
         this->font = font;
+        this->textPosition = 0;
+        this->renderPosition = { 0, 0 };
         this->richText = RichText();
         this->richText.SetFont(font);
         this->timeout = 0;
@@ -25,29 +27,29 @@ namespace UT
     {
         if (timeout <= 0)
         {
-            if (rawText.length() > position)
+            if (rawText.length() > textPosition)
             {
-                if (rawText[position] == '\\')
+                if (rawText[textPosition] == '\\')
                 {
-                    if (rawText[(size_t)position + 1] == 'n')
+                    if (rawText[(size_t)textPosition + 1] == 'n')
                     {
-                        position += 2;
+                        textPosition += 2;
                         timeout = textSpeed;
                     }
                     else
                     {
                         cancelNext = true;
-                        rawText = rawText.erase(position, 1);
+                        rawText = rawText.erase(textPosition, 1);
                         timeout = textSpeed;
                     }
                 }
-                else if (rawText[position] == '[')
+                else if (rawText[textPosition] == '[')
                 {
                     if (!cancelNext)
                     {
-                        std::string temp = rawText.substr((size_t)position + 1, rawText.substr((size_t)position + 1).find_first_of(']'));
+                        std::string temp = rawText.substr((size_t)textPosition + 1, rawText.substr((size_t)textPosition + 1).find_first_of(']'));
                         
-                        rawText = rawText.erase(position, temp.length() + 2);
+                        rawText = rawText.erase(textPosition, temp.length() + 2);
 
                         // Pause
                         if (temp._Starts_with("p:"))
@@ -62,19 +64,19 @@ namespace UT
                     else
                     {
                         cancelNext = false;
-                        position++;
+                        textPosition++;
                         timeout = textSpeed;
                     }
                 }
                 else
                 {
                     cancelNext = false;
-                    position++;
+                    textPosition++;
                     timeout = textSpeed;
                 }
             }
 
-            richText.rawText = rawText.substr(0, position);
+            richText.rawText = rawText.substr(0, textPosition);
         }
         else
         {

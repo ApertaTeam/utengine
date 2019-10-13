@@ -20,12 +20,20 @@ namespace UT
         inline void SetRawText(std::string rawText) { this->rawText = rawText; };
         inline std::string GetRawText() { return rawText; };
 
+        inline void SetRenderPosition(Vector2 renderPosition) { this->renderPosition = renderPosition; richText.SetRenderPosition(renderPosition); };
+        inline Vector2 GetRenderPosition() { return renderPosition; };
+
+        inline void SetTextPosition(int textPosition) { this->textPosition = textPosition; };
+        inline int GetTextPosition() { return textPosition; };
+
     private:
         Font* font;
         RichText richText;
+        
+        Vector2 renderPosition;
 
         std::string rawText;
-        int position;
+        int textPosition;
         short timeout;
 
         bool cancelNext;

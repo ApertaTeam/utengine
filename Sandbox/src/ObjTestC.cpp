@@ -242,8 +242,9 @@ namespace UTSandbox
         testFont = Font(testTextTexture, testFontMap);
 
         testTextWriter = TextWriter(&testFont);
+        testTextWriter.SetRenderPosition({ 50, 120 });
 
-        testTextWriter.SetRawText("* You hear something breathing in the dark.\nSuddenly.[p:10].[p:10].[p:10] \\[THE WORLD] attacks.");
+        testTextWriter.SetRawText("* You hear something breathing in the dark.\n* Suddenly[p:10].[p:10].[p:10].[p:10] \\[THE WORLD] attacks.");
     }
 
     void ObjTestC::Update()
@@ -254,6 +255,7 @@ namespace UTSandbox
     void ObjTestC::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         states.transform *= getTransform();
+        
         target.draw(testTextWriter, states);
     }
 }
