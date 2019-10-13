@@ -45,12 +45,19 @@ namespace UT
                 {
                     if (!cancelNext)
                     {
-                        std::string temp = rawText.substr(position, rawText.substr(position).find_first_of(']') + 1);
+                        std::string temp = rawText.substr((size_t)position + 1, rawText.substr((size_t)position + 1).find_first_of(']'));
+                        
+                        rawText = rawText.erase(position, temp.length() + 2);
 
-                        rawText = rawText.erase(position, temp.length());
-                        timeout = textSpeed;
-
-                        std::cout << temp << std::endl;
+                        // Pause
+                        if (temp._Starts_with("p:"))
+                        {
+                            timeout = std::stoi(temp.substr(temp.find_first_of("p:") + 2), nullptr, 0);
+                        }
+                        else
+                        {
+                            timeout = textSpeed;
+                        }
                     }
                     else
                     {
