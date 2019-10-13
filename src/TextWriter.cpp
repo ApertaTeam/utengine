@@ -40,7 +40,6 @@ namespace UT
                     {
                         cancelNext = true;
                         textPosition++;
-                        timeout = textSpeed;
                     }
                 }
                 else if (rawText[textPosition] == '[')

@@ -40,22 +40,25 @@ namespace UT
                 if (!cancelNext)
                 {
                     std::string temp = rawText.substr((size_t)i + 1, rawText.substr((size_t)i + 1).find_first_of(']'));
+                    std::string tempData = temp.substr(temp.find_first_of(":") + 1);
                     bool verifiedTag = false;
 
 
                     if (temp[0] == 'c')
                     {
-                        std::stringstream ss;
-                        int hexColor;
-
-                        // Handles hexadecimal stuff
-                        ss << std::hex << "0x" << std::stoul(temp.substr(temp.find_first_of(":") + 1), 0, 16);
-                        ss >> hexColor;
+                        int32_t hexColor = std::stoul((tempData.length() < 8) ? tempData + "FF" : tempData, 0, 16);
 
                         formatColor = sf::Color(hexColor);
-                        i += temp.length() + 1;
+                    }
+                    else if (temp[0] == '/')
+                    {
+                        if (temp[1] == 'c')
+                        {
+                            formatColor = sf::Color(255, 255, 255);
+                        }
                     }
 
+                    i += temp.length() + 2;
                     verifiedTag = true;
                 }
                 else
@@ -73,12 +76,14 @@ namespace UT
                 continue;
             }
 
-            auto glyph = font->GetGlyph(rawText.at(i));
-            auto sprite = font->GetGlyphSprite(rawText.at(i));
-            sprite.setPosition(x, y);
-            sprite.SetColor(formatColor);
-            x += glyph.shift;
-            target.draw(sprite, states);
+            if(i < rawText.length()) {
+                auto glyph = font->GetGlyph(rawText.at(i));
+                auto sprite = font->GetGlyphSprite(rawText.at(i));
+                sprite.setPosition(x, y);
+                sprite.SetColor(formatColor);
+                x += glyph.shift;
+                target.draw(sprite, states);
+            }
         }
     }
 }
