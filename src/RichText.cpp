@@ -43,6 +43,25 @@ namespace UT
                 break;
 
             case '\\':
+                if ((size_t)i + 1 < rawText.size())
+                {
+                    if (rawText[(size_t)i + 1] == 'i')
+                    {
+                        y += font->GetGlyph('A').texture.height + font->GetGlyph('A').offset;
+
+                        if (monospacing == -1)
+                        {
+                            x = renderPosition.x + font->GetGlyph('*').shift + font->GetGlyph(' ').shift;
+                        }
+                        else
+                        {
+                            x = renderPosition.x + font->GetGlyph('*').texture.width + font->GetGlyph(' ').texture.width + monospacing * 2;
+                        }
+
+                        i += 2;
+                        break;
+                    }
+                }
                 cancelNext = true;
                 verifiedTag = true;
                 break;

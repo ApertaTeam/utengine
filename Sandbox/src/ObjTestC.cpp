@@ -243,9 +243,8 @@ namespace UTSandbox
 
         testTextWriter = TextWriter(&testFont);
         testTextWriter.SetRenderPosition({ 50, 120 });
-        testTextWriter.GetRichText()->SetMonospacing(8);
 
-        testTextWriter.SetRawText("* Just [c:00FF00]testing [c:Yellow]this system[/c] [c:0000FF]when \\[[c:Yellow]THE WORLD[/c]]\nattacks[/c].[/c]");
+        testTextWriter.SetRawText("* Just [c:00FF00]testing [c:Yellow]this system[/c] [c:0000FF]when \\[[c:Yellow]THE WORLD[/c]]\\iattacks[/c].[/c]");
     }
 
     void ObjTestC::Update()
