@@ -48,17 +48,28 @@ namespace UT
                     if (!cancelNext)
                     {
                         std::string temp = rawText.substr((size_t)textPosition + 1, rawText.substr((size_t)textPosition + 1).find_first_of(']'));
-                        
-                        rawText = rawText.erase(textPosition, temp.length() + 2);
+                        bool verifiedTag = false;
+
 
                         // Pause
                         if (temp._Starts_with("p:"))
                         {
                             timeout = std::stoi(temp.substr(temp.find_first_of("p:") + 2), nullptr, 0);
+                            verifiedTag = true;
                         }
                         else
                         {
                             timeout = textSpeed;
+                        }
+
+
+                        if (verifiedTag)
+                        {
+                            rawText = rawText.erase(textPosition, temp.length() + 2);
+                        }
+                        else
+                        {
+                            textPosition++;
                         }
                     }
                     else
