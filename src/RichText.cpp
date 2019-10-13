@@ -11,9 +11,9 @@ namespace UT
         this->renderPosition = { 0, 0 };
 
         this->colorPresets = std::map<std::string, int32_t>();
-        colorPresets.insert(std::pair<std::string, int32_t>("Yellow", 0xFFFF00));
-        colorPresets.insert(std::pair<std::string, int32_t>("Black", 0x000000));
-        colorPresets.insert(std::pair<std::string, int32_t>("White", 0xFFFFFF));
+        colorPresets.insert(std::pair<std::string, int32_t>("Yellow", 0xFFFF00FF));
+        colorPresets.insert(std::pair<std::string, int32_t>("Black", 0x000000FF));
+        colorPresets.insert(std::pair<std::string, int32_t>("White", 0xFFFFFFFF));
     }
 
     void RichText::draw(sf::RenderTarget& target, sf::RenderStates states) const
