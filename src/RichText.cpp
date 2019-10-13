@@ -10,6 +10,7 @@ namespace UT
         this->rawText = "";
         this->type = TextType::Normal;
         this->renderPosition = { 0, 0 };
+        this->monospacing = -1;
 
         this->colorPresets = std::map<std::string, int32_t>();
         colorPresets.insert(std::pair<std::string, int32_t>("Yellow", 0xFFFF00FF));
@@ -111,7 +112,16 @@ namespace UT
                 auto sprite = font->GetGlyphSprite(rawText.at(i));
                 sprite.setPosition(x, y);
                 sprite.SetColor(formatColor);
-                x += glyph.shift;
+
+                if (monospacing == -1)
+                {
+                    x += glyph.shift;
+                }
+                else
+                {
+                    x += glyph.texture.width + monospacing;
+                }
+
                 target.draw(sprite, states);
             }
         }

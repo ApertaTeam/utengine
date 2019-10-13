@@ -18,6 +18,8 @@ namespace UT
         inline void SetFont(Font* font) { this->font = font; };
         inline Font* GetFont() { return font; };
 
+        inline RichText* GetRichText() { return &richText; };
+
         inline void SetRawText(std::string rawText) { this->rawText = rawText; };
         inline std::string GetRawText() { return rawText; };
 

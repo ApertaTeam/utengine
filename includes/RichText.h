@@ -9,12 +9,11 @@ namespace UT
     class RichText : public sf::Drawable, sf::Transformable
     {
     public:
-        enum class TextType
+        enum TextType
         {
-            Normal,
-            Wavy,
-            Shakey,
-            WavyShake
+            Normal = 0,
+            Wavy = 1,
+            Shakey = 2,
         };
         
 
@@ -26,6 +25,9 @@ namespace UT
         inline void SetRenderPosition(Vector2 renderPosition) { this->renderPosition = renderPosition; };
         inline Vector2 GetRenderPosition() { return renderPosition; };
 
+        inline void SetMonospacing(short monospacing) { this->monospacing = monospacing; };
+        inline short GetMonospacing() { return monospacing; };
+
         std::string rawText;
         TextType type;
 
@@ -33,6 +35,7 @@ namespace UT
         Font* font;
         Vector2 renderPosition;
 
+        short monospacing;
         std::map<std::string, int32_t> colorPresets;
 
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
