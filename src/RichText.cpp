@@ -1,6 +1,7 @@
 #include "RichText.h"
-#include <iostream>
 #include <sstream>
+#include <vector>
+
 namespace UT
 {
     RichText::RichText()
@@ -21,8 +22,12 @@ namespace UT
         states.transform *= getTransform();
 
         int x = renderPosition.x, y = renderPosition.y;
-        bool cancelNext = false;
+
+        std::vector<int32_t> colorStack;
         sf::Color formatColor = sf::Color(255, 255, 255);
+
+        bool cancelNext = false;
+
 
         for (int i = 0; i < rawText.size(); i++)
         {
@@ -54,19 +59,32 @@ namespace UT
                         if (colorPresets.count(tempData))
                         {
                             formatColor = sf::Color(colorPresets.at(tempData));
+
+                            colorStack.push_back(colorPresets.at(tempData));
                         }
                         else
                         {
                             int32_t hexColor = std::stoul((tempData.length() < 8) ? tempData + "FF" : tempData, 0, 16);
 
                             formatColor = sf::Color(hexColor);
+
+                            colorStack.push_back(hexColor);
                         }
+
                     }
                     else if (temp[0] == '/')
                     {
                         if (temp[1] == 'c')
                         {
-                            formatColor = sf::Color(255, 255, 255);
+                            if (colorStack.size() > 1)
+                            {
+                                colorStack.pop_back();
+                                formatColor = sf::Color((colorStack.back()));
+                            }
+                            else
+                            {
+                                formatColor = sf::Color(255, 255, 255);
+                            }
                         }
                     }
 

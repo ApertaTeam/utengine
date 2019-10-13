@@ -244,7 +244,7 @@ namespace UTSandbox
         testTextWriter = TextWriter(&testFont);
         testTextWriter.SetRenderPosition({ 50, 120 });
 
-        testTextWriter.SetRawText("* Testing this system when \\[[c:Yellow]THE WORLD[/c]]\nattacks.");
+        testTextWriter.SetRawText("* Just [c:00FF00]testing [c:Yellow]this system[/c] [c:0000FF]when \\[[c:Yellow]THE WORLD[/c]]\nattacks[/c].[/c]");
     }
 
     void ObjTestC::Update()
