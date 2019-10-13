@@ -21,6 +21,16 @@ namespace UT
         Vector2(int x, int y) : x(x), y(y) {};
     };
 
+    // Vector 2 Float
+    struct Vector2f
+    {
+        float x;
+        float y;
+
+        Vector2f() : x(0), y(0) {};
+        Vector2f(float x, float y) : x(x), y(y) {};
+    };
+
     // Vector 4
     struct Vector4
     {

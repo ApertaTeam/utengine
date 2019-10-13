@@ -22,7 +22,12 @@ namespace UT
 
     void RichText::Update()
     {
-        
+        wavyAngle -= 0.15;
+
+        if (wavyAngle <= 0)
+        {
+            wavyAngle = 360;
+        }
     }
 
     void RichText::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -35,6 +40,7 @@ namespace UT
         sf::Color formatColor = sf::Color(255, 255, 255);
 
         bool cancelNext = false;
+        float localWavyAngle = wavyAngle;
 
         for (int i = 0; i < rawText.size(); i++)
         {
@@ -134,11 +140,16 @@ namespace UT
             }
 
             if(i < rawText.length()) {
-                Vector2 localRenderOffset = { 0, 0 };
+                Vector2f localRenderOffset = { 0, 0 };
                 if (textTypeFlags & TextType::Shaky)
                 {
                     localRenderOffset.x += (std::rand() % 2 + 1) - (std::rand() % 2 + 1);
                     localRenderOffset.y += (std::rand() % 2 + 1) - (std::rand() % 2 + 1);
+                }
+                if (textTypeFlags & TextType::Wavy)
+                {
+                    localRenderOffset.x += (std::cos(localWavyAngle) * 0.75);
+                    localRenderOffset.y += (std::sin(localWavyAngle) * 2);
                 }
 
                 auto glyph = font->GetGlyph(rawText.at(i));
@@ -154,6 +165,8 @@ namespace UT
                 {
                     x += glyph.texture.width + monospacing;
                 }
+
+                localWavyAngle--;
 
                 target.draw(sprite, states);
             }
