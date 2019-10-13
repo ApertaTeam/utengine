@@ -6,18 +6,19 @@
 
 namespace UT
 {
+    enum TextType
+    {
+        Normal = 0,
+        Wavy = 1,
+        Shaky = 2,
+    };
+
     class RichText : public sf::Drawable, sf::Transformable
     {
     public:
-        enum TextType
-        {
-            Normal = 0,
-            Wavy = 1,
-            Shakey = 2,
-        };
-        
-
         RichText();
+
+        void Update();
 
         const Font* GetFont() const { return this->font; }
         void SetFont(Font* font) { this->font = font; }
@@ -28,12 +29,17 @@ namespace UT
         inline void SetMonospacing(short monospacing) { this->monospacing = monospacing; };
         inline short GetMonospacing() { return monospacing; };
 
+        inline void SetTextTypeFlags(char textTypeFlags) { this->textTypeFlags = textTypeFlags; };
+        inline char GetTextTypeFlags() { return textTypeFlags; };
+
         std::string rawText;
-        TextType type;
 
     private:
         Font* font;
         Vector2 renderPosition;
+
+        char textTypeFlags;
+        Vector2 renderOffset;
 
         short monospacing;
         std::map<std::string, int32_t> colorPresets;

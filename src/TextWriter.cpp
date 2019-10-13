@@ -33,6 +33,8 @@ namespace UT
         {
             timeout--;
         }
+
+        richText.Update();
     }
 
     void TextWriter::RawDataCheck()
@@ -42,6 +44,12 @@ namespace UT
             if (rawText[textPosition] == '\\')
             {
                 if (rawText[(size_t)textPosition + 1] == 'n')
+                {
+                    textPosition += 2;
+                    timeout = textSpeed;
+                    RawDataCheck();
+                }
+                else if (rawText[(size_t)textPosition + 1] == 'i')
                 {
                     textPosition += 2;
                     timeout = textSpeed;

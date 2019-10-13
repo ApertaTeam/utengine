@@ -1,6 +1,7 @@
 ﻿#include "ObjTestC.h"
 
 #include <TextureHandler.h>
+#include <RichText.h>
 
 namespace UTSandbox
 {
@@ -244,7 +245,10 @@ namespace UTSandbox
         testTextWriter = TextWriter(&testFont);
         testTextWriter.SetRenderPosition({ 50, 120 });
 
-        testTextWriter.SetRawText("* Just [c:00FF00]testing [c:Yellow]this system[/c] [c:0000FF]when \\[[c:Yellow]THE WORLD[/c]]\\iattacks[/c].[/c]");
+        testTextWriter.GetRichText()->SetMonospacing(3);
+        testTextWriter.GetRichText()->SetTextTypeFlags(TextType::Shaky);
+
+        testTextWriter.SetRawText("* Just [c:00FF00]testing [c:Yellow]this system[/c] [c:0000FF]when\\i\\[[c:Yellow]THE WORLD[/c]] attacks[/c].[/c]");
     }
 
     void ObjTestC::Update()

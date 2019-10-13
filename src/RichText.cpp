@@ -1,21 +1,28 @@
 #include "RichText.h"
 #include <sstream>
 #include <vector>
-
+#include <stdlib.h>
+#include <iostream>
 namespace UT
 {
     RichText::RichText()
     {
         this->font = NULL;
         this->rawText = "";
-        this->type = TextType::Normal;
         this->renderPosition = { 0, 0 };
         this->monospacing = -1;
+        this->renderOffset = { 0, 0 };
+        this->textTypeFlags = TextType::Normal;
 
         this->colorPresets = std::map<std::string, int32_t>();
         colorPresets.insert(std::pair<std::string, int32_t>("Yellow", 0xFFFF00FF));
         colorPresets.insert(std::pair<std::string, int32_t>("Black", 0x000000FF));
         colorPresets.insert(std::pair<std::string, int32_t>("White", 0xFFFFFFFF));
+    }
+
+    void RichText::Update()
+    {
+        
     }
 
     void RichText::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -29,11 +36,10 @@ namespace UT
 
         bool cancelNext = false;
 
-
         for (int i = 0; i < rawText.size(); i++)
         {
             bool verifiedTag = false;
-
+            
             switch (rawText.at(i))
             {
             case '\n':
@@ -57,11 +63,12 @@ namespace UT
                         {
                             x = renderPosition.x + font->GetGlyph('*').texture.width + font->GetGlyph(' ').texture.width + monospacing * 2;
                         }
-
-                        i += 2;
+                        i += 1;
+                        verifiedTag = true;
                         break;
                     }
                 }
+
                 cancelNext = true;
                 verifiedTag = true;
                 break;
@@ -127,9 +134,16 @@ namespace UT
             }
 
             if(i < rawText.length()) {
+                Vector2 localRenderOffset = { 0, 0 };
+                if (textTypeFlags & TextType::Shaky)
+                {
+                    localRenderOffset.x += (std::rand() % 2 + 1) - (std::rand() % 2 + 1);
+                    localRenderOffset.y += (std::rand() % 2 + 1) - (std::rand() % 2 + 1);
+                }
+
                 auto glyph = font->GetGlyph(rawText.at(i));
                 auto sprite = font->GetGlyphSprite(rawText.at(i));
-                sprite.setPosition(x, y);
+                sprite.setPosition(x + localRenderOffset.x, y + localRenderOffset.y);
                 sprite.SetColor(formatColor);
 
                 if (monospacing == -1)
