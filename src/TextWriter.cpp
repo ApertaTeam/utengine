@@ -39,7 +39,7 @@ namespace UT
                     else
                     {
                         cancelNext = true;
-                        rawText = rawText.erase(textPosition, 1);
+                        textPosition++;
                         timeout = textSpeed;
                     }
                 }
@@ -52,16 +52,17 @@ namespace UT
 
 
                         // Pause
-                        if (temp._Starts_with("p:"))
+                        switch (temp[0])
                         {
-                            timeout = std::stoi(temp.substr(temp.find_first_of("p:") + 2), nullptr, 0);
+                        case 'p':
+                            timeout = std::stoi(temp.substr(temp.find_first_of(":") + 1), nullptr, 0);
                             verifiedTag = true;
-                        }
-                        else
-                        {
-                            timeout = textSpeed;
-                        }
+                            break;
 
+                        default:
+                            timeout = textSpeed;
+                            break;
+                        }
 
                         if (verifiedTag)
                         {
@@ -69,7 +70,7 @@ namespace UT
                         }
                         else
                         {
-                            textPosition++;
+                            textPosition += temp.length() + 2;
                         }
                     }
                     else

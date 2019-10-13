@@ -27,6 +27,7 @@ namespace UT
 
         std::string rawText;
         TextType type;
+
     private:
         Font* font;
         Vector2 renderPosition;
