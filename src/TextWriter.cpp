@@ -27,56 +27,62 @@ namespace UT
     {
         if (timeout <= 0)
         {
-            if (rawText.length() > textPosition)
+            RawDataCheck();
+        }
+        else
+        {
+            timeout--;
+        }
+    }
+
+    void TextWriter::RawDataCheck()
+    {
+        if (rawText.length() > textPosition)
+        {
+            if (rawText[textPosition] == '\\')
             {
-                if (rawText[textPosition] == '\\')
+                if (rawText[(size_t)textPosition + 1] == 'n')
                 {
-                    if (rawText[(size_t)textPosition + 1] == 'n')
-                    {
-                        textPosition += 2;
-                        timeout = textSpeed;
-                    }
-                    else
-                    {
-                        cancelNext = true;
-                        textPosition++;
-                    }
+                    textPosition += 2;
+                    timeout = textSpeed;
+                    RawDataCheck();
                 }
-                else if (rawText[textPosition] == '[')
+                else
                 {
-                    if (!cancelNext)
+                    cancelNext = true;
+                    textPosition++;
+                    timeout = textSpeed;
+                    RawDataCheck();
+                }
+            }
+            else if (rawText[textPosition] == '[')
+            {
+                if (!cancelNext)
+                {
+                    std::string temp = rawText.substr((size_t)textPosition + 1, rawText.substr((size_t)textPosition + 1).find_first_of(']'));
+                    bool verifiedTag = false;
+
+
+                    // Pause
+                    switch (temp[0])
                     {
-                        std::string temp = rawText.substr((size_t)textPosition + 1, rawText.substr((size_t)textPosition + 1).find_first_of(']'));
-                        bool verifiedTag = false;
+                    case 'p':
+                        timeout = std::stoi(temp.substr(temp.find_first_of(":") + 1), nullptr, 0);
+                        verifiedTag = true;
+                        break;
 
+                    default:
+                        timeout = textSpeed;
+                        break;
+                    }
 
-                        // Pause
-                        switch (temp[0])
-                        {
-                        case 'p':
-                            timeout = std::stoi(temp.substr(temp.find_first_of(":") + 1), nullptr, 0);
-                            verifiedTag = true;
-                            break;
-
-                        default:
-                            timeout = textSpeed;
-                            break;
-                        }
-
-                        if (verifiedTag)
-                        {
-                            rawText = rawText.erase(textPosition, temp.length() + 2);
-                        }
-                        else
-                        {
-                            textPosition += temp.length() + 2;
-                        }
+                    if (verifiedTag)
+                    {
+                        rawText = rawText.erase(textPosition, temp.length() + 2);
                     }
                     else
                     {
-                        cancelNext = false;
-                        textPosition++;
-                        timeout = textSpeed;
+                        textPosition += temp.length() + 2;
                     }
                 }
                 else
@@ -86,13 +92,15 @@ namespace UT
                     timeout = textSpeed;
                 }
             }
+            else
+            {
+                cancelNext = false;
+                textPosition++;
+                timeout = textSpeed;
+            }
+        }
 
-            richText.rawText = rawText.substr(0, textPosition);
-        }
-        else
-        {
-            timeout--;
-        }
+        richText.rawText = rawText.substr(0, textPosition);
     }
 
     void TextWriter::draw(sf::RenderTarget& target, sf::RenderStates states) const

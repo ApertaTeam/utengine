@@ -13,6 +13,7 @@ namespace UT
         TextWriter(Font* font);
 
         void Update();
+        void RawDataCheck();
 
         inline void SetFont(Font* font) { this->font = font; };
         inline Font* GetFont() { return font; };
