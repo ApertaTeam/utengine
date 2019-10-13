@@ -1,5 +1,5 @@
 #include "TextWriter.h"
-
+#include <iostream>
 namespace UT
 {
     TextWriter::TextWriter()
@@ -8,6 +8,7 @@ namespace UT
         this->position = 0;
         this->richText = RichText();
         this->timeout = 0;
+        this->cancelNext = false;
     }
 
     TextWriter::TextWriter(Font* font)
@@ -17,6 +18,7 @@ namespace UT
         this->richText = RichText();
         this->richText.SetFont(font);
         this->timeout = 0;
+        this->cancelNext = false;
     }
 
     void TextWriter::Update()
@@ -30,17 +32,38 @@ namespace UT
                     if (rawText[(size_t)position + 1] == 'n')
                     {
                         position += 2;
-                        timeout = 1;
+                        timeout = textSpeed;
+                    }
+                    else
+                    {
+                        cancelNext = true;
+                        rawText = rawText.erase(position, 1);
+                        timeout = textSpeed;
                     }
                 }
-                else if (rawText[position] == '^')
+                else if (rawText[position] == '[')
                 {
-                    
+                    if (!cancelNext)
+                    {
+                        std::string temp = rawText.substr(position, rawText.substr(position).find_first_of(']') + 1);
+
+                        rawText = rawText.erase(position, temp.length());
+                        timeout = textSpeed;
+
+                        std::cout << temp << std::endl;
+                    }
+                    else
+                    {
+                        cancelNext = false;
+                        position++;
+                        timeout = textSpeed;
+                    }
                 }
                 else
                 {
+                    cancelNext = false;
                     position++;
-                    timeout = 1;
+                    timeout = textSpeed;
                 }
             }
 

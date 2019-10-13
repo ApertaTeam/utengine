@@ -28,6 +28,9 @@ namespace UT
         int position;
         short timeout;
 
+        bool cancelNext;
+        int textSpeed = 1;
+
         void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     };
 }
