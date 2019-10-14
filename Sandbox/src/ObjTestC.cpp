@@ -253,7 +253,7 @@ namespace UTSandbox
 
     void ObjTestC::Update(float delta)
     {
-        testTextWriter.Update();
+        testTextWriter.Update(delta);
     }
 
     void ObjTestC::draw(sf::RenderTarget& target, sf::RenderStates states) const

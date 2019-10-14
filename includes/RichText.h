@@ -18,7 +18,7 @@ namespace UT
     public:
         RichText();
 
-        void Update();
+        void Update(float delta);
 
         const Font* GetFont() const { return this->font; }
         void SetFont(Font* font) { this->font = font; }

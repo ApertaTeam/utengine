@@ -3,6 +3,7 @@
 #include <vector>
 #include <stdlib.h>
 #include <cmath>
+#include <iostream>
 
 namespace UT
 {
@@ -21,7 +22,7 @@ namespace UT
         colorPresets.insert(std::pair<std::string, int32_t>("White", 0xFFFFFFFF));
     }
 
-    void RichText::Update()
+    void RichText::Update(float delta)
     {
         wavyAngle -= 0.3;
     }

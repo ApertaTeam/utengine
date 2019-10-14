@@ -23,7 +23,7 @@ namespace UT
         this->cancelNext = false;
     }
 
-    void TextWriter::Update()
+    void TextWriter::Update(float delta)
     {
         if (timeout <= 0)
         {
@@ -31,10 +31,10 @@ namespace UT
         }
         else
         {
-            timeout--;
+            timeout -= 1;
         }
 
-        richText.Update();
+        richText.Update(delta);
     }
 
     void TextWriter::RawDataCheck()
@@ -99,6 +99,11 @@ namespace UT
                     textPosition++;
                     timeout = textSpeed;
                 }
+            }
+            else if (rawText[textPosition] == ' ')
+            {
+                textPosition++;
+                RawDataCheck();
             }
             else
             {

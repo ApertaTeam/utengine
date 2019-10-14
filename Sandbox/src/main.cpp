@@ -38,8 +38,8 @@ int main()
     //mainRoom.objects.push_back(&testObject);
 
     // Test object B (Rectangle9Slice)
-    //UTSandbox::ObjTestB testObjectB = UTSandbox::ObjTestB();
-    //mainRoom.objects.push_back(&testObjectB);
+    UTSandbox::ObjTestB testObjectB = UTSandbox::ObjTestB();
+    mainRoom.objects.push_back(&testObjectB);
 
     // Test object C (Writer)
     UTSandbox::ObjTestC testObjectC = UTSandbox::ObjTestC();

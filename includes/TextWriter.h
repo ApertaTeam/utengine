@@ -12,7 +12,7 @@ namespace UT
         TextWriter();
         TextWriter(Font* font);
 
-        void Update();
+        void Update(float delta);
         void RawDataCheck();
 
         inline void SetFont(Font* font) { this->font = font; };
@@ -37,7 +37,7 @@ namespace UT
 
         std::string rawText;
         int textPosition;
-        short timeout;
+        float timeout;
 
         bool cancelNext;
         int textSpeed = 1;
