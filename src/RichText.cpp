@@ -2,7 +2,8 @@
 #include <sstream>
 #include <vector>
 #include <stdlib.h>
-#include <iostream>
+#include <cmath>
+
 namespace UT
 {
     RichText::RichText()
