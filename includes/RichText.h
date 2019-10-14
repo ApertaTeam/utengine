@@ -41,7 +41,7 @@ namespace UT
         char textTypeFlags;
         Vector2 renderOffset;
 
-        float wavyAngle = 360;
+        float wavyAngle = 0;
 
         short monospacing;
         std::map<std::string, int32_t> colorPresets;

@@ -46,8 +46,8 @@ int main()
     //mainRoom.objects.push_back(&testObjectC);
 
     // Test object D (Animated Sprite)
-    UTSandbox::ObjTestD testObjectD = UTSandbox::ObjTestD();
-    mainRoom.objects.push_back(&testObjectD);
+    //UTSandbox::ObjTestD testObjectD = UTSandbox::ObjTestD();
+    //mainRoom.objects.push_back(&testObjectD);
 
     //-- Main room objects end --//
 

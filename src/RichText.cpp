@@ -22,12 +22,7 @@ namespace UT
 
     void RichText::Update()
     {
-        wavyAngle -= 0.15;
-
-        if (wavyAngle <= 0)
-        {
-            wavyAngle = 360;
-        }
+        wavyAngle -= 0.3;
     }
 
     void RichText::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -149,7 +144,7 @@ namespace UT
                 if (textTypeFlags & TextType::Wavy)
                 {
                     localRenderOffset.x += (std::cos(localWavyAngle) * 0.75);
-                    localRenderOffset.y += (std::sin(localWavyAngle) * 2);
+                    localRenderOffset.y += (std::sin(localWavyAngle) * 1.75);
                 }
 
                 auto glyph = font->GetGlyph(rawText.at(i));
