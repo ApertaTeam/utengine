@@ -31,9 +31,7 @@ namespace UT
 
     void Game::Update()
     {
-        double delta = clock.restart().asSeconds();
-
-        camera->Update();
+                camera->Update();
 
         sf::Int32 FPStime = FPStimeObj.getElapsedTime().asMilliseconds();
 
@@ -53,6 +51,7 @@ namespace UT
         // FPS check
         if (FPStime >= FPS)
         {
+            double delta = clock.restart().asSeconds();
             FPStimeObj.restart();
 
             // Run main update method for all objects

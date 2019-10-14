@@ -10,7 +10,7 @@ namespace UT
     /** Class used for drawing sections of 9 slices
     * Middle slices are repeated until the slices fit the size of a rectangle
     * Define rectangle points in this order: left, top, right, bottom
-    * The higher the speed, the faster the transition */
+    * Time is the amount of time it takes to complete the transition in milliseconds (e.g. 1000 would be one second) */
     class Rectangle9Slice : public sf::Drawable
     {
     public:
@@ -45,7 +45,7 @@ namespace UT
 
 
         /** Begins the transition from the current points to the new points */
-        void MoveToRect(sf::IntRect rect, int speed = 40);
+        void MoveToRect(sf::IntRect rect, int time = 1000);
 
     private:
         std::array<Sprite, 9> slice;
@@ -54,7 +54,8 @@ namespace UT
         sf::IntRect resizeRect = {};
         Vector4f resizeRectSum = {};
         Vector4f resizeCalculations = {};
-        int resizeSpeed = 0;
+
+        float internalTimer = 0;
 
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     };

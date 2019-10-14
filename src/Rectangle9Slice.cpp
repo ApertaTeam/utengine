@@ -1,12 +1,12 @@
 #include "Rectangle9Slice.h"
-
+#include <iostream>
 namespace UT
 {
     void Rectangle9Slice::Update(float delta) 
     {
         if (rect.left != resizeRect.left) 
         {
-            resizeRectSum.x -= resizeCalculations.x;
+            resizeRectSum.x -= resizeCalculations.x * (1000 * delta);
             rect.left = resizeRectSum.x;
             if (resizeCalculations.x >= 0 && rect.left < resizeRect.left) rect.left = resizeRect.left;
             else if (resizeCalculations.x < 0 && rect.left > resizeRect.left) rect.left = resizeRect.left;
@@ -14,7 +14,7 @@ namespace UT
 
         if (rect.top != resizeRect.top) 
         {
-            resizeRectSum.y -= resizeCalculations.y;
+            resizeRectSum.y -= resizeCalculations.y * (1000 * delta);
             rect.top = resizeRectSum.y;
             if (resizeCalculations.y >= 0 && rect.top < resizeRect.top) rect.top = resizeRect.top;
             else if (resizeCalculations.y < 0 && rect.top > resizeRect.top) rect.top = resizeRect.top;
@@ -22,7 +22,7 @@ namespace UT
 
         if (rect.width != resizeRect.width) 
         {
-            resizeRectSum.z -= resizeCalculations.z;
+            resizeRectSum.z -= resizeCalculations.z * (1000 * delta);
             rect.width = resizeRectSum.z;
             if (resizeCalculations.z >= 0 && rect.width < resizeRect.width) rect.width = resizeRect.width;
             else if (resizeCalculations.z < 0 && rect.width > resizeRect.width) rect.width = resizeRect.width;
@@ -30,24 +30,24 @@ namespace UT
 
         if (rect.height != resizeRect.height) 
         {
-            resizeRectSum.w -= resizeCalculations.w;
+            resizeRectSum.w -= resizeCalculations.w * (1000 * delta);
             rect.height = resizeRectSum.w;
             if (resizeCalculations.w >= 0 && rect.height < resizeRect.height) rect.height = resizeRect.height;
             else if (resizeCalculations.w < 0 && rect.height > resizeRect.height) rect.height = resizeRect.height;
         }
     }
 
-    void Rectangle9Slice::MoveToRect(sf::IntRect rect, int speed)
+    void Rectangle9Slice::MoveToRect(sf::IntRect rect, int time)
     {
         resizeRect = rect;
-        resizeSpeed = speed;
+        int resizeTime = time;
         
         resizeCalculations = 
         {
-            ((float)(this->rect.left - resizeRect.left) / (float)resizeSpeed),
-            ((float)(this->rect.top - resizeRect.top) / (float)resizeSpeed),
-            ((float)(this->rect.width - resizeRect.width) / (float)resizeSpeed),
-            ((float)(this->rect.height - resizeRect.height) / (float)resizeSpeed)
+            ((float)(this->rect.left - resizeRect.left) / (float)resizeTime),
+            ((float)(this->rect.top - resizeRect.top) / (float)resizeTime),
+            ((float)(this->rect.width - resizeRect.width) / (float)resizeTime),
+            ((float)(this->rect.height - resizeRect.height) / (float)resizeTime)
         };
 
         resizeRectSum = {(float)this->rect.left, (float)this->rect.top, (float)this->rect.width, (float)this->rect.height};
