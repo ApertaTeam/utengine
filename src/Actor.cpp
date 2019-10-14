@@ -3,6 +3,7 @@
 namespace UT
 {
     Actor::Actor()
+        : position({ 0, 0 }), sprite(nullptr), collisionBox({0, 0, 0, 0}), speed(0)
     {
 
     }
