@@ -31,6 +31,8 @@ namespace UT
 
     void Game::Update()
     {
+        double delta = clock.restart().asSeconds();
+
         camera->Update();
 
         sf::Int32 FPStime = FPStimeObj.getElapsedTime().asMilliseconds();
@@ -56,7 +58,7 @@ namespace UT
             // Run main update method for all objects
             for (int i = 0; i < this->objects.size(); i++)
             {
-                objects[i]->Update();
+                objects[i]->Update(delta);
             }
 
             // Render

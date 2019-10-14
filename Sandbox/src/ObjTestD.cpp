@@ -28,10 +28,8 @@ namespace UTSandbox
         testAnimatedSprite = AnimatedSprite(testSprites, 10);
     }
 
-    void ObjTestD::Update()
+    void ObjTestD::Update(float delta)
     {
-        double delta = clock.restart().asSeconds();
-
         testAnimatedSprite.Update(delta);
     }
 

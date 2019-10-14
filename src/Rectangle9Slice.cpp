@@ -2,7 +2,7 @@
 
 namespace UT
 {
-    void Rectangle9Slice::Update() 
+    void Rectangle9Slice::Update(float delta) 
     {
         if (rect.left != resizeRect.left) 
         {

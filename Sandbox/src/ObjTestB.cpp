@@ -34,9 +34,9 @@ namespace UTSandbox
         testRectangle9Slice.MoveToRect({120, 140, 520, 340});
     }
 
-    void ObjTestB::Update()
+    void ObjTestB::Update(float delta)
     {
-        testRectangle9Slice.Update();
+        testRectangle9Slice.Update(delta);
     }
 
     void ObjTestB::draw(sf::RenderTarget& target, sf::RenderStates states) const

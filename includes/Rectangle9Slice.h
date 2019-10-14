@@ -28,7 +28,7 @@ namespace UT
 
 
         /** Transitionally moves rectangle points to new rectangle points */
-        void Update();
+        void Update(float delta);
 
 
         /** Sets array of sprites used as slices */

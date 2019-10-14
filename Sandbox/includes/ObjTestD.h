@@ -14,13 +14,12 @@ namespace UTSandbox
         ObjTestD();
 
         void Init() override;
-        void Update() override;
+        void Update(float delta) override;
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     private:
         int testAnimatedTexture;
         AnimatedSprite testAnimatedSprite;
-        sf::Clock clock;
     };
 }
 

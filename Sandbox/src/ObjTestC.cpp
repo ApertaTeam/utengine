@@ -251,7 +251,7 @@ namespace UTSandbox
         testTextWriter.SetRawText("* Just [c:00FF00]testing [c:Yellow]this system[/c] [c:0000FF]when\\i\\[[c:Yellow]THE WORLD[/c]] attacks[/c].[/c]");
     }
 
-    void ObjTestC::Update()
+    void ObjTestC::Update(float delta)
     {
         testTextWriter.Update();
     }

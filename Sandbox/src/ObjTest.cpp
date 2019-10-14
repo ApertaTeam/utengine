@@ -33,7 +33,7 @@ namespace UTSandbox
         testSprite.setPosition((640.f/2)-(215.f/2), (480.f/2)-(215.f/2));
     }
 
-    void ObjTest::Update()
+    void ObjTest::Update(float delta)
     {
         // No updating necessary
     }
