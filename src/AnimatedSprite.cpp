@@ -3,11 +3,11 @@
 
 namespace UT
 {
-    AnimatedSprite::AnimatedSprite(EndAction action) : frames(), curFrame(0), action(action)
+    AnimatedSprite::AnimatedSprite(EndAction action) : frames(), curFrame(0), action(action), speed(1)
     {
     }
 
-    AnimatedSprite::AnimatedSprite(std::vector<Sprite> frames, EndAction action) : frames(frames), curFrame(0), action(action)
+    AnimatedSprite::AnimatedSprite(std::vector<Sprite> frames, int speed, EndAction action) : frames(frames), speed(speed), curFrame(0), action(action)
     {
     }
 
@@ -17,7 +17,7 @@ namespace UT
         {
             if (!reverse)
             {
-                curFrame += (int)floor(1 / (1000 * delta));
+                curFrame += speed / (1000 * delta);
                 if (curFrame >= frames.size())
                 {
                     if (action == LOOP)
@@ -38,7 +38,7 @@ namespace UT
             }
             else
             {
-                int curtemp = curFrame - (int)floor(1 / (1000 * delta));
+                float curtemp = curFrame - speed / (1000 * delta);
                 if (curtemp < 0)
                 {
                     if (action == REVERSE_LOOP)
@@ -64,6 +64,6 @@ namespace UT
     {
         states.transform *= getTransform();
 
-        if (!(done && action == DESTROY)) target.draw(frames[curFrame], states);
+        if (!(done && action == DESTROY)) target.draw(frames[(int)floor(curFrame)], states);
     }
 }

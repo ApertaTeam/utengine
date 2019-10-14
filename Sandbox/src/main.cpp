@@ -14,6 +14,7 @@
 #include "ObjTest.h"
 #include "ObjTestB.h"
 #include "ObjTestC.h"
+#include "ObjTestD.h"
 
 
 using namespace UT;
@@ -32,17 +33,21 @@ int main()
 
     //-- Main room objects start --//
 
-    // Test object
-    UTSandbox::ObjTest testObject = UTSandbox::ObjTest();
-    mainRoom.objects.push_back(&testObject);
+    // Test object (Sprite and tileset)
+    //UTSandbox::ObjTest testObject = UTSandbox::ObjTest();
+    //mainRoom.objects.push_back(&testObject);
 
-    // Test object B
-    UTSandbox::ObjTestB testObjectB = UTSandbox::ObjTestB();
-    mainRoom.objects.push_back(&testObjectB);
+    // Test object B (Rectangle9Slice)
+    //UTSandbox::ObjTestB testObjectB = UTSandbox::ObjTestB();
+    //mainRoom.objects.push_back(&testObjectB);
 
-    // Test object C
-    UTSandbox::ObjTestC testObjectC = UTSandbox::ObjTestC();
-    mainRoom.objects.push_back(&testObjectC);
+    // Test object C (Writer)
+    //UTSandbox::ObjTestC testObjectC = UTSandbox::ObjTestC();
+    //mainRoom.objects.push_back(&testObjectC);
+
+    // Test object D (Animated Sprite)
+    UTSandbox::ObjTestD testObjectD = UTSandbox::ObjTestD();
+    mainRoom.objects.push_back(&testObjectD);
 
     //-- Main room objects end --//
 

@@ -20,11 +20,11 @@ namespace UT
         };
 
         AnimatedSprite(EndAction action = LOOP);
-        AnimatedSprite(std::vector<Sprite> frames, EndAction action = LOOP);
+        AnimatedSprite(std::vector<Sprite> frames, int speed = 15, EndAction action = LOOP);
 
         inline Sprite GetFrame(int idx) const { return frames[idx]; }
         inline std::vector<Sprite> GetFrames() const { return frames; }
-        inline unsigned int GetImageIndex() const { return curFrame; }
+        inline float GetImageIndex() const { return curFrame; }
 
         inline void PushFrame(Sprite frame) { frames.push_back(frame); }
         inline void PushFrames(const std::vector<Sprite> &frames) { for (auto& frame : frames) this->frames.push_back(frame); }
@@ -34,7 +34,8 @@ namespace UT
 
     private:
         std::vector<Sprite> frames;
-        unsigned int curFrame;
+        float curFrame;
+        int speed;
         EndAction action;
 
         bool paused = false;
