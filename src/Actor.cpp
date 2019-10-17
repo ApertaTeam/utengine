@@ -17,16 +17,16 @@ namespace UT
         {
             newSum.x -= newCalculations.x * (1000 * delta);
             position.x = newSum.x;
-            //if (newPosition.x >= 0 && position.x < newPosition.x) position.x = newPosition.x;
-            //else if (newPosition.x < 0 && position.x > newPosition.x) position.x = newPosition.x;
+            if (newCalculations.x >= 0 && position.x < newPosition.x) position.x = newPosition.x;
+            else if (newCalculations.x < 0 && position.x > newPosition.x) position.x = newPosition.x;
         }
 
         if (position.y != newPosition.y)
         {
             newSum.y -= newCalculations.y * (1000 * delta);
             position.y = newSum.y;
-            //if (newPosition.y >= 0 && position.y < newPosition.y) position.y = newPosition.y;
-            //else if (newPosition.y < 0 && position.y > newPosition.y) position.y = newPosition.y;
+            if (newCalculations.y >= 0 && position.y < newPosition.y) position.y = newPosition.y;
+            else if (newCalculations.y < 0 && position.y > newPosition.y) position.y = newPosition.y;
         }
     }
 
