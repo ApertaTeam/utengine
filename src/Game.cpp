@@ -9,6 +9,7 @@
 #include "BatchHandler.h"
 
 #include <SFML/Graphics.hpp>
+#include <sstream>
 
 namespace UT
 {
@@ -52,7 +53,8 @@ namespace UT
         if (FPStime >= FPS)
         {
             double delta = clock.restart().asSeconds();
-            delta = (delta > (double)FPS + 10) ? (double)FPS + 10 : delta;
+            delta = (delta > (FPS / (double)1000) + 0.01) ? (FPS / (double)1000) + 0.01 : delta;
+
             FPStimeObj.restart();
 
             // Run main update method for all objects
