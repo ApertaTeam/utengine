@@ -53,7 +53,7 @@ namespace UT
         if (FPStime >= FPS)
         {
             double delta = clock.restart().asSeconds();
-            delta = (delta > (FPS / (double)1000) + 0.01) ? (FPS / (double)1000) + 0.01 : delta;
+            delta = (delta > 1.0 / ((double)FPS - 10)) ? 1.0 / ((double)FPS - 10) : delta;
 
             FPStimeObj.restart();
 
