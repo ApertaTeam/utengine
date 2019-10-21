@@ -53,9 +53,10 @@ namespace UT
         if (FPStime >= FPS)
         {
             double delta = FPStimeObj.restart().asSeconds();
-            if (delta > 1.0 / ((double)FPS - 10))
+			const double deltaCalculations = 1.0 / ((double)FPS - 10);
+            if (delta > deltaCalculations)
             {
-                delta = 1.0 / ((double)FPS - 10);
+                delta = deltaCalculations;
             }
 
 
