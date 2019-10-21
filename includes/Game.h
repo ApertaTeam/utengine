@@ -37,8 +37,6 @@ namespace UT
         Window window;
         Shader shaderProgram;
 
-        sf::Clock clock;
-
         std::string title;
 		sf::Image icon;
 

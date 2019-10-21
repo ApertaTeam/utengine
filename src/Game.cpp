@@ -52,10 +52,12 @@ namespace UT
         // FPS check
         if (FPStime >= FPS)
         {
-            double delta = clock.restart().asSeconds();
-            delta = (delta > 1.0 / ((double)FPS - 10)) ? 1.0 / ((double)FPS - 10) : delta;
+            double delta = FPStimeObj.restart().asSeconds();
+            if (delta > 1.0 / ((double)FPS - 10))
+            {
+                delta = 1.0 / ((double)FPS - 10);
+            }
 
-            FPStimeObj.restart();
 
             // Run main update method for all objects
             for (int i = 0; i < this->objects.size(); i++)
