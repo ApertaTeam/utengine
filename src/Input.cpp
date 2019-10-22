@@ -10,47 +10,43 @@ namespace UT
 
     bool InputHandler::Pressed(InputActions input)
     {
-        return false;
+		if (sf::Joystick::isConnected(0)) {
+			if (keyStates.find(input) == keyStates.end()) {
+				keyStates[input] = sf::Joystick::isButtonPressed(0, keyboardAliases.at(input));
+			}
+			else {
+				keyStates.insert(std::pair<InputActions, bool>(input, sf::Joystick::isButtonPressed(0, keyboardAliases.at(input))));
+			}
+		}
+		else {
+			if (keyStates.find(input) == keyStates.end()) {
+				keyStates[input] = sf::Keyboard::isKeyPressed(keyboardAliases.at(input));
+			}
+			else {
+				keyStates.insert(std::pair<InputActions, bool>(input, sf::Keyboard::isKeyPressed(keyboardAliases.at(input))));
+			}
+		}
+
+		return keyStates.at(input);
     }
 
     bool InputHandler::Held(InputActions input)
     {
-        return false;
+		return false;
     }
 
     bool InputHandler::Released(InputActions input)
     {
-        return false;
+		return false;
     }
 
-    void InputHandler::Set(InputActions action, std::vector<int> keys)
+    void InputHandler::Set(InputActions action, sf::Keyboard::Key key)
     {
-        
-    }
-
-    void InputHandler::HandleInput(GLFWwindow* window, int key, int scancode, int action, int mods)
-    {
-        for (auto const &input : keyboardAliases)
-        {
-            for (int i = 0; i < input.second.size(); i++)
-            {
-                if (key == input.second[i])
-                {
-                    keyStates[input.first] = action;
-                    break;
-                }
-            }
-        }
-        for (auto const &input : gamepadAliases)
-        {
-            for (int i = 0; i < input.second.size(); i++)
-            {
-                if (key == input.second[i])
-                {
-                    keyStates[input.first] = action;
-                    break;
-                }
-            }
-        }
+		if (keyboardAliases.find(action) == keyboardAliases.end()) {
+			keyboardAliases[action] = key;
+		}
+		else {
+			keyboardAliases.insert(std::pair<InputActions, sf::Keyboard::Key>(action, key));
+		}
     }
 }

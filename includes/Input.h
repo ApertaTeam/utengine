@@ -1,21 +1,24 @@
 #ifndef UT_INPUT_H
 #define UT_INPUT_H
 
+#include "Window.h"
+
+#include <SFML/Window/Keyboard.hpp>
+#include <SFML/Window/Joystick.hpp>
+
 #include <string>
 #include <map>
 #include <vector>
 
-struct GLFWwindow;
-
 namespace UT
 {
-    enum InputActions
-    {
-        Confirm,
-        Back,
-        Menu,
-        Exit
-    };
+	enum InputActions {
+		Confirm,
+		Back,
+		Menu,
+		Skip,
+		Exit
+	};
 
     class InputHandler
     {
@@ -26,13 +29,13 @@ namespace UT
         bool Held(InputActions input);
         bool Released(InputActions input);
 
-        void Set(InputActions action, std::vector<int> keys);
-        
-        void HandleInput(GLFWwindow* window, int key, int scancode, int action, int mods);
+		void Set(InputActions action, sf::Keyboard::Key key);
+		void Set(InputActions action, unsigned int button);
+
     private:
-        std::map<InputActions, std::vector<int>> keyboardAliases;
-        std::map<InputActions, std::vector<int>> gamepadAliases;
-        std::map<InputActions, int> keyStates;
+        std::map<InputActions, sf::Keyboard::Key> keyboardAliases;
+        std::map<InputActions, unsigned int> gamepadAliases;
+        std::map<InputActions, bool> keyStates;
     };
 }
 
