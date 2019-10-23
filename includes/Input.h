@@ -12,13 +12,13 @@
 
 namespace UT
 {
-	enum InputActions {
-		Confirm,
-		Back,
-		Menu,
-		Skip,
-		Exit
-	};
+    enum InputActions {
+        Confirm,
+        Back,
+        Menu,
+        Skip,
+        Exit
+    };
 
     class InputHandler
     {
@@ -29,8 +29,8 @@ namespace UT
         bool Held(InputActions input);
         bool Released(InputActions input);
 
-		void Set(InputActions action, sf::Keyboard::Key key);
-		void Set(InputActions action, unsigned int button);
+        void Set(InputActions action, sf::Keyboard::Key key);
+        void Set(InputActions action, unsigned int button);
 
     private:
         std::map<InputActions, sf::Keyboard::Key> keyboardAliases;
