@@ -117,6 +117,7 @@ namespace UT
         if (alt)
         {
             _instance->keyboardAliases[action][1] = key;
+
         }
         else
         {

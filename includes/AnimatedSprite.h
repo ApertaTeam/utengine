@@ -2,6 +2,7 @@
 #define UT_ANIMATED_SPRITE_H
 
 #include "Sprite.h"
+#include <cmath>
 
 namespace UT
 {

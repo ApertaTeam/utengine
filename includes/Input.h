@@ -9,6 +9,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <array>
 
 namespace UT
 {
