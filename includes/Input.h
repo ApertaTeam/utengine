@@ -10,6 +10,15 @@
 #include <map>
 #include <array>
 
+#define LSAXIS_NEGX 101
+#define LSAXIS_NEGY 102
+#define LSAXIS_POSX 111
+#define LSAXIS_POSY 112
+#define RSAXIS_NEGX 201
+#define RSAXIS_NEGY 202
+#define RSAXIS_POSX 211
+#define RSAXIS_POSY 212
+
 namespace UT
 {
     enum InputActions {
