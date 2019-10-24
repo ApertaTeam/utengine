@@ -2,8 +2,10 @@
 #define UT_CAMERA_H
 
 #include "Object.h"
-
 #include "Common.h"
+#include "Player.h"
+
+#include <SFML/Graphics.hpp>
 
 namespace UT
 {
@@ -11,18 +13,20 @@ namespace UT
     class Camera
     {
     public:
-        Camera(Vector2 viewSize = { 320, 240 }, Object* trackedObject = nullptr);
+        Camera(sf::Vector2f viewSize = { 320, 240 }, Object* trackedObject = nullptr);
 
         virtual void Update();
 
-        // Getters
-        Object* GetTrackedObject();
+        inline void SetTrackedObject(Object* trackedObject);
+        inline Object* GetTrackedObject();
 
-        // Setters
-        void SetTrackedObject(Object* trackedObject);
+        inline sf::View* GetView() { return &view; };
 
     private:
         Object* trackedObject;
+        sf::View view;
+
+        sf::Vector2f viewSize;
     };
 }
 

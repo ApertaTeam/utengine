@@ -35,6 +35,7 @@ namespace UT
         }
 
         sprite.Update(delta);
+        setPosition(position);
         sprite.setPosition(position);
     }
 
