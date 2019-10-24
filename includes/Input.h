@@ -20,6 +20,14 @@ namespace UT
         Exit
     };
 
+    enum InputState
+    {
+        None,
+        Pressed,
+        Held,
+        Released
+    };
+
     class InputHandler
     {
     public:
@@ -29,13 +37,15 @@ namespace UT
         bool Held(InputActions input);
         bool Released(InputActions input);
 
-        void Set(InputActions action, sf::Keyboard::Key key);
-        void Set(InputActions action, unsigned int button);
+        void Set(InputActions action, sf::Keyboard::Key key, bool alt = false);
+        void Set(InputActions action, unsigned int button, bool alt = false);
+
+        void Update();
 
     private:
-        std::map<InputActions, sf::Keyboard::Key> keyboardAliases;
-        std::map<InputActions, unsigned int> gamepadAliases;
-        std::map<InputActions, bool> keyStates;
+        std::map<InputActions, std::array<sf::Keyboard::Key, 2>> keyboardAliases;
+        std::map<InputActions, std::array<unsigned int, 2>> gamepadAliases;
+        std::map<InputActions, InputState> keyStates;
     };
 }
 
