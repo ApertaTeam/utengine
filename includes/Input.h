@@ -30,19 +30,20 @@ namespace UT
 
     class InputHandler
     {
+        friend class Game;
     public:
-        InputHandler();
+        static bool Pressed(InputActions input);
+        static bool Held(InputActions input);
+        static bool Released(InputActions input);
 
-        bool Pressed(InputActions input);
-        bool Held(InputActions input);
-        bool Released(InputActions input);
-
-        void Set(InputActions action, sf::Keyboard::Key key, bool alt = false);
-        void Set(InputActions action, unsigned int button, bool alt = false);
+        static void Set(InputActions action, sf::Keyboard::Key key, bool alt = false);
+        static void Set(InputActions action, unsigned int button, bool alt = false);
 
         void Update();
 
     private:
+        InputHandler();
+
         std::map<InputActions, std::array<sf::Keyboard::Key, 2>> keyboardAliases;
         std::map<InputActions, std::array<unsigned int, 2>> gamepadAliases;
         std::map<InputActions, InputState> keyStates;

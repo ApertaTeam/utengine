@@ -1,6 +1,6 @@
 #include "Input.h"
 
-
+static UT::InputHandler* _instance;
 namespace UT
 {
     InputHandler::InputHandler()
@@ -20,6 +20,8 @@ namespace UT
             { InputActions::Skip, {3,2} },
             { InputActions::Exit, {10,10} }
         };
+
+        _instance = this;
     }
 
     void InputHandler::Update()
@@ -97,28 +99,28 @@ namespace UT
 
     bool InputHandler::Pressed(InputActions input)
     {
-        return keyStates[input] == InputState::Pressed;
+        return _instance->keyStates[input] == InputState::Pressed;
     }
 
     bool InputHandler::Held(InputActions input)
     {
-        return keyStates[input] == InputState::Pressed || keyStates[input] == InputState::Held;
+        return _instance->keyStates[input] == InputState::Pressed || _instance->keyStates[input] == InputState::Held;
     }
 
     bool InputHandler::Released(InputActions input)
     {
-        return keyStates[input] == InputState::Released;
+        return _instance->keyStates[input] == InputState::Released;
     }
 
     void InputHandler::Set(InputActions action, sf::Keyboard::Key key, bool alt)
     {
         if (alt)
         {
-            keyboardAliases[action][1] = key;
+            _instance->keyboardAliases[action][1] = key;
         }
         else
         {
-            keyboardAliases[action][0] = key;
+            _instance->keyboardAliases[action][0] = key;
         }
     }
 
@@ -126,11 +128,11 @@ namespace UT
     {
         if (alt)
         {
-            gamepadAliases[action][1] = button;
+            _instance->gamepadAliases[action][1] = button;
         }
         else
         {
-            gamepadAliases[action][0] = button;
+            _instance->gamepadAliases[action][0] = button;
         }
     }
 }
