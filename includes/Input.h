@@ -17,7 +17,11 @@ namespace UT
         Back,
         Menu,
         Skip,
-        Exit
+        Exit,
+        Up,
+        Down,
+        Left,
+        Right
     };
 
     enum InputState

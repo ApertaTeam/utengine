@@ -10,7 +10,11 @@ namespace UT
             { InputActions::Back, {sf::Keyboard::X, sf::Keyboard::LShift} },
             { InputActions::Menu, {sf::Keyboard::C, sf::Keyboard::LControl} },
             { InputActions::Skip, {sf::Keyboard::X, sf::Keyboard::LShift} },
-            { InputActions::Exit, {sf::Keyboard::Escape, sf::Keyboard::Escape} }
+            { InputActions::Exit, {sf::Keyboard::Escape, sf::Keyboard::Escape} },
+            { InputActions::Up, {sf::Keyboard::W, sf::Keyboard::Up} },
+            { InputActions::Left, {sf::Keyboard::A, sf::Keyboard::Left} },
+            { InputActions::Right, {sf::Keyboard::D, sf::Keyboard::Right} },
+            { InputActions::Down, {sf::Keyboard::S, sf::Keyboard::Down} }
         };
 
         gamepadAliases = {
@@ -18,7 +22,11 @@ namespace UT
             { InputActions::Back, {2,2} },
             { InputActions::Menu, {4,9} },
             { InputActions::Skip, {3,2} },
-            { InputActions::Exit, {10,10} }
+            { InputActions::Exit, {10,10} },
+            { InputActions::Up, {12,12} },
+            { InputActions::Down, {13,13} },
+            { InputActions::Left, {14,14} },
+            { InputActions::Right, {15,15} }
         };
 
         _instance = this;
