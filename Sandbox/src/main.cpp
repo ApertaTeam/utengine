@@ -9,6 +9,7 @@
 #include <Sprite.h>
 #include <TileMap.h>
 #include <TextureHandler.h>
+#include <Player.h>
 
 // Sandbox
 #include "ObjTest.h"
@@ -47,12 +48,25 @@ int main()
     //mainRoom.objects.push_back(&testObjectC);
 
     // Test object D (Animated Sprite)
-    UTSandbox::ObjTestD testObjectD = UTSandbox::ObjTestD();
-    mainRoom.objects.push_back(&testObjectD);
+    //UTSandbox::ObjTestD testObjectD = UTSandbox::ObjTestD();
+    //mainRoom.objects.push_back(&testObjectD);
 
     // Test actor
     //UTSandbox::ActorTest testActor = UTSandbox::ActorTest();
     //mainRoom.objects.push_back(&testActor);
+
+    // Player
+    Player player = Player();
+    AnimatedSprite playerAnimSprite = AnimatedSprite();
+    int playerTexture = TextureHandler::LoadTextureFromFile("tileset.png");
+    Sprite playerSprite = Sprite();
+    playerSprite.SetTexture(playerTexture);
+    playerSprite.SetTextureRect({0, 0, 20, 20});
+
+    playerAnimSprite.PushFrame(playerSprite);
+    player.SetSprite(playerAnimSprite);
+    player.SetPosition({20, 20});
+    mainRoom.objects.push_back(&player);
 
     //-- Main room objects end --//
 
