@@ -33,6 +33,7 @@ namespace UT
     void Game::Update()
     {
         camera->Update();
+        inputHandler.Update();
 
         sf::Int32 FPStime = FPStimeObj.getElapsedTime().asMilliseconds();
 

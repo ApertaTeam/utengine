@@ -47,12 +47,12 @@ int main()
     //mainRoom.objects.push_back(&testObjectC);
 
     // Test object D (Animated Sprite)
-    //UTSandbox::ObjTestD testObjectD = UTSandbox::ObjTestD();
-    //mainRoom.objects.push_back(&testObjectD);
+    UTSandbox::ObjTestD testObjectD = UTSandbox::ObjTestD();
+    mainRoom.objects.push_back(&testObjectD);
 
     // Test actor
-    UTSandbox::ActorTest testActor = UTSandbox::ActorTest();
-    mainRoom.objects.push_back(&testActor);
+    //UTSandbox::ActorTest testActor = UTSandbox::ActorTest();
+    //mainRoom.objects.push_back(&testActor);
 
     //-- Main room objects end --//
 

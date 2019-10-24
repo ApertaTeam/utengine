@@ -4,6 +4,7 @@
 #include "Common.h"
 #include "Shader.h"
 #include "Window.h"
+#include "Input.h"
 #include "Object.h"
 
 namespace UT
@@ -36,6 +37,7 @@ namespace UT
     private:
         Window window;
         Shader shaderProgram;
+        InputHandler inputHandler;
 
         std::string title;
 		sf::Image icon;

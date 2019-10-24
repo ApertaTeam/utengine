@@ -97,17 +97,17 @@ namespace UT
         }
     }
 
-    bool InputHandler::Pressed(InputActions input)
+    bool InputHandler::IsInputPressed(InputActions input)
     {
         return _instance->keyStates[input] == InputState::Pressed;
     }
 
-    bool InputHandler::Held(InputActions input)
+    bool InputHandler::IsInputHeld(InputActions input)
     {
         return _instance->keyStates[input] == InputState::Pressed || _instance->keyStates[input] == InputState::Held;
     }
 
-    bool InputHandler::Released(InputActions input)
+    bool InputHandler::IsInputReleased(InputActions input)
     {
         return _instance->keyStates[input] == InputState::Released;
     }

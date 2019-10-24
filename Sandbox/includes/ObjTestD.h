@@ -3,6 +3,7 @@
 
 #include <Object.h>
 #include <AnimatedSprite.h>
+#include <Input.h>
 
 using namespace UT;
 
