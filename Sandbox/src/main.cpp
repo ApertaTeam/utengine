@@ -58,13 +58,19 @@ int main()
     // Player
     Player player = Player();
     AnimatedSprite playerAnimSprite = AnimatedSprite();
-    int playerTexture = TextureHandler::LoadTextureFromFile("tileset.png");
+    int playerTexture = TextureHandler::LoadTextureFromFile("player.png");
     Sprite playerSprite = Sprite();
     playerSprite.SetTexture(playerTexture);
-    playerSprite.SetTextureRect({0, 0, 20, 20});
 
     playerAnimSprite.PushFrame(playerSprite);
+    player.SetTexture(playerTexture);
     player.SetSprite(playerAnimSprite);
+
+    player.AddTextureRect("idleNorth", { sf::IntRect(5, 107, 19, 29) });
+    player.AddTextureRect("idleSouth", { sf::IntRect(5, 5, 19, 29), sf::IntRect(29, 5, 19, 29), sf::IntRect(53, 5, 19, 29), sf::IntRect(77, 5, 19, 29) });
+    player.AddTextureRect("idleWest", { sf::IntRect(5, 39, 17, 29) });
+    player.AddTextureRect("idleEast", { sf::IntRect(5, 73, 17, 29) });
+
     player.SetPosition({20, 20});
     mainRoom.objects.push_back(&player);
 

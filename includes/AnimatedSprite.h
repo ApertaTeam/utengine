@@ -25,7 +25,11 @@ namespace UT
 
         inline Sprite GetFrame(int idx) const { return frames[idx]; }
         inline std::vector<Sprite> GetFrames() const { return frames; }
+        inline void SetImageIndex(int curFrame) { this->curFrame = curFrame; }
         inline int GetImageIndex() const { return (int)floor(curFrame); }
+
+        inline void SetSpeed(int speed) { this->speed = speed; };
+        inline int GetSpeed() { return speed; };
 
         inline void PushFrame(Sprite frame) { frames.push_back(frame); }
         inline void PushFrames(const std::vector<Sprite> &frames) { for (auto& frame : frames) this->frames.push_back(frame); }

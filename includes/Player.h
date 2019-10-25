@@ -22,6 +22,8 @@ namespace UT
         void Init() override;
         void Update(float delta) override;
 
+        void AddTextureRect(std::string name, std::vector<sf::IntRect> textureRect);
+
         inline void SetSprite(AnimatedSprite sprite) { this->sprite = sprite; };
         inline AnimatedSprite GetSprite() { return sprite; };
 
@@ -37,7 +39,15 @@ namespace UT
         inline void SetSpeed(int speed) { this->speed = speed; };
         inline int GetSpeed() { return speed; };
 
+        inline void SetTextureRects(std::map<std::string, std::vector<sf::IntRect>> textureRects) { this->textureRects = textureRects; };
+        inline std::map<std::string, std::vector<sf::IntRect>> GetTextureRects() { return textureRects; };
+
+        inline void SetTexture(int texture) { this->texture = texture; };
+        inline int GetTexture() { return texture; };
+        
     private:
+        std::map<std::string, std::vector<sf::IntRect>> textureRects;
+        int texture;
         AnimatedSprite sprite;
         PlayerDirection direction;
         sf::Vector2f position;
