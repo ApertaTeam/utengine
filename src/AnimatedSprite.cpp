@@ -11,6 +11,12 @@ namespace UT
     {
     }
 
+    sf::Vector2f AnimatedSprite::GetSize() const
+    {
+        const auto& rect = GetFrame(GetImageIndex()).GetTextureRect();
+        return sf::Vector2f(rect.width, rect.height);
+    }
+
     void AnimatedSprite::Update(float delta)
     {
         if (!paused && !done)

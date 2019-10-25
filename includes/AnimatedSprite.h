@@ -31,6 +31,9 @@ namespace UT
         inline void PushFrames(const std::vector<Sprite> &frames) { for (auto& frame : frames) this->frames.push_back(frame); }
         inline void Reset() { frames.clear(); }
 
+        // Returns the size of the CURRENT frame!
+        sf::Vector2f GetSize() const;
+
         void Update(float delta);
 
     private:

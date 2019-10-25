@@ -36,7 +36,7 @@ namespace UT
 
         sprite.Update(delta);
         setPosition(position);
-        sprite.setPosition(position);
+        sprite.setPosition(position - (sprite.GetSize()/2.f));
     }
 
     void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
