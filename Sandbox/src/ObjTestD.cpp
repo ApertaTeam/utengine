@@ -11,21 +11,21 @@ namespace UTSandbox
 
     void ObjTestD::Init()
     {
-        std::vector<Sprite> testSprites = {
-            Sprite(testAnimatedTexture, {40, 20, 20, 20}),
-            Sprite(testAnimatedTexture, {60, 20, 20, 20}),
-            Sprite(testAnimatedTexture, {80, 20, 20, 20}),
+        std::vector<sf::IntRect> testRects = {
+            {40, 20, 20, 20},
+            {60, 20, 20, 20},
+            {80, 20, 20, 20},
 
-            Sprite(testAnimatedTexture, {40, 40, 20, 20}),
-            Sprite(testAnimatedTexture, {60, 40, 20, 20}),
-            Sprite(testAnimatedTexture, {80, 40, 20, 20}),
+            {40, 40, 20, 20},
+            {60, 40, 20, 20},
+            {80, 40, 20, 20},
 
-            Sprite(testAnimatedTexture, {40, 60, 20, 20}),
-            Sprite(testAnimatedTexture, {60, 60, 20, 20}),
-            Sprite(testAnimatedTexture, {80, 60, 20, 20}),
+            {40, 60, 20, 20},
+            {60, 60, 20, 20},
+            {80, 60, 20, 20},
         };
 
-        testAnimatedSprite = AnimatedSprite(testSprites, 10);
+        testAnimatedSprite = AnimatedSprite(testAnimatedTexture, testRects, 10);
     }
 
     void ObjTestD::Update(float delta)

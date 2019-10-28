@@ -17,7 +17,7 @@ namespace UT
     class Player : public Object
     {
     public:
-        Player();
+        Player(std::map<std::string, std::vector<sf::IntRect>> frames = {});
 
         void Init() override;
         void Update(float delta) override;
@@ -54,6 +54,9 @@ namespace UT
 
         sf::IntRect collisionBox;
         int speed;
+
+        bool isMoving;
+        bool canMove;
 
         void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     };

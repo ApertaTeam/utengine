@@ -11,12 +11,12 @@ namespace UTSandbox
 
     void ActorTest::Init()
     {
-        std::vector<Sprite> testSprites = {
-            Sprite(testTexture, {0, 0, 20, 20}),
-            Sprite(testTexture, {20, 0, 20, 20})
+        std::vector<sf::IntRect> testSprites = {
+            {0, 0, 20, 20},
+            {20, 0, 20, 20}
         };
 
-        sprite = AnimatedSprite(testSprites);
+        sprite = AnimatedSprite(testTexture, testSprites);
 
         speed = 1000;
 

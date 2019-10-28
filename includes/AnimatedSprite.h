@@ -21,19 +21,19 @@ namespace UT
         };
 
         AnimatedSprite(EndAction action = LOOP);
-        AnimatedSprite(std::vector<Sprite> frames, int speed = 15, EndAction action = LOOP);
+        AnimatedSprite(int texId, std::vector<sf::IntRect> frames = {}, int speed = 15, EndAction action = LOOP);
 
-        inline Sprite GetFrame(int idx) const { return frames[idx]; }
-        inline std::vector<Sprite> GetFrames() const { return frames; }
+        inline sf::IntRect GetFrame(int idx) const { return frames[idx]; }
+        inline std::vector<sf::IntRect> GetFrames() const { return frames; }
         inline void SetImageIndex(int curFrame) { this->curFrame = curFrame; }
         inline int GetImageIndex() const { return (int)floor(curFrame); }
 
         inline void SetSpeed(int speed) { this->speed = speed; };
         inline int GetSpeed() { return speed; };
 
-        inline void PushFrame(Sprite frame) { frames.push_back(frame); }
-        inline void PushFrames(const std::vector<Sprite> &frames) { for (auto& frame : frames) this->frames.push_back(frame); }
-        inline void Reset() { frames.clear(); }
+        inline void PushFrame(sf::IntRect frame) { frames.push_back(frame); }
+        inline void PushFrames(const std::vector<sf::IntRect> &frames) { for (auto& frame : frames) this->frames.push_back(frame); }
+        inline void Reset() { frames.clear(); curFrame = 0; }
 
         // Returns the size of the CURRENT frame!
         sf::Vector2f GetSize() const;
@@ -41,10 +41,11 @@ namespace UT
         void Update(float delta);
 
     private:
-        std::vector<Sprite> frames;
+        std::vector<sf::IntRect> frames;
         float curFrame;
         int speed;
         EndAction action;
+        int textureId;
 
         bool paused = false;
         bool done = false;

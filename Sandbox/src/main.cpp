@@ -56,25 +56,31 @@ int main()
     //mainRoom.objects.push_back(&testActor);
 
     // Player
-    Player player = Player();
-    AnimatedSprite playerAnimSprite = AnimatedSprite();
+    Player player = Player({
+        {"idleNorth", { sf::IntRect(5, 107, 19, 29) }},
+        {"idleSouth", { sf::IntRect(5, 5, 19, 29) }},
+        {"idleWest", { sf::IntRect(5, 39, 17, 29) }},
+        {"idleEast", { sf::IntRect(5, 73, 17, 29) }},
+        {"walkNorth", {
+            sf::IntRect(5, 107, 19, 29),
+            sf::IntRect(29, 107, 19, 29),
+            sf::IntRect(53, 107, 19, 29),
+            sf::IntRect(77, 107, 19, 29)
+        }},
+        {"walkSouth", {
+            sf::IntRect(5, 5, 19, 29),
+            sf::IntRect(29, 5, 19, 29),
+            sf::IntRect(53, 5, 19, 29),
+            sf::IntRect(77, 5, 19, 29)
+        }},
+        {"walkWest", { sf::IntRect(5, 39, 17, 29), sf::IntRect(27, 39, 17, 29) }},
+        {"walkEast", { sf::IntRect(5, 73, 17, 29), sf::IntRect(27, 73, 17, 29) }}
+    });
     int playerTexture = TextureHandler::LoadTextureFromFile("player.png");
-    Sprite playerSprite = Sprite();
-    playerSprite.SetTexture(playerTexture);
-
-    playerAnimSprite.PushFrame(playerSprite);
+    AnimatedSprite playerAnimSprite = AnimatedSprite(playerTexture);
+    
     player.SetTexture(playerTexture);
     player.SetSprite(playerAnimSprite);
-
-    player.AddTextureRect("idleNorth", { sf::IntRect(5, 107, 19, 29) });
-    player.AddTextureRect("idleSouth", { sf::IntRect(5, 5, 19, 29) });
-    player.AddTextureRect("idleWest", { sf::IntRect(5, 39, 17, 29) });
-    player.AddTextureRect("idleEast", { sf::IntRect(5, 73, 17, 29) });
-
-    player.AddTextureRect("walkNorth", { sf::IntRect(5, 107, 19, 29) });
-    player.AddTextureRect("walkSouth", { sf::IntRect(5, 5, 19, 29), sf::IntRect(29, 5, 19, 29), sf::IntRect(53, 5, 19, 29), sf::IntRect(77, 5, 19, 29) });
-    player.AddTextureRect("walkWest", { sf::IntRect(5, 39, 17, 29) });
-    player.AddTextureRect("walkEast", { sf::IntRect(5, 73, 17, 29) });
 
     player.SetPosition({20, 20});
     mainRoom.objects.push_back(&player);

@@ -3,17 +3,17 @@
 
 namespace UT
 {
-    AnimatedSprite::AnimatedSprite(EndAction action) : frames(), curFrame(0), action(action), speed(1)
+    AnimatedSprite::AnimatedSprite(EndAction action) : textureId(-1), frames(), curFrame(0), action(action), speed(1)
     {
     }
 
-    AnimatedSprite::AnimatedSprite(std::vector<Sprite> frames, int speed, EndAction action) : frames(frames), speed(speed), curFrame(0), action(action)
+    AnimatedSprite::AnimatedSprite(int texId, std::vector<sf::IntRect> frames, int speed, EndAction action) : textureId(texId), frames(frames), speed(speed), curFrame(0), action(action)
     {
     }
 
     sf::Vector2f AnimatedSprite::GetSize() const
     {
-        const auto& rect = GetFrame(GetImageIndex()).GetTextureRect();
+        const auto& rect = GetFrame(GetImageIndex());
         return sf::Vector2f(rect.width, rect.height);
     }
 
@@ -71,6 +71,6 @@ namespace UT
     {
         states.transform *= getTransform();
 
-        if (!(done && action == DESTROY)) target.draw(frames[(int)floor(curFrame)], states);
+        if (!(done && action == DESTROY)) target.draw(Sprite(textureId, frames[(int)floor(curFrame)]), states);
     }
 }
