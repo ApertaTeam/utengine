@@ -11,7 +11,7 @@ namespace UT
 
     void Player::Init()
     {
-        sprite.SetSpeed(10);
+        sprite.SetSpeed(5);
     }
 
     void Player::AddTextureRect(std::string name, std::vector<sf::IntRect> textureRect)
@@ -22,7 +22,7 @@ namespace UT
     void Player::Update(float delta)
     {
         int curFrame = sprite.GetImageIndex();
-        Sprite spr = Sprite(texture, textureRects["idleSouth"][curFrame]);
+        Sprite spr = Sprite(texture, textureRects["idleSouth"][0]);
 
         if ((InputHandler::IsInputHeld(InputActions::Left) && direction != PlayerDirection::West)
             || (InputHandler::IsInputHeld(InputActions::Right) && direction != PlayerDirection::East)
@@ -30,34 +30,33 @@ namespace UT
             || (InputHandler::IsInputHeld(InputActions::Down) && direction != PlayerDirection::South))
         {
             sprite.SetImageIndex(0);
-
             sprite.Reset();
-
+            
             if (InputHandler::IsInputHeld(InputActions::Up))
             {
+                spr.SetTextureRect(textureRects["walkNorth"][0]);
                 sprite.PushFrame(spr);
-                spr.SetTextureRect(textureRects["idleNorth"][0]);
             }
             else if (InputHandler::IsInputHeld(InputActions::Down))
             {
+                spr.SetTextureRect(textureRects["walkSouth"][0]);
                 sprite.PushFrame(spr);
-                spr.SetTextureRect(textureRects["idleSouth"][0]);
+                spr.SetTextureRect(textureRects["walkSouth"][1]);
                 sprite.PushFrame(spr);
-                spr.SetTextureRect(textureRects["idleSouth"][1]);
+                spr.SetTextureRect(textureRects["walkSouth"][2]);
                 sprite.PushFrame(spr);
-                spr.SetTextureRect(textureRects["idleSouth"][2]);
+                spr.SetTextureRect(textureRects["walkSouth"][3]);
                 sprite.PushFrame(spr);
-                spr.SetTextureRect(textureRects["idleSouth"][3]);
             }
             else if (InputHandler::IsInputHeld(InputActions::Left))
             {
+                spr.SetTextureRect(textureRects["walkWest"][0]);
                 sprite.PushFrame(spr);
-                spr.SetTextureRect(textureRects["idleWest"][0]);
             }
             else if (InputHandler::IsInputHeld(InputActions::Right))
             {
+                spr.SetTextureRect(textureRects["walkEast"][0]);
                 sprite.PushFrame(spr);
-                spr.SetTextureRect(textureRects["idleEast"][0]);
             }
         }
 
@@ -66,26 +65,22 @@ namespace UT
         {
             position.y -= speed;
             direction = PlayerDirection::North;
-            spr.SetTextureRect(textureRects["idleNorth"][curFrame]);
         }
         else if (InputHandler::IsInputHeld(InputActions::Down))
         {
             position.y += speed;
             direction = PlayerDirection::South;
-            spr.SetTextureRect(textureRects["idleSouth"][curFrame]);
         }
 
         if (InputHandler::IsInputHeld(InputActions::Left))
         {
             position.x -= speed;
             direction = PlayerDirection::West;
-            spr.SetTextureRect(textureRects["idleWest"][curFrame]);
         }
         else if (InputHandler::IsInputHeld(InputActions::Right))
         {
             position.x += speed;
             direction = PlayerDirection::East;
-            spr.SetTextureRect(textureRects["idleEast"][curFrame]);
         }
 
         sprite.Update(delta);

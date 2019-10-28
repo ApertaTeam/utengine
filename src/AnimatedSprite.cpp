@@ -24,6 +24,7 @@ namespace UT
             if (!reverse)
             {
                 curFrame += speed / (1000 * delta);
+
                 if (curFrame >= frames.size())
                 {
                     if (action == LOOP)
