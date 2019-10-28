@@ -31,23 +31,43 @@ namespace UT
         if (InputHandler::IsInputHeld(InputActions::Up))
         {
             position.y -= speed;
-            direction = PlayerDirection::North;
+
+            if (direction != PlayerDirection::North)
+            {
+                isMoving = false;
+                direction = PlayerDirection::North;
+            }
         }
         else if (InputHandler::IsInputHeld(InputActions::Down))
         {
             position.y += speed;
-            direction = PlayerDirection::South;
+
+            if (direction != PlayerDirection::South)
+            {
+                isMoving = false;
+                direction = PlayerDirection::South;
+            }
         }
 
         if (InputHandler::IsInputHeld(InputActions::Left))
         {
             position.x -= speed;
-            direction = PlayerDirection::West;
+
+            if (direction != PlayerDirection::West)
+            {
+                isMoving = false;
+                direction = PlayerDirection::West;
+            }
         }
         else if (InputHandler::IsInputHeld(InputActions::Right))
         {
             position.x += speed;
-            direction = PlayerDirection::East;
+
+            if (direction != PlayerDirection::East)
+            {
+                isMoving = false;
+                direction = PlayerDirection::East;
+            }
         }
 
         if (moving != isMoving)
