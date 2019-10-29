@@ -49,8 +49,9 @@ int main()
     //mainRoom.objects.push_back(&testObjectC);
 
     // Test object D (Animated Sprite)
-    //UTSandbox::ObjTestD testObjectD = UTSandbox::ObjTestD();
-    //mainRoom.objects.push_back(&testObjectD);
+    UTSandbox::ObjTestD testObjectD = UTSandbox::ObjTestD();
+    testObjectD.SetDepth(160);
+    mainRoom.objects.push_back(&testObjectD);
 
     // Test actor
     //UTSandbox::ActorTest testActor = UTSandbox::ActorTest();

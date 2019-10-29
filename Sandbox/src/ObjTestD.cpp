@@ -26,15 +26,11 @@ namespace UTSandbox
         };
 
         testAnimatedSprite = AnimatedSprite(testAnimatedTexture, testRects, 10);
+        testAnimatedSprite.setPosition(200, 160);
     }
 
     void ObjTestD::Update(float delta)
     {
-        if (InputHandler::IsInputHeld(InputActions::Confirm))
-        {
-            testAnimatedSprite.setPosition(testAnimatedSprite.getPosition().x + 4, testAnimatedSprite.getPosition().y + 4);
-        }
-
         testAnimatedSprite.Update(delta);
     }
 

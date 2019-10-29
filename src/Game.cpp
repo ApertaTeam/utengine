@@ -131,6 +131,8 @@ namespace UT
             object->Init();
         }
 
+        RefreshDepth();
+
         while (window->isOpen())
         {
             Update();
