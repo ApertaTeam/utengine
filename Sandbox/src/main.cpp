@@ -87,7 +87,7 @@ int main()
     player.SetTexture(playerTexture);
     player.SetSprite(playerAnimSprite);
 
-    player.SetPosition({20, 20});
+    player.SetPosition({140, 140});
     mainRoom.objects.push_back(&player);
 
     //-- Main room objects end --//
