@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Input.h"
+#include "Game.h"
 
 namespace UT
 {
@@ -68,6 +69,12 @@ namespace UT
                 isMoving = false;
                 direction = PlayerDirection::East;
             }
+        }
+
+        if (InputHandler::IsInputHeld(InputActions::Up) || InputHandler::IsInputHeld(InputActions::Down))
+        {
+            depth = position.y - 1;
+            Game::RefreshDepth();
         }
 
         if (moving != isMoving)

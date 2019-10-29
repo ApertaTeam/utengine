@@ -19,6 +19,9 @@ namespace UT
         void Update();
         void Render();
 
+        void Refresh();
+        static void RefreshDepth();
+
         bool Start();
 
 		void LoadRoom(Room* room);

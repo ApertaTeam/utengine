@@ -13,6 +13,8 @@
 
 namespace UT
 {
+    static Game* instance;
+
     Game::Game(std::string title, unsigned int FPS, sf::Image icon)
     {
         this->title = title;
@@ -23,6 +25,8 @@ namespace UT
 
         this->room = nullptr;
         this->camera = nullptr;
+
+        instance = this;
     }
 
     Game::~Game()
@@ -92,6 +96,20 @@ namespace UT
         if (BatchHandler::getInstance().BatchExists()) BatchHandler::getInstance().DrawBatch();
         
         window->display();
+    }
+
+    void Game::Refresh()
+    {
+        // Sort game objects in order of depth
+        std::sort(objects.begin(), objects.end(), [](const Object* x, const Object* y)
+            {
+                return x->GetDepth() < y->GetDepth();
+            });
+    }
+
+    void Game::RefreshDepth()
+    {
+        instance->Refresh();
     }
 
     bool Game::Start()

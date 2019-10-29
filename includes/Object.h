@@ -12,6 +12,12 @@ namespace UT
     public:
         virtual void Init() = 0;
         virtual void Update(float delta) = 0;
+
+        inline void SetDepth(int depth) { this->depth = depth;  };
+        inline int GetDepth() const { return depth; };
+
+    protected:
+        int depth = 0;
     };
 }
 
