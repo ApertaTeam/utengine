@@ -20,10 +20,20 @@ namespace UT
             {
                 newView.left = objectPos.x - viewSize.x / 2;
             }
+            
+            if (objectPos.x + viewSize.x / 2 > 320)
+            {
+                newView.left = 320 - viewSize.x;
+            }
 
             if (objectPos.y - viewSize.y / 2 > 0)
             {
                 newView.top = objectPos.y - viewSize.y / 2;
+            }
+            
+            if (objectPos.y + viewSize.y / 2 > 240)
+            {
+                newView.top = 240 - viewSize.y;
             }
 
             newView.width = viewSize.x;
