@@ -14,7 +14,7 @@ namespace UT
     sf::Vector2f AnimatedSprite::GetSize() const
     {
         const auto& rect = GetFrame(GetImageIndex());
-        return sf::Vector2f(rect.width, rect.height);
+        return sf::Vector2f((float)rect.width, (float)rect.height);
     }
 
     void AnimatedSprite::Update(float delta)
@@ -34,7 +34,7 @@ namespace UT
                     else if (action == REVERSE || action == REVERSE_LOOP)
                     {
                         reverse = true;
-                        curFrame = frames.size() - 1;
+                        curFrame = (float)frames.size() - 1.f;
                     }
                     else if (action == END || action == DESTROY || action == ENDSTART)
                     {

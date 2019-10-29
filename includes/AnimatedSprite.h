@@ -25,7 +25,7 @@ namespace UT
 
         inline sf::IntRect GetFrame(int idx) const { return frames[idx]; }
         inline std::vector<sf::IntRect> GetFrames() const { return frames; }
-        inline void SetImageIndex(int curFrame) { this->curFrame = curFrame; }
+        inline void SetImageIndex(int curFrame) { this->curFrame = (float)curFrame; }
         inline int GetImageIndex() const { return (int)floor(curFrame); }
 
         inline void SetSpeed(int speed) { this->speed = speed; };

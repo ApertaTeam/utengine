@@ -4,7 +4,7 @@
 namespace UT
 {
     Player::Player(std::map<std::string, std::vector<sf::IntRect>> frames)
-        : textureRects(frames), speed(3), direction(PlayerDirection::South), isMoving(false), canMove(true)
+        : textureRects(frames), texture(-1), speed(3), direction(PlayerDirection::South), isMoving(false), canMove(true)
     {
 
     }

@@ -63,7 +63,7 @@ namespace UT
             // Run main update method for all objects
             for (int i = 0; i < this->objects.size(); i++)
             {
-                objects[i]->Update(delta);
+                objects[i]->Update((float)delta);
             }
 
 
