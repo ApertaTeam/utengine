@@ -1,9 +1,11 @@
 #include "Camera.h"
-#include <iostream>
+#include "Game.h"
+
 namespace UT
 {
-    Camera::Camera(sf::Vector2f viewSize, Object* trackedObject)
+    Camera::Camera(Game* game, sf::Vector2f viewSize, Object* trackedObject)
     {
+        this->game = game;
         this->trackedObject = trackedObject;
         this->viewSize = viewSize;
         this->view = sf::View({0.0, 0.0, (float)viewSize.x, (float)viewSize.y});
@@ -15,13 +17,15 @@ namespace UT
         {
             sf::Vector2f objectPos = trackedObject->getPosition();
             sf::FloatRect newView = {0, 0, 0, 0};
+            Vector2 roomSize = game->GetRoom()->size;
+            
 
             if (objectPos.x - viewSize.x / 2 > 0)
             {
                 newView.left = objectPos.x - viewSize.x / 2;
             }
             
-            if (objectPos.x + viewSize.x / 2 > 320)
+            if (objectPos.x + viewSize.x / 2 > roomSize.x)
             {
                 newView.left = 320 - viewSize.x;
             }
@@ -31,7 +35,7 @@ namespace UT
                 newView.top = objectPos.y - viewSize.y / 2;
             }
             
-            if (objectPos.y + viewSize.y / 2 > 240)
+            if (objectPos.y + viewSize.y / 2 > roomSize.y)
             {
                 newView.top = 240 - viewSize.y;
             }

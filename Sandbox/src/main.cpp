@@ -96,7 +96,7 @@ int main()
 
 
     // Main camera object
-    Camera mainCamera = Camera({ 320, 240 }, &player);
+    Camera mainCamera = Camera(&mainGame, { 320, 240 }, &player);
     mainGame.SetCamera(&mainCamera);
 
     // Initialize game object

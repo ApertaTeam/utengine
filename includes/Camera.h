@@ -9,11 +9,13 @@
 
 namespace UT
 {
+    class Game;
+
     // Handles the game camera movement
     class Camera
     {
     public:
-        Camera(sf::Vector2f viewSize = { 320, 240 }, Object* trackedObject = nullptr);
+        Camera(Game* game, sf::Vector2f viewSize = { 320, 240 }, Object* trackedObject = nullptr);
 
         virtual void Update();
 
@@ -23,6 +25,7 @@ namespace UT
         inline sf::View* GetView() { return &view; };
 
     private:
+        Game* game;
         Object* trackedObject;
         sf::View view;
 
