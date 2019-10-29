@@ -14,12 +14,12 @@ namespace UTSandbox
     {
         TileSet set =
         {
-            {0, Sprite(testTileset, {100, 0, 20, 20})},
-            {1, Sprite(testTileset, {100, 20, 20, 20})},
-            {2, Sprite(testTileset, {120, 0, 20, 20})},
-            {3, Sprite(testTileset, {140, 0, 20, 20})},
-            {4, Sprite(testTileset, {120, 20, 20, 20})},
-            {5, Sprite(testTileset, {140, 20, 20, 20})}
+            {0, sf::IntRect(100, 0, 20, 20)},
+            {1, sf::IntRect(100, 20, 20, 20)},
+            {2, sf::IntRect(120, 0, 20, 20)},
+            {3, sf::IntRect(140, 0, 20, 20)},
+            {4, sf::IntRect(120, 20, 20, 20)},
+            {5, sf::IntRect(140, 20, 20, 20)}
         };
         TileGrid grid =
         {
@@ -28,7 +28,7 @@ namespace UTSandbox
             {0, 0, 0, 0},
             {4, 0, 0, 5}
         };
-        testMap = TileMap(grid, set);
+        testMap = TileMap(testTileset, grid, set);
         testSprite = Sprite(testTexture, {0, 0, 215, 215});
         testSprite.setPosition((640.f/2)-(215.f/2), (480.f/2)-(215.f/2));
     }

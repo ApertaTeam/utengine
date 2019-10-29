@@ -2,7 +2,8 @@
 
 namespace UT
 {
-    TileMap::TileMap(const TileGrid &grid, const TileSet &tileset)
+    TileMap::TileMap(int texId, const TileGrid &grid, const TileSet &tileset)
+        : textureId(texId)
     {
         if (grid.size() == 0 || tileset.size() == 0) throw EmptyTileException();
         for (int y = 0; y < grid.size(); ++y)
@@ -12,12 +13,12 @@ namespace UT
                 if (tileset.find(grid[y][x]) == tileset.end()) throw InvalidTileException();
                 if (tileWidth == -1 || tileHeight == -1)
                 {
-                    tileWidth = tileset.at(grid[y][x]).GetTextureRect().width;
-                    tileHeight = tileset.at(grid[y][x]).GetTextureRect().height;
+                    tileWidth = tileset.at(grid[y][x]).width;
+                    tileHeight = tileset.at(grid[y][x]).height;
                 }
                 else
                 {
-                    if (tileset.at(grid[y][x]).GetTextureRect().width != tileWidth || tileset.at(grid[y][x]).GetTextureRect().height != tileHeight) 
+                    if (tileset.at(grid[y][x]).width != tileWidth || tileset.at(grid[y][x]).height != tileHeight) 
                     {
                         throw InvalidTileException();
                     }
@@ -51,7 +52,7 @@ namespace UT
             int temp = 0;
             for (auto t : tv)
             {
-                temp += tileset.at(t).GetTextureRect().width;
+                temp += tileset.at(t).width;
             }
             if (temp > renderWidth) renderWidth = temp;
         }
@@ -66,7 +67,7 @@ namespace UT
             int temp = 0;
             for (auto& t : tv)
             {
-                temp += tileset.at(t).GetTextureRect().height;
+                temp += tileset.at(t).height;
             }
             if (temp > renderHeight) renderHeight = temp;
         }
@@ -91,7 +92,7 @@ namespace UT
         {
             for (auto& t : tv)
             {
-                auto sprite = tileset.at(t);
+                auto sprite = Sprite(textureId, tileset.at(t));
                 sprite.setPosition((float)drawx, (float)drawy);
                 target.draw(sprite, states);
                 drawx += tileWidth;

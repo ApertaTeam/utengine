@@ -17,6 +17,7 @@
 #include "ObjTestC.h"
 #include "ObjTestD.h"
 #include "ActorTest.h"
+#include "TileMapTest.h"
 
 
 using namespace UT;
@@ -54,6 +55,10 @@ int main()
     // Test actor
     //UTSandbox::ActorTest testActor = UTSandbox::ActorTest();
     //mainRoom.objects.push_back(&testActor);
+
+    // Test TileMap
+    UTSandbox::TileMapTest testMap = UTSandbox::TileMapTest();
+    mainRoom.objects.push_back(&testMap);
 
     // Player
     Player player = Player({

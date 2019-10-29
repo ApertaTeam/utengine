@@ -10,7 +10,7 @@
 namespace UT
 {
     using TileGrid = std::vector<std::vector<unsigned short>>;
-    using TileSet = std::map<unsigned short, Sprite>;
+    using TileSet = std::map<unsigned short, sf::IntRect>;
 
     class EmptyTileException : public std::exception
     {
@@ -38,7 +38,7 @@ namespace UT
     {
     public:
         TileMap() : grid(), tileset() {}
-        TileMap(const TileGrid &grid, const TileSet &tileset);
+        TileMap(int texId, const TileGrid &grid, const TileSet &tileset);
 
         int GetWidth() const;
         int GetHeight() const;
@@ -52,6 +52,7 @@ namespace UT
 
         int tileWidth = -1;
         int tileHeight = -1;
+        int textureId = -1;
 
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     };
