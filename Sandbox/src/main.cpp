@@ -18,6 +18,7 @@
 #include "ObjTestD.h"
 #include "ActorTest.h"
 #include "TileMapTest.h"
+#include "TileMapTestB.h"
 
 
 using namespace UT;
@@ -60,6 +61,11 @@ int main()
     // Test TileMap
     UTSandbox::TileMapTest testMap = UTSandbox::TileMapTest();
     mainRoom.objects.push_back(&testMap);
+
+    // Test TileMap B
+    UTSandbox::TileMapTestB testMapB = UTSandbox::TileMapTestB();
+    testMapB.SetDepth(10000);
+    mainRoom.objects.push_back(&testMapB);
 
     // Player
     Player player = Player({
