@@ -12,7 +12,7 @@ namespace UT
 
     void Player::Init()
     {
-        sprite.SetSpeed(5);
+        sprite.SetSpeed(4);
     }
 
     void Player::AddTextureRect(std::string name, std::vector<sf::IntRect> textureRect)
@@ -28,33 +28,12 @@ namespace UT
             || InputHandler::IsInputHeld(InputActions::Right)
             || InputHandler::IsInputHeld(InputActions::Up)
             || InputHandler::IsInputHeld(InputActions::Down));
-
-        if (InputHandler::IsInputHeld(InputActions::Up))
-        {
-            position.y -= speed;
-
-            if (direction != PlayerDirection::North)
-            {
-                isMoving = false;
-                direction = PlayerDirection::North;
-            }
-        }
-        else if (InputHandler::IsInputHeld(InputActions::Down))
-        {
-            position.y += speed;
-
-            if (direction != PlayerDirection::South)
-            {
-                isMoving = false;
-                direction = PlayerDirection::South;
-            }
-        }
-
+       
         if (InputHandler::IsInputHeld(InputActions::Left))
         {
             position.x -= speed;
 
-            if (direction != PlayerDirection::West)
+            if (direction != PlayerDirection::West && !InputHandler::IsInputHeld(InputActions::Up) && !InputHandler::IsInputHeld(InputActions::Down))
             {
                 isMoving = false;
                 direction = PlayerDirection::West;
@@ -64,10 +43,73 @@ namespace UT
         {
             position.x += speed;
 
-            if (direction != PlayerDirection::East)
+            if (direction != PlayerDirection::East && !InputHandler::IsInputHeld(InputActions::Up) && !InputHandler::IsInputHeld(InputActions::Down))
             {
                 isMoving = false;
                 direction = PlayerDirection::East;
+            }
+        }
+
+        if (InputHandler::IsInputHeld(InputActions::Up))
+        {
+            position.y -= speed;
+
+            if (direction != PlayerDirection::North)
+            {
+                if (direction != PlayerDirection::NorthEast && InputHandler::IsInputHeld(InputActions::Right))
+                {
+                    if (direction != PlayerDirection::North && direction != PlayerDirection::NorthEast && direction != PlayerDirection::NorthWest)
+                    {
+                        isMoving = false;
+                    }
+
+                    direction = PlayerDirection::NorthEast;
+                }
+                else if(direction != PlayerDirection::NorthWest && InputHandler::IsInputHeld(InputActions::Left))
+                {
+                    if (direction != PlayerDirection::North && direction != PlayerDirection::NorthEast && direction != PlayerDirection::NorthWest)
+                    {
+                        isMoving = false;
+                    }
+
+                    direction = PlayerDirection::NorthWest;
+                }
+                else if (!InputHandler::IsInputHeld(InputActions::Left) && !InputHandler::IsInputHeld(InputActions::Right))
+                {
+                    isMoving = false;
+                    direction = PlayerDirection::North;
+                }
+            }
+        }
+        else if (InputHandler::IsInputHeld(InputActions::Down))
+        {
+            position.y += speed;
+
+            if (direction != PlayerDirection::South)
+            {
+                if (direction != PlayerDirection::SouthEast && InputHandler::IsInputHeld(InputActions::Right))
+                {
+                    if (direction != PlayerDirection::South && direction != PlayerDirection::SouthEast && direction != PlayerDirection::SouthWest)
+                    {
+                        isMoving = false;
+                    }
+
+                    direction = PlayerDirection::SouthEast;
+                }
+                else if (direction != PlayerDirection::SouthWest && InputHandler::IsInputHeld(InputActions::Left))
+                {
+                    if (direction != PlayerDirection::South && direction != PlayerDirection::SouthEast && direction != PlayerDirection::SouthWest)
+                    {
+                        isMoving = false;
+                    }
+
+                    direction = PlayerDirection::SouthWest;
+                }
+                else if(!InputHandler::IsInputHeld(InputActions::Left) && !InputHandler::IsInputHeld(InputActions::Right))
+                {
+                    isMoving = false;
+                    direction = PlayerDirection::South;
+                }
             }
         }
 
@@ -88,10 +130,22 @@ namespace UT
                 case PlayerDirection::North:
                     sprite.PushFrames(textureRects["walkNorth"]);
                     break;
+                case PlayerDirection::NorthWest:
+                    sprite.PushFrames(textureRects["walkNorth"]);
+                    break;
+                case PlayerDirection::NorthEast:
+                    sprite.PushFrames(textureRects["walkNorth"]);
+                    break;
                 case PlayerDirection::East:
                     sprite.PushFrames(textureRects["walkEast"]);
                     break;
                 case PlayerDirection::South:
+                    sprite.PushFrames(textureRects["walkSouth"]);
+                    break;
+                case PlayerDirection::SouthWest:
+                    sprite.PushFrames(textureRects["walkSouth"]);
+                    break;
+                case PlayerDirection::SouthEast:
                     sprite.PushFrames(textureRects["walkSouth"]);
                     break;
                 case PlayerDirection::West:
@@ -106,10 +160,22 @@ namespace UT
                 case PlayerDirection::North:
                     sprite.PushFrames(textureRects["idleNorth"]);
                     break;
+                case PlayerDirection::NorthWest:
+                    sprite.PushFrames(textureRects["idleNorth"]);
+                    break;
+                case PlayerDirection::NorthEast:
+                    sprite.PushFrames(textureRects["idleNorth"]);
+                    break;
                 case PlayerDirection::East:
                     sprite.PushFrames(textureRects["idleEast"]);
                     break;
                 case PlayerDirection::South:
+                    sprite.PushFrames(textureRects["idleSouth"]);
+                    break;
+                case PlayerDirection::SouthWest:
+                    sprite.PushFrames(textureRects["idleSouth"]);
+                    break;
+                case PlayerDirection::SouthEast:
                     sprite.PushFrames(textureRects["idleSouth"]);
                     break;
                 case PlayerDirection::West:

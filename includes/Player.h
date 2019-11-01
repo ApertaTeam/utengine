@@ -11,7 +11,11 @@ namespace UT
         North,
         South,
         West,
-        East
+        East,
+        NorthWest,
+        NorthEast,
+        SouthWest,
+        SouthEast
     };
 
     class Player : public Object
