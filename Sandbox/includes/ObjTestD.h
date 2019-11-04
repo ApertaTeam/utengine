@@ -17,7 +17,7 @@ namespace UTSandbox
 
         void Init() override;
         void Update(float delta) override;
-        void Interact() override;
+        void Run() override;
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     private:

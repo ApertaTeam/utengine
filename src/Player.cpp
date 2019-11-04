@@ -2,7 +2,8 @@
 #include "Input.h"
 #include "Game.h"
 #include "CollisionHandler.h"
-#include <iostream>
+#include "Action.h"
+
 namespace UT
 {
     Player::Player(std::map<std::string, std::vector<sf::IntRect>> frames)
@@ -129,22 +130,38 @@ namespace UT
             tempPosition.y = position.y;
         }
 
-        // Check interaction
+        // Check interactions
         if (InputHandler::IsInputPressed(InputActions::Confirm)) 
         {
-            std::vector<Interactable*> interactables = CollisionHandler::CheckAllInteractablesDirect({
+            std::vector<Interactable*> interactables = CollisionHandler::CheckAllDirect<Interactable>({
                 (int)tempPosition.x + collisionBox.left,
                 (int)tempPosition.y + collisionBox.top,
                 collisionBox.width,
                 collisionBox.height
-            }, 5);
+                }, 5);
 
             for (int i = 0; i < interactables.size(); i++)
             {
                 if (interactables[i] != nullptr)
                 {
-                    interactables[i]->Interact();
+                    interactables[i]->Run();
                 }
+            }
+        }
+
+        // Check actions
+        std::vector<Action*> actions = CollisionHandler::CheckAllDirect<Action>({
+            (int)tempPosition.x + collisionBox.left,
+            (int)tempPosition.y + collisionBox.top,
+            collisionBox.width,
+            collisionBox.height
+            }, 0);
+
+        for (int i = 0; i < actions.size(); i++)
+        {
+            if (actions[i] != nullptr)
+            {
+                actions[i]->Run();
             }
         }
 

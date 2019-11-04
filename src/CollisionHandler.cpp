@@ -97,9 +97,10 @@ namespace UT
         return nullptr;
     }
 
-    std::vector<Interactable*> CollisionHandler::CheckAllInteractablesDirect(sf::IntRect collisionBox, int padding)
+    template<typename _DirectType>
+    std::vector<_DirectType*> CollisionHandler::CheckAllDirect(sf::IntRect collisionBox, int padding)
     {
-        std::vector<Interactable*> interactables;
+        std::vector<_DirectType*> interactables;
 
         sf::IntRect mainRect = collisionBox;
         mainRect.left -= padding;
@@ -118,7 +119,7 @@ namespace UT
                 && subRect.top <= mainRect.top + mainRect.height
                 && subRect.top + subRect.height >= mainRect.top))
             {
-                interactables.push_back(dynamic_cast<Interactable*>(instance->objects[i]));
+                interactables.push_back(dynamic_cast<_DirectType*>(instance->objects[i]));
             }
         }
 

@@ -7,7 +7,7 @@ namespace UT {
     class Interactable
     {
     public:
-        virtual void Interact() = 0;
+        virtual void Run() = 0;
     };
 }
 #endif

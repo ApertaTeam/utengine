@@ -39,7 +39,7 @@ namespace UTSandbox
         testAnimatedSprite.Update(delta);
     }
 
-    void ObjTestD::Interact()
+    void ObjTestD::Run()
     {
         std::cout << "Interation confirmed." << std::endl;
     }

@@ -35,7 +35,7 @@ namespace UTSandbox
         target.draw(sprite);
     }
 
-    void ActorTest::Interact()
+    void ActorTest::Run()
     {
 
     }

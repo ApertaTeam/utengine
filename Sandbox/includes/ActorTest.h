@@ -16,7 +16,7 @@ namespace UTSandbox
         void OnUpdate(float delta) override;
         void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-        void Interact() override;
+        void Run() override;
 
     private:
         int testTexture;
