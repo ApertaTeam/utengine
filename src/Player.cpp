@@ -24,7 +24,7 @@ namespace UT
     void Player::Update(float delta)
     {
         int curFrame = sprite.GetImageIndex();
-        sf::Vector2f oldPosition = position;
+        sf::Vector2f tempPosition = position;
 
         bool moving = (InputHandler::IsInputHeld(InputActions::Left)
             || InputHandler::IsInputHeld(InputActions::Right)
@@ -33,7 +33,7 @@ namespace UT
        
         if (InputHandler::IsInputHeld(InputActions::Left))
         {
-            position.x -= speed;
+            tempPosition.x -= speed;
 
             if (direction != PlayerDirection::West && !InputHandler::IsInputHeld(InputActions::Up) && !InputHandler::IsInputHeld(InputActions::Down))
             {
@@ -43,7 +43,7 @@ namespace UT
         }
         else if (InputHandler::IsInputHeld(InputActions::Right))
         {
-            position.x += speed;
+            tempPosition.x += speed;
 
             if (direction != PlayerDirection::East && !InputHandler::IsInputHeld(InputActions::Up) && !InputHandler::IsInputHeld(InputActions::Down))
             {
@@ -52,14 +52,14 @@ namespace UT
             }
         }
 
-        if (CollisionHandler::CheckAllCollisions(this) != nullptr)
+        if (CollisionHandler::CheckAllCollisionsMovement(this, tempPosition) != nullptr)
         {
-            position.x = oldPosition.x;
+            tempPosition.x = position.x;
         }
 
         if (InputHandler::IsInputHeld(InputActions::Up))
         {
-            position.y -= speed;
+            tempPosition.y -= speed;
 
             if (direction != PlayerDirection::North)
             {
@@ -90,7 +90,7 @@ namespace UT
         }
         else if (InputHandler::IsInputHeld(InputActions::Down))
         {
-            position.y += speed;
+            tempPosition.y += speed;
 
             if (direction != PlayerDirection::South)
             {
@@ -120,14 +120,14 @@ namespace UT
             }
         }
 
-        if (CollisionHandler::CheckAllCollisions(this) != nullptr)
+        if (CollisionHandler::CheckAllCollisionsMovement(this, tempPosition) != nullptr)
         {
-            position.y = oldPosition.y;
+            tempPosition.y = position.y;
         }
 
         if (InputHandler::IsInputHeld(InputActions::Up) || InputHandler::IsInputHeld(InputActions::Down))
         {
-            depth = position.y - 1;
+            depth = tempPosition.y - 1;
             Game::RefreshDepth();
         }
 
@@ -201,9 +201,11 @@ namespace UT
             sprite.PushFrames(textureRects["idleSouth"]);
         }
 
+        position = tempPosition;
+
         sprite.Update(delta);
         setPosition(position);
-        sprite.setPosition(position - (sprite.GetSize()/2.f));
+        sprite.setPosition(position - sf::Vector2f(std::floor(sprite.GetSize().x / 2.f), std::floor(sprite.GetSize().y / 2.f) ));
     }
 
     void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const

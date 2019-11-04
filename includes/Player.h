@@ -37,9 +37,6 @@ namespace UT
         inline void SetPosition(sf::Vector2f position) { this->position = position; };
         inline sf::Vector2f GetPosition() { return position; };
 
-        inline void SetCollisionBox(sf::IntRect collisionBox) { this->collisionBox = collisionBox; };
-        inline sf::IntRect GetCollisionBox() { return collisionBox; };
-
         inline void SetSpeed(int speed) { this->speed = speed; };
         inline int GetSpeed() { return speed; };
 
@@ -56,7 +53,6 @@ namespace UT
         PlayerDirection direction;
         sf::Vector2f position;
 
-        sf::IntRect collisionBox;
         int speed;
 
         bool isMoving;

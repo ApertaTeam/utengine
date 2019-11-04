@@ -1,5 +1,5 @@
 #include "CollisionHandler.h"
-
+#include <iostream>
 namespace UT
 {
     static CollisionHandler* instance;
@@ -68,6 +68,33 @@ namespace UT
         }
 
         return false;
+    }
+
+    Object* CollisionHandler::CheckAllCollisionsMovement(Object* object, sf::Vector2f nextPos)
+    {
+        sf::IntRect mainRect = object->GetCollisionBox();
+        mainRect.left += nextPos.x;
+        mainRect.top += nextPos.y;
+
+        for (int i = 0; i < instance->objects.size(); i++)
+        {
+            if (instance->objects[i] != object)
+            {
+                sf::IntRect subRect = instance->objects[i]->GetCollisionBox();
+                subRect.left += instance->objects[i]->getPosition().x;
+                subRect.top += instance->objects[i]->getPosition().y;
+
+                if ((subRect.left <= mainRect.left + mainRect.width
+                    && subRect.left + subRect.width >= mainRect.left
+                    && subRect.top <= mainRect.top + mainRect.height
+                    && subRect.top + subRect.height >= mainRect.top))
+                {
+                    return instance->objects[i];
+                }
+            }
+        }
+
+        return nullptr;
     }
 
     void CollisionHandler::UpdateObjects()
