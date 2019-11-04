@@ -97,6 +97,34 @@ namespace UT
         return nullptr;
     }
 
+    std::vector<Interactable*> CollisionHandler::CheckAllInteractablesDirect(sf::IntRect collisionBox, int padding)
+    {
+        std::vector<Interactable*> interactables;
+
+        sf::IntRect mainRect = collisionBox;
+        mainRect.left -= padding;
+        mainRect.top -= padding;
+        mainRect.width += padding * 2;
+        mainRect.height += padding * 2;
+
+        for (int i = 0; i < instance->objects.size(); i++)
+        {
+            sf::IntRect subRect = instance->objects[i]->GetCollisionBox();
+            subRect.left += instance->objects[i]->getPosition().x;
+            subRect.top += instance->objects[i]->getPosition().y;
+
+            if ((subRect.left <= mainRect.left + mainRect.width
+                && subRect.left + subRect.width >= mainRect.left
+                && subRect.top <= mainRect.top + mainRect.height
+                && subRect.top + subRect.height >= mainRect.top))
+            {
+                interactables.push_back(dynamic_cast<Interactable*>(instance->objects[i]));
+            }
+        }
+
+        return interactables;
+    }
+
     void CollisionHandler::UpdateObjects()
     {
         instance->objects = Game::GetObjects();

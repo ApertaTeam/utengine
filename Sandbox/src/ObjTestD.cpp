@@ -2,6 +2,8 @@
 
 #include <TextureHandler.h>
 
+#include <iostream>
+
 namespace UTSandbox
 {
     ObjTestD::ObjTestD()
@@ -35,6 +37,14 @@ namespace UTSandbox
     void ObjTestD::Update(float delta)
     {
         testAnimatedSprite.Update(delta);
+    }
+
+    void ObjTestD::Interact()
+    {
+        if (InputHandler::IsInputHeld(InputActions::Confirm))
+        {
+            std::cout << "Interation confirmed." << std::endl;
+        }
     }
 
     void ObjTestD::draw(sf::RenderTarget& target, sf::RenderStates states) const

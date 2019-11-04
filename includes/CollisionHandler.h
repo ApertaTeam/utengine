@@ -3,6 +3,7 @@
 
 #include "Game.h"
 #include "Object.h"
+#include "Interactable.h"
 
 namespace UT
 {
@@ -14,6 +15,8 @@ namespace UT
         static Object* CheckAllCollisions(Object* object);
         static bool CheckCollisionDirect(sf::IntRect posA, sf::IntRect posB);
         static Object* CheckAllCollisionsMovement(Object* object, sf::Vector2f nextPos);
+
+        static std::vector<Interactable*> CheckAllInteractablesDirect(sf::IntRect collisionBox, int padding);
 
         static void UpdateObjects();
 

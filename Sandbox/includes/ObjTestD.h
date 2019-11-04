@@ -4,18 +4,20 @@
 #include <Object.h>
 #include <AnimatedSprite.h>
 #include <Input.h>
+#include <Interactable.h>
 
 using namespace UT;
 
 namespace UTSandbox
 {
-    class ObjTestD : public Object
+    class ObjTestD : public Object, public Interactable
     {
     public:
         ObjTestD();
 
         void Init() override;
         void Update(float delta) override;
+        void Interact() override;
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     private:

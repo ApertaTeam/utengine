@@ -2,7 +2,7 @@
 #include "Input.h"
 #include "Game.h"
 #include "CollisionHandler.h"
-
+#include <iostream>
 namespace UT
 {
     Player::Player(std::map<std::string, std::vector<sf::IntRect>> frames)
@@ -31,6 +31,7 @@ namespace UT
             || InputHandler::IsInputHeld(InputActions::Up)
             || InputHandler::IsInputHeld(InputActions::Down));
        
+        // Left/right movement
         if (InputHandler::IsInputHeld(InputActions::Left))
         {
             tempPosition.x -= speed;
@@ -52,11 +53,13 @@ namespace UT
             }
         }
 
+        // Check collision
         if (CollisionHandler::CheckAllCollisionsMovement(this, tempPosition) != nullptr)
         {
             tempPosition.x = position.x;
         }
 
+        // Up/down movement
         if (InputHandler::IsInputHeld(InputActions::Up))
         {
             tempPosition.y -= speed;
@@ -120,17 +123,36 @@ namespace UT
             }
         }
 
+        // Check collision
         if (CollisionHandler::CheckAllCollisionsMovement(this, tempPosition) != nullptr)
         {
             tempPosition.y = position.y;
         }
 
+        // Check interaction
+        std::vector<Interactable*> interactables = CollisionHandler::CheckAllInteractablesDirect({
+            (int)tempPosition.x + collisionBox.left,
+            (int)tempPosition.y + collisionBox.top,
+            collisionBox.width,
+            collisionBox.height
+        }, 5);
+
+        for (int i = 0; i < interactables.size(); i++)
+        {
+            if (interactables[i] != nullptr)
+            {
+                interactables[i]->Interact();
+            }
+        }
+
+        // Update depth
         if (InputHandler::IsInputHeld(InputActions::Up) || InputHandler::IsInputHeld(InputActions::Down))
         {
             depth = tempPosition.y - 1;
             Game::RefreshDepth();
         }
 
+        // Update sprite
         if (moving != isMoving)
         {
             isMoving = moving;
@@ -205,7 +227,7 @@ namespace UT
 
         sprite.Update(delta);
         setPosition(position);
-        sprite.setPosition(position - sf::Vector2f(std::floor(sprite.GetSize().x / 2.f), std::floor(sprite.GetSize().y / 2.f) ));
+        sprite.setPosition(position - sf::Vector2f(std::floor(sprite.GetSize().x / 2.f), std::floor(sprite.GetSize().y / 2.f)));
     }
 
     void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const

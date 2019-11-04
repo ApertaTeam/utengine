@@ -3,6 +3,7 @@
 
 #include "AnimatedSprite.h"
 #include "Object.h"
+#include "Interactable.h"
 
 namespace UT
 {
