@@ -27,6 +27,9 @@ namespace UTSandbox
 
         testAnimatedSprite = AnimatedSprite(testAnimatedTexture, testRects, 10);
         testAnimatedSprite.setPosition(200, 160);
+        setPosition(testAnimatedSprite.getPosition());
+
+        collisionBox = { 0, 15, 20, 5 };
     }
 
     void ObjTestD::Update(float delta)

@@ -10,6 +10,7 @@
 #include <TileMap.h>
 #include <TextureHandler.h>
 #include <Player.h>
+#include <CollisionHandler.h>
 
 // Sandbox
 #include "ObjTest.h"
@@ -31,6 +32,9 @@ int main()
 
     // Create main game object
     Game mainGame = Game("Undertale", 30, gameIcon);
+
+    // Create collision handler
+    CollisionHandler collisionHandler = CollisionHandler();
 
     // Main room
     Room mainRoom = Room({ 320, 240 });
@@ -95,11 +99,14 @@ int main()
     player.SetSprite(playerAnimSprite);
 
     player.SetPosition({140, 140});
+    player.SetCollisionBox({ 0, 19, 17, 10 });
     mainRoom.objects.push_back(&player);
 
     //-- Main room objects end --//
 
     mainGame.LoadRoom(&mainRoom);
+
+    collisionHandler.UpdateObjects();
 
 
     // Main camera object

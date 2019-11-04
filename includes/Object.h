@@ -13,11 +13,15 @@ namespace UT
         virtual void Init() = 0;
         virtual void Update(float delta) = 0;
 
-        inline void SetDepth(int depth) { this->depth = depth;  };
+        inline void SetDepth(int depth) { this->depth = depth; };
         inline int GetDepth() const { return depth; };
+
+        inline void SetCollisionBox(sf::IntRect collisionBox) { this->collisionBox = collisionBox; };
+        inline sf::IntRect GetCollisionBox() { return collisionBox; };
 
     protected:
         int depth = 0;
+        sf::IntRect collisionBox;
     };
 }
 

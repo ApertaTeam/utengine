@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Input.h"
 #include "Game.h"
+#include "CollisionHandler.h"
 
 namespace UT
 {
@@ -23,6 +24,7 @@ namespace UT
     void Player::Update(float delta)
     {
         int curFrame = sprite.GetImageIndex();
+        sf::Vector2f oldPosition = position;
 
         bool moving = (InputHandler::IsInputHeld(InputActions::Left)
             || InputHandler::IsInputHeld(InputActions::Right)
@@ -48,6 +50,11 @@ namespace UT
                 isMoving = false;
                 direction = PlayerDirection::East;
             }
+        }
+
+        if (CollisionHandler::CheckAllCollisions(this) != nullptr)
+        {
+            position.x = oldPosition.x;
         }
 
         if (InputHandler::IsInputHeld(InputActions::Up))
@@ -111,6 +118,11 @@ namespace UT
                     direction = PlayerDirection::South;
                 }
             }
+        }
+
+        if (CollisionHandler::CheckAllCollisions(this) != nullptr)
+        {
+            position.y = oldPosition.y;
         }
 
         if (InputHandler::IsInputHeld(InputActions::Up) || InputHandler::IsInputHeld(InputActions::Down))

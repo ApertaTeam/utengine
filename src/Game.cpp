@@ -112,6 +112,16 @@ namespace UT
         instance->Refresh();
     }
 
+    std::vector<Object*> Game::GetObjectsInternal()
+    {
+        return objects;
+    }
+
+    std::vector<Object*> Game::GetObjects()
+    {
+        return instance->GetObjects();
+    }
+
     bool Game::Start()
     {
         // Create & initialize main window
