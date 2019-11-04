@@ -119,7 +119,7 @@ namespace UT
 
     std::vector<Object*> Game::GetObjects()
     {
-        return instance->GetObjects();
+        return instance->GetObjectsInternal();
     }
 
     bool Game::Start()

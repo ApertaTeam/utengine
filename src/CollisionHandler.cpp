@@ -6,7 +6,7 @@ namespace UT
 
     CollisionHandler::CollisionHandler()
     {
-        
+        instance = this;
     }
 
     bool CollisionHandler::CheckCollision(Object* objectA, Object* objectB)
@@ -38,16 +38,19 @@ namespace UT
 
         for (int i = 0; i < instance->objects.size(); i++)
         {
-            sf::IntRect subRect = instance->objects[i]->GetCollisionBox();
-            subRect.left += instance->objects[i]->getPosition().x;
-            subRect.top += instance->objects[i]->getPosition().y;
-
-            if ((subRect.left <= mainRect.left + mainRect.width
-                && subRect.left + subRect.width >= mainRect.left
-                && subRect.top <= mainRect.top + mainRect.height
-                && subRect.top + subRect.height >= mainRect.top))
+            if (instance->objects[i] != object)
             {
-                return instance->objects[i];
+                sf::IntRect subRect = instance->objects[i]->GetCollisionBox();
+                subRect.left += instance->objects[i]->getPosition().x;
+                subRect.top += instance->objects[i]->getPosition().y;
+
+                if ((subRect.left <= mainRect.left + mainRect.width
+                    && subRect.left + subRect.width >= mainRect.left
+                    && subRect.top <= mainRect.top + mainRect.height
+                    && subRect.top + subRect.height >= mainRect.top))
+                {
+                    return instance->objects[i];
+                }
             }
         }
 

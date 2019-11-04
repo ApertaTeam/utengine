@@ -21,7 +21,7 @@ namespace UT
 
     protected:
         int depth = 0;
-        sf::IntRect collisionBox;
+        sf::IntRect collisionBox = { 0, 0, 0, 0 };
     };
 }
 
