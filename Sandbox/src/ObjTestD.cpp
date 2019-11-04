@@ -41,7 +41,7 @@ namespace UTSandbox
 
     void ObjTestD::Interact()
     {
-        if (InputHandler::IsInputHeld(InputActions::Confirm))
+        if (InputHandler::IsInputPressed(InputActions::Confirm))
         {
             std::cout << "Interation confirmed." << std::endl;
         }

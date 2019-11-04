@@ -56,10 +56,6 @@ namespace UT
                 {
                     keyStates[keyAlias.first] = InputState::Pressed;
                 }
-                else
-                {
-                    keyStates[keyAlias.first] = InputState::Held;
-                }
                 actionHandled[keyAlias.first] = true;
             }
             else
@@ -158,10 +154,6 @@ namespace UT
                     {
                         keyStates[gamepadAlias.first] = InputState::Pressed;
                     }
-                    else
-                    {
-                        keyStates[gamepadAlias.first] = InputState::Held;
-                    }
                     actionHandled[gamepadAlias.first] = true;
                 }
                 else
@@ -182,7 +174,12 @@ namespace UT
 
     bool InputHandler::IsInputPressed(InputActions input)
     {
-        return _instance->keyStates[input] == InputState::Pressed;
+        if (_instance->keyStates[input] == InputState::Pressed)
+        {
+            _instance->keyStates[input] = InputState::Held;
+            return true;
+        }
+        return false;
     }
 
     bool InputHandler::IsInputHeld(InputActions input)
