@@ -41,10 +41,7 @@ namespace UTSandbox
 
     void ObjTestD::Interact()
     {
-        if (InputHandler::IsInputPressed(InputActions::Confirm))
-        {
-            std::cout << "Interation confirmed." << std::endl;
-        }
+        std::cout << "Interation confirmed." << std::endl;
     }
 
     void ObjTestD::draw(sf::RenderTarget& target, sf::RenderStates states) const

@@ -30,7 +30,7 @@ namespace UT
             || InputHandler::IsInputHeld(InputActions::Right)
             || InputHandler::IsInputHeld(InputActions::Up)
             || InputHandler::IsInputHeld(InputActions::Down));
-       
+
         // Left/right movement
         if (InputHandler::IsInputHeld(InputActions::Left))
         {
@@ -75,7 +75,7 @@ namespace UT
 
                     direction = PlayerDirection::NorthEast;
                 }
-                else if(direction != PlayerDirection::NorthWest && InputHandler::IsInputHeld(InputActions::Left))
+                else if (direction != PlayerDirection::NorthWest && InputHandler::IsInputHeld(InputActions::Left))
                 {
                     if (direction != PlayerDirection::North && direction != PlayerDirection::NorthEast && direction != PlayerDirection::NorthWest)
                     {
@@ -115,7 +115,7 @@ namespace UT
 
                     direction = PlayerDirection::SouthWest;
                 }
-                else if(!InputHandler::IsInputHeld(InputActions::Left) && !InputHandler::IsInputHeld(InputActions::Right))
+                else if (!InputHandler::IsInputHeld(InputActions::Left) && !InputHandler::IsInputHeld(InputActions::Right))
                 {
                     isMoving = false;
                     direction = PlayerDirection::South;
@@ -130,18 +130,21 @@ namespace UT
         }
 
         // Check interaction
-        std::vector<Interactable*> interactables = CollisionHandler::CheckAllInteractablesDirect({
-            (int)tempPosition.x + collisionBox.left,
-            (int)tempPosition.y + collisionBox.top,
-            collisionBox.width,
-            collisionBox.height
-        }, 5);
-
-        for (int i = 0; i < interactables.size(); i++)
+        if (InputHandler::IsInputPressed(InputActions::Confirm)) 
         {
-            if (interactables[i] != nullptr)
+            std::vector<Interactable*> interactables = CollisionHandler::CheckAllInteractablesDirect({
+                (int)tempPosition.x + collisionBox.left,
+                (int)tempPosition.y + collisionBox.top,
+                collisionBox.width,
+                collisionBox.height
+            }, 5);
+
+            for (int i = 0; i < interactables.size(); i++)
             {
-                interactables[i]->Interact();
+                if (interactables[i] != nullptr)
+                {
+                    interactables[i]->Interact();
+                }
             }
         }
 
