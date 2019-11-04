@@ -16,13 +16,12 @@ namespace UT
         static bool CheckCollisionDirect(sf::IntRect posA, sf::IntRect posB);
         static Object* CheckAllCollisionsMovement(Object* object, sf::Vector2f nextPos);
 
-        template<typename _DirectType>
-        static std::vector<_DirectType*> CheckAllDirect(sf::IntRect collisionBox, int padding);
+        static std::vector<Interactable*> CheckAllDirect(sf::IntRect collisionBox, int padding);
 
         static void UpdateObjects();
 
     private:
-        std::vector<Object*> objects;
+        std::vector<Object*>& objects;
     };
 }
 #endif

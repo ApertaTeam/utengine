@@ -1,10 +1,13 @@
 #include "CollisionHandler.h"
 #include <iostream>
+#include <vector>
+
 namespace UT
 {
     static CollisionHandler* instance;
 
     CollisionHandler::CollisionHandler()
+        : objects(Game::GetObjects())
     {
         instance = this;
     }
@@ -97,11 +100,9 @@ namespace UT
         return nullptr;
     }
 
-    template<typename _DirectType>
-    std::vector<_DirectType*> CollisionHandler::CheckAllDirect(sf::IntRect collisionBox, int padding)
+    std::vector<Interactable*> CollisionHandler::CheckAllDirect(sf::IntRect collisionBox, int padding)
     {
-        std::vector<_DirectType*> interactables;
-
+        std::vector<Interactable*> interactables = std::vector<Interactable*>();
         sf::IntRect mainRect = collisionBox;
         mainRect.left -= padding;
         mainRect.top -= padding;
@@ -119,7 +120,11 @@ namespace UT
                 && subRect.top <= mainRect.top + mainRect.height
                 && subRect.top + subRect.height >= mainRect.top))
             {
-                interactables.push_back(dynamic_cast<_DirectType*>(instance->objects[i]));
+                if (Interactable* inst = dynamic_cast<Interactable*>(instance->objects[i]); inst != nullptr)
+                {
+                    if (!inst->persists) instance->objects.erase(instance->objects.begin()+i);
+                    interactables.push_back(inst);
+                }
             }
         }
 

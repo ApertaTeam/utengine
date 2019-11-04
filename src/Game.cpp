@@ -112,12 +112,12 @@ namespace UT
         instance->Refresh();
     }
 
-    std::vector<Object*> Game::GetObjectsInternal()
+    std::vector<Object*>& Game::GetObjectsInternal()
     {
         return objects;
     }
 
-    std::vector<Object*> Game::GetObjects()
+    std::vector<Object*>& Game::GetObjects()
     {
         return instance->GetObjectsInternal();
     }

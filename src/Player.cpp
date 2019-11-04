@@ -2,7 +2,6 @@
 #include "Input.h"
 #include "Game.h"
 #include "CollisionHandler.h"
-#include "Action.h"
 
 namespace UT
 {
@@ -131,37 +130,22 @@ namespace UT
         }
 
         // Check interactions
-        if (InputHandler::IsInputPressed(InputActions::Confirm)) 
-        {
-            std::vector<Interactable*> interactables = CollisionHandler::CheckAllDirect<Interactable>({
-                (int)tempPosition.x + collisionBox.left,
-                (int)tempPosition.y + collisionBox.top,
-                collisionBox.width,
-                collisionBox.height
-                }, 5);
-
-            for (int i = 0; i < interactables.size(); i++)
-            {
-                if (interactables[i] != nullptr)
-                {
-                    interactables[i]->Run();
-                }
-            }
-        }
-
-        // Check actions
-        std::vector<Action*> actions = CollisionHandler::CheckAllDirect<Action>({
+        std::vector<Interactable*> interactables = CollisionHandler::CheckAllDirect({
             (int)tempPosition.x + collisionBox.left,
             (int)tempPosition.y + collisionBox.top,
             collisionBox.width,
             collisionBox.height
-            }, 0);
+            }, 5);
 
-        for (int i = 0; i < actions.size(); i++)
+        bool confirmPressed = InputHandler::IsInputPressed(InputActions::Confirm);
+        for (int i = 0; i < interactables.size(); i++)
         {
-            if (actions[i] != nullptr)
+            if (interactables[i] != nullptr)
             {
-                actions[i]->Run();
+                if (interactables[i]->isAction || confirmPressed)
+                {
+                    interactables[i]->Run();
+                }
             }
         }
 

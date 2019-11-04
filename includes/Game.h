@@ -22,8 +22,8 @@ namespace UT
         void Refresh();
         static void RefreshDepth();
 
-        std::vector<Object*> GetObjectsInternal();
-        static std::vector<Object*> GetObjects();
+        std::vector<Object*>& GetObjectsInternal();
+        static std::vector<Object*>& GetObjects();
 
         bool Start();
 

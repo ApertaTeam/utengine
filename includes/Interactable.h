@@ -7,7 +7,9 @@ namespace UT {
     class Interactable
     {
     public:
-        virtual void Run() = 0;
+        virtual void Run() { /* do nothing */ };
+        bool isAction = false;
+        bool persists = true;
     };
 }
 #endif
