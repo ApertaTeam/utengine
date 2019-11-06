@@ -10,7 +10,7 @@ using namespace UT;
 
 namespace UTSandbox
 {
-    class ObjTestD : public Object, public Interactable
+    class ObjTestD : public Interactable
     {
     public:
         ObjTestD();

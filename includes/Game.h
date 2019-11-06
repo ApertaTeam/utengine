@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Input.h"
 #include "Object.h"
+#include "Room.h"
 
 namespace UT
 {
@@ -22,8 +23,8 @@ namespace UT
         void Refresh();
         static void RefreshDepth();
 
-        std::vector<Object*>& GetObjectsInternal();
-        static std::vector<Object*>& GetObjects();
+        Room* GetRoomInternal();
+        static Room* GetRoomStatic();
 
         bool Start();
 
@@ -53,7 +54,6 @@ namespace UT
 
         Room* room;
         Camera* camera;
-        std::vector<Object*> objects;
     };
 }
 

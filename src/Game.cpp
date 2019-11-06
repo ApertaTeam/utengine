@@ -23,7 +23,7 @@ namespace UT
         this->FPS = FPS;
         this->FPStimeObj = sf::Clock();
 
-        this->room = nullptr;
+        this->room = NULL;
         this->camera = nullptr;
 
         instance = this;
@@ -65,7 +65,8 @@ namespace UT
 
 
             // Run main update method for all objects
-            for (int i = 0; i < this->objects.size(); i++)
+            std::vector<Object*> objects = room->GetObjects();
+            for (int i = 0; i < objects.size(); i++)
             {
                 objects[i]->Update((float)delta);
             }
@@ -88,7 +89,8 @@ namespace UT
         BatchHandler::getInstance().Reset();
 
         // Render all objects
-        for (int i = 0; i < this->objects.size(); i++)
+        std::vector<Object*> objects = room->GetObjects();
+        for (int i = 0; i < objects.size(); i++)
         {
             window->draw(*objects[i]);
         }
@@ -101,7 +103,7 @@ namespace UT
     void Game::Refresh()
     {
         // Sort game objects in order of depth
-        std::sort(objects.begin(), objects.end(), [](const Object* x, const Object* y)
+        std::sort(room->GetObjects().begin(), room->GetObjects().end(), [](const Object* x, const Object* y)
             {
                 return x->GetDepth() < y->GetDepth();
             });
@@ -112,14 +114,14 @@ namespace UT
         instance->Refresh();
     }
 
-    std::vector<Object*>& Game::GetObjectsInternal()
+    Room* Game::GetRoomInternal()
     {
-        return objects;
+        return room;
     }
 
-    std::vector<Object*>& Game::GetObjects()
+    Room* Game::GetRoomStatic()
     {
-        return instance->GetObjectsInternal();
+        return instance->GetRoomInternal();
     }
 
     bool Game::Start()
@@ -136,7 +138,7 @@ namespace UT
         // Center window
         window.CenterWindow();
 
-        for (auto& object : objects)
+        for (auto& object : room->GetObjects())
         {
             object->Init();
         }
@@ -154,8 +156,6 @@ namespace UT
     void Game::LoadRoom(Room* room) 
     {
         this->room = room;
-
-        objects = room->objects;
     }
 
     // Getters

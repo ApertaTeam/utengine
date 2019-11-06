@@ -17,7 +17,7 @@ namespace UT
         {
             sf::Vector2f objectPos = trackedObject->getPosition();
             sf::FloatRect newView = {0, 0, 0, 0};
-            Vector2 roomSize = game->GetRoom()->size;
+            Vector2 roomSize = game->GetRoom()->GetSize();
             
 
             if (objectPos.x - viewSize.x / 2 > 0)

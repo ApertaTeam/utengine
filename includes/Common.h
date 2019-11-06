@@ -64,16 +64,6 @@ namespace UT
         Transform() : position({ 0, 0 }), rotation(0) {};
         Transform(Vector2 position, int rotation) : position(position), rotation(rotation) {};
     };
-
-    // Represents a game room, containing game objects and tiles, etc.
-    struct Room
-    {
-        Vector2 size;
-        std::vector<Object*> objects;
-
-        Room() : size({ 0, 0 }), objects({}) {};
-        Room(Vector2 size) : size(size), objects({}) {};
-    };
 }
 
 uint16_t swapbits(uint16_t src);

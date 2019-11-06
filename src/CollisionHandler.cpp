@@ -7,7 +7,7 @@ namespace UT
     static CollisionHandler* instance;
 
     CollisionHandler::CollisionHandler()
-        : objects(Game::GetObjects())
+        : objects(Game::GetRoomStatic()->GetObjects())
     {
         instance = this;
     }
@@ -129,10 +129,5 @@ namespace UT
         }
 
         return interactables;
-    }
-
-    void CollisionHandler::UpdateObjects()
-    {
-        instance->objects = Game::GetObjects();
     }
 }
