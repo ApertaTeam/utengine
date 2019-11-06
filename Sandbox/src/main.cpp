@@ -37,6 +37,9 @@ int main()
     // Main room
     Room mainRoom = Room({ 320, 240 });
 
+    mainGame.LoadRoom(&mainRoom);
+
+
     // Create collision handler
     CollisionHandler collisionHandler = CollisionHandler();
 
@@ -111,7 +114,6 @@ int main()
 
     //-- Main room objects end --//
 
-    mainGame.LoadRoom(&mainRoom);
 
 
     // Main camera object
