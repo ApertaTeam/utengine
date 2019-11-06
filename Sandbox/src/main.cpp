@@ -11,6 +11,7 @@
 #include <TextureHandler.h>
 #include <Player.h>
 #include <CollisionHandler.h>
+#include <Collidable.h>
 
 // Sandbox
 #include "ObjTest.h"
@@ -70,6 +71,12 @@ int main()
     UTSandbox::TileMapTestB testMapB = UTSandbox::TileMapTestB();
     testMapB.SetDepth(10000);
     mainRoom.objects.push_back(&testMapB);
+
+    // Collidables
+    auto col_01 = Collidable({ 0, 0, 20, 240 }); mainRoom.objects.push_back(&col_01); // Left wall
+    auto col_02 = Collidable({ 300, 0, 20, 240 }); mainRoom.objects.push_back(&col_02); // Right wall
+    auto col_03 = Collidable({ 20, 220, 300, 20 }); mainRoom.objects.push_back(&col_03); // Bottom wall
+    auto col_04 = Collidable({ 20, 0, 300, 80 }); mainRoom.objects.push_back(&col_04); // Top wall
 
     // Player
     Player player = Player({
