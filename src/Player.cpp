@@ -153,7 +153,6 @@ namespace UT
         if (InputHandler::IsInputHeld(InputActions::Up) || InputHandler::IsInputHeld(InputActions::Down))
         {
             depth = tempPosition.y - 1;
-            Game::RefreshDepth();
         }
 
         // Update sprite

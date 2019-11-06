@@ -23,7 +23,7 @@ namespace UT
         this->FPS = FPS;
         this->FPStimeObj = sf::Clock();
 
-        this->room = NULL;
+        this->room = nullptr;
         this->camera = nullptr;
 
         instance = this;
@@ -66,6 +66,8 @@ namespace UT
 
             // Run main update method for all objects
             std::vector<Object*> objects = room->GetObjects();
+            objects.reserve(room->GetInteractables().size() + objects.size());
+            objects.insert(objects.end(), room->GetInteractables().begin(), room->GetInteractables().end());
             for (int i = 0; i < objects.size(); i++)
             {
                 objects[i]->Update((float)delta);
@@ -90,6 +92,12 @@ namespace UT
 
         // Render all objects
         std::vector<Object*> objects = room->GetObjects();
+        objects.reserve(room->GetInteractables().size() + objects.size());
+        objects.insert(objects.end(), room->GetInteractables().begin(), room->GetInteractables().end());
+        std::sort(objects.begin(), objects.end(), [](const Object* x, const Object* y)
+        {
+            return x->GetDepth() < y->GetDepth();
+        });
         for (int i = 0; i < objects.size(); i++)
         {
             window->draw(*objects[i]);
@@ -98,20 +106,6 @@ namespace UT
         if (BatchHandler::getInstance().BatchExists()) BatchHandler::getInstance().DrawBatch();
         
         window->display();
-    }
-
-    void Game::Refresh()
-    {
-        // Sort game objects in order of depth
-        std::sort(room->GetObjects().begin(), room->GetObjects().end(), [](const Object* x, const Object* y)
-            {
-                return x->GetDepth() < y->GetDepth();
-            });
-    }
-
-    void Game::RefreshDepth()
-    {
-        instance->Refresh();
     }
 
     Room* Game::GetRoomInternal()
@@ -143,7 +137,10 @@ namespace UT
             object->Init();
         }
 
-        RefreshDepth();
+        for (auto& interactable : room->GetInteractables())
+        {
+            interactable->Init();
+        }
 
         while (window->isOpen())
         {

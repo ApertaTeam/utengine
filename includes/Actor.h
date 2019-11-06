@@ -7,7 +7,7 @@
 
 namespace UT
 {
-    class Actor : public Interactable, public Object
+    class Actor : public Interactable
     {
     public:
         Actor();

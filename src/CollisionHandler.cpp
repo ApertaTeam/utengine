@@ -7,7 +7,7 @@ namespace UT
     static CollisionHandler* instance;
 
     CollisionHandler::CollisionHandler()
-        : objects(Game::GetRoomStatic()->GetObjects())
+        : objects(Game::GetRoomStatic()->GetObjects()), interactables(Game::GetRoomStatic()->GetInteractables())
     {
         instance = this;
     }
@@ -57,6 +57,24 @@ namespace UT
             }
         }
 
+        for (int i = 0; i < instance->interactables.size(); i++)
+        {
+            if (instance->interactables[i] != object)
+            {
+                sf::IntRect subRect = instance->interactables[i]->GetCollisionBox();
+                subRect.left += instance->interactables[i]->getPosition().x;
+                subRect.top += instance->interactables[i]->getPosition().y;
+
+                if ((subRect.left <= mainRect.left + mainRect.width
+                    && subRect.left + subRect.width >= mainRect.left
+                    && subRect.top <= mainRect.top + mainRect.height
+                    && subRect.top + subRect.height >= mainRect.top))
+                {
+                    return instance->interactables[i];
+                }
+            }
+        }
+
         return nullptr;
     }
 
@@ -97,6 +115,24 @@ namespace UT
             }
         }
 
+        for (int i = 0; i < instance->interactables.size(); i++)
+        {
+            if (instance->interactables[i] != object)
+            {
+                sf::IntRect subRect = instance->interactables[i]->GetCollisionBox();
+                subRect.left += instance->interactables[i]->getPosition().x;
+                subRect.top += instance->interactables[i]->getPosition().y;
+
+                if ((subRect.left <= mainRect.left + mainRect.width
+                    && subRect.left + subRect.width >= mainRect.left
+                    && subRect.top <= mainRect.top + mainRect.height
+                    && subRect.top + subRect.height >= mainRect.top))
+                {
+                    return instance->interactables[i];
+                }
+            }
+        }
+
         return nullptr;
     }
 
@@ -109,22 +145,20 @@ namespace UT
         mainRect.width += padding * 2;
         mainRect.height += padding * 2;
 
-        for (int i = 0; i < instance->objects.size(); i++)
+        for (int i = 0; i < instance->interactables.size(); i++)
         {
-            sf::IntRect subRect = instance->objects[i]->GetCollisionBox();
-            subRect.left += instance->objects[i]->getPosition().x;
-            subRect.top += instance->objects[i]->getPosition().y;
+            sf::IntRect subRect = instance->interactables[i]->GetCollisionBox();
+            subRect.left += instance->interactables[i]->getPosition().x;
+            subRect.top += instance->interactables[i]->getPosition().y;
 
             if ((subRect.left <= mainRect.left + mainRect.width
                 && subRect.left + subRect.width >= mainRect.left
                 && subRect.top <= mainRect.top + mainRect.height
                 && subRect.top + subRect.height >= mainRect.top))
             {
-                if (Interactable* inst = dynamic_cast<Interactable*>(instance->objects[i]); inst != nullptr)
-                {
-                    if (!inst->persists) instance->objects.erase(instance->objects.begin()+i);
-                    interactables.push_back(inst);
-                }
+                Interactable* inst = instance->interactables[i];
+                if (!inst->persists) instance->interactables.erase(instance->interactables.begin()+i);
+                interactables.push_back(inst);
             }
         }
 

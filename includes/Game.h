@@ -20,9 +20,6 @@ namespace UT
         void Update();
         void Render();
 
-        void Refresh();
-        static void RefreshDepth();
-
         Room* GetRoomInternal();
         static Room* GetRoomStatic();
 

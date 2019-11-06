@@ -20,6 +20,7 @@ namespace UT
 
     private:
         std::vector<Object*>& objects;
+        std::vector<Interactable*>& interactables;
     };
 }
 #endif

@@ -18,7 +18,7 @@ namespace UT
         inline void AddElement(Interactable* interactable) { interactables.push_back(interactable); };
 
         inline std::vector<Object*>& GetObjects() { return objects; };
-        inline std::vector<Interactable*> GetInteractables() { return interactables; };
+        inline std::vector<Interactable*>& GetInteractables() { return interactables; };
 
         inline Vector2 GetSize() { return size; };
 
