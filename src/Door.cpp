@@ -4,17 +4,14 @@
 
 namespace UT
 {
-    Door::Door()
-        : destRoom(-1), destPosition({ 0, 0 })
+    Door::Door(sf::IntRect collisionBox, int destRoom, sf::Vector2f destPosition, DoorType type, bool stopMusic, PlayerDirection playerDirection)
     {
-        collisionBox = sf::IntRect(0,0,0,0);
-        isAction = true;
-    }
-
-    Door::Door(sf::IntRect collisionBox, int destRoom, sf::Vector2f destPosition)
-        : destRoom(destRoom), destPosition(destPosition)
-    {
+        this->destRoom = destRoom;
+        this->destPosition = destPosition;
         this->collisionBox = collisionBox;
+        this->type = type;
+        this->stopMusic = stopMusic;
+        this->playerDirection = playerDirection;
         isAction = true;
     }
 
@@ -22,6 +19,9 @@ namespace UT
     {
         Game::LoadRoom(destRoom);
         CollisionHandler::Reset();
-        Game::GetRoomStatic()->GetPlayer()->SetPosition(destPosition);
+
+        Player* player = Game::GetRoomStatic()->GetPlayer();
+        player->SetPosition(destPosition);
+        player->SetDirection(playerDirection);
     }
 }
