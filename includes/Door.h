@@ -17,7 +17,7 @@ namespace UT
     {
     public:
         Door();
-        Door(int destRoom, sf::Vector2f destPosition);
+        Door(sf::IntRect collisionBox, int destRoom, sf::Vector2f destPosition);
 
         void Run() override;
 

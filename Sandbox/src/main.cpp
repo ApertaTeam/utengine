@@ -12,6 +12,7 @@
 #include <Player.h>
 #include <CollisionHandler.h>
 #include <Collidable.h>
+#include <Door.h>
 
 // Sandbox
 #include "ObjTest.h"
@@ -21,6 +22,7 @@
 #include "ActorTest.h"
 #include "TileMapTest.h"
 #include "TileMapTestB.h"
+#include "SecondTileMapTest.h"
 
 
 using namespace UT;
@@ -36,8 +38,15 @@ int main()
 
     // Main room
     Room mainRoom = Room({ 320, 240 });
+    Room secondaryRoom = Room({ 320, 240 });
 
-    mainGame.LoadRoom(&mainRoom);
+    mainGame.tempRoomList =
+    {
+        { 0, &mainRoom },
+        { 1, &secondaryRoom }
+    };
+
+    mainGame.LoadRoomInternal(&mainRoom);
 
 
     // Create collision handler
@@ -75,11 +84,21 @@ int main()
     testMapB.SetDepth(10000);
     mainRoom.AddElement(&testMapB);
 
+    // Room exits
+    Door room1Door = Door({140, 60, 180, 80}, 1, {160, 100});
+    mainRoom.AddElement(&room1Door);
+    Door room2Door = Door({140, 60, 180, 80}, 0, {160, 100});
+    secondaryRoom.AddElement(&room2Door);
+
+    // Test TileMap for Room 2
+    UTSandbox::SecondTileMapTest testMap2 = UTSandbox::SecondTileMapTest();
+    secondaryRoom.AddElement(&testMap2);
+
     // Collidables
-    auto col_01 = Collidable({ 0, 0, 20, 240 }); mainRoom.AddElement(&col_01); // Left wall
-    auto col_02 = Collidable({ 300, 0, 20, 240 }); mainRoom.AddElement(&col_02); // Right wall
-    auto col_03 = Collidable({ 20, 220, 300, 20 }); mainRoom.AddElement(&col_03); // Bottom wall
-    auto col_04 = Collidable({ 20, 0, 300, 80 }); mainRoom.AddElement(&col_04); // Top wall
+    auto col_01 = Collidable({ 0, 0, 20, 240 }); mainRoom.AddElement(&col_01); secondaryRoom.AddElement(&col_01); // Left wall
+    auto col_02 = Collidable({ 300, 0, 20, 240 }); mainRoom.AddElement(&col_02); secondaryRoom.AddElement(&col_02); // Right wall
+    auto col_03 = Collidable({ 20, 220, 300, 20 }); mainRoom.AddElement(&col_03); secondaryRoom.AddElement(&col_03); // Bottom wall
+    auto col_04 = Collidable({ 20, 0, 300, 80 }); mainRoom.AddElement(&col_04); secondaryRoom.AddElement(&col_04); // Top wall
 
     // Player
     Player player = Player({
@@ -111,6 +130,7 @@ int main()
     player.SetPosition({140, 140});
     player.SetCollisionBox({ -8, 5, 17, 9 });
     mainRoom.AddElement(&player);
+    secondaryRoom.AddElement(&player);
 
     //-- Main room objects end --//
 

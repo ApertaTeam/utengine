@@ -25,7 +25,14 @@ namespace UT
 
         bool Start();
 
-		void LoadRoom(Room* room);
+        void LoadRoomInternal(Room* room);
+
+        // TODO: Replace with a method to load the room
+        // from our binary file format.
+        void LoadRoomInternal(int roomId);
+
+        static void LoadRoom(int roomId);
+        static void LoadRoom(Room* room);
 
         // Getters
         Window GetWindow();
@@ -38,6 +45,10 @@ namespace UT
         void SetWindow(Window window);
         void SetCamera(Camera* camera);
         void SetShaderProgram(Shader shaderProgram);
+
+        // TODO: Replace this map into a map of memory locations
+        // in our binary file format.
+        std::map<unsigned int, Room*> tempRoomList;
     private:
         Window window;
         Shader shaderProgram;

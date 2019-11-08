@@ -150,9 +150,25 @@ namespace UT
         return true;
     }
 
-    void Game::LoadRoom(Room* room) 
+    void Game::LoadRoomInternal(Room* room)
     {
         this->room = room;
+    }
+
+    void Game::LoadRoomInternal(int roomId)
+    {
+        if (roomId == -1) return;
+        this->room = tempRoomList[roomId];
+    }
+
+    void Game::LoadRoom(int roomId)
+    {
+        instance->LoadRoomInternal(roomId);
+    }
+
+    void Game::LoadRoom(Room *room)
+    {
+        instance->LoadRoomInternal(room);
     }
 
     // Getters
