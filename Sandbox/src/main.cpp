@@ -109,7 +109,7 @@ int main()
     player.SetSprite(playerAnimSprite);
 
     player.SetPosition({140, 140});
-    player.SetCollisionBox({ -8, 5, 17, 10 });
+    player.SetCollisionBox({ -8, 5, 17, 9 });
     mainRoom.AddElement(&player);
 
     //-- Main room objects end --//
