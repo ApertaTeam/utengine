@@ -14,15 +14,20 @@ namespace UT
         Room();
         Room(Vector2 size);
 
-        inline void AddElement(Object* object) { objects.push_back(object); };
-        inline void AddElement(Interactable* interactable) { interactables.push_back(interactable); };
+        inline void AddElement(Object* object) { objects.push_back(object); isInitialized = false; };
+        inline void AddElement(Interactable* interactable) { interactables.push_back(interactable); isInitialized = false; };
 
         inline std::vector<Object*>& GetObjects() { return objects; };
         inline std::vector<Interactable*>& GetInteractables() { return interactables; };
 
         inline Vector2 GetSize() { return size; };
 
+        inline bool IsInitialized() const { return isInitialized; }
+
+        void Initialize();
+
     private:
+        bool isInitialized = false;
         Vector2 size = {};
         std::vector<Object*> objects = {};
         std::vector<Interactable*> interactables = {};

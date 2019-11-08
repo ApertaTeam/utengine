@@ -132,15 +132,7 @@ namespace UT
         // Center window
         window.CenterWindow();
 
-        for (auto& object : room->GetObjects())
-        {
-            object->Init();
-        }
-
-        for (auto& interactable : room->GetInteractables())
-        {
-            interactable->Init();
-        }
+        room->Initialize();
 
         while (window->isOpen())
         {
@@ -152,13 +144,23 @@ namespace UT
 
     void Game::LoadRoomInternal(Room* room)
     {
+        if (this->room == room) return;
         this->room = room;
+        if (!this->room->IsInitialized())
+        {
+            room->Initialize();
+        }
     }
 
     void Game::LoadRoomInternal(int roomId)
     {
+        if (this->room == tempRoomList[roomId]) return;
         if (roomId == -1) return;
         this->room = tempRoomList[roomId];
+        if (!this->room->IsInitialized())
+        {
+            room->Initialize();
+        }
     }
 
     void Game::LoadRoom(int roomId)

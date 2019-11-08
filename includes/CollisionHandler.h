@@ -18,6 +18,8 @@ namespace UT
 
         static std::vector<Interactable*> CheckAllDirect(sf::IntRect collisionBox, int padding);
 
+        static void Reset();
+
     private:
         std::vector<Object*>& objects;
         std::vector<Interactable*>& interactables;

@@ -12,6 +12,12 @@ namespace UT
         instance = this;
     }
 
+    void CollisionHandler::Reset()
+    {
+        instance->objects = Game::GetRoomStatic()->GetObjects();
+        instance->interactables = Game::GetRoomStatic()->GetInteractables();
+    }
+
     bool CollisionHandler::CheckCollision(Object* objectA, Object* objectB)
     {
         sf::IntRect mainRect = objectA->GetCollisionBox();

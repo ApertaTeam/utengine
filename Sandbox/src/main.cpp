@@ -85,9 +85,9 @@ int main()
     mainRoom.AddElement(&testMapB);
 
     // Room exits
-    Door room1Door = Door({140, 60, 180, 80}, 1, {160, 100});
+    Door room1Door = Door({140, 60, 40, 20}, 1, {160, 100});
     mainRoom.AddElement(&room1Door);
-    Door room2Door = Door({140, 60, 180, 80}, 0, {160, 100});
+    Door room2Door = Door({140, 60, 40, 20}, 0, {160, 100});
     secondaryRoom.AddElement(&room2Door);
 
     // Test TileMap for Room 2

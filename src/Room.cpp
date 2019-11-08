@@ -13,4 +13,20 @@ namespace UT
     {
 
     }
+
+    void Room::Initialize()
+    {
+        if (isInitialized) return;
+        for (auto& object : objects)
+        {
+            object->Init();
+        }
+
+        for (auto& interactable : interactables)
+        {
+            interactable->Init();
+        }
+
+        isInitialized = true;
+    }
 }
