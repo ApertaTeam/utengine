@@ -129,26 +129,6 @@ namespace UT
             tempPosition.y = position.y;
         }
 
-        // Check interactions
-        std::vector<Interactable*> interactables = CollisionHandler::CheckAllDirect({
-            (int)tempPosition.x + collisionBox.left,
-            (int)tempPosition.y + collisionBox.top,
-            collisionBox.width,
-            collisionBox.height
-            }, 5);
-
-        bool confirmPressed = InputHandler::IsInputPressed(InputActions::Confirm);
-        for (int i = 0; i < interactables.size(); i++)
-        {
-            if (interactables[i] != nullptr)
-            {
-                if (interactables[i]->isAction || confirmPressed)
-                {
-                    interactables[i]->Run();
-                }
-            }
-        }
-
         // Update depth
         if (InputHandler::IsInputHeld(InputActions::Up) || InputHandler::IsInputHeld(InputActions::Down))
         {
@@ -231,6 +211,26 @@ namespace UT
         sprite.Update(delta);
         setPosition(position);
         sprite.setPosition(position - sf::Vector2f(std::floor(sprite.GetSize().x / 2.f), std::floor(sprite.GetSize().y / 2.f)));
+
+        // Check interactions
+        std::vector<Interactable*> interactables = CollisionHandler::CheckAllDirect({
+            (int)tempPosition.x + collisionBox.left,
+            (int)tempPosition.y + collisionBox.top,
+            collisionBox.width,
+            collisionBox.height
+            }, 5);
+
+        bool confirmPressed = InputHandler::IsInputPressed(InputActions::Confirm);
+        for (int i = 0; i < interactables.size(); i++)
+        {
+            if (interactables[i] != nullptr)
+            {
+                if (interactables[i]->isAction || confirmPressed)
+                {
+                    interactables[i]->Run();
+                }
+            }
+        }
     }
 
     void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const

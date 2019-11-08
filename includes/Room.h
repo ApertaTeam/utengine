@@ -4,6 +4,7 @@
 #include "Common.h"
 #include "Object.h"
 #include "Interactable.h"
+#include "Player.h"
 
 namespace UT
 {
@@ -16,9 +17,11 @@ namespace UT
 
         inline void AddElement(Object* object) { objects.push_back(object); isInitialized = false; };
         inline void AddElement(Interactable* interactable) { interactables.push_back(interactable); isInitialized = false; };
+        inline void AddElement(Player* player) { this->player = player; objects.push_back(player); isInitialized = false; }
 
         inline std::vector<Object*>& GetObjects() { return objects; };
         inline std::vector<Interactable*>& GetInteractables() { return interactables; };
+        inline Player* GetPlayer() { return player; }
 
         inline Vector2 GetSize() { return size; };
 
@@ -31,6 +34,7 @@ namespace UT
         Vector2 size = {};
         std::vector<Object*> objects = {};
         std::vector<Interactable*> interactables = {};
+        Player* player;
     };
 }
 #endif
