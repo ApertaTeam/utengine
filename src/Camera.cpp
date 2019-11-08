@@ -27,7 +27,7 @@ namespace UT
             
             if (objectPos.x + viewSize.x / 2 > roomSize.x)
             {
-                newView.left = 320 - viewSize.x;
+                newView.left = roomSize.x - viewSize.x;
             }
 
             if (objectPos.y - viewSize.y / 2 > 0)
@@ -37,7 +37,7 @@ namespace UT
             
             if (objectPos.y + viewSize.y / 2 > roomSize.y)
             {
-                newView.top = 240 - viewSize.y;
+                newView.top = roomSize.y - viewSize.y;
             }
 
             newView.width = viewSize.x;

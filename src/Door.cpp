@@ -22,7 +22,7 @@ namespace UT
     {
         Game::LoadRoom(destRoom);
         CollisionHandler::Reset();
-        auto room = Game::GetRoomStatic();
+        /*auto room = Game::GetRoomStatic();
         for (auto object : room->GetObjects())
         {
             if (Player* player = dynamic_cast<Player*>(object); player != nullptr)
@@ -30,6 +30,6 @@ namespace UT
                 player->SetPosition(destPosition);
                 break;
             }
-        }
+        }*/
     }
 }

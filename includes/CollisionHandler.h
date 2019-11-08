@@ -21,8 +21,8 @@ namespace UT
         static void Reset();
 
     private:
-        std::vector<Object*>& objects;
-        std::vector<Interactable*>& interactables;
+        std::vector<Object*>* objects;
+        std::vector<Interactable*>* interactables;
     };
 }
 #endif
