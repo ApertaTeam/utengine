@@ -13,6 +13,11 @@ namespace UT
     {
     }
 
+    void BatchHandler::DrawPrimitive(const sf::VertexArray& coords, sf::RenderTarget& target)
+    {
+        DrawSpriteRect(currentTexID, coords, target);
+    }
+
     void BatchHandler::DrawSpriteRect(int textureID, const sf::VertexArray& coords, sf::RenderTarget& target)
     {
         if (textureID != currentTexID)

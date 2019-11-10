@@ -3,6 +3,7 @@
 
 #include "Room.h"
 #include "Interactable.h"
+#include "Fader.h"
 
 namespace UT
 {
@@ -36,12 +37,17 @@ namespace UT
         inline void SetType(DoorType type) { this->type = type; }
         inline DoorType GetType() { return type; }
 
+        virtual void Update(float delta) override;
+
     protected:
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+        bool fading;
         int destRoom;
         sf::Vector2f destPosition;
         bool stopMusic;
         PlayerDirection playerDirection;
         DoorType type;
+        Fader fader;
     };
 }
 #endif
