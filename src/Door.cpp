@@ -15,7 +15,7 @@ namespace UT
         this->fading = false;
         this->fader = Fader({0, 0, 640, 480}, 1);
         isAction = true;
-        depth = 4000;
+        depth = 999999;
     }
 
     void Door::Run()

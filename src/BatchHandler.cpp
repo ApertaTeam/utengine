@@ -37,8 +37,6 @@ namespace UT
         quad[3].color = coords[3].color;
 
         offset += 4;
-
-        DrawBatch();
     }
 
     void BatchHandler::DrawSpriteRect(int textureID, const sf::VertexArray& coords, sf::RenderTarget& target)
