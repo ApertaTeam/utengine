@@ -13,7 +13,7 @@ namespace UT
         this->stopMusic = stopMusic;
         this->playerDirection = playerDirection;
         this->fading = false;
-        this->fader = Fader({0, 0, 640, 480}, 10);
+        this->fader = Fader({0, 0, 640, 480}, 1);
         isAction = true;
         depth = 4000;
     }
@@ -23,12 +23,6 @@ namespace UT
         if (fading) return;
         fading = true;
         fader.Init();
-        /*Game::LoadRoom(destRoom);
-        CollisionHandler::Reset();
-
-        Player* player = Game::GetRoomStatic()->GetPlayer();
-        player->SetPosition(destPosition);
-        player->SetDirection(playerDirection);*/
     }
 
     void Door::Update(float delta)

@@ -29,7 +29,7 @@ namespace UT
             return;
         }
 
-        fadeRect.setFillColor(sf::Color(0, 0, 0, std::floor((msCurrTime/msRunTime) * 255)));
+        fadeRect.setFillColor(sf::Color(0, 0, 0, std::floor(((double)msCurrTime / msRunTime) * 255)));
     }
 
     void Fader::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -38,7 +38,7 @@ namespace UT
         arr[0].position = sf::Vector2f(rectSize.left, rectSize.top);
         arr[1].position = sf::Vector2f(rectSize.left + rectSize.width, rectSize.top);
         arr[2].position = sf::Vector2f(rectSize.left + rectSize.width, rectSize.top + rectSize.height);
-        arr[3].position = sf::Vector2f(rectSize.left, rectSize.top + rectSize.width);
+        arr[3].position = sf::Vector2f(rectSize.left, rectSize.top + rectSize.height);
 
         arr[0].color = fadeRect.getFillColor();
         arr[1].color = fadeRect.getFillColor();

@@ -22,7 +22,7 @@ namespace UT
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
         sf::RectangleShape fadeRect;
-        std::chrono::system_clock::time_point start;
+        std::chrono::time_point<std::chrono::steady_clock> start;
 
         sf::IntRect rectSize;
         int msCurrTime;

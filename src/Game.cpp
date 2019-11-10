@@ -85,7 +85,7 @@ namespace UT
 
     void Game::Render()
     {
-        window->clear();
+        window->clear(sf::Color(0, 0, 0, 255));
         shaderProgram.Bind();
 
         BatchHandler::getInstance().Reset();
