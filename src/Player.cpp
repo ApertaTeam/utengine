@@ -54,10 +54,7 @@ namespace UT
         }
 
         // Check collision
-        if (CollisionHandler::CheckAllCollisionsMovement(this, tempPosition) != nullptr)
-        {
-            tempPosition.x = position.x;
-        }
+        tempPosition.x = CollisionHandler::CheckAllCollisionsMovement(this, position, tempPosition).x;
 
         // Up/down movement
         if (InputHandler::IsInputHeld(InputActions::Up))
@@ -124,10 +121,7 @@ namespace UT
         }
 
         // Check collision
-        if (CollisionHandler::CheckAllCollisionsMovement(this, tempPosition) != nullptr)
-        {
-            tempPosition.y = position.y;
-        }
+        tempPosition.y = CollisionHandler::CheckAllCollisionsMovement(this, position, tempPosition).y;
 
         // Update depth
         if (InputHandler::IsInputHeld(InputActions::Up) || InputHandler::IsInputHeld(InputActions::Down))
@@ -218,7 +212,7 @@ namespace UT
             (int)tempPosition.y + collisionBox.top,
             collisionBox.width,
             collisionBox.height
-            }, 5);
+            }, 1);
 
         bool confirmPressed = InputHandler::IsInputPressed(InputActions::Confirm);
         for (int i = 0; i < interactables.size(); i++)

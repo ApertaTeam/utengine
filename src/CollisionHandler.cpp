@@ -97,8 +97,9 @@ namespace UT
         return false;
     }
 
-    Object* CollisionHandler::CheckAllCollisionsMovement(Object* object, sf::Vector2f nextPos)
+    sf::Vector2f CollisionHandler::CheckAllCollisionsMovement(Object* object, sf::Vector2f curPos, sf::Vector2f nextPos)
     {
+        sf::Vector2f posOffset = nextPos - curPos;
         sf::IntRect mainRect = object->GetCollisionBox();
         mainRect.left += nextPos.x;
         mainRect.top += nextPos.y;
@@ -111,12 +112,34 @@ namespace UT
                 subRect.left += instance->objects->at(i)->getPosition().x;
                 subRect.top += instance->objects->at(i)->getPosition().y;
 
-                if ((subRect.left <= mainRect.left + mainRect.width
+                if (subRect.left <= mainRect.left + mainRect.width
                     && subRect.left + subRect.width >= mainRect.left
                     && subRect.top <= mainRect.top + mainRect.height
-                    && subRect.top + subRect.height >= mainRect.top))
+                    && subRect.top + subRect.height >= mainRect.top)
                 {
-                    return instance->objects->at(i);
+                    if (posOffset.x > 0)
+                    {
+                        posOffset.x--;
+                        mainRect.left--;
+                    } else if (posOffset.x < 0)
+                    {
+                        posOffset.x++;
+                        mainRect.left++;
+                    }
+
+                    if (posOffset.y > 0)
+                    {
+                        posOffset.y--;
+                        mainRect.top--;
+                    }
+                    else if (posOffset.y < 0)
+                    {
+                        posOffset.y++;
+                        mainRect.top++;
+                    }
+
+                    i--;
+                    continue;
                 }
             }
         }
@@ -129,17 +152,40 @@ namespace UT
                 subRect.left += instance->interactables->at(i)->getPosition().x;
                 subRect.top += instance->interactables->at(i)->getPosition().y;
 
-                if ((subRect.left <= mainRect.left + mainRect.width
+                if (subRect.left <= mainRect.left + mainRect.width
                     && subRect.left + subRect.width >= mainRect.left
                     && subRect.top <= mainRect.top + mainRect.height
-                    && subRect.top + subRect.height >= mainRect.top))
+                    && subRect.top + subRect.height >= mainRect.top)
                 {
-                    return instance->interactables->at(i);
+                    if (posOffset.x > 0)
+                    {
+                        posOffset.x--;
+                        mainRect.left--;
+                    }
+                    else if (posOffset.x < 0)
+                    {
+                        posOffset.x++;
+                        mainRect.left++;
+                    }
+
+                    if (posOffset.y > 0)
+                    {
+                        posOffset.y--;
+                        mainRect.top--;
+                    }
+                    else if (posOffset.y < 0)
+                    {
+                        posOffset.y++;
+                        mainRect.top++;
+                    }
+
+                    i--;
+                    continue;
                 }
             }
         }
 
-        return nullptr;
+        return curPos + posOffset;
     }
 
     std::vector<Interactable*> CollisionHandler::CheckAllDirect(sf::IntRect collisionBox, int padding)

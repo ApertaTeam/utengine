@@ -85,9 +85,9 @@ int main()
     mainRoom.AddElement(&testMapB);
 
     // Room exits
-    Door room1Door = Door({140, 60, 40, 20}, 1, {160, 100});
+    Door room1Door = Door({146, 60, 28, 19}, 1, {160, 100});
     mainRoom.AddElement(&room1Door);
-    Door room2Door = Door({140, 60, 40, 20}, 0, {160, 100});
+    Door room2Door = Door({146, 60, 28, 19}, 0, {160, 100});
     secondaryRoom.AddElement(&room2Door);
 
     // Test TileMap for Room 2
@@ -98,7 +98,8 @@ int main()
     auto col_01 = Collidable({ 0, 0, 20, 240 }); mainRoom.AddElement(&col_01); secondaryRoom.AddElement(&col_01); // Left wall
     auto col_02 = Collidable({ 300, 0, 20, 240 }); mainRoom.AddElement(&col_02); secondaryRoom.AddElement(&col_02); // Right wall
     auto col_03 = Collidable({ 20, 220, 300, 20 }); mainRoom.AddElement(&col_03); secondaryRoom.AddElement(&col_03); // Bottom wall
-    auto col_04 = Collidable({ 20, 0, 300, 80 }); mainRoom.AddElement(&col_04); secondaryRoom.AddElement(&col_04); // Top wall
+    auto col_04 = Collidable({ 20, 0, 126, 80 }); mainRoom.AddElement(&col_04); secondaryRoom.AddElement(&col_04); // Top wall (Left of door)
+    auto col_05 = Collidable({ 174, 0, 126, 80 }); mainRoom.AddElement(&col_05); secondaryRoom.AddElement(&col_05); // Top wall (Right of door)
 
     // Player
     Player player = Player({
@@ -128,7 +129,7 @@ int main()
     player.SetSprite(playerAnimSprite);
 
     player.SetPosition({140, 140});
-    player.SetCollisionBox({ -8, 5, 17, 9 });
+    player.SetCollisionBox({ -8, 5, 17, 10 });
     mainRoom.AddElement(&player);
     secondaryRoom.AddElement(&player);
 
