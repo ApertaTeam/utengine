@@ -31,13 +31,20 @@ namespace UT
         {
             if (fader.IsDone())
             {
-                fading = false;
-                Game::LoadRoom(destRoom);
-                CollisionHandler::Reset();
-                
-                Player* player = Game::GetRoomStatic()->GetPlayer();
-                player->SetPosition(destPosition);
-                player->SetDirection(playerDirection);
+                if (!fader.IsReversing())
+                {
+                    Game::LoadRoom(destRoom);
+                    CollisionHandler::Reset();
+                    
+                    Player* player = Game::GetRoomStatic()->GetPlayer();
+                    player->SetPosition(destPosition);
+                    player->SetDirection(playerDirection);
+                    fader.Reverse();
+                }
+                else
+                {
+                    fading = false;
+                }
             }
             else
             {

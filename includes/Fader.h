@@ -17,6 +17,9 @@ namespace UT
         virtual void Update(float delta) override;
 
         bool IsDone() const { return done; }
+        bool IsReversing() const { return reverse; }
+
+        void Reverse();
 
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -28,6 +31,7 @@ namespace UT
         int msCurrTime;
         int msRunTime;
         bool done = false;
+        bool reverse = false;
     };
 }
 

@@ -28,11 +28,25 @@ namespace UT
         if (msCurrTime >= msRunTime)
         {
             done = true;
-            fadeRect.setFillColor(sf::Color(0, 0, 0, 255));
+            if (reverse)
+            {
+                fadeRect.setFillColor(sf::Color(0, 0, 0, 0));
+            }
+            else
+            {
+                fadeRect.setFillColor(sf::Color(0, 0, 0, 255));
+            }
             return;
         }
 
-        fadeRect.setFillColor(sf::Color(0, 0, 0, std::floor(((double)msCurrTime/(double)msRunTime) * 255.0)));
+        if (reverse)
+        {
+            fadeRect.setFillColor(sf::Color(0, 0, 0, -std::floor(((double)msCurrTime/(double)msRunTime) * 255.0) + 255));
+        }
+        else
+        {
+            fadeRect.setFillColor(sf::Color(0, 0, 0, std::floor(((double)msCurrTime/(double)msRunTime) * 255.0)));
+        }
     }
 
     void Fader::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -49,5 +63,16 @@ namespace UT
         arr[3].color = fadeRect.getFillColor();
         
         BatchHandler::getInstance().DrawPrimitive(arr, target);
+    }
+
+    void Fader::Reverse()
+    {
+        if (!reverse)
+        {
+            done = false;
+            reverse = true;
+            start = std::chrono::high_resolution_clock::now();
+            msCurrTime = 0;
+        }
     }
 }
