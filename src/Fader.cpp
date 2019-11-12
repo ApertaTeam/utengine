@@ -20,7 +20,7 @@ namespace UT
     }
 
     void Fader::Update(float delta)
-i    {
+    {
         if (done) return;
 
         msCurrTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start).count();
