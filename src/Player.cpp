@@ -124,10 +124,7 @@ namespace UT
         tempPosition.y = CollisionHandler::CheckAllCollisionsMovement(this, position, tempPosition).y;
 
         // Update depth
-        if (InputHandler::IsInputHeld(InputActions::Up) || InputHandler::IsInputHeld(InputActions::Down))
-        {
-            depth = tempPosition.y - 1;
-        }
+        depth = tempPosition.y - 1;
 
         // Update sprite
         if (moving != isMoving)

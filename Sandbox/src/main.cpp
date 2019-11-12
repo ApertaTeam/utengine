@@ -15,14 +15,16 @@
 #include <Door.h>
 
 // Sandbox
-#include "ObjTest.h"
 #include "ObjTestB.h"
 #include "ObjTestC.h"
 #include "ObjTestD.h"
 #include "ActorTest.h"
 #include "TileMapTest.h"
 #include "TileMapTestB.h"
-#include "SecondTileMapTest.h"
+#include "SecondaryTileMapTest.h"
+#include "SecondaryTileMapTest.h"
+#include "SecondaryTileMapTest.h"
+#include "SecondaryTileMapTest.h"
 
 
 using namespace UT;
@@ -53,11 +55,6 @@ int main()
     CollisionHandler collisionHandler = CollisionHandler();
 
     //-- Main room objects start --//
-
-    // Test object (Sprite and tileset)
-    //UTSandbox::ObjTest testObject = UTSandbox::ObjTest();
-    //mainRoom.objects.push_back(&testObject);
-
     // Test object B (Rectangle9Slice)
     //UTSandbox::ObjTestB testObjectB = UTSandbox::ObjTestB();
     //mainRoom.objects.push_back(&testObjectB);
@@ -91,7 +88,7 @@ int main()
     secondaryRoom.AddElement(&room2Door);
 
     // Test TileMap for Room 2
-    UTSandbox::SecondTileMapTest testMap2 = UTSandbox::SecondTileMapTest();
+    UTSandbox::SecondaryTileMapTest testMap2 = UTSandbox::SecondaryTileMapTest();
     secondaryRoom.AddElement(&testMap2);
 
     // Collidables

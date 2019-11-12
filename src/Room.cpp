@@ -27,6 +27,11 @@ namespace UT
             interactable->Init();
         }
 
+        for (auto& tilemap : tilemaps)
+        {
+            tilemap->Init();
+        }
+
         isInitialized = true;
     }
 }

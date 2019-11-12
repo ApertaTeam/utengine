@@ -34,11 +34,13 @@ namespace UT
         }
     };
 
-    class TileMap : public sf::Drawable, public sf::Transformable
+    class TileMap : public Object
     {
     public:
         TileMap() : grid(), tileset() {}
         TileMap(int texId, const TileGrid &grid, const TileSet &tileset);
+
+        void InitSystem(const TileGrid &grid, const TileSet &tileset);
 
         int GetWidth() const;
         int GetHeight() const;
@@ -46,13 +48,16 @@ namespace UT
         int GetRenderHeight() const;
         int GetTileWidth() const;
         int GetTileHeight() const;
-    private:
+
+    protected:
         TileGrid grid;
         TileSet tileset;
 
+        int textureId = -1;
+
+    private:
         int tileWidth = -1;
         int tileHeight = -1;
-        int textureId = -1;
 
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     };

@@ -1,15 +1,15 @@
-#include "TileMapTest.h"
+#include "SecondaryTileMapTest.h"
 
 #include <TextureHandler.h>
 
 namespace UTSandbox
 {
-    TileMapTest::TileMapTest()
+    SecondaryTileMapTest::SecondaryTileMapTest()
     {
         textureId = TextureHandler::LoadTextureFromFile("tileset.png");
     }
 
-    void TileMapTest::Init()
+    void SecondaryTileMapTest::Init()
     {
         tileset = { {0, sf::IntRect(300, 120, 20, 20)} };
 
@@ -52,7 +52,7 @@ namespace UTSandbox
         InitSystem(grid, tileset);
     }
 
-    void TileMapTest::Update(float delta)
+    void SecondaryTileMapTest::Update(float delta)
     {
         
     }

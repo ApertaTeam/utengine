@@ -8,17 +8,13 @@ using namespace UT;
 
 namespace UTSandbox
 {
-    class TileMapTest : public Object
+    class TileMapTest : public TileMap
     {
     public:
         TileMapTest();
 
         void Init() override;
         void Update(float delta) override;
-        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-    private:
-        TileMap map;
-        int tileset;
     };
 }
 

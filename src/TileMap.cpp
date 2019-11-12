@@ -5,6 +5,13 @@ namespace UT
     TileMap::TileMap(int texId, const TileGrid &grid, const TileSet &tileset)
         : textureId(texId)
     {
+        InitSystem(grid, tileset);
+        this->grid = grid;
+        this->tileset = tileset;
+    }
+
+    void TileMap::InitSystem(const TileGrid &grid, const TileSet &tileset)
+    {
         if (grid.size() == 0 || tileset.size() == 0) throw EmptyTileException();
         for (int y = 0; y < grid.size(); ++y)
         {
@@ -18,15 +25,13 @@ namespace UT
                 }
                 else
                 {
-                    if (tileset.at(grid[y][x]).width != tileWidth || tileset.at(grid[y][x]).height != tileHeight) 
+                    if (tileset.at(grid[y][x]).width != tileWidth || tileset.at(grid[y][x]).height != tileHeight)
                     {
                         throw InvalidTileException();
                     }
                 }
             }
         }
-        this->grid = grid;
-        this->tileset = tileset;
     }
 
     int TileMap::GetWidth() const

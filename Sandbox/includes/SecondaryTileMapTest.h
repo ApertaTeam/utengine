@@ -1,5 +1,5 @@
-#ifndef SANDBOX_TILE_MAP_TEST_B_H
-#define SANDBOX_TILE_MAP_TEST_B_H
+#ifndef SANDBOX_SECONDARY_TILE_MAP_TEST_H
+#define SANDBOX_SECONDARY_TILE_MAP_TEST_H
 
 #include <Object.h>
 #include <TileMap.h>
@@ -8,10 +8,10 @@ using namespace UT;
 
 namespace UTSandbox
 {
-    class TileMapTestB : public TileMap
+    class SecondaryTileMapTest : public TileMap
     {
     public:
-        TileMapTestB();
+        SecondaryTileMapTest();
 
         void Init() override;
         void Update(float delta) override;

@@ -66,8 +66,9 @@ namespace UT
 
             // Run main update method for all objects
             std::vector<Object*> objects = room->GetObjects();
-            objects.reserve(room->GetInteractables().size() + objects.size());
+            objects.reserve(room->GetInteractables().size() + objects.size() + room->GetTileMaps().size());
             objects.insert(objects.end(), room->GetInteractables().begin(), room->GetInteractables().end());
+            objects.insert(objects.end(), room->GetTileMaps().begin(), room->GetTileMaps().end());
             for (int i = 0; i < objects.size(); i++)
             {
                 objects[i]->Update((float)delta);
@@ -92,8 +93,9 @@ namespace UT
 
         // Render all objects
         std::vector<Object*> objects = room->GetObjects();
-        objects.reserve(room->GetInteractables().size() + objects.size());
+        objects.reserve(room->GetInteractables().size() + objects.size() + room->GetTileMaps().size());
         objects.insert(objects.end(), room->GetInteractables().begin(), room->GetInteractables().end());
+        objects.insert(objects.end(), room->GetTileMaps().begin(), room->GetTileMaps().end());
         std::sort(objects.begin(), objects.end(), [](const Object* x, const Object* y)
         {
             return x->GetDepth() < y->GetDepth();
