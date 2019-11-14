@@ -8,6 +8,8 @@
 
 namespace UT
 {
+    Fader Fader::instance = Fader();
+
     void Fader::Init()
     {
         fadeRect = sf::RectangleShape(sf::Vector2f(rectSize.width, rectSize.height));
@@ -18,6 +20,18 @@ namespace UT
         msCurrTime = 0;
         done = false;
         reverse = false;
+    }
+
+    void Fader::Setup(sf::IntRect rectSize, int fadeTime)
+    {
+        instance.Init();
+        instance.rectSize = rectSize;
+        instance.msRunTime = fadeTime * 1000;
+    }
+
+    void Fader::Update()
+    {
+        instance.Update(0);
     }
 
     void Fader::Update(float delta)
@@ -71,13 +85,23 @@ namespace UT
 
     void Fader::Reverse()
     {
-        if (!reverse)
+        if (!instance.reverse)
         {
-            done = false;
-            reverse = true;
-            start = std::chrono::high_resolution_clock::now();
-            msCurrTime = 0;
+            instance.done = false;
+            instance.reverse = true;
+            instance.start = std::chrono::high_resolution_clock::now();
+            instance.msCurrTime = 0;
             std::cout << "Reversed" << std::endl;
         }
+    }
+
+    bool Fader::IsDone()
+    {
+        return instance.done;
+    }
+
+    bool Fader::IsReversing()
+    {
+        return instance.reverse;
     }
 }

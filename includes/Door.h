@@ -47,7 +47,7 @@ namespace UT
         bool stopMusic;
         PlayerDirection playerDirection;
         DoorType type;
-        Fader fader;
+        //Fader fader;
     };
 }
 #endif

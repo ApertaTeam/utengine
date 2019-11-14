@@ -11,17 +11,26 @@ namespace UT
     class Fader : public Object
     {
     public:
-        Fader(sf::IntRect rectSize = {0, 0, 640, 480}, int fadeTime = 2) : rectSize(rectSize), msRunTime(fadeTime * 1000), msCurrTime(0) {}
+        //Fader(sf::IntRect rectSize = {0, 0, 640, 480}, int fadeTime = 2) : rectSize(rectSize), msRunTime(fadeTime * 1000), msCurrTime(0) {}
 
         virtual void Init() override;
         virtual void Update(float delta) override;
 
-        bool IsDone() const { return done; }
-        bool IsReversing() const { return reverse; }
+        static void Update();
 
-        void Reverse();
+        static void Setup(sf::IntRect rectSize = {0, 0, 640, 480}, int fadeTime = 1);
+
+        static bool IsDone();
+        static bool IsReversing();
+
+        static void Reverse();
+
+        static Fader& GetInstance() { return instance; }
 
     private:
+        Fader() = default;
+        static Fader instance;
+
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
         sf::RectangleShape fadeRect;

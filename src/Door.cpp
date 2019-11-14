@@ -13,7 +13,6 @@ namespace UT
         this->stopMusic = stopMusic;
         this->playerDirection = playerDirection;
         this->fading = false;
-        this->fader = Fader({0, 0, 640, 480}, 1);
         isAction = true;
         depth = 999999;
     }
@@ -22,16 +21,16 @@ namespace UT
     {
         if (fading) return;
         fading = true;
-        fader.Init();
+        Fader::Setup();
     }
 
     void Door::Update(float delta)
     {
         if (fading)
         {
-            if (fader.IsDone())
+            if (Fader::IsDone())
             {
-                if (!fader.IsReversing())
+                if (!Fader::IsReversing())
                 {
                     Game::LoadRoom(destRoom);
                     CollisionHandler::Reset();
@@ -39,22 +38,19 @@ namespace UT
                     Player* player = Game::GetRoomStatic()->GetPlayer();
                     player->SetPosition(destPosition);
                     player->SetDirection(playerDirection);
-                    fader.Reverse();
+                    Fader::Reverse();
                 }
                 else
                 {
                     fading = false;
                 }
             }
-            else
-            {
-                fader.Update(delta);
-            }
         }
+        Fader::Update();
     }
 
     void Door::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
-        if (fading) target.draw(fader, states);
+        if (fading) target.draw(Fader::GetInstance(), states);
     }
 }
