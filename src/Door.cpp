@@ -51,6 +51,6 @@ namespace UT
 
     void Door::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
-        if (!Fader::IsDone()) target.draw(Fader::GetInstance(), states);
+        target.draw(Fader::GetInstance(), states);
     }
 }
