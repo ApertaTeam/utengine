@@ -1,5 +1,6 @@
 #include "Fader.h"
 #include "BatchHandler.h"
+#include "Game.h"
 
 #include <cmath>
 #include <SFML/Graphics.hpp>
@@ -39,7 +40,6 @@ namespace UT
         if (done) return;
 
         msCurrTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start).count();
-        std::cout << "Current time: " << msCurrTime << std::endl;
 
         if (msCurrTime >= msRunTime)
         {
@@ -47,7 +47,6 @@ namespace UT
 
             if (reverse)
             {
-                std::cout << "Finished" << std::endl;
                 fadeRect.setFillColor(sf::Color(0, 0, 0, 0));
             }
             else
@@ -91,7 +90,6 @@ namespace UT
             instance.reverse = true;
             instance.start = std::chrono::high_resolution_clock::now();
             instance.msCurrTime = 0;
-            std::cout << "Reversed" << std::endl;
         }
     }
 

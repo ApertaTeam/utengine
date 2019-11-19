@@ -46,6 +46,9 @@ namespace UT
 
         inline void SetTexture(int texture) { this->texture = texture; };
         inline int GetTexture() { return texture; };
+
+        inline void SetCanMove(bool canMove) { this->canMove = canMove; }
+        inline bool GetCanMove() { return canMove; }
         
     private:
         std::map<std::string, std::vector<sf::IntRect>> textureRects;

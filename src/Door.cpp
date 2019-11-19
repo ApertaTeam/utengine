@@ -22,6 +22,7 @@ namespace UT
         if (fading) return;
         fading = true;
         Fader::Setup();
+        Game::GetRoomStatic()->GetPlayer()->SetCanMove(false);
     }
 
     void Door::Update(float delta)
@@ -43,6 +44,7 @@ namespace UT
                 else
                 {
                     fading = false;
+                    Game::GetRoomStatic()->GetPlayer()->SetCanMove(true);
                 }
             }
         }

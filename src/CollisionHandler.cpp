@@ -138,6 +138,11 @@ namespace UT
                         mainRect.top++;
                     }
 
+                    if (posOffset.x == 0 && posOffset.y == 0)
+                    {
+                        continue;
+                    }
+
                     i--;
                     continue;
                 }

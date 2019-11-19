@@ -31,97 +31,104 @@ namespace UT
             || InputHandler::IsInputHeld(InputActions::Up)
             || InputHandler::IsInputHeld(InputActions::Down));
 
-        // Left/right movement
-        if (InputHandler::IsInputHeld(InputActions::Left))
+        if (canMove)
         {
-            tempPosition.x -= speed;
-
-            if (direction != PlayerDirection::West && !InputHandler::IsInputHeld(InputActions::Up) && !InputHandler::IsInputHeld(InputActions::Down))
+            // Left/right movement
+            if (InputHandler::IsInputHeld(InputActions::Left))
             {
-                isMoving = false;
-                direction = PlayerDirection::West;
-            }
-        }
-        else if (InputHandler::IsInputHeld(InputActions::Right))
-        {
-            tempPosition.x += speed;
+                tempPosition.x -= speed;
 
-            if (direction != PlayerDirection::East && !InputHandler::IsInputHeld(InputActions::Up) && !InputHandler::IsInputHeld(InputActions::Down))
-            {
-                isMoving = false;
-                direction = PlayerDirection::East;
-            }
-        }
-
-        // Check collision
-        tempPosition.x = CollisionHandler::CheckAllCollisionsMovement(this, position, tempPosition).x;
-
-        // Up/down movement
-        if (InputHandler::IsInputHeld(InputActions::Up))
-        {
-            tempPosition.y -= speed;
-
-            if (direction != PlayerDirection::North)
-            {
-                if (direction != PlayerDirection::NorthEast && InputHandler::IsInputHeld(InputActions::Right))
-                {
-                    if (direction != PlayerDirection::North && direction != PlayerDirection::NorthEast && direction != PlayerDirection::NorthWest)
-                    {
-                        isMoving = false;
-                    }
-
-                    direction = PlayerDirection::NorthEast;
-                }
-                else if (direction != PlayerDirection::NorthWest && InputHandler::IsInputHeld(InputActions::Left))
-                {
-                    if (direction != PlayerDirection::North && direction != PlayerDirection::NorthEast && direction != PlayerDirection::NorthWest)
-                    {
-                        isMoving = false;
-                    }
-
-                    direction = PlayerDirection::NorthWest;
-                }
-                else if (!InputHandler::IsInputHeld(InputActions::Left) && !InputHandler::IsInputHeld(InputActions::Right))
+                if (direction != PlayerDirection::West && !InputHandler::IsInputHeld(InputActions::Up) && !InputHandler::IsInputHeld(InputActions::Down))
                 {
                     isMoving = false;
-                    direction = PlayerDirection::North;
+                    direction = PlayerDirection::West;
                 }
             }
-        }
-        else if (InputHandler::IsInputHeld(InputActions::Down))
-        {
-            tempPosition.y += speed;
-
-            if (direction != PlayerDirection::South)
+            else if (InputHandler::IsInputHeld(InputActions::Right))
             {
-                if (direction != PlayerDirection::SouthEast && InputHandler::IsInputHeld(InputActions::Right))
-                {
-                    if (direction != PlayerDirection::South && direction != PlayerDirection::SouthEast && direction != PlayerDirection::SouthWest)
-                    {
-                        isMoving = false;
-                    }
+                tempPosition.x += speed;
 
-                    direction = PlayerDirection::SouthEast;
-                }
-                else if (direction != PlayerDirection::SouthWest && InputHandler::IsInputHeld(InputActions::Left))
-                {
-                    if (direction != PlayerDirection::South && direction != PlayerDirection::SouthEast && direction != PlayerDirection::SouthWest)
-                    {
-                        isMoving = false;
-                    }
-
-                    direction = PlayerDirection::SouthWest;
-                }
-                else if (!InputHandler::IsInputHeld(InputActions::Left) && !InputHandler::IsInputHeld(InputActions::Right))
+                if (direction != PlayerDirection::East && !InputHandler::IsInputHeld(InputActions::Up) && !InputHandler::IsInputHeld(InputActions::Down))
                 {
                     isMoving = false;
-                    direction = PlayerDirection::South;
+                    direction = PlayerDirection::East;
                 }
             }
-        }
 
-        // Check collision
-        tempPosition.y = CollisionHandler::CheckAllCollisionsMovement(this, position, tempPosition).y;
+            // Check collision
+            tempPosition.x = CollisionHandler::CheckAllCollisionsMovement(this, position, tempPosition).x;
+
+            // Up/down movement
+            if (InputHandler::IsInputHeld(InputActions::Up))
+            {
+                tempPosition.y -= speed;
+
+                if (direction != PlayerDirection::North)
+                {
+                    if (direction != PlayerDirection::NorthEast && InputHandler::IsInputHeld(InputActions::Right))
+                    {
+                        if (direction != PlayerDirection::North && direction != PlayerDirection::NorthEast && direction != PlayerDirection::NorthWest)
+                        {
+                            isMoving = false;
+                        }
+
+                        direction = PlayerDirection::NorthEast;
+                    }
+                    else if (direction != PlayerDirection::NorthWest && InputHandler::IsInputHeld(InputActions::Left))
+                    {
+                        if (direction != PlayerDirection::North && direction != PlayerDirection::NorthEast && direction != PlayerDirection::NorthWest)
+                        {
+                            isMoving = false;
+                        }
+
+                        direction = PlayerDirection::NorthWest;
+                    }
+                    else if (!InputHandler::IsInputHeld(InputActions::Left) && !InputHandler::IsInputHeld(InputActions::Right))
+                    {
+                        isMoving = false;
+                        direction = PlayerDirection::North;
+                    }
+                }
+            }
+            else if (InputHandler::IsInputHeld(InputActions::Down))
+            {
+                tempPosition.y += speed;
+
+                if (direction != PlayerDirection::South)
+                {
+                    if (direction != PlayerDirection::SouthEast && InputHandler::IsInputHeld(InputActions::Right))
+                    {
+                        if (direction != PlayerDirection::South && direction != PlayerDirection::SouthEast && direction != PlayerDirection::SouthWest)
+                        {
+                            isMoving = false;
+                        }
+
+                        direction = PlayerDirection::SouthEast;
+                    }
+                    else if (direction != PlayerDirection::SouthWest && InputHandler::IsInputHeld(InputActions::Left))
+                    {
+                        if (direction != PlayerDirection::South && direction != PlayerDirection::SouthEast && direction != PlayerDirection::SouthWest)
+                        {
+                            isMoving = false;
+                        }
+
+                        direction = PlayerDirection::SouthWest;
+                    }
+                    else if (!InputHandler::IsInputHeld(InputActions::Left) && !InputHandler::IsInputHeld(InputActions::Right))
+                    {
+                        isMoving = false;
+                        direction = PlayerDirection::South;
+                    }
+                }
+            }
+
+            // Check collision
+            tempPosition.y = CollisionHandler::CheckAllCollisionsMovement(this, position, tempPosition).y;
+        }
+        else
+        {
+            moving = false;
+        }
 
         // Update depth
         depth = tempPosition.y - 1;
