@@ -98,6 +98,7 @@ int main()
     auto col_04 = Collidable({ 20, 0, 126, 80 }); mainRoom.AddElement(&col_04); secondaryRoom.AddElement(&col_04); // Top wall (Left of door)
     auto col_05 = Collidable({ 174, 0, 126, 80 }); mainRoom.AddElement(&col_05); secondaryRoom.AddElement(&col_05); // Top wall (Right of door)
 
+
     // Player
     Player player = Player({
         {"idleNorth", { sf::IntRect(5, 107, 19, 29) }},

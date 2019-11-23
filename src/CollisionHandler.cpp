@@ -121,7 +121,8 @@ namespace UT
                     {
                         posOffset.x--;
                         mainRect.left--;
-                    } else if (posOffset.x < 0)
+                    }
+                    else if (posOffset.x < 0)
                     {
                         posOffset.x++;
                         mainRect.left++;
@@ -182,6 +183,11 @@ namespace UT
                     {
                         posOffset.y++;
                         mainRect.top++;
+                    }
+
+                    if (posOffset.x == 0 && posOffset.y == 0)
+                    {
+                        continue;
                     }
 
                     i--;
