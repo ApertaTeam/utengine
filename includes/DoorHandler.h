@@ -25,6 +25,8 @@ namespace UT
         static void StartTransition(DoorType type, int destRoom, sf::Vector2f destPosition, PlayerDirection playerDirection);
 
         static void Update();
+
+        static inline bool GetFading() { return fading; }
         
         static DoorHandler& GetInstance();
 

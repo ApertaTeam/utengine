@@ -27,7 +27,14 @@ namespace UT
 
     void Door::Update(float delta)
     {
+        if (!fading) return;
+
         DoorHandler::GetInstance().Update(delta);
+
+        if (!DoorHandler::GetInstance().GetFading())
+        {
+            fading = false;
+        }
     }
 
     void Door::draw(sf::RenderTarget& target, sf::RenderStates states) const
