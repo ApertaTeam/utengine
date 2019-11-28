@@ -11,6 +11,7 @@
 #include <TextureHandler.h>
 #include <Player.h>
 #include <CollisionHandler.h>
+#include <DoorHandler.h>
 #include <Collidable.h>
 #include <Door.h>
 
@@ -51,8 +52,9 @@ int main()
     mainGame.LoadRoomInternal(&mainRoom);
 
 
-    // Create collision handler
+    // Create handlers
     CollisionHandler collisionHandler = CollisionHandler();
+    DoorHandler doorHandler = DoorHandler();
 
     //-- Main room objects start --//
     // Test object B (Rectangle9Slice)
