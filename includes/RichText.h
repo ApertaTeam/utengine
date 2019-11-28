@@ -6,7 +6,7 @@
 
 namespace UT
 {
-    enum TextType
+    enum class TextType : unsigned char
     {
         Normal = 0,
         Wavy = 1,

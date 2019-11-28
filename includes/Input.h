@@ -21,7 +21,7 @@
 
 namespace UT
 {
-    enum InputActions {
+    enum class InputActions {
         Confirm,
         Back,
         Menu,
@@ -33,7 +33,7 @@ namespace UT
         Right
     };
 
-    enum InputState
+    enum class InputState
     {
         None,
         Pressed,

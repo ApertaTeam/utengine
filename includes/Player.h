@@ -7,7 +7,7 @@
 
 namespace UT
 {
-    enum PlayerDirection
+    enum class PlayerDirection
     {
         North,
         South,
@@ -16,7 +16,8 @@ namespace UT
         NorthWest,
         NorthEast,
         SouthWest,
-        SouthEast
+        SouthEast,
+        Inherited
     };
 
     class Player : public Object

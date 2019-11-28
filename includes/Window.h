@@ -11,7 +11,7 @@
 
 namespace UT
 {    
-    enum WindowFlags
+    enum class WindowFlags
     {
         Focused = 0x00020001 /* GLFW_FOCUSED's value */,
         Resizable = 0x00020003,

@@ -27,19 +27,19 @@ namespace UT
 
                 if (curFrame >= frames.size())
                 {
-                    if (action == LOOP)
+                    if (action == EndAction::LOOP)
                     {
                         curFrame = 0;
                     }
-                    else if (action == REVERSE || action == REVERSE_LOOP)
+                    else if (action == EndAction::REVERSE || action == EndAction::REVERSE_LOOP)
                     {
                         reverse = true;
                         curFrame = (float)frames.size() - 1.f;
                     }
-                    else if (action == END || action == DESTROY || action == ENDSTART)
+                    else if (action == EndAction::END || action == EndAction::DESTROY || action == EndAction::ENDSTART)
                     {
                         done = true;
-                        if (action == ENDSTART) curFrame = 0;
+                        if (action == EndAction::ENDSTART) curFrame = 0;
                     }
                 }
             }
@@ -48,7 +48,7 @@ namespace UT
                 float curtemp = curFrame - speed / (1000 * delta);
                 if (curtemp < 0)
                 {
-                    if (action == REVERSE_LOOP)
+                    if (action == EndAction::REVERSE_LOOP)
                     {
                         curFrame = 0;
                         reverse = false;
@@ -71,6 +71,6 @@ namespace UT
     {
         states.transform *= getTransform();
 
-        if (!(done && action == DESTROY)) target.draw(Sprite(textureId, frames[(int)floor(curFrame)]), states);
+        if (!(done && action == EndAction::DESTROY)) target.draw(Sprite(textureId, frames[(int)floor(curFrame)]), states);
     }
 }

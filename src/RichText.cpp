@@ -14,7 +14,7 @@ namespace UT
         this->renderPosition = { 0, 0 };
         this->monospacing = -1;
         this->renderOffset = { 0, 0 };
-        this->textTypeFlags = TextType::Normal;
+        this->textTypeFlags = static_cast<char>(TextType::Normal);
 
         this->colorPresets = std::map<std::string, int32_t>();
         colorPresets.insert(std::pair<std::string, int32_t>("Yellow", 0xFFFF00FF));
@@ -138,12 +138,12 @@ namespace UT
 
             if(i < rawText.length()) {
                 Vector2f localRenderOffset = { 0, 0 };
-                if (textTypeFlags & TextType::Shaky)
+                if (textTypeFlags & static_cast<char>(TextType::Shaky))
                 {
                     localRenderOffset.x += (std::rand() % 2 + 1) - (std::rand() % 2 + 1);
                     localRenderOffset.y += (std::rand() % 2 + 1) - (std::rand() % 2 + 1);
                 }
-                if (textTypeFlags & TextType::Wavy)
+                if (textTypeFlags & static_cast<char>(TextType::Wavy))
                 {
                     localRenderOffset.x += (std::cos(localWavyAngle) * 0.75);
                     localRenderOffset.y += (std::sin(localWavyAngle) * 1.75);

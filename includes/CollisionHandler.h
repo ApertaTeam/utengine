@@ -11,6 +11,7 @@ namespace UT
     {
     public:
         CollisionHandler();
+
         static bool CheckCollision(Object* objectA, Object* objectB);
         static Object* CheckAllCollisions(Object* object);
         static bool CheckCollisionDirect(sf::IntRect posA, sf::IntRect posB);
