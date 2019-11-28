@@ -2,22 +2,44 @@
 #define UT_DOOR_HANDLER_H
 #include <vector>
 
+#include "Game.h"
 #include "Door.h"
+#include "CollisionHandler.h"
 
 namespace UT
 {
-    class DoorHandler
+    enum DoorType
+    {
+        DOOR,
+        TELEPORTER,
+        PITFALL
+    };
+
+    class DoorHandler : public Object
     {
     public:
-        DoorHandler();
+        virtual void Init() override;
+        virtual void Update(float delta) override;
 
-        size_t AddDoor(Door* door);
+        static size_t AddDoor(Door* door);
+        static void StartTransition(DoorType type, int destRoom, sf::Vector2f destPosition, PlayerDirection playerDirection);
 
-        static DoorHandler* GetThis();
+        static void Update();
+        
+        static DoorHandler& GetInstance();
 
     private:
-        std::vector<Door*> doors;
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+        static DoorHandler instance;
+
+        std::vector<Door*> doors;
+        size_t currentDoor;
+        bool fading;
+        DoorType type;
+        int destRoom;
+        sf::Vector2f destPosition;
+        PlayerDirection playerDirection;
     };
 }
 

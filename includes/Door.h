@@ -4,16 +4,10 @@
 #include "Room.h"
 #include "Interactable.h"
 #include "Fader.h"
+#include "DoorHandler.h"
 
 namespace UT
 {
-    enum DoorType
-    {
-        DOOR,
-        TELEPORTER,
-        PITFALL
-    };
-
     // Interactable used for doors, teleporters and transitions
     class Door : public Interactable
     {
@@ -41,13 +35,13 @@ namespace UT
 
     protected:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
         bool fading;
         int destRoom;
         sf::Vector2f destPosition;
         bool stopMusic;
         PlayerDirection playerDirection;
         DoorType type;
-        //Fader fader;
     };
 }
 #endif
