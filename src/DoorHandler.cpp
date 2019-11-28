@@ -6,15 +6,15 @@ namespace UT
 
     void DoorHandler::Init()
     {
-        currentDoor = 0;
+        //currentDoor = 0;
     }
 
-    size_t DoorHandler::AddDoor(Door* door)
+    /*size_t DoorHandler::AddDoor(Door* door)
     {
         instance.doors.push_back(door);
 
         return instance.doors.size() - 1;
-    }
+    }*/
 
     void DoorHandler::StartTransition(DoorType type, int destRoom, sf::Vector2f destPosition, PlayerDirection playerDirection)
     {

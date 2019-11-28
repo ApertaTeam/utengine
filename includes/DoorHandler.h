@@ -21,7 +21,7 @@ namespace UT
         virtual void Init() override;
         virtual void Update(float delta) override;
 
-        static size_t AddDoor(Door* door);
+        //static size_t AddDoor(Door* door);
         static void StartTransition(DoorType type, int destRoom, sf::Vector2f destPosition, PlayerDirection playerDirection);
 
         static void Update();
@@ -35,8 +35,8 @@ namespace UT
 
         static DoorHandler instance;
 
-        std::vector<Door*> doors;
-        size_t currentDoor;
+        //std::vector<Door*> doors;
+        //size_t currentDoor;
         bool fading;
         DoorType type;
         int destRoom;
