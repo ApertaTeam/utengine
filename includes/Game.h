@@ -27,6 +27,8 @@ namespace UT
 
         void LoadRoomInternal(Room* room);
 
+        inline void AddGlobalObject(Object* object) { globalObjects.push_back(object); }
+
         // TODO: Replace with a method to load the room
         // from our binary file format.
         void LoadRoomInternal(int roomId);
@@ -40,6 +42,7 @@ namespace UT
         Room* GetRoom();
         Camera* GetCamera();
         Shader GetShaderProgram();
+        static Game* GetInstance();
 
         // Setters
         void SetWindow(Window window);
@@ -59,6 +62,8 @@ namespace UT
 
         sf::Int32 FPS;
 		sf::Clock FPStimeObj;
+
+        std::vector<Object*> globalObjects;
 
         Room* room;
         Camera* camera;

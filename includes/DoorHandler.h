@@ -3,7 +3,8 @@
 #include <vector>
 
 #include "Game.h"
-#include "Door.h"
+#include "Fader.h"
+//#include "Door.h"
 #include "CollisionHandler.h"
 
 namespace UT
@@ -18,22 +19,20 @@ namespace UT
     class DoorHandler : public Object
     {
     public:
+        DoorHandler();
+
         virtual void Init() override;
         virtual void Update(float delta) override;
 
         //static size_t AddDoor(Door* door);
         static void StartTransition(DoorType type, int destRoom, sf::Vector2f destPosition, PlayerDirection playerDirection);
 
-        static void Update();
-
-        static inline bool GetFading() { return fading; }
+        static bool GetFading();
         
-        static DoorHandler& GetInstance();
+        static DoorHandler* GetInstance();
 
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-
-        static DoorHandler instance;
 
         //std::vector<Door*> doors;
         //size_t currentDoor;

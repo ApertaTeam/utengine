@@ -22,16 +22,14 @@ namespace UT
         if (fading) return;
         fading = true;
 
-        DoorHandler::GetInstance().StartTransition(type, destRoom, destPosition, playerDirection);
+        DoorHandler::GetInstance()->StartTransition(type, destRoom, destPosition, playerDirection);
     }
 
     void Door::Update(float delta)
     {
         if (!fading) return;
 
-        DoorHandler::GetInstance().Update(delta);
-
-        if (!DoorHandler::GetInstance().GetFading())
+        if (!DoorHandler::GetInstance()->GetFading())
         {
             fading = false;
         }

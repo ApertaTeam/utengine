@@ -2,33 +2,38 @@
 
 namespace UT
 {
-    DoorHandler DoorHandler::instance = DoorHandler();
+    static DoorHandler* instance;
+
+    DoorHandler::DoorHandler()
+    {
+        fading = false;
+        instance = this;
+        depth = 999999;
+    }
 
     void DoorHandler::Init()
     {
-        //currentDoor = 0;
+        
     }
-
-    /*size_t DoorHandler::AddDoor(Door* door)
-    {
-        instance.doors.push_back(door);
-
-        return instance.doors.size() - 1;
-    }*/
 
     void DoorHandler::StartTransition(DoorType type, int destRoom, sf::Vector2f destPosition, PlayerDirection playerDirection)
     {
-        instance.type = type;
-        instance.destRoom = destRoom;
-        instance.destPosition = destPosition;
-        instance.playerDirection = playerDirection;
-        instance.fading = true;
+        instance->type = type;
+        instance->destRoom = destRoom;
+        instance->destPosition = destPosition;
+        instance->playerDirection = playerDirection;
+        instance->fading = true;
 
         Fader::Setup();
         Game::GetRoomStatic()->GetPlayer()->SetCanMove(false);
     }
 
-    DoorHandler& DoorHandler::GetInstance()
+    bool DoorHandler::GetFading()
+    {
+        return instance->fading;
+    }
+
+    DoorHandler* DoorHandler::GetInstance()
     {
         return instance;
     }

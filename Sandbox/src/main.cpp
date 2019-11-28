@@ -54,6 +54,7 @@ int main()
 
     // Create handlers
     CollisionHandler collisionHandler = CollisionHandler();
+    DoorHandler doorHandler = DoorHandler(); mainGame.AddGlobalObject(&doorHandler);
 
     //-- Main room objects start --//
     // Test object B (Rectangle9Slice)
