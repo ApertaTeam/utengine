@@ -56,11 +56,11 @@ namespace UT
         if (res != Z_OK)
         {
             GlobalLogger->Log(Logger::Error, "Zlib decompression error: " + std::string(zlibStatusToString(res)));
-            delete newBuffer;
+            delete[] newBuffer;
             return;
         }
         buffer.assign(newBuffer, newBuffer + uncompressedLength);
-        delete newBuffer;
+        delete[] newBuffer;
         length = (uint32_t)uncompressedLength;
     }
 
@@ -72,11 +72,11 @@ namespace UT
         if (res != Z_OK)
         {
             GlobalLogger->Log(Logger::Error, "Zlib compression error: " + std::string(zlibStatusToString(res)));
-            delete newBuffer;
+            delete[] newBuffer;
             return;
         }
         buffer.assign(newBuffer, newBuffer + destLength);
-        delete newBuffer;
+        delete[] newBuffer;
         length = destLength;
     }
 }
