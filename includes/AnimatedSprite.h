@@ -28,9 +28,6 @@ namespace UT
         inline void SetImageIndex(int curFrame) { this->curFrame = (float)curFrame; }
         inline int GetImageIndex() const { return (int)floor(curFrame); }
 
-        inline void SetSpeed(int speed) { this->speed = speed; };
-        inline int GetSpeed() { return speed; };
-
         inline void PushFrame(sf::IntRect frame) { frames.push_back(frame); }
         inline void PushFrames(const std::vector<sf::IntRect> &frames) { for (auto& frame : frames) this->frames.push_back(frame); }
         inline void Reset() { frames.clear(); curFrame = 0; }
@@ -40,10 +37,12 @@ namespace UT
 
         void Update(float delta);
 
+
+        int speed;
+
     private:
         std::vector<sf::IntRect> frames;
         float curFrame;
-        int speed;
         EndAction action;
         int textureId;
 

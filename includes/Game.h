@@ -36,25 +36,20 @@ namespace UT
         static void LoadRoom(int roomId);
         static void LoadRoom(Room* room);
 
-        // Getters
-        Window GetWindow();
         double GetFPS();
         Room* GetRoom();
-        Camera* GetCamera();
-        Shader GetShaderProgram();
         static Game* GetInstance();
-
-        // Setters
-        void SetWindow(Window window);
-        void SetCamera(Camera* camera);
-        void SetShaderProgram(Shader shaderProgram);
 
         // TODO: Replace this map into a map of memory locations
         // in our binary file format.
         std::map<unsigned int, Room*> tempRoomList;
-    private:
+
+
         Window window;
+        Camera* camera;
         Shader shaderProgram;
+
+    private:
         InputHandler inputHandler;
 
         std::string title;
@@ -66,7 +61,6 @@ namespace UT
         std::vector<Object*> globalObjects;
 
         Room* room;
-        Camera* camera;
     };
 }
 

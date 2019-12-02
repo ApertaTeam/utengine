@@ -22,7 +22,7 @@ namespace UT
     Sprite Font::GetGlyphAsColor(char character, sf::Color color)
     {
         Sprite sprite{this->texId, glyphs[character].texture};
-        sprite.SetColor(color);
+        sprite.color = color;
         return sprite;
     }
 }

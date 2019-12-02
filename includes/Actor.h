@@ -20,28 +20,17 @@ namespace UT
         virtual void OnUpdate(float delta);
         virtual void OnDraw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-        inline void SetPosition(sf::Vector2i position) { this->position = position; };
-        inline sf::Vector2i GetPosition() { return position; };
 
-        inline void SetSprite(AnimatedSprite sprite) { this->sprite = sprite; };
-        inline AnimatedSprite GetSprite() { return sprite; };
-
-        inline void SetCollisionBox(sf::IntRect collisionBox) { this->collisionBox = collisionBox; };
-        inline sf::IntRect GetCollisionBox() { return collisionBox; };
-
-        inline void SetSpeed(int speed) { this->speed = speed; };
-        inline int GetSpeed() { return speed; };
-
-    protected:
         sf::Vector2i position;
-
+        AnimatedSprite sprite;
+        sf::IntRect collisionBox;
+        int speed;
+        
+    protected:
         sf::Vector2i newPosition;
         sf::Vector2f newCalculations;
         sf::Vector2f newSum;
 
-        AnimatedSprite sprite;
-        sf::IntRect collisionBox;
-        int speed;
     };
 }
 #endif

@@ -20,11 +20,11 @@ namespace UT
 
     bool CollisionHandler::CheckCollision(Object* objectA, Object* objectB)
     {
-        sf::IntRect mainRect = objectA->GetCollisionBox();
+        sf::IntRect mainRect = objectA->collisionBox;
         mainRect.left += objectA->getPosition().x;
         mainRect.top += objectA->getPosition().y;
 
-        sf::IntRect subRect = objectB->GetCollisionBox();
+        sf::IntRect subRect = objectB->collisionBox;
         subRect.left += objectB->getPosition().x;
         subRect.top += objectB->getPosition().y;
 
@@ -41,7 +41,7 @@ namespace UT
 
     Object* CollisionHandler::CheckAllCollisions(Object* object)
     {
-        sf::IntRect mainRect = object->GetCollisionBox();
+        sf::IntRect mainRect = object->collisionBox;
         mainRect.left += object->getPosition().x;
         mainRect.top += object->getPosition().y;
 
@@ -49,7 +49,7 @@ namespace UT
         {
             if (instance->objects->at(i) != object)
             {
-                sf::IntRect subRect = instance->objects->at(i)->GetCollisionBox();
+                sf::IntRect subRect = instance->objects->at(i)->collisionBox;
                 subRect.left += instance->objects->at(i)->getPosition().x;
                 subRect.top += instance->objects->at(i)->getPosition().y;
 
@@ -67,7 +67,7 @@ namespace UT
         {
             if (instance->interactables->at(i) != object)
             {
-                sf::IntRect subRect = instance->interactables->at(i)->GetCollisionBox();
+                sf::IntRect subRect = instance->interactables->at(i)->collisionBox;
                 subRect.left += instance->interactables->at(i)->getPosition().x;
                 subRect.top += instance->interactables->at(i)->getPosition().y;
 
@@ -100,7 +100,7 @@ namespace UT
     sf::Vector2f CollisionHandler::CheckAllCollisionsMovement(Object* object, sf::Vector2f curPos, sf::Vector2f nextPos)
     {
         sf::Vector2f posOffset = nextPos - curPos;
-        sf::IntRect mainRect = object->GetCollisionBox();
+        sf::IntRect mainRect = object->collisionBox;
         mainRect.left += nextPos.x;
         mainRect.top += nextPos.y;
 
@@ -108,7 +108,7 @@ namespace UT
         {
             if (instance->objects->at(i) != object)
             {
-                sf::IntRect subRect = instance->objects->at(i)->GetCollisionBox();
+                sf::IntRect subRect = instance->objects->at(i)->collisionBox;
                 subRect.left += instance->objects->at(i)->getPosition().x;
                 subRect.top += instance->objects->at(i)->getPosition().y;
 
@@ -154,7 +154,7 @@ namespace UT
         {
             if (instance->interactables->at(i) != object)
             {
-                sf::IntRect subRect = instance->interactables->at(i)->GetCollisionBox();
+                sf::IntRect subRect = instance->interactables->at(i)->collisionBox;
                 subRect.left += instance->interactables->at(i)->getPosition().x;
                 subRect.top += instance->interactables->at(i)->getPosition().y;
 
@@ -210,7 +210,7 @@ namespace UT
 
         for (int i = 0; i < instance->interactables->size(); i++)
         {
-            sf::IntRect subRect = instance->interactables->at(i)->GetCollisionBox();
+            sf::IntRect subRect = instance->interactables->at(i)->collisionBox;
             subRect.left += instance->interactables->at(i)->getPosition().x;
             subRect.top += instance->interactables->at(i)->getPosition().y;
 

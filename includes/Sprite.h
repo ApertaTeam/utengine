@@ -14,19 +14,12 @@ namespace UT
         Sprite();
         Sprite(int texId, sf::IntRect texRect);
 
-        inline int GetTexture() const { return textureId; }
-        inline void SetTexture(int texId) { textureId = texId; }
 
-        inline sf::IntRect GetTextureRect() const { return textureRect; }
-        inline void SetTextureRect(sf::IntRect texRect) { textureRect = texRect; }
-
-        inline void SetColor(sf::Color color) { this->color = color; }
-        inline sf::Color GetColor() const { return this->color; }
-    private:
-        int textureId;
         sf::IntRect textureRect;
         sf::Color color;
+        int textureId;
 
+    private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     };
 }

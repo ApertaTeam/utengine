@@ -25,7 +25,7 @@ namespace UT
         instance->fading = true;
 
         Fader::Setup();
-        Game::GetRoomStatic()->GetPlayer()->SetCanMove(false);
+        Game::GetRoomStatic()->GetPlayer()->canMove = false;
     }
 
     bool DoorHandler::GetFading()
@@ -50,14 +50,14 @@ namespace UT
                     CollisionHandler::Reset();
 
                     Player* player = Game::GetRoomStatic()->GetPlayer();
-                    player->SetPosition(destPosition);
-                    player->SetDirection(playerDirection);
+                    player->position = destPosition;
+                    player->direction = playerDirection;
                     Fader::Reverse();
                 }
                 else
                 {
                     fading = false;
-                    Game::GetRoomStatic()->GetPlayer()->SetCanMove(true);
+                    Game::GetRoomStatic()->GetPlayer()->canMove = true;
                 }
             }
         }

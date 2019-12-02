@@ -67,7 +67,7 @@ int main()
 
     // Test object D (Animated Sprite)
     UTSandbox::ObjTestD testObjectD = UTSandbox::ObjTestD();
-    testObjectD.SetDepth(160);
+    testObjectD.depth = 160;
     mainRoom.AddElement(&testObjectD);
 
     // Test actor
@@ -80,7 +80,7 @@ int main()
 
     // Test TileMap B
     UTSandbox::TileMapTestB testMapB = UTSandbox::TileMapTestB();
-    testMapB.SetDepth(10000);
+    testMapB.depth = 10000;
     mainRoom.AddElement(&testMapB);
 
     // Room exits
@@ -125,11 +125,11 @@ int main()
     int playerTexture = TextureHandler::LoadTextureFromFile("player.png");
     AnimatedSprite playerAnimSprite = AnimatedSprite(playerTexture);
     
-    player.SetTexture(playerTexture);
-    player.SetSprite(playerAnimSprite);
+    player.texture = playerTexture;
+    player.sprite = playerAnimSprite;
 
-    player.SetPosition({140, 140});
-    player.SetCollisionBox({ -8, 5, 17, 10 });
+    player.position = {140, 140};
+    player.collisionBox = { -8, 5, 17, 10 };
     mainRoom.AddElement(&player);
     secondaryRoom.AddElement(&player);
 
@@ -139,7 +139,7 @@ int main()
 
     // Main camera object
     Camera mainCamera = Camera(&mainGame, { 320, 240 }, &player);
-    mainGame.SetCamera(&mainCamera);
+    mainGame.camera = &mainCamera;
 
     // Initialize game object
     if (!mainGame.Start())

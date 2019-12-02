@@ -18,7 +18,7 @@ namespace UT
         this->textPosition = 0;
         this->renderPosition = { 0, 0 };
         this->richText = RichText();
-        this->richText.SetFont(font);
+        this->richText.font = font;
         this->timeout = 0;
         this->cancelNext = false;
     }

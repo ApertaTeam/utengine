@@ -13,7 +13,7 @@ namespace UT
 
     void Player::Init()
     {
-        sprite.SetSpeed(4);
+        sprite.speed = 4;
     }
 
     void Player::AddTextureRect(std::string name, std::vector<sf::IntRect> textureRect)

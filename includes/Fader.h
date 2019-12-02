@@ -11,8 +11,6 @@ namespace UT
     class Fader : public Object
     {
     public:
-        //Fader(sf::IntRect rectSize = {0, 0, 640, 480}, int fadeTime = 2) : rectSize(rectSize), msRunTime(fadeTime * 1000), msCurrTime(0) {}
-
         virtual void Init() override;
         virtual void Update(float delta) override;
 

@@ -137,7 +137,7 @@ namespace UT
             }
 
             if(i < rawText.length()) {
-                Vector2f localRenderOffset = { 0, 0 };
+                sf::Vector2f localRenderOffset = { 0, 0 };
                 if (textTypeFlags & static_cast<char>(TextType::Shaky))
                 {
                     localRenderOffset.x += (std::rand() % 2 + 1) - (std::rand() % 2 + 1);
@@ -152,7 +152,7 @@ namespace UT
                 auto glyph = font->GetGlyph(rawText.at(i));
                 auto sprite = font->GetGlyphSprite(rawText.at(i));
                 sprite.setPosition(x + localRenderOffset.x, y + localRenderOffset.y);
-                sprite.SetColor(formatColor);
+                sprite.color = formatColor;
 
                 if (monospacing == -1)
                 {

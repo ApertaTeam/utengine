@@ -8,7 +8,7 @@ namespace UT
 
     }
 
-    Room::Room(Vector2 size)
+    Room::Room(sf::Vector2f size)
         : size(size)
     {
 

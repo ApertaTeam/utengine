@@ -19,31 +19,20 @@ namespace UT
         RichText();
 
         void Update(float delta);
+    
 
-        const Font* GetFont() const { return this->font; }
-        void SetFont(Font* font) { this->font = font; }
-
-        inline void SetRenderPosition(Vector2 renderPosition) { this->renderPosition = renderPosition; };
-        inline Vector2 GetRenderPosition() { return renderPosition; };
-
-        inline void SetMonospacing(short monospacing) { this->monospacing = monospacing; };
-        inline short GetMonospacing() { return monospacing; };
-
-        inline void SetTextTypeFlags(char textTypeFlags) { this->textTypeFlags = textTypeFlags; };
-        inline char GetTextTypeFlags() { return textTypeFlags; };
-
-        std::string rawText;
-
-    private:
         Font* font;
-        Vector2 renderPosition;
+        std::string rawText;
+        sf::Vector2f renderPosition;
+        short monospacing;
 
         char textTypeFlags;
-        Vector2 renderOffset;
+
+    private:
+        sf::Vector2f renderOffset;
 
         float wavyAngle = 0;
 
-        short monospacing;
         std::map<std::string, int32_t> colorPresets;
 
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

@@ -19,14 +19,13 @@ namespace UT
 
         virtual void Update();
 
-        inline void SetTrackedObject(Object* trackedObject);
-        inline Object* GetTrackedObject();
-
         inline sf::View* GetView() { return &view; };
 
+
+        Object* trackedObject;
+    
     private:
         Game* game;
-        Object* trackedObject;
         sf::View view;
 
         sf::Vector2f viewSize;

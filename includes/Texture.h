@@ -8,8 +8,8 @@ namespace UT
 {
     struct TextureEntry
     {
-        Vector2 pos;
-        Vector2 size;
+        sf::Vector2f pos;
+        sf::Vector2f size;
         Vector4 padding;
         uint16_t   pageId;
     };

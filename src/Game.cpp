@@ -102,7 +102,7 @@ namespace UT
         objects.insert(objects.end(), globalObjects.begin(), globalObjects.end());
         std::sort(objects.begin(), objects.end(), [](const Object* x, const Object* y)
         {
-            return x->GetDepth() < y->GetDepth();
+            return x->depth < y->depth;
         });
         for (int i = 0; i < objects.size(); i++)
         {
@@ -180,11 +180,6 @@ namespace UT
     }
 
     // Getters
-    Window Game::GetWindow()
-    {
-        return this->window;
-    }
-
     double Game::GetFPS()
     {
         return this->FPS;
@@ -195,34 +190,8 @@ namespace UT
         return this->room;
     }
 
-    Camera* Game::GetCamera()
-    {
-        return this->camera;
-    }
-
-    Shader Game::GetShaderProgram()
-    {
-        return this->shaderProgram;
-    }
-
     Game* Game::GetInstance()
     {
         return instance;
-    }
-
-    // Setters
-    void Game::SetWindow(Window window)
-    {
-        this->window = window;
-    }
-
-    void Game::SetCamera(Camera* camera)
-    {
-        this->camera = camera;
-    }
-
-    void Game::SetShaderProgram(Shader shaderProgram)
-    {
-        this->shaderProgram = shaderProgram;
     }
 }

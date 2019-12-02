@@ -62,26 +62,26 @@ namespace UT
         int x = rect.left;
         int origx = x;
         int y = rect.top;
-        int endx = (rect.width) - upperRight.GetTextureRect().width;
-        int endy = (rect.height) - lowerLeft.GetTextureRect().height;
+        int endx = (rect.width) - upperRight.textureRect.width;
+        int endy = (rect.height) - lowerLeft.textureRect.height;
 
         // Upper line
         upperLeft.setPosition(x, y);
         target.draw(upperLeft);
 
-        x += upperLeft.GetTextureRect().width;
+        x += upperLeft.textureRect.width;
 
-        auto ucRect = upperCenter.GetTextureRect();
-        auto mlRect = middleLeft.GetTextureRect();
-        auto mcRect = middleCenter.GetTextureRect();
-        auto mrRect = middleRight.GetTextureRect();
-        auto lcRect = lowerCenter.GetTextureRect();
+        auto ucRect = upperCenter.textureRect;
+        auto mlRect = middleLeft.textureRect;
+        auto mcRect = middleCenter.textureRect;
+        auto mrRect = middleRight.textureRect;
+        auto lcRect = lowerCenter.textureRect;
 
         while (x < endx)
         {
             if (x + ucRect.width > endx)
             {
-                upperCenter.SetTextureRect({ ucRect.left, ucRect.top, endx - x, ucRect.height});
+                upperCenter.textureRect = { ucRect.left, ucRect.top, endx - x, ucRect.height};
                 upperCenter.setPosition(x, y);
                 target.draw(upperCenter);
                 x = endx;
@@ -97,7 +97,7 @@ namespace UT
         target.draw(upperRight);
 
         x = origx;
-        y += upperLeft.GetTextureRect().height;
+        y += upperLeft.textureRect.height;
         
         // Middle line
         int localy = rect.top + mcRect.height;
@@ -116,13 +116,13 @@ namespace UT
                     {
                         if (x == origx) 
                         {
-                            middleLeft.SetTextureRect({ mlRect.left, mlRect.top, endx - x, endy - localy });
+                            middleLeft.textureRect = { mlRect.left, mlRect.top, endx - x, endy - localy };
                             middleLeft.setPosition(x, localy);
                             target.draw(middleLeft);
                         }
                         else
                         {
-                            middleCenter.SetTextureRect({ mcRect.left, mcRect.top, endx - x, endy - localy });
+                            middleCenter.textureRect = { mcRect.left, mcRect.top, endx - x, endy - localy };
                             middleCenter.setPosition(x, localy);
                             target.draw(middleCenter);
                         }
@@ -132,13 +132,13 @@ namespace UT
                     // Standard repitition
                     if (x == origx)
                     {
-                        middleLeft.SetTextureRect({ mlRect.left, mlRect.top, endx - x, mlRect.height });
+                        middleLeft.textureRect = { mlRect.left, mlRect.top, endx - x, mlRect.height };
                         middleLeft.setPosition(x, localy);
                         target.draw(middleLeft);
                     }
                     else 
                     {
-                        middleCenter.SetTextureRect({ mcRect.left, mcRect.top, endx - x, mcRect.height });
+                        middleCenter.textureRect = { mcRect.left, mcRect.top, endx - x, mcRect.height };
                         middleCenter.setPosition(x, localy);
                         target.draw(middleCenter);
                     }
@@ -156,13 +156,13 @@ namespace UT
                 {
                     if (x == origx) 
                     {
-                        middleLeft.SetTextureRect({ mlRect.left, mlRect.top, mlRect.width, endy - localy });
+                        middleLeft.textureRect = { mlRect.left, mlRect.top, mlRect.width, endy - localy };
                         middleLeft.setPosition(x, localy);
                         target.draw(middleLeft);
                     }
                     else 
                     {
-                        middleCenter.SetTextureRect({ mcRect.left, mcRect.top, mcRect.width, endy - localy });
+                        middleCenter.textureRect = { mcRect.left, mcRect.top, mcRect.width, endy - localy };
                         middleCenter.setPosition(x, localy);
                         target.draw(middleCenter);
                     }
@@ -172,13 +172,13 @@ namespace UT
                 // Standard repitition
                 if (x == origx) 
                 {
-                    middleLeft.SetTextureRect({ mlRect.left, mlRect.top, mlRect.width, mlRect.height });
+                    middleLeft.textureRect = { mlRect.left, mlRect.top, mlRect.width, mlRect.height };
                     middleLeft.setPosition(x, localy);
                     target.draw(middleLeft);
                 }
                 else 
                 {
-                    middleCenter.SetTextureRect({ mcRect.left, mcRect.top, mcRect.width, mcRect.height });
+                    middleCenter.textureRect = { mcRect.left, mcRect.top, mcRect.width, mcRect.height };
                     middleCenter.setPosition(x, localy);
                     target.draw(middleCenter);
                 }
@@ -196,7 +196,7 @@ namespace UT
         {
             if (localy + mrRect.height > endy)
             {
-                middleRight.SetTextureRect({ mrRect.left, mrRect.top, mrRect.width, endy - localy });
+                middleRight.textureRect = { mrRect.left, mrRect.top, mrRect.width, endy - localy };
                 middleRight.setPosition(x, localy);
                 target.draw(middleRight);
                 localy += endy - localy;
@@ -217,13 +217,13 @@ namespace UT
         lowerLeft.setPosition(x, y);
         target.draw(lowerLeft);
 
-        x += lowerLeft.GetTextureRect().width;
+        x += lowerLeft.textureRect.width;
 
         while (x < endx)
         {
             if (x + lcRect.width > endx)
             {
-                lowerCenter.SetTextureRect({ lcRect.left, lcRect.top, endx - x, lcRect.height });
+                lowerCenter.textureRect = { lcRect.left, lcRect.top, endx - x, lcRect.height };
                 lowerCenter.setPosition(x, y);
                 target.draw(lowerCenter);
                 x = endx;
@@ -239,6 +239,6 @@ namespace UT
         target.draw(lowerRight);
 
         x = origx;
-        y += lowerRight.GetTextureRect().height;
+        y += lowerRight.textureRect.height;
     }
 }

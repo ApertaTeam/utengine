@@ -3,33 +3,14 @@
 
 #include <vector>
 #include <string>
-
 #include <stdint.h>
+
+#include <SFML/Graphics.hpp>
 
 namespace UT
 {
     class Object; // Forward declare
     class Sprite;
-
-    // Vector 2
-    struct Vector2
-    {
-        int x;
-        int y;
-
-        Vector2() : x(0), y(0) {};
-        Vector2(int x, int y) : x(x), y(y) {};
-    };
-
-    // Vector 2 Float
-    struct Vector2f
-    {
-        float x;
-        float y;
-
-        Vector2f() : x(0), y(0) {};
-        Vector2f(float x, float y) : x(x), y(y) {};
-    };
 
     // Vector 4
     struct Vector4
@@ -58,11 +39,11 @@ namespace UT
     // Transform
     struct Transform
     {
-        Vector2 position;
+        sf::Vector2f position;
         int rotation;
 
         Transform() : position({ 0, 0 }), rotation(0) {};
-        Transform(Vector2 position, int rotation) : position(position), rotation(rotation) {};
+        Transform(sf::Vector2f position, int rotation) : position(position), rotation(rotation) {};
     };
 }
 

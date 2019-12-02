@@ -7,10 +7,10 @@ namespace UT
     Window::Window()
     {
         this->title = "";
-        this->size = Vector2(0, 0);
+        this->size = { 0, 0 };
     }
 
-    void Window::Init(std::string title, Vector2 size, int flags, sf::Image icon)
+    void Window::Init(std::string title, sf::Vector2i size, int flags, sf::Image icon)
     {        
         this->title = title;
         this->size = size;
@@ -48,7 +48,7 @@ namespace UT
         return this->title;
     }
 
-    Vector2 Window::GetSize()
+    sf::Vector2i Window::GetSize()
     {
         return this->size;
     }
@@ -60,7 +60,7 @@ namespace UT
         if (this->win != NULL) this->win->setTitle(title);
     }
 
-    void Window::SetSize(Vector2 size)
+    void Window::SetSize(sf::Vector2i size)
     {
         this->size = size;
         if (this->win != NULL) this->win->setSize({(unsigned int)size.x, (unsigned int)size.y});

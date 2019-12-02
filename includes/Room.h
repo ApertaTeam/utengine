@@ -14,7 +14,7 @@ namespace UT
     {
     public:
         Room();
-        Room(Vector2 size);
+        Room(sf::Vector2f size);
 
         inline void AddElement(Object* object) { objects.push_back(object); isInitialized = false; };
         inline void AddElement(TileMap* tilemap) { tilemaps.push_back(tilemap); isInitialized = false; };
@@ -26,7 +26,7 @@ namespace UT
         inline std::vector<Interactable*>& GetInteractables() { return interactables; };
         inline Player* GetPlayer() { return player; }
 
-        inline Vector2 GetSize() { return size; };
+        inline sf::Vector2f GetSize() { return size; };
 
         inline bool IsInitialized() const { return isInitialized; }
 
@@ -34,7 +34,7 @@ namespace UT
 
     private:
         bool isInitialized = false;
-        Vector2 size = {};
+        sf::Vector2f size = {};
         std::vector<Object*> objects = {};
         std::vector<TileMap*> tilemaps = {};
         std::vector<Interactable*> interactables = {};

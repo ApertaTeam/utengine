@@ -30,27 +30,14 @@ namespace UT
         /** Transitionally moves rectangle points to new rectangle points */
         void Update(float delta);
 
-
-        /** Sets array of sprites used as slices */
-        inline void SetSlice(std::array<Sprite, 9> slice) { this->slice = slice; }
-
-        /** Instantly defines rectangle points */
-        inline void SetRect(sf::IntRect rect) { this->rect = rect; }
-
-        /** Returns array of sprites used as slices */
-        inline const std::array<Sprite, 9> GetSlice() const { return this->slice; }
-
-        /** Returns rectangle points */
-        inline const sf::IntRect GetRect() const { return this->rect; }
-
-
         /** Begins the transition from the current points to the new points */
         void MoveToRect(sf::IntRect rect, int time = 1000);
 
-    private:
+
         std::array<Sprite, 9> slice;
         sf::IntRect rect;
 
+    private:
         sf::IntRect resizeRect = {};
         Vector4f resizeRectSum = {};
         Vector4f resizeCalculations = {};
