@@ -14,7 +14,7 @@ namespace UT {
 
 
         bool isEnabled;
-        sf::IntRect boundingBox;
+        sf::IntRect bounds;
     };
 }
 #endif

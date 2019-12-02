@@ -7,7 +7,7 @@ namespace UT
     class ViewZone : public Zone
     {
     public:
-        ViewZone(sf::IntRect boundingBox, bool isEnabled);
+        ViewZone(sf::IntRect bounds, bool isEnabled);
     };
 }
 #endif

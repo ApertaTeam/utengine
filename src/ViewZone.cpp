@@ -2,9 +2,9 @@
 
 namespace UT
 {
-    ViewZone::ViewZone(sf::IntRect boundingBox, bool isEnabled)
+    ViewZone::ViewZone(sf::IntRect bounds, bool isEnabled)
     {
-        this->boundingBox = boundingBox;
+        this->bounds = bounds;
         this->isEnabled = isEnabled;
     }
 }
