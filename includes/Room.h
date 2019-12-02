@@ -5,6 +5,7 @@
 #include "Object.h"
 #include "Interactable.h"
 #include "TileMap.h"
+#include "Zone.h"
 #include "Player.h"
 
 namespace UT
@@ -16,14 +17,12 @@ namespace UT
         Room();
         Room(sf::Vector2f size);
 
-        inline void AddElement(Object* object) { objects.push_back(object); isInitialized = false; };
-        inline void AddElement(TileMap* tilemap) { tilemaps.push_back(tilemap); isInitialized = false; };
-        inline void AddElement(Interactable* interactable) { interactables.push_back(interactable); isInitialized = false; };
+        inline void AddElement(Object* object) { objects.push_back(object); isInitialized = false; }
+        inline void AddElement(Zone* zone) { zones.push_back(zone); isInitialized = false; }
         inline void AddElement(Player* player) { this->player = player; objects.push_back(player); isInitialized = false; }
 
-        inline std::vector<Object*>& GetObjects() { return objects; };
-        inline std::vector<TileMap*>& GetTileMaps() { return tilemaps; };
-        inline std::vector<Interactable*>& GetInteractables() { return interactables; };
+        inline std::vector<Object*>& GetObjects() { return objects; }
+        inline std::vector<Zone*>& GetZones() { return zones; }
         inline Player* GetPlayer() { return player; }
 
         inline sf::Vector2f GetSize() { return size; };
@@ -36,8 +35,7 @@ namespace UT
         bool isInitialized = false;
         sf::Vector2f size = {};
         std::vector<Object*> objects = {};
-        std::vector<TileMap*> tilemaps = {};
-        std::vector<Interactable*> interactables = {};
+        std::vector<Zone*> zones = {};
         Player* player;
     };
 }

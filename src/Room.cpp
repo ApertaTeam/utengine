@@ -22,14 +22,9 @@ namespace UT
             object->Init();
         }
 
-        for (auto& interactable : interactables)
+        for (auto& zone : zones)
         {
-            interactable->Init();
-        }
-
-        for (auto& tilemap : tilemaps)
-        {
-            tilemap->Init();
+            zone->Init();
         }
 
         isInitialized = true;

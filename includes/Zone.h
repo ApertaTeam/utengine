@@ -9,6 +9,9 @@ namespace UT {
     public:
         Zone();
 
+        virtual void Init();
+        virtual void Run();
+
 
         bool isEnabled;
         sf::IntRect boundingBox;
