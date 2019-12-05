@@ -7,7 +7,7 @@ namespace UT
     static CollisionHandler* instance;
 
     CollisionHandler::CollisionHandler()
-        : objects(&Game::GetRoomStatic()->GetObjects()), interactables(&Game::GetRoomStatic()->GetInteractables())
+        : objects(&Game::GetRoomStatic()->GetObjects()), zones(&Game::GetRoomStatic()->GetZones()), interactables(&Game::GetRoomStatic()->GetInteractables())
     {
         instance = this;
     }
@@ -15,7 +15,7 @@ namespace UT
     void CollisionHandler::Reset()
     {
         instance->objects = &Game::GetRoomStatic()->GetObjects();
-        instance->interactables = &Game::GetRoomStatic()->GetInteractables();
+        instance->zones = &Game::GetRoomStatic()->GetZones();
     }
 
     bool CollisionHandler::CheckCollision(Object* objectA, Object* objectB)
@@ -208,6 +208,7 @@ namespace UT
         mainRect.width += padding * 2;
         mainRect.height += padding * 2;
 
+        
         for (int i = 0; i < instance->interactables->size(); i++)
         {
             sf::IntRect subRect = instance->interactables->at(i)->collisionBox;
@@ -219,6 +220,11 @@ namespace UT
                 && subRect.top <= mainRect.top + mainRect.height
                 && subRect.top + subRect.height >= mainRect.top))
             {
+                //Interactable* mm = static_cast<Interactable*>(instance->objects->at(0));
+                //mm->Run();
+
+
+
                 Interactable* inst = instance->interactables->at(i);
                 if (!inst->persists) instance->interactables->erase(instance->interactables->begin()+i);
                 interactables.push_back(inst);

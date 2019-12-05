@@ -18,10 +18,12 @@ namespace UT
         Room(sf::Vector2f size);
 
         inline void AddElement(Object* object) { objects.push_back(object); isInitialized = false; }
+        inline void AddElement(Interactable* interactable) { interactables.push_back(interactable); isInitialized = false; }
         inline void AddElement(Zone* zone) { zones.push_back(zone); isInitialized = false; }
         inline void AddElement(Player* player) { this->player = player; objects.push_back(player); isInitialized = false; }
 
         inline std::vector<Object*>& GetObjects() { return objects; }
+        inline std::vector<Interactable*>& GetInteractables() { return interactables; }
         inline std::vector<Zone*>& GetZones() { return zones; }
         inline Player* GetPlayer() { return player; }
 
@@ -35,6 +37,7 @@ namespace UT
         bool isInitialized = false;
         sf::Vector2f size = {};
         std::vector<Object*> objects = {};
+        std::vector<Interactable*> interactables = {};
         std::vector<Zone*> zones = {};
         Player* player;
     };

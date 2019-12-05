@@ -68,9 +68,8 @@ namespace UT
 
             // Run main update method for all objects
             std::vector<Object*> objects = room->GetObjects();
-            objects.reserve(room->GetInteractables().size() + objects.size() + room->GetTileMaps().size() + globalObjects.size());
+            objects.reserve(room->GetInteractables().size() + objects.size() + globalObjects.size());
             objects.insert(objects.end(), room->GetInteractables().begin(), room->GetInteractables().end());
-            objects.insert(objects.end(), room->GetTileMaps().begin(), room->GetTileMaps().end());
             objects.insert(objects.end(), globalObjects.begin(), globalObjects.end());
             for (int i = 0; i < objects.size(); i++)
             {
@@ -96,9 +95,8 @@ namespace UT
 
         // Render all objects
         std::vector<Object*> objects = room->GetObjects();
-        objects.reserve(room->GetInteractables().size() + objects.size() + room->GetTileMaps().size() + globalObjects.size());
+        objects.reserve(room->GetInteractables().size() + objects.size() + globalObjects.size());
         objects.insert(objects.end(), room->GetInteractables().begin(), room->GetInteractables().end());
-        objects.insert(objects.end(), room->GetTileMaps().begin(), room->GetTileMaps().end());
         objects.insert(objects.end(), globalObjects.begin(), globalObjects.end());
         std::sort(objects.begin(), objects.end(), [](const Object* x, const Object* y)
         {

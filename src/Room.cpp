@@ -22,6 +22,11 @@ namespace UT
             object->Init();
         }
 
+        for (auto& interactable : interactables)
+        {
+            interactable->Init();
+        }
+
         for (auto& zone : zones)
         {
             zone->Init();

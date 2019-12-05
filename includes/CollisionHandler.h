@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "Object.h"
 #include "Interactable.h"
+#include "Zone.h"
 
 namespace UT
 {
@@ -24,6 +25,7 @@ namespace UT
     private:
         std::vector<Object*>* objects;
         std::vector<Interactable*>* interactables;
+        std::vector<Zone*>* zones;
     };
 }
 #endif
