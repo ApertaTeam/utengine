@@ -6,6 +6,12 @@
 
 namespace UT
 {
+    enum class ObjectType
+    {
+        Object,
+        Interactable
+    };
+
     // The abstract parent of all game objects
     class Object : public sf::Drawable, public sf::Transformable
     {
@@ -16,6 +22,7 @@ namespace UT
 
         int depth = 0;
         sf::IntRect collisionBox = { 0, 0, 0, 0 };
+        ObjectType objectType = ObjectType::Object;
     };
 }
 

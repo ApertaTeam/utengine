@@ -68,8 +68,7 @@ namespace UT
 
             // Run main update method for all objects
             std::vector<Object*> objects = room->GetObjects();
-            objects.reserve(room->GetInteractables().size() + objects.size() + globalObjects.size());
-            objects.insert(objects.end(), room->GetInteractables().begin(), room->GetInteractables().end());
+            objects.reserve(objects.size() + globalObjects.size());
             objects.insert(objects.end(), globalObjects.begin(), globalObjects.end());
             for (int i = 0; i < objects.size(); i++)
             {
@@ -95,8 +94,7 @@ namespace UT
 
         // Render all objects
         std::vector<Object*> objects = room->GetObjects();
-        objects.reserve(room->GetInteractables().size() + objects.size() + globalObjects.size());
-        objects.insert(objects.end(), room->GetInteractables().begin(), room->GetInteractables().end());
+        objects.reserve(objects.size() + globalObjects.size());
         objects.insert(objects.end(), globalObjects.begin(), globalObjects.end());
         std::sort(objects.begin(), objects.end(), [](const Object* x, const Object* y)
         {

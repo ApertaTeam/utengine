@@ -7,7 +7,7 @@ namespace UT
     static CollisionHandler* instance;
 
     CollisionHandler::CollisionHandler()
-        : objects(&Game::GetRoomStatic()->GetObjects()), zones(&Game::GetRoomStatic()->GetZones()), interactables(&Game::GetRoomStatic()->GetInteractables())
+        : objects(&Game::GetRoomStatic()->GetObjects()), zones(&Game::GetRoomStatic()->GetZones())
     {
         instance = this;
     }
@@ -59,24 +59,6 @@ namespace UT
                     && subRect.top + subRect.height >= mainRect.top))
                 {
                     return instance->objects->at(i);
-                }
-            }
-        }
-
-        for (int i = 0; i < instance->interactables->size(); i++)
-        {
-            if (instance->interactables->at(i) != object)
-            {
-                sf::IntRect subRect = instance->interactables->at(i)->collisionBox;
-                subRect.left += instance->interactables->at(i)->getPosition().x;
-                subRect.top += instance->interactables->at(i)->getPosition().y;
-
-                if ((subRect.left <= mainRect.left + mainRect.width
-                    && subRect.left + subRect.width >= mainRect.left
-                    && subRect.top <= mainRect.top + mainRect.height
-                    && subRect.top + subRect.height >= mainRect.top))
-                {
-                    return instance->interactables->at(i);
                 }
             }
         }
@@ -150,52 +132,6 @@ namespace UT
             }
         }
 
-        for (int i = 0; i < instance->interactables->size(); i++)
-        {
-            if (instance->interactables->at(i) != object)
-            {
-                sf::IntRect subRect = instance->interactables->at(i)->collisionBox;
-                subRect.left += instance->interactables->at(i)->getPosition().x;
-                subRect.top += instance->interactables->at(i)->getPosition().y;
-
-                if (subRect.left <= mainRect.left + mainRect.width
-                    && subRect.left + subRect.width >= mainRect.left
-                    && subRect.top <= mainRect.top + mainRect.height
-                    && subRect.top + subRect.height >= mainRect.top)
-                {
-                    if (posOffset.x > 0)
-                    {
-                        posOffset.x--;
-                        mainRect.left--;
-                    }
-                    else if (posOffset.x < 0)
-                    {
-                        posOffset.x++;
-                        mainRect.left++;
-                    }
-
-                    if (posOffset.y > 0)
-                    {
-                        posOffset.y--;
-                        mainRect.top--;
-                    }
-                    else if (posOffset.y < 0)
-                    {
-                        posOffset.y++;
-                        mainRect.top++;
-                    }
-
-                    if (posOffset.x == 0 && posOffset.y == 0)
-                    {
-                        continue;
-                    }
-
-                    i--;
-                    continue;
-                }
-            }
-        }
-
         return curPos + posOffset;
     }
 
@@ -209,25 +145,25 @@ namespace UT
         mainRect.height += padding * 2;
 
         
-        for (int i = 0; i < instance->interactables->size(); i++)
+        for (int i = 0; i < instance->objects->size(); i++)
         {
-            sf::IntRect subRect = instance->interactables->at(i)->collisionBox;
-            subRect.left += instance->interactables->at(i)->getPosition().x;
-            subRect.top += instance->interactables->at(i)->getPosition().y;
+            sf::IntRect subRect = instance->objects->at(i)->collisionBox;
+            subRect.left += instance->objects->at(i)->getPosition().x;
+            subRect.top += instance->objects->at(i)->getPosition().y;
 
             if ((subRect.left <= mainRect.left + mainRect.width
                 && subRect.left + subRect.width >= mainRect.left
                 && subRect.top <= mainRect.top + mainRect.height
                 && subRect.top + subRect.height >= mainRect.top))
             {
-                //Interactable* mm = static_cast<Interactable*>(instance->objects->at(0));
-                //mm->Run();
-
-
-
-                Interactable* inst = instance->interactables->at(i);
-                if (!inst->persists) instance->interactables->erase(instance->interactables->begin()+i);
-                interactables.push_back(inst);
+                std::cout << instance->objects->at(i)->objectType << std::endl;
+                if (instance->objects->at(i)->objectType == ObjectType::Interactable)
+                {
+                    std::cout << "found interactable" << std::endl;
+                    Interactable* inst = dynamic_cast<Interactable*>(instance->objects->at(i));
+                    if (!inst->persists) instance->objects->erase(instance->objects->begin() + i);
+                    interactables.push_back(inst);
+                }
             }
         }
 
