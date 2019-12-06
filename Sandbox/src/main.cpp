@@ -41,7 +41,7 @@ int main()
 
     // Main room
     Room mainRoom = Room({ 320, 240 });
-    Room secondaryRoom = Room({ 320, 240 });
+    Room secondaryRoom = Room({ 640, 240 });
 
     mainGame.tempRoomList =
     {
@@ -95,10 +95,14 @@ int main()
 
     // Collidables
     auto col_01 = Collidable({ 0, 0, 20, 240 }); mainRoom.AddElement(&col_01); secondaryRoom.AddElement(&col_01); // Left wall
-    auto col_02 = Collidable({ 300, 0, 20, 240 }); mainRoom.AddElement(&col_02); secondaryRoom.AddElement(&col_02); // Right wall
-    auto col_03 = Collidable({ 20, 220, 300, 20 }); mainRoom.AddElement(&col_03); secondaryRoom.AddElement(&col_03); // Bottom wall
+    auto col_02 = Collidable({ 300, 0, 20, 240 }); mainRoom.AddElement(&col_02); // Right wall
+    auto col_03 = Collidable({ 20, 220, 300, 20 }); mainRoom.AddElement(&col_03); // Bottom wall
     auto col_04 = Collidable({ 20, 0, 126, 80 }); mainRoom.AddElement(&col_04); secondaryRoom.AddElement(&col_04); // Top wall (Left of door)
-    auto col_05 = Collidable({ 174, 0, 126, 80 }); mainRoom.AddElement(&col_05); secondaryRoom.AddElement(&col_05); // Top wall (Right of door)
+    auto col_05 = Collidable({ 174, 0, 126, 80 }); mainRoom.AddElement(&col_05); // Top wall (Right of door)
+
+    auto col_06 = Collidable({ 20, 220, 620, 20 }); secondaryRoom.AddElement(&col_06); // Bottom wall
+    auto col_07 = Collidable({ 620, 0, 20, 240 }); secondaryRoom.AddElement(&col_07); // Right wall
+    auto col_08 = Collidable({ 174, 0, 446, 80 }); secondaryRoom.AddElement(&col_08); // Top wall (Right of door)
 
 
     // Player
