@@ -1,5 +1,4 @@
 #include "CollisionHandler.h"
-#include <iostream>
 #include <vector>
 
 namespace UT
@@ -156,10 +155,8 @@ namespace UT
                 && subRect.top <= mainRect.top + mainRect.height
                 && subRect.top + subRect.height >= mainRect.top))
             {
-                std::cout << instance->objects->at(i)->objectType << std::endl;
                 if (instance->objects->at(i)->objectType == ObjectType::Interactable)
                 {
-                    std::cout << "found interactable" << std::endl;
                     Interactable* inst = dynamic_cast<Interactable*>(instance->objects->at(i));
                     if (!inst->persists) instance->objects->erase(instance->objects->begin() + i);
                     interactables.push_back(inst);

@@ -2,17 +2,18 @@
 #define UT_INTERACTABLE_H
 
 #include "Object.h"
-#include <iostream>
 
 namespace UT {
     class Interactable : public Object
     {
     public:
-        virtual void Run() { /* do nothing */ };
-        virtual void Init() override { objectType = ObjectType::Interactable; };
-        virtual void Update(float delta) override { /* do nothing */ };
+        Interactable();
 
-        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override { /* do nothing */ };
+        virtual void Run() { };
+        virtual void Init() override { };
+        virtual void Update(float delta) override { };
+
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override { };
 
         bool isAction = false;
         bool persists = true;
