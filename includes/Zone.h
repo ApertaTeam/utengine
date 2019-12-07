@@ -9,8 +9,8 @@ namespace UT {
     public:
         Zone();
 
-        virtual void Init();
-        virtual void Run();
+        virtual void Init() = 0;
+        virtual void Run() = 0;
 
 
         bool isEnabled;

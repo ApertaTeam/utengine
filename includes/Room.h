@@ -25,7 +25,7 @@ namespace UT
         inline std::vector<Zone*>& GetZones() { return zones; }
         inline Player* GetPlayer() { return player; }
 
-        inline sf::Vector2f GetSize() { return size; };
+        inline sf::Vector2i GetSize() { return size; };
 
         inline bool IsInitialized() const { return isInitialized; }
 
@@ -33,7 +33,7 @@ namespace UT
 
     private:
         bool isInitialized = false;
-        sf::Vector2f size = {};
+        sf::Vector2i size = {};
         std::vector<Object*> objects = {};
         std::vector<Zone*> zones = {};
         Player* player;

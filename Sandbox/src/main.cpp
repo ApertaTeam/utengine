@@ -95,8 +95,8 @@ int main()
     secondaryRoom.AddElement(&testMap2);
 
     // View zones
-    ViewZone zone1 = ViewZone({ 0, 0, 320, 240 }); mainRoom.AddElement(&zone1);
-    ViewZone zone2 = ViewZone({ 320, 0, 320, 240 }); mainRoom.AddElement(&zone2);
+    ViewZone zone1 = ViewZone({ 0, 0, 320, 240 }); secondaryRoom.AddElement(&zone1);
+    ViewZone zone2 = ViewZone({ 320, 0, 320, 240 }); secondaryRoom.AddElement(&zone2);
 
     // Collidables
     auto col_01 = Collidable({   0,   0,  20, 240 }); mainRoom.AddElement(&col_01); secondaryRoom.AddElement(&col_01); // Left wall
@@ -108,7 +108,6 @@ int main()
     auto col_06 = Collidable({  20, 220, 620,  20 }); secondaryRoom.AddElement(&col_06); // Bottom wall
     auto col_07 = Collidable({ 620,   0,  20, 240 }); secondaryRoom.AddElement(&col_07); // Right wall
     auto col_08 = Collidable({ 174,   0, 446,  80 }); secondaryRoom.AddElement(&col_08); // Top wall (Right of door)
-
 
     // Player
     Player player = Player({

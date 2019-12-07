@@ -9,6 +9,7 @@ namespace UT
         this->trackedObject = trackedObject;
         this->viewSize = viewSize;
         this->view = sf::View({0.0, 0.0, (float)viewSize.x, (float)viewSize.y});
+        this->viewZone = nullptr;
     }
 
     void Camera::Update()
@@ -17,27 +18,43 @@ namespace UT
         {
             sf::Vector2f objectPos = trackedObject->getPosition();
             sf::FloatRect newView = {0, 0, 0, 0};
-            sf::Vector2f roomSize = game->GetRoom()->GetSize();
+            sf::IntRect boundaries;
+            if (viewZone == nullptr)
+            {
+                boundaries = { 0, 0, game->GetRoom()->GetSize().x, game->GetRoom()->GetSize().y };
+            }
+            else
+            {
+                boundaries = viewZone->bounds;
+            }
             
 
-            if (objectPos.x - viewSize.x / 2 > 0)
+            if (objectPos.x - viewSize.x / 2 > boundaries.left)
             {
                 newView.left = objectPos.x - viewSize.x / 2;
             }
-            
-            if (objectPos.x + viewSize.x / 2 > roomSize.x)
+            else
             {
-                newView.left = roomSize.x - viewSize.x;
+                newView.left = boundaries.left;
+            }
+            
+            if (objectPos.x + viewSize.x / 2 > boundaries.left + boundaries.width)
+            {
+                newView.left = boundaries.left + boundaries.width - viewSize.x;
             }
 
-            if (objectPos.y - viewSize.y / 2 > 0)
+            if (objectPos.y - viewSize.y / 2 > boundaries.top)
             {
                 newView.top = objectPos.y - viewSize.y / 2;
             }
-            
-            if (objectPos.y + viewSize.y / 2 > roomSize.y)
+            else
             {
-                newView.top = roomSize.y - viewSize.y;
+                newView.top = boundaries.top;
+            }
+            
+            if (objectPos.y + viewSize.y / 2 > boundaries.top + boundaries.height)
+            {
+                newView.top = boundaries.top + boundaries.height - viewSize.y;
             }
 
             newView.width = viewSize.x;
