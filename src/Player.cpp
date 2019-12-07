@@ -211,7 +211,7 @@ namespace UT
         sprite.setPosition(position - sf::Vector2f(std::floor(sprite.GetSize().x / 2.f), std::floor(sprite.GetSize().y / 2.f)));
 
         // Check interactions
-        std::vector<Interactable*> interactables = CollisionHandler::CheckAllDirect({
+        std::vector<Interactable*> interactables = CollisionHandler::CheckAllInteractables({
             (int)tempPosition.x + collisionBox.left,
             (int)tempPosition.y + collisionBox.top,
             collisionBox.width,
@@ -229,6 +229,10 @@ namespace UT
                 }
             }
         }
+
+        // Check view zones
+        ViewZone* foundZone = CollisionHandler::CheckAllViewZoneCollisions(this);
+        Game::GetInstance()->camera->viewZone = foundZone;
     }
 
     void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const

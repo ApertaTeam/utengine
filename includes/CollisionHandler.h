@@ -15,10 +15,11 @@ namespace UT
 
         static bool CheckCollision(Object* objectA, Object* objectB);
         static Object* CheckAllCollisions(Object* object);
+        static ViewZone* CheckAllViewZoneCollisions(Object* object);
         static bool CheckCollisionDirect(sf::IntRect posA, sf::IntRect posB);
         static sf::Vector2f CheckAllCollisionsMovement(Object* object, sf::Vector2f curPos, sf::Vector2f nextPos);
 
-        static std::vector<Interactable*> CheckAllDirect(sf::IntRect collisionBox, int padding);
+        static std::vector<Interactable*> CheckAllInteractables(sf::IntRect collisionBox, int padding);
 
         static void Reset();
 

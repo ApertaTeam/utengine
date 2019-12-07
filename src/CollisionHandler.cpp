@@ -65,6 +65,28 @@ namespace UT
         return nullptr;
     }
 
+    ViewZone* CollisionHandler::CheckAllViewZoneCollisions(Object* object)
+    {
+        sf::IntRect mainRect = object->collisionBox;
+        mainRect.left += object->getPosition().x;
+        mainRect.top += object->getPosition().y;
+
+        for (int i = 0; i < instance->zones->size(); i++)
+        {
+            sf::IntRect subRect = instance->zones->at(i)->bounds;
+
+            if ((subRect.left <= mainRect.left + mainRect.width
+                && subRect.left + subRect.width >= mainRect.left
+                && subRect.top <= mainRect.top + mainRect.height
+                && subRect.top + subRect.height >= mainRect.top))
+            {
+                return dynamic_cast<ViewZone*>(instance->zones->at(i));
+            }
+        }
+
+        return nullptr;
+    }
+
     bool CollisionHandler::CheckCollisionDirect(sf::IntRect posA, sf::IntRect posB)
     {
         if ((posB.left <= posA.left + posA.width
@@ -134,7 +156,7 @@ namespace UT
         return curPos + posOffset;
     }
 
-    std::vector<Interactable*> CollisionHandler::CheckAllDirect(sf::IntRect collisionBox, int padding)
+    std::vector<Interactable*> CollisionHandler::CheckAllInteractables(sf::IntRect collisionBox, int padding)
     {
         std::vector<Interactable*> interactables = std::vector<Interactable*>();
         sf::IntRect mainRect = collisionBox;
