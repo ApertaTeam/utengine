@@ -20,18 +20,23 @@ namespace UT
 
         virtual void Update();
 
-        inline sf::View* GetView() { return &view; };
+        inline sf::View* GetView() { return &view; }
+
+        void SetViewZone(ViewZone* viewZone);
+        inline ViewZone* GetViewZone() { return viewZone; }
 
 
         Object* trackedObject;
-        ViewZone* viewZone;
+        int interpolationSpeed;
     
     private:
         Game* game;
         sf::View view;
+        ViewZone* viewZone;
+        sf::IntRect currentBounds;
 
         sf::Vector2f viewSize;
-        
+        bool isInterpolating;
     };
 }
 

@@ -232,7 +232,7 @@ namespace UT
 
         // Check view zones
         ViewZone* foundZone = CollisionHandler::CheckAllViewZoneCollisions(this);
-        Game::GetInstance()->camera->viewZone = foundZone;
+        Game::GetInstance()->camera->SetViewZone(foundZone);
     }
 
     void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
