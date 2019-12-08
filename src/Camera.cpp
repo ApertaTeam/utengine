@@ -107,11 +107,6 @@ namespace UT
     {
         if (viewZone != this->viewZone)
         {
-            if (this->viewZone != nullptr)
-            {
-                this->currentBounds = this->viewZone->bounds;
-            }
-
             if (this->interpolationSpeed != -1)
             {
                 this->isInterpolating = true;
