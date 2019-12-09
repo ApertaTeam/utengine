@@ -121,8 +121,8 @@ namespace UT
             }
 
             
+            view.move({ newView.left - currentView.left, newView.top - currentView.top });
             currentView = newView;
-            view.reset(newView);
         }
     }
 
