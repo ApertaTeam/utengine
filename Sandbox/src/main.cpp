@@ -95,8 +95,8 @@ int main()
     secondaryRoom.AddElement(&testMap2);
 
     // View zones
-    //ViewZone zone1 = ViewZone({ 0, 0, 320, 240 }); secondaryRoom.AddElement(&zone1);
-    ViewZone zone2 = ViewZone({ 240, 0, 400, 240 }); secondaryRoom.AddElement(&zone2);
+    ViewZone zone1 = ViewZone({ 0, 0, 320, 240 }); secondaryRoom.AddElement(&zone1);
+    ViewZone zone2 = ViewZone({ 320, 0, 320, 240 }); secondaryRoom.AddElement(&zone2);
 
     // Collidables
     auto col_01 = Collidable({   0,   0,  20, 240 }); mainRoom.AddElement(&col_01); secondaryRoom.AddElement(&col_01); // Left wall

@@ -25,56 +25,40 @@ namespace UT
             sf::Vector2f objectPos = trackedObject->getPosition();
             sf::FloatRect newView = {0, 0, 0, 0};
             sf::IntRect boundaries;
+            sf::Vector2i roomSize = game->GetRoom()->GetSize();
             if (viewZone == nullptr)
             {
-                boundaries = { 0, 0, game->GetRoom()->GetSize().x, game->GetRoom()->GetSize().y };
-                
-                if (isInterpolating)
-                {
-                    sf::IntRect temp;
-
-
-                    // Horizontal
-                    if (objectPos.x - viewSize.x / 2 > boundaries.left)
-                    {
-                        temp.left = objectPos.x - viewSize.x / 2;
-                    }
-                    else
-                    {
-                        temp.left = boundaries.left;
-                    }
-
-                    if (objectPos.x + viewSize.x / 2 > boundaries.left + boundaries.width)
-                    {
-                        temp.left = boundaries.left + boundaries.width - viewSize.x;
-                    }
-
-                    // Vertical
-                    if (objectPos.y - viewSize.y / 2 > boundaries.top)
-                    {
-                        temp.top = objectPos.y - viewSize.y / 2;
-                    }
-                    else
-                    {
-                        temp.top = boundaries.top;
-                    }
-
-                    if (objectPos.y + viewSize.y / 2 > boundaries.top + boundaries.height)
-                    {
-                        temp.top = boundaries.top + boundaries.height - viewSize.y;
-                    }
-
-
-                    boundaries = temp;
-                }
+                boundaries = { 0, 0, roomSize.x, roomSize.y };
             }
             else
             {
                 boundaries = viewZone->bounds;
             }
-            
+
             if (isInterpolating)
             {
+                // Redefine boundaries in relation to tracked object
+                sf::IntRect temp;
+
+                // Horizontal
+                if (objectPos.x - viewSize.x / 2 > boundaries.left)
+                {
+                    temp.left = objectPos.x - viewSize.x / 2;
+                }
+                else
+                {
+                    temp.left = boundaries.left;
+                }
+
+                if (temp.left + viewSize.x > boundaries.left + boundaries.width)
+                {
+                    temp.left = boundaries.left + boundaries.width - viewSize.x;
+                }
+
+                boundaries = temp;
+                
+
+                // Transition
                 // Horizontal
                 if (currentBounds.left < boundaries.left)
                 {
@@ -154,7 +138,28 @@ namespace UT
             newView.width = viewSize.x;
             newView.height = viewSize.y;
 
-            if (viewZone == nullptr && !isInterpolating)
+
+            // Hold within room boundaries
+            // Horizontal
+            if (newView.left < 0)
+            {
+                newView.left = 0;
+            }
+            else if (newView.left + newView.width > roomSize.x) {
+                newView.left = roomSize.x - newView.width;
+            }
+
+            // Vertical
+            if (newView.top < 0)
+            {
+                newView.top = 0;
+            }
+            else if (newView.left + newView.height > roomSize.y)
+            {
+                newView.top = roomSize.y - newView.height;
+            }
+
+            if (!isInterpolating)
             {
                 currentBounds = (sf::IntRect)newView;
             }
