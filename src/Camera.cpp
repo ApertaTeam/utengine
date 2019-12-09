@@ -28,6 +28,45 @@ namespace UT
             if (viewZone == nullptr)
             {
                 boundaries = { 0, 0, game->GetRoom()->GetSize().x, game->GetRoom()->GetSize().y };
+                
+                if (isInterpolating)
+                {
+                    sf::IntRect temp;
+
+
+                    // Horizontal
+                    if (objectPos.x - viewSize.x / 2 > boundaries.left)
+                    {
+                        temp.left = objectPos.x - viewSize.x / 2;
+                    }
+                    else
+                    {
+                        temp.left = boundaries.left;
+                    }
+
+                    if (objectPos.x + viewSize.x / 2 > boundaries.left + boundaries.width)
+                    {
+                        temp.left = boundaries.left + boundaries.width - viewSize.x;
+                    }
+
+                    // Vertical
+                    if (objectPos.y - viewSize.y / 2 > boundaries.top)
+                    {
+                        temp.top = objectPos.y - viewSize.y / 2;
+                    }
+                    else
+                    {
+                        temp.top = boundaries.top;
+                    }
+
+                    if (objectPos.y + viewSize.y / 2 > boundaries.top + boundaries.height)
+                    {
+                        temp.top = boundaries.top + boundaries.height - viewSize.y;
+                    }
+
+
+                    boundaries = temp;
+                }
             }
             else
             {
