@@ -65,9 +65,9 @@ namespace UT
                     temp.top = boundaries.top;
                 }
 
-                if (temp.top + viewSize.y > boundaries.top + boundaries.width)
+                if (temp.top + viewSize.y > boundaries.top + boundaries.height)
                 {
-                    temp.top = boundaries.top + boundaries.width - viewSize.y;
+                    temp.top = boundaries.top + boundaries.height - viewSize.y;
                 }
 
 
