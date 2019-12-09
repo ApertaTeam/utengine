@@ -55,6 +55,22 @@ namespace UT
                     temp.left = boundaries.left + boundaries.width - viewSize.x;
                 }
 
+                // Vertical
+                if (objectPos.y - viewSize.y / 2 > boundaries.top)
+                {
+                    temp.top = objectPos.y - viewSize.y / 2;
+                }
+                else
+                {
+                    temp.top = boundaries.top;
+                }
+
+                if (temp.top + viewSize.y > boundaries.top + boundaries.width)
+                {
+                    temp.top = boundaries.top + boundaries.width - viewSize.y;
+                }
+
+
                 boundaries = temp;
                 
 
@@ -154,7 +170,7 @@ namespace UT
             {
                 newView.top = 0;
             }
-            else if (newView.left + newView.height > roomSize.y)
+            else if (newView.top + newView.height > roomSize.y)
             {
                 newView.top = roomSize.y - newView.height;
             }
