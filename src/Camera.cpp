@@ -15,6 +15,7 @@ namespace UT
         this->currentBounds = { 0, 0, 0, 0 };
         this->interpolationSpeed = 5;
         this->isInterpolating = false;
+        this->currentView = { 0, 0, 0, 0 };
     }
 
     void Camera::Update()
@@ -33,9 +34,9 @@ namespace UT
                 boundaries = viewZone->bounds;
             }
             
-
             if (isInterpolating)
             {
+                // Horizontal
                 if (currentBounds.left < boundaries.left)
                 {
                     currentBounds.left += interpolationSpeed;
@@ -45,12 +46,13 @@ namespace UT
                     currentBounds.left -= interpolationSpeed;
                 }
 
-                if (currentBounds.left + interpolationSpeed > boundaries.left&& currentBounds.left - interpolationSpeed < boundaries.left)
+                if (currentBounds.left + interpolationSpeed > boundaries.left && currentBounds.left - interpolationSpeed < boundaries.left)
                 {
                     currentBounds.left = boundaries.left;
                 }
 
 
+                // Vertical
                 if (currentBounds.top < boundaries.top)
                 {
                     currentBounds.top += interpolationSpeed;
@@ -66,12 +68,13 @@ namespace UT
                 }
 
 
+                // Stop interpolation
                 if (currentBounds.left == boundaries.left && currentBounds.top == boundaries.top)
                 {
                     isInterpolating = false;
                 }
-                std::cout << currentBounds.left << " - " << boundaries.left << std::endl;
             
+
                 newView.left = currentBounds.left;
                 newView.top = currentBounds.top;
             }
@@ -118,7 +121,8 @@ namespace UT
             }
 
             
-            view = sf::View(newView);
+            currentView = newView;
+            view.reset(newView);
         }
     }
 

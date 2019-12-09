@@ -32,6 +32,7 @@ namespace UT
     private:
         Game* game;
         sf::View view;
+        sf::FloatRect currentView;
         ViewZone* viewZone;
         sf::IntRect currentBounds;
 
