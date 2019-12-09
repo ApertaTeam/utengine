@@ -1,6 +1,8 @@
 #include "Camera.h"
 #include "Game.h"
 
+#include <iostream>
+
 namespace UT
 {
     Camera::Camera(Game* game, sf::Vector2f viewSize, Object* trackedObject)
@@ -43,6 +45,12 @@ namespace UT
                     currentBounds.left -= interpolationSpeed;
                 }
 
+                if (currentBounds.left + interpolationSpeed > boundaries.left&& currentBounds.left - interpolationSpeed < boundaries.left)
+                {
+                    currentBounds.left = boundaries.left;
+                }
+
+
                 if (currentBounds.top < boundaries.top)
                 {
                     currentBounds.top += interpolationSpeed;
@@ -52,11 +60,17 @@ namespace UT
                     currentBounds.top -= interpolationSpeed;
                 }
 
+                if (currentBounds.top + interpolationSpeed > boundaries.top && currentBounds.top - interpolationSpeed < boundaries.top)
+                {
+                    currentBounds.top = boundaries.top;
+                }
 
-                if (currentBounds == boundaries)
+
+                if (currentBounds.left == boundaries.left && currentBounds.top == boundaries.top)
                 {
                     isInterpolating = false;
                 }
+                std::cout << currentBounds.left << " - " << boundaries.left << std::endl;
             
                 newView.left = currentBounds.left;
                 newView.top = currentBounds.top;
@@ -98,6 +112,11 @@ namespace UT
             newView.width = viewSize.x;
             newView.height = viewSize.y;
 
+            if (viewZone == nullptr && !isInterpolating)
+            {
+                currentBounds = (sf::IntRect)newView;
+            }
+
             
             view = sf::View(newView);
         }
@@ -110,11 +129,6 @@ namespace UT
             if (this->interpolationSpeed != -1)
             {
                 this->isInterpolating = true;
-
-                if (this->viewZone == nullptr)
-                {
-                    this->isInterpolating = false;
-                }
             }
 
             this->viewZone = viewZone;
