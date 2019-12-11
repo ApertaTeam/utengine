@@ -8,7 +8,7 @@ namespace UT
 {
     struct Datatype
     {
-        enum ValueType
+        enum class ValueType
         {
             valtype_string,
             valtype_double,

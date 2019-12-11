@@ -1,8 +1,11 @@
 #include "SaveHandler.h"
 
+#include "Game.h"
+
 #include <fstream>
 #include <stdlib.h>
 #include <iostream>
+#include <filesystem>
 
 namespace UT
 {
@@ -13,19 +16,24 @@ namespace UT
         instance = this;
 
         #if defined(_WIN32) || defined(WIN32)
-        basePath = std::getenv("APPDATA");
+        basePath = (std::string)std::getenv("APPDATA") + "\\UTE\\";
         #elif defined(__linux__)
-        basePath = "$HOME/.local/share";
+        basePath = (std::string)std::getenv("HOME") + "\\.local\\share\\UTE\\";
         #endif
 
-        std::cout << basePath << std::endl;
+        basePath += Game::GetInstance()->GetTitle() + "\\";
     }
 
     void SaveHandler::SaveData(std::string filepath, std::map<std::string, Datatype> datatype, FileEncryption encryption)
     {
+        if (!std::filesystem::exists(instance->basePath))
+        {
+            std::filesystem::create_directories(instance->basePath);
+        }
+
         std::ofstream fs;
-        fs.open(instance->basePath + filepath);
-        
+        fs.open(instance->basePath + filepath, std::ios::trunc);
+
         for (auto const& [key, val] : datatype)
         {
             if (encryption == FileEncryption::Standard)
@@ -34,16 +42,20 @@ namespace UT
 
                 switch (val.type)
                 {
-                case val.valtype_string:
+                case Datatype::ValueType::valtype_string:
                     value = std::get<std::string>(val.variant);
                     break;
 
-                case val.valtype_double:
-                    value = std::get<double>(val.variant);
+                case Datatype::ValueType::valtype_double:
+                    value = std::to_string(std::get<double>(val.variant));
                     break;
 
-                case val.valtype_int64:
-                    value = std::get<int64_t>(val.variant);
+                case Datatype::ValueType::valtype_int64:
+                    value = std::to_string(std::get<int64_t>(val.variant));
+                    break;
+
+                default:
+                    value = std::get<std::string>(val.variant);
                     break;
                 }
 
