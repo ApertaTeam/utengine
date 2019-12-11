@@ -68,6 +68,20 @@ namespace UT
 
     std::map<std::string, Datatype> SaveHandler::LoadData(std::string filepath, FileEncryption encryption)
     {
-        return {};
+        std::map<std::string, Datatype> data;
+
+        std::ifstream fs;
+        fs.open(instance->basePath + filepath);
+
+
+        if (encryption == FileEncryption::Standard)
+        {
+
+        }
+
+
+        fs.close();
+
+        return data;
     }
 }
