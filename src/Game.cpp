@@ -181,6 +181,11 @@ namespace UT
         return this->FPS;
     }
 
+    std::string Game::GetTitle()
+    {
+        return title;
+    }
+
     Room* Game::GetRoom()
     {
         return this->room;

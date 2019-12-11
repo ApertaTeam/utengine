@@ -12,6 +12,7 @@
 #include <Player.h>
 #include <CollisionHandler.h>
 #include <DoorHandler.h>
+#include <SaveHandler.h>
 #include <Collidable.h>
 #include <ViewZone.h>
 #include <Door.h>
@@ -55,7 +56,10 @@ int main()
 
     // Create handlers
     CollisionHandler collisionHandler = CollisionHandler();
+    SaveHandler saveHandler = SaveHandler();
     DoorHandler doorHandler = DoorHandler(); mainGame.AddGlobalObject(&doorHandler);
+
+    
 
     //-- Main room objects start --//
     // Test object B (Rectangle9Slice)

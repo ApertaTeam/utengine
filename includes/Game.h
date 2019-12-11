@@ -37,6 +37,7 @@ namespace UT
         static void LoadRoom(Room* room);
 
         double GetFPS();
+        std::string GetTitle();
         Room* GetRoom();
         static Game* GetInstance();
 

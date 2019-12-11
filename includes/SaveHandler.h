@@ -2,21 +2,26 @@
 #define UT_SAVE_HANDLER_H
 #include <string>
 #include <map>
+#include <variant>
 
 namespace UT
 {
     struct Datatype
     {
-        union {
-            std::string s;
-            double d;
-            int64_t i_64;
+        enum ValueType
+        {
+            valtype_string,
+            valtype_double,
+            valtype_int64
         };
+
+        ValueType type;
+        std::variant<std::string, double, int64_t> variant;
     };
 
     enum class FileEncryption
     {
-        INI,
+        Standard,
         Binary
     };
 
@@ -24,8 +29,12 @@ namespace UT
     class SaveHandler
     {
     public:
-        static void SaveData(std::string filename, std::map<std::string, Datatype> data, FileEncryption encryption);
-        static std::map<std::string, Datatype> LoadData(std::string filename, FileEncryption encryption);
+        SaveHandler();
+        static void SaveData(std::string filepath, std::map<std::string, Datatype> data, FileEncryption encryption = FileEncryption::Standard);
+        static std::map<std::string, Datatype> LoadData(std::string filepath, FileEncryption encryption = FileEncryption::Standard);
+
+    private:
+        std::string basePath;
     };
 }
 #endif

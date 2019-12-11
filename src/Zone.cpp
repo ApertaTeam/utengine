@@ -4,6 +4,6 @@ namespace UT
 {
     Zone::Zone()
     {
-
+        isEnabled = true;
     }
 }
