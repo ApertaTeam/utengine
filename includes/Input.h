@@ -52,7 +52,7 @@ namespace UT
         static void Set(InputActions action, sf::Keyboard::Key key, bool alt = false);
         static void Set(InputActions action, unsigned int button, bool alt = false);
 
-        void Update();
+        void Update(bool focused);
 
     private:
         InputHandler();

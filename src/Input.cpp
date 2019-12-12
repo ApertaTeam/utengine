@@ -32,8 +32,10 @@ namespace UT
         _instance = this;
     }
 
-    void InputHandler::Update()
+    void InputHandler::Update(bool focused)
     {
+        if (focused) return;
+
         std::map<InputActions, bool> actionHandled =
         {
             {InputActions::Confirm, false},

@@ -38,7 +38,7 @@ namespace UT
 
     void Game::Update()
     {
-        inputHandler.Update();
+        inputHandler.Update(!window->hasFocus());
 
         sf::Int32 FPStime = FPStimeObj.getElapsedTime().asMilliseconds();
 
