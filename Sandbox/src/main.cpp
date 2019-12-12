@@ -64,6 +64,8 @@ int main()
         std::pair<std::string, Datatype>("hp", { Datatype::ValueType::valtype_double, 20.0 }),
         std::pair<std::string, Datatype>("lv", { Datatype::ValueType::valtype_int64, 20LL })
     }, FileEncryption::Standard);
+
+    SaveHandler::LoadData("save01", FileEncryption::Standard);
     
 
     //-- Main room objects start --//

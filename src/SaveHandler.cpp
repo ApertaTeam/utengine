@@ -59,7 +59,7 @@ namespace UT
                     break;
                 }
 
-                fs << key << "=" << value << std::endl;
+                fs << key << "=" << value << "," << std::endl;
             }
         }
 
@@ -76,7 +76,41 @@ namespace UT
 
         if (encryption == FileEncryption::Standard)
         {
+            char c;
+            std::string key = "";
+            std::string val = "";
+            bool keyFound = false;
 
+            while (fs >> c)
+            {
+                if (c == '=')
+                {
+                    keyFound = true;
+                }
+                else if (c == ',')
+                {
+                    keyFound = false;
+
+                    Datatype dat;
+                    dat.type = Datatype::ValueType::valtype_string;
+                    dat.variant = val;
+                    data.insert(std::pair(key, dat));
+
+                    key = "";
+                    val = "";
+                }
+                else
+                {
+                    if (!keyFound)
+                    {
+                        key += c;
+                    }
+                    else
+                    {
+                        val += c;
+                    }
+                }
+            }
         }
 
 
