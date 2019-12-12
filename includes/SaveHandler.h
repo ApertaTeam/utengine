@@ -15,7 +15,7 @@ namespace UT
             valtype_int64
         };
 
-        ValueType type;
+        ValueType type = ValueType::valtype_string;
         std::variant<std::string, double, int64_t> variant;
     };
 
