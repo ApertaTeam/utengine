@@ -65,7 +65,16 @@ int main()
         std::pair<std::string, Datatype>("lv", Datatype(20LL))
     }, FileEncryption::Standard);
 
-    SaveHandler::LoadData("save01", FileEncryption::Standard);
+    //auto x = SaveHandler::LoadData("save01", FileEncryption::Standard);
+
+
+    SaveHandler::SaveData("save02", {
+        std::pair<std::string, Datatype>("name", Datatype("Frisk")),
+        std::pair<std::string, Datatype>("hp", Datatype(20.0)),
+        std::pair<std::string, Datatype>("lv", Datatype(20LL))
+        }, FileEncryption::Binary);
+
+    //auto y = SaveHandler::LoadData("save02", FileEncryption::Binary);
     
 
     //-- Main room objects start --//
