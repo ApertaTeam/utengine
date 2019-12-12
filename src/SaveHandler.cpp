@@ -70,17 +70,11 @@ namespace UT
 
             for (auto const& [key, val] : datatype)
             {
-                size_t keyLen = key.length();
-
-                fs.write((char*)&keyLen, sizeof(keyLen));
-                fs.write(key.data(), keyLen);
+                fs.write(key.c_str(), (unsigned char)key.length() + 1);
 
                 if (val.type == Datatype::ValueType::valtype_string)
                 {
-                    size_t valLen = std::get<std::string>(val.variant).length();
-
-                    fs.write((char*)&valLen, sizeof(valLen));
-                    fs.write(std::get<std::string>(val.variant).data(), valLen);
+                    fs.write(std::get<std::string>(val.variant).c_str(), std::get<std::string>(val.variant).length() + 1);
                 }
                 else if (val.type == Datatype::ValueType::valtype_double)
                 {
