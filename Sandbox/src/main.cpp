@@ -60,9 +60,9 @@ int main()
     DoorHandler doorHandler = DoorHandler(); mainGame.AddGlobalObject(&doorHandler);
 
     SaveHandler::SaveData("save01", {
-        std::pair<std::string, Datatype>("name", { Datatype::ValueType::valtype_string, "Frisk" }),
-        std::pair<std::string, Datatype>("hp", { Datatype::ValueType::valtype_double, 20.0 }),
-        std::pair<std::string, Datatype>("lv", { Datatype::ValueType::valtype_int64, 20LL })
+        std::pair<std::string, Datatype>("name", Datatype("Frisk")),
+        std::pair<std::string, Datatype>("hp", Datatype(20.0)),
+        std::pair<std::string, Datatype>("lv", Datatype(20LL))
     }, FileEncryption::Standard);
 
     SaveHandler::LoadData("save01", FileEncryption::Standard);

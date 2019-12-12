@@ -15,8 +15,13 @@ namespace UT
             valtype_int64
         };
 
-        ValueType type = ValueType::valtype_string;
+        ValueType type;
         std::variant<std::string, double, int64_t> variant;
+        
+        Datatype() : type(Datatype::ValueType::valtype_string) {}
+        Datatype(std::string variant) : type(Datatype::ValueType::valtype_string), variant(variant) {}
+        Datatype(double variant) : type(Datatype::ValueType::valtype_double), variant(variant) {}
+        Datatype(int64_t variant) : type(Datatype::ValueType::valtype_int64), variant(variant) {}
     };
 
     enum class FileEncryption
