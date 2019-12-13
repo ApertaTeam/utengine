@@ -60,8 +60,6 @@ int main()
     DoorHandler doorHandler = DoorHandler(); mainGame.AddGlobalObject(&doorHandler);
 
 
-    SaveHandler::DeleteFile("save01");
-
     SaveHandler::SaveData("save01", {
         std::pair<std::string, Datatype>("name", Datatype("Frisk")),
         std::pair<std::string, Datatype>("hp", Datatype(20.0)),
@@ -118,8 +116,8 @@ int main()
     secondaryRoom.AddElement(&testMap2);
 
     // View zones
-    ViewZone zone1 = ViewZone({ 0, 0, 320, 240 }); secondaryRoom.AddElement(&zone1);
-    ViewZone zone2 = ViewZone({ 320, 0, 320, 240 }); secondaryRoom.AddElement(&zone2);
+    ViewZone zone1 = ViewZone({ 0, 0, 300, 220 }, { 0, 0, 320, 240 }); secondaryRoom.AddElement(&zone1);
+    ViewZone zone2 = ViewZone({ 300, 0, 340, 220 }, { 320, 0, 320, 240 }); secondaryRoom.AddElement(&zone2);
 
     // Collidables
     auto col_01 = Collidable({   0,   0,  20, 240 }); mainRoom.AddElement(&col_01); // Left wall

@@ -32,7 +32,7 @@ namespace UT
             }
             else
             {
-                boundaries = viewZone->bounds;
+                boundaries = viewZone->viewRect;
             }
 
             if (isInterpolating)
