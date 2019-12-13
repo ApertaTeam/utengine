@@ -1,6 +1,7 @@
 #include "SaveHandler.h"
 
 #include "Game.h"
+#include "Logger.h"
 
 #include <fstream>
 #include <stdlib.h>
@@ -70,7 +71,7 @@ namespace UT
 
             for (auto const& [key, val] : datatype)
             {
-                fs.write(key.c_str(), (unsigned char)key.length() + 1);
+                fs.write(key.c_str(), (unsigned char)(key.length() + 1));
 
                 if (val.type == Datatype::ValueType::valtype_string)
                 {
@@ -88,6 +89,29 @@ namespace UT
         }
 
         fs.close();
+
+        if (errno != 0)
+        {
+            GlobalLogger->Log(Logger::Error, strerror(errno));
+            _set_errno(0);
+        }
+    }
+
+    bool SaveHandler::DeleteFile(std::string filepath)
+    {
+        if (std::remove((instance->basePath + filepath).c_str()) == 0)
+        {
+            return true;
+        }
+        else
+        {
+            if (errno != 0)
+            {
+                GlobalLogger->Log(Logger::Error, strerror(errno));
+                _set_errno(0);
+            }
+            return false;
+        }
     }
 
     std::map<std::string, Datatype> SaveHandler::LoadData(std::string filepath, FileEncryption encryption)
@@ -139,6 +163,12 @@ namespace UT
 
 
         fs.close();
+
+        if (errno != 0)
+        {
+            GlobalLogger->Log(Logger::Error, strerror(errno));
+            _set_errno(0);
+        }
 
         return data;
     }

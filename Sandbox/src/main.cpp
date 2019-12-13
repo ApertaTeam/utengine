@@ -59,6 +59,9 @@ int main()
     SaveHandler saveHandler = SaveHandler();
     DoorHandler doorHandler = DoorHandler(); mainGame.AddGlobalObject(&doorHandler);
 
+
+    SaveHandler::DeleteFile("save01");
+
     SaveHandler::SaveData("save01", {
         std::pair<std::string, Datatype>("name", Datatype("Frisk")),
         std::pair<std::string, Datatype>("hp", Datatype(20.0)),

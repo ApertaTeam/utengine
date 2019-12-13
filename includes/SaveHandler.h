@@ -36,6 +36,7 @@ namespace UT
     public:
         SaveHandler();
         static void SaveData(std::string filepath, std::map<std::string, Datatype> data, FileEncryption encryption = FileEncryption::Standard);
+        static bool DeleteFile(std::string filepath);
         static std::map<std::string, Datatype> LoadData(std::string filepath, FileEncryption encryption = FileEncryption::Standard);
 
     private:
