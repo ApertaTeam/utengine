@@ -5,6 +5,7 @@
 
 #include <fstream>
 #include <stdlib.h>
+#include <string.h>
 #include <iostream>
 #include <filesystem>
 
@@ -72,6 +73,7 @@ namespace UT
             for (auto const& [key, val] : datatype)
             {
                 fs.write(key.c_str(), (unsigned char)(key.length() + 1));
+                fs.write((char*)&val.type, sizeof(unsigned char));
 
                 if (val.type == Datatype::ValueType::valtype_string)
                 {
@@ -79,11 +81,11 @@ namespace UT
                 }
                 else if (val.type == Datatype::ValueType::valtype_double)
                 {
-                    fs.write((char*)&val.variant, sizeof(double));
+                    fs.write((char*)&std::get<double>(val.variant), sizeof(double));
                 }
                 else if (val.type == Datatype::ValueType::valtype_int64)
                 {
-                    fs.write((char*)&val.variant, sizeof(int64_t));
+                    fs.write((char*)&std::get<int64_t>(val.variant), sizeof(int64_t));
                 }
             }
         }
@@ -93,7 +95,7 @@ namespace UT
         if (errno != 0)
         {
             GlobalLogger->Log(Logger::Error, strerror(errno));
-            _set_errno(0);
+            errno = 0;
         }
     }
 
@@ -108,7 +110,7 @@ namespace UT
             if (errno != 0)
             {
                 GlobalLogger->Log(Logger::Error, strerror(errno));
-                _set_errno(0);
+                errno = 0;
             }
             return false;
         }
@@ -117,13 +119,11 @@ namespace UT
     std::map<std::string, Datatype> SaveHandler::LoadData(std::string filepath, FileEncryption encryption)
     {
         std::map<std::string, Datatype> data;
-
         std::ifstream fs;
-        fs.open(instance->basePath + filepath);
-
 
         if (encryption == FileEncryption::Standard)
         {
+            fs.open(instance->basePath + filepath);
             char c;
             std::string key = "";
             std::string val = "";
@@ -160,6 +160,64 @@ namespace UT
                 }
             }
         }
+        else if (encryption == FileEncryption::Binary)
+        {
+            fs.open(instance->basePath + filepath, std::ios::binary);
+            bool failed = false;
+            int len = 0;
+
+            while (fs.get() != 0)
+            {
+                if (errno != 0)
+                {
+                    failed = true;
+                    break;
+                }
+
+                len++;
+            }
+
+            fs.seekg(0);
+
+            while (!fs.eof() && !failed && errno == 0)
+            {
+                Datatype dat;
+                std::string key;
+                key.reserve(len);
+                fs.read(key.data(), len);
+                fs.get(); // Skip null-byte
+
+                dat.type = (Datatype::ValueType)fs.get();
+
+                if (dat.type == Datatype::ValueType::valtype_string)
+                {
+                    int curpos = fs.tellg();
+                    len = 0;
+                    while (fs.get() != 0 && errno == 0) len++;
+                    fs.seekg(curpos);
+                    std::string val;
+                    val.reserve(len);
+                    fs.read(val.data(), len);
+                    fs.get(); // Skip null-byte
+
+                    dat.variant = val;
+                }
+                else if (dat.type == Datatype::ValueType::valtype_double)
+                {
+                    double val = 0;
+                    fs.read((char*)&val, sizeof(double));
+                    dat.variant = val;
+                }
+                else if (dat.type == Datatype::ValueType::valtype_int64)
+                {
+                    int64_t val = 0;
+                    fs.read((char*)&val, sizeof(int64_t));
+                    dat.variant = val;
+                }
+
+                data.insert(std::pair(key, dat));
+            }
+        }
 
 
         fs.close();
@@ -167,7 +225,7 @@ namespace UT
         if (errno != 0)
         {
             GlobalLogger->Log(Logger::Error, strerror(errno));
-            _set_errno(0);
+            errno = 0;
         }
 
         return data;
