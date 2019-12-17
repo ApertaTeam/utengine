@@ -59,6 +59,14 @@ namespace UTSandbox
     void ObjTestD::Update(float delta)
     {
         testAnimatedSprite.Update(delta);
+
+        if (isRunning)
+        {
+            if (DialogueHandler::GetInstance()->GetIsDone() == CompletionState::CompletedAll)
+            {
+                isRunning = false;
+            }
+        }
     }
 
     void ObjTestD::Run()

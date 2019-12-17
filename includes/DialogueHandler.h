@@ -42,6 +42,8 @@ namespace UT
 
         void StartDialogue();
 
+        inline CompletionState GetIsDone() { return isDone; }
+
         static DialogueHandler* GetInstance();
 
 
