@@ -23,6 +23,7 @@ namespace UTSandbox
     private:
         int testAnimatedTexture;
         AnimatedSprite testAnimatedSprite;
+        bool isRunning = false;
     };
 }
 

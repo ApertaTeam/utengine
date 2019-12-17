@@ -42,6 +42,8 @@ namespace UT
 
         void StartDialogue();
 
+        static DialogueHandler* GetInstance();
+
 
         int writerPos;
         std::vector<DialogueItem> items;

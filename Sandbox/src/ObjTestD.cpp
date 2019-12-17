@@ -1,6 +1,7 @@
 #include "ObjTestD.h"
 
 #include <TextureHandler.h>
+#include <DialogueHandler.h>
 
 #include <iostream>
 
@@ -63,6 +64,10 @@ namespace UTSandbox
     void ObjTestD::Run()
     {
         std::cout << "Interation confirmed." << std::endl;
+        if (isRunning) return;
+
+        isRunning = true;
+        DialogueHandler::GetInstance()->StartDialogue();
     }
 
     void ObjTestD::draw(sf::RenderTarget& target, sf::RenderStates states) const

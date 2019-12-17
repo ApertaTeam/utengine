@@ -2,7 +2,7 @@
 
 namespace UT
 {
-    DialogueHandler* instance;
+    static DialogueHandler* instance;
 
     DialogueHandler::DialogueHandler()
     {
@@ -30,6 +30,11 @@ namespace UT
     void DialogueHandler::StartDialogue()
     {
 
+    }
+
+    DialogueHandler* DialogueHandler::GetInstance()
+    {
+        return instance;
     }
 
     void draw(sf::RenderTarget& target, sf::RenderStates states)
