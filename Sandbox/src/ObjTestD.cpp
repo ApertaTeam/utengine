@@ -57,6 +57,8 @@ namespace UTSandbox
         auto y = SaveHandler::LoadData("save02", FileEncryption::Binary);
 
         std::cout << "name: " << std::get<std::string>(y["name"].variant).c_str() << std::endl;
+        std::cout << "hp: " << std::get<double>(y["hp"].variant) << std::endl;
+        std::cout << "lv: " << std::get<int64_t>(y["lv"].variant) << std::endl;
     }
 
     void ObjTestD::Update(float delta)

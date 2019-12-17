@@ -13,6 +13,7 @@
 #include "BatchHandler.h"
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 #include <sstream>
 
 namespace UT
@@ -127,7 +128,10 @@ namespace UT
     bool Game::Start()
     {
         // Create & initialize main window
-        window.Init(title, { 640, 480 }, sf::Style::Close | sf::Style::Titlebar, icon);
+        //window.Init(title, { 640, 480 }, sf::Style::Close | sf::Style::Titlebar , icon); // Standard
+        window.Init(title, { 640, 480 }, sf::Style::Fullscreen , icon); // Fullscreen test
+        
+        
         
         if (!window.GetWin())
         {

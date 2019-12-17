@@ -28,6 +28,7 @@ namespace UT
 
         Object* trackedObject;
         int interpolationSpeed;
+        sf::Vector2f viewSize;
     
     private:
         Game* game;
@@ -36,7 +37,6 @@ namespace UT
         ViewZone* viewZone;
         sf::IntRect currentBounds;
 
-        sf::Vector2f viewSize;
         bool isInterpolating;
     };
 }
