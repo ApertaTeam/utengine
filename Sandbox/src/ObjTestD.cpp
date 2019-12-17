@@ -2,6 +2,7 @@
 
 #include <TextureHandler.h>
 #include <DialogueHandler.h>
+#include <SaveHandler.h>
 
 #include <iostream>
 
@@ -44,16 +45,18 @@ namespace UTSandbox
             std::pair<std::string, Datatype>("lv", Datatype(20LL))
         }, FileEncryption::Standard);
 
-        auto x = SaveHandler::LoadData("save01", FileEncryption::Standard);
+        auto x = SaveHandler::LoadData("save01", FileEncryption::Standard);*/
 
-
+        
         SaveHandler::SaveData("save02", {
             std::pair<std::string, Datatype>("name", Datatype("Frisk")),
             std::pair<std::string, Datatype>("hp", Datatype(20.0)),
             std::pair<std::string, Datatype>("lv", Datatype(20LL))
             }, FileEncryption::Binary);
+            
+        auto y = SaveHandler::LoadData("save02", FileEncryption::Binary);
 
-        auto y = SaveHandler::LoadData("save02", FileEncryption::Binary);*/
+        std::cout << "name: " << std::get<std::string>(y["name"].variant).c_str() << std::endl;
     }
 
     void ObjTestD::Update(float delta)

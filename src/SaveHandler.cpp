@@ -89,7 +89,6 @@ namespace UT
                 }
             }
         }
-
         fs.close();
 
         if (errno != 0)

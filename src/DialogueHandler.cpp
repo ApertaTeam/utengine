@@ -37,7 +37,7 @@ namespace UT
         return instance;
     }
 
-    void draw(sf::RenderTarget& target, sf::RenderStates states)
+    void DialogueHandler::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
 
     }
