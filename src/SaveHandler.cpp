@@ -19,11 +19,11 @@ namespace UT
 
         #if defined(_WIN32) || defined(WIN32)
         basePath = (std::string)std::getenv("APPDATA") + "\\UTE\\";
-        #elif defined(__linux__)
-        basePath = (std::string)std::getenv("HOME") + "\\.local\\share\\UTE\\";
-        #endif
-
         basePath += Game::GetInstance()->GetTitle() + "\\";
+        #elif defined(__linux__)
+        basePath = (std::string)std::getenv("HOME") + "/.local/share/UTE/";
+        basePath += Game::GetInstance()->GetTitle() + "/";
+        #endif
     }
 
     void SaveHandler::SaveData(std::string filepath, std::map<std::string, Datatype> datatype, FileEncryption encryption)
@@ -162,42 +162,20 @@ namespace UT
         else if (encryption == FileEncryption::Binary)
         {
             fs.open(instance->basePath + filepath, std::ios::binary);
-            bool failed = false;
-            int len = 0;
 
-            while (fs.get() != 0)
-            {
-                if (errno != 0)
-                {
-                    failed = true;
-                    break;
-                }
-
-                len++;
-            }
-
-            fs.seekg(0);
-
-            while (!fs.eof() && !failed && errno == 0)
+            while (!fs.eof() && errno == 0)
             {
                 Datatype dat;
-                std::string key;
-                key.reserve(len);
-                fs.read(key.data(), len);
-                fs.get(); // Skip null-byte
+                std::string key = "";
+                char ch;
+                while (!fs.eof() && (ch = fs.get()) != '\0') key += ch;
 
                 dat.type = (Datatype::ValueType)fs.get();
 
                 if (dat.type == Datatype::ValueType::valtype_string)
                 {
-                    int curpos = fs.tellg();
-                    len = 0;
-                    while (fs.get() != 0 && errno == 0) len++;
-                    fs.seekg(curpos);
-                    std::string val;
-                    val.reserve(len);
-                    fs.read(val.data(), len);
-                    fs.get(); // Skip null-byte
+                    std::string val = "";
+                    while (!fs.eof() && (ch = fs.get()) != '\0') val += ch;
 
                     dat.variant = val;
                 }
