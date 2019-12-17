@@ -2,6 +2,8 @@
 
 namespace UT
 {
+    DialogueHandler* instance;
+
     DialogueHandler::DialogueHandler()
     {
         this->characters = {};
@@ -11,6 +13,8 @@ namespace UT
         this->items = {};
         this->objectType = ObjectType::Object;
         this->writerPos = 0;
+
+        instance = this;
     }
 
     void DialogueHandler::Init()
@@ -24,6 +28,11 @@ namespace UT
     }
 
     void DialogueHandler::StartDialogue()
+    {
+
+    }
+
+    void draw(sf::RenderTarget& target, sf::RenderStates states)
     {
 
     }

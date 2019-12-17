@@ -16,6 +16,7 @@
 #include <Collidable.h>
 #include <ViewZone.h>
 #include <Door.h>
+#include <DialogueHandler.h>
 
 // Sandbox
 #include "ObjTestB.h"
@@ -53,48 +54,11 @@ int main()
 
     mainGame.LoadRoomInternal(&mainRoom);
 
-
-    // Create handlers
-    CollisionHandler collisionHandler = CollisionHandler();
-    SaveHandler saveHandler = SaveHandler();
-    DoorHandler doorHandler = DoorHandler(); mainGame.AddGlobalObject(&doorHandler);
-
-
-    SaveHandler::SaveData("save01", {
-        std::pair<std::string, Datatype>("name", Datatype("Frisk")),
-        std::pair<std::string, Datatype>("hp", Datatype(20.0)),
-        std::pair<std::string, Datatype>("lv", Datatype(20LL))
-    }, FileEncryption::Standard);
-
-    //auto x = SaveHandler::LoadData("save01", FileEncryption::Standard);
-
-
-    SaveHandler::SaveData("save02", {
-        std::pair<std::string, Datatype>("name", Datatype("Frisk")),
-        std::pair<std::string, Datatype>("hp", Datatype(20.0)),
-        std::pair<std::string, Datatype>("lv", Datatype(20LL))
-        }, FileEncryption::Binary);
-
-    //auto y = SaveHandler::LoadData("save02", FileEncryption::Binary);
-    
-
     //-- Main room objects start --//
-    // Test object B (Rectangle9Slice)
-    //UTSandbox::ObjTestB testObjectB = UTSandbox::ObjTestB();
-    //mainRoom.objects.push_back(&testObjectB);
-
-    // Test object C (Writer)
-    //UTSandbox::ObjTestC testObjectC = UTSandbox::ObjTestC();
-    //mainRoom.objects.push_back(&testObjectC);
-
     // Test object D (Animated Sprite)
     UTSandbox::ObjTestD testObjectD = UTSandbox::ObjTestD();
     testObjectD.depth = 160;
     mainRoom.AddElement(&testObjectD);
-
-    // Test actor
-    //UTSandbox::ActorTest testActor = UTSandbox::ActorTest();
-    //mainRoom.objects.push_back(&testActor);
 
     // Test TileMap
     UTSandbox::TileMapTest testMap = UTSandbox::TileMapTest();

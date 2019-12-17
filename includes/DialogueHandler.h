@@ -2,6 +2,7 @@
 #define UT_DIALOGUE_HANDLER_H
 
 #include <functional>
+#include <string>
 
 #include "AnimatedSprite.h"
 #include "Font.h"
