@@ -2,9 +2,9 @@
 #define UT_DOOR_HANDLER_H
 #include <vector>
 
-#include "Game.h"
 #include "Fader.h"
 #include "CollisionHandler.h"
+#include "Player.h"
 
 namespace UT
 {

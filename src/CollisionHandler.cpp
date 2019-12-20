@@ -1,4 +1,5 @@
 #include "CollisionHandler.h"
+#include "Game.h"
 #include <vector>
 
 namespace UT

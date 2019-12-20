@@ -1,13 +1,14 @@
 #ifndef UT_COLLISION_HANDLER_H
 #define UT_COLLISION_HANDLER_H
 
-#include "Game.h"
 #include "Object.h"
 #include "Interactable.h"
 #include "Zone.h"
 
 namespace UT
 {
+    class ViewZone;
+
     class CollisionHandler
     {
     public:

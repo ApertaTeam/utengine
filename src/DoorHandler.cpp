@@ -1,4 +1,5 @@
 #include "DoorHandler.h"
+#include "Game.h"
 
 namespace UT
 {
