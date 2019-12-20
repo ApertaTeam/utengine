@@ -7,6 +7,10 @@
 #include "Input.h"
 #include "Object.h"
 #include "Room.h"
+#include "DialogueHandler.h"
+#include "CollisionHandler.h"
+#include "DoorHandler.h"
+#include "SaveHandler.h"
 
 namespace UT
 {
@@ -62,6 +66,11 @@ namespace UT
         std::vector<Object*> globalObjects;
 
         Room* room;
+
+        CollisionHandler collisionHandler;
+        SaveHandler saveHandler;
+        DialogueHandler dialogueHandler;
+        DoorHandler doorHandler;
     };
 }
 

@@ -6,10 +6,6 @@
 #include "Logger.h"
 #include "Sprite.h"
 #include "TextureHandler.h"
-#include "DialogueHandler.h"
-#include "CollisionHandler.h"
-#include "DoorHandler.h"
-#include "SaveHandler.h"
 #include "BatchHandler.h"
 
 #include <SFML/Graphics.hpp>
@@ -32,6 +28,12 @@ namespace UT
         this->camera = nullptr;
 
         this->globalObjects = {};
+
+        // Create handlers
+        collisionHandler = CollisionHandler();
+        saveHandler = SaveHandler();
+        dialogueHandler = DialogueHandler(); globalObjects.push_back(&dialogueHandler);
+        doorHandler = DoorHandler(); globalObjects.push_back(&doorHandler);
 
         instance = this;
     }
@@ -128,8 +130,8 @@ namespace UT
     bool Game::Start()
     {
         // Create & initialize main window
-        //window.Init(title, { 640, 480 }, sf::Style::Close | sf::Style::Titlebar , icon); // Standard
-        window.Init(title, { 640, 480 }, sf::Style::Fullscreen , icon); // Fullscreen test
+        window.Init(title, { 640, 480 }, sf::Style::Close | sf::Style::Titlebar , icon); // Standard
+        //window.Init(title, { 640, 480 }, sf::Style::Fullscreen , icon); // Fullscreen test
         
         
         
@@ -141,12 +143,6 @@ namespace UT
 
         // Center window
         window.CenterWindow();
-
-        // Create handlers
-        CollisionHandler collisionHandler = CollisionHandler();
-        SaveHandler saveHandler = SaveHandler();
-        DialogueHandler dialogueHandler = DialogueHandler();
-        DoorHandler doorHandler = DoorHandler(); globalObjects.push_back(&doorHandler);
 
         // Initialize room
         room->Initialize();
