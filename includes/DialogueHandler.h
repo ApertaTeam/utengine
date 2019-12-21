@@ -7,6 +7,8 @@
 #include "AnimatedSprite.h"
 #include "Font.h"
 #include "Object.h"
+#include "Rectangle9Slice.h"
+#include "TextWriter.h"
 
 namespace UT
 {
@@ -50,10 +52,14 @@ namespace UT
         int writerPos;
         std::vector<DialogueItem> items;
         std::vector<DialogueCharacter> characters;
+        int textboxTexture;
 
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
         CompletionState isDone;
+        Rectangle9Slice textbox;
+        TextWriter writer;
+        int curItem;
     };
 }
 #endif

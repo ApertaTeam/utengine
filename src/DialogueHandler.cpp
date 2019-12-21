@@ -13,13 +13,16 @@ namespace UT
         this->items = {};
         this->objectType = ObjectType::Object;
         this->writerPos = 0;
+        this->curItem = 0;
+        this->writer = TextWriter();
+        this->textbox = Rectangle9Slice();
 
         instance = this;
     }
 
     void DialogueHandler::Init()
     {
-
+        
     }
 
     void DialogueHandler::Update(float delta)
@@ -29,7 +32,24 @@ namespace UT
 
     void DialogueHandler::StartDialogue()
     {
+        std::array<Sprite, 9> textboxSlices = {
+            Sprite(textboxTexture, {0, 0, 25, 25}),
+            Sprite(textboxTexture, {25, 0, 25, 25}),
+            Sprite(textboxTexture, {50, 0, 25, 25}),
 
+            Sprite(textboxTexture, {0, 25, 25, 25}),
+            Sprite(textboxTexture, {25, 25, 25, 25}),
+            Sprite(textboxTexture, {50, 25, 25, 25}),
+
+            Sprite(textboxTexture, {0, 50, 25, 25}),
+            Sprite(textboxTexture, {25, 50, 25, 25}),
+            Sprite(textboxTexture, {50, 50, 25, 25}),
+        };
+
+        textbox.rect = { 0, 0, 0, 0 };
+        textbox.slice = textboxSlices;
+
+        writer.font = &items[curItem].character.font;
     }
 
     DialogueHandler* DialogueHandler::GetInstance()
@@ -39,6 +59,7 @@ namespace UT
 
     void DialogueHandler::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
-
+        target.draw(textbox);
+        target.draw(writer);
     }
 }
