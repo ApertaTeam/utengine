@@ -15,15 +15,13 @@ namespace UT
 
     SaveHandler::SaveHandler()
     {
+        basePath = "";
+
         instance = this;
     }
 
     void SaveHandler::Reset()
     {
-        // TEST CODE
-        instance->basePath = "";
-        std::cout << instance->basePath; // Never logs
-
         // ACTUAL CODE
         #if defined(_WIN32) || defined(WIN32)
             instance->basePath = (std::string)std::getenv("APPDATA") + "\\UTE\\";

@@ -29,11 +29,9 @@ namespace UT
 
         this->globalObjects = {};
 
-        // Create handlers
-        collisionHandler = CollisionHandler();
-        saveHandler = SaveHandler();
-        dialogueHandler = DialogueHandler(); globalObjects.push_back(&dialogueHandler);
-        doorHandler = DoorHandler(); globalObjects.push_back(&doorHandler);
+        // Add global objects
+        globalObjects.push_back(&dialogueHandler);
+        globalObjects.push_back(&doorHandler);
 
         instance = this;
     }
