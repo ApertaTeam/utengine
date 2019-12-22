@@ -131,9 +131,7 @@ namespace UT
     {
         // Create & initialize main window
         window.Init(title, { 640, 480 }, sf::Style::Close | sf::Style::Titlebar , icon); // Standard
-        //window.Init(title, { 640, 480 }, sf::Style::Fullscreen , icon); // Fullscreen test
-        
-        
+        //window.Init(title, { 640, 480 }, sf::Style::Fullscreen , icon); // Fullscreen test        
         
         if (!window.GetWin())
         {
@@ -144,8 +142,13 @@ namespace UT
         // Center window
         window.CenterWindow();
 
+        // Initialize handlers
+        collisionHandler.Reset();
+        saveHandler.Reset();
+
         // Initialize room
         room->Initialize();
+
 
         // Start update loop
         while (window->isOpen())

@@ -16,13 +16,21 @@ namespace UT
     SaveHandler::SaveHandler()
     {
         instance = this;
+    }
 
+    void SaveHandler::Reset()
+    {
+        // TEST CODE
+        instance->basePath = "";
+        std::cout << instance->basePath; // Never logs
+
+        // ACTUAL CODE
         #if defined(_WIN32) || defined(WIN32)
-        basePath = (std::string)std::getenv("APPDATA") + "\\UTE\\";
-        basePath += Game::GetInstance()->GetTitle() + "\\";
+            instance->basePath = (std::string)std::getenv("APPDATA") + "\\UTE\\";
+            instance->basePath += Game::GetInstance()->GetTitle() + "\\";
         #elif defined(__linux__)
-        basePath = (std::string)std::getenv("HOME") + "/.local/share/UTE/";
-        basePath += Game::GetInstance()->GetTitle() + "/";
+            instance->basePath = (std::string)std::getenv("HOME") + "/.local/share/UTE/";
+            instance->basePath += Game::GetInstance()->GetTitle() + "/";
         #endif
     }
 

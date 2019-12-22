@@ -7,7 +7,7 @@ namespace UT
     static CollisionHandler* instance;
 
     CollisionHandler::CollisionHandler()
-        : objects(&Game::GetRoomStatic()->GetObjects()), zones(&Game::GetRoomStatic()->GetZones())
+        : objects(nullptr), zones(nullptr)
     {
         instance = this;
     }
