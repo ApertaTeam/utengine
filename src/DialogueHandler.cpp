@@ -50,6 +50,11 @@ namespace UT
         textbox.slice = textboxSlices;
 
         writer.font = &items[curItem].character.font;
+
+
+        isDone = CompletionState::Incomplete;
+        writerPos = 0;
+        curItem = 0;
     }
 
     DialogueHandler* DialogueHandler::GetInstance()
