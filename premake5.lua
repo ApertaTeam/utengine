@@ -69,6 +69,9 @@ workspace "UndertaleEngine"
             "utengine"
         }
 
+		filter "system:windows"
+			postbuildcommands { "{COPY} %{conan_rootpath_sfml}/bin/openal32.dll %{cfg.targetdir}" }
+
         filter "configurations:Debug"
             defines "UT_DEBUG"
             runtime "Debug"
