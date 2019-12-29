@@ -5,7 +5,7 @@
 #include "Resources.h"
 #include "Logger.h"
 #include "Sprite.h"
-#include "TextureHandler.h"
+#include "AssetHandler.h"
 #include "BatchHandler.h"
 
 #include <SFML/Graphics.hpp>
@@ -38,7 +38,7 @@ namespace UT
 
     Game::~Game()
     {
-        TextureHandler::ClearTextures();
+        AssetHandler::ClearTextures();
     }
 
     void Game::Update()

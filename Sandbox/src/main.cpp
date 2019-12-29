@@ -8,7 +8,7 @@
 #include <Camera.h>
 #include <Sprite.h>
 #include <TileMap.h>
-#include <TextureHandler.h>
+#include <AssetHandler.h>
 #include <Player.h>
 #include <CollisionHandler.h>
 #include <DoorHandler.h>
@@ -117,7 +117,7 @@ int main()
         {"walkWest", { sf::IntRect(5, 39, 17, 29), sf::IntRect(27, 39, 17, 29) }},
         {"walkEast", { sf::IntRect(5, 73, 17, 29), sf::IntRect(27, 73, 17, 29) }}
     });
-    int playerTexture = TextureHandler::LoadTextureFromFile("player.png");
+    int playerTexture = AssetHandler::LoadTextureFromFile("player.png");
     AnimatedSprite playerAnimSprite = AnimatedSprite(playerTexture);
     
     player.texture = playerTexture;

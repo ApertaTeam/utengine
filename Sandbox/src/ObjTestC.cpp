@@ -1,12 +1,12 @@
 ﻿#include "ObjTestC.h"
 
-#include <TextureHandler.h>
+#include <AssetHandler.h>
 #include <RichText.h>
 
 namespace UTSandbox
 {
     ObjTestC::ObjTestC()
-        : testTextTexture(TextureHandler::LoadTextureFromFile("font.png"))
+        : testTextTexture(AssetHandler::LoadTextureFromFile("font.png"))
     {
     }
 

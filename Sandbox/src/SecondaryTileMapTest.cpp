@@ -1,12 +1,12 @@
 #include "SecondaryTileMapTest.h"
 
-#include <TextureHandler.h>
+#include <AssetHandler.h>
 
 namespace UTSandbox
 {
     SecondaryTileMapTest::SecondaryTileMapTest()
     {
-        textureId = TextureHandler::LoadTextureFromFile("tileset.png");
+        textureId = AssetHandler::LoadTextureFromFile("tileset.png");
     }
 
     void SecondaryTileMapTest::Init()

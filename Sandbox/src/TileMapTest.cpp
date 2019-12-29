@@ -1,12 +1,12 @@
 #include "TileMapTest.h"
 
-#include <TextureHandler.h>
+#include <AssetHandler.h>
 
 namespace UTSandbox
 {
     TileMapTest::TileMapTest()
     {
-        textureId = TextureHandler::LoadTextureFromFile("tileset.png");
+        textureId = AssetHandler::LoadTextureFromFile("tileset.png");
     }
 
     void TileMapTest::Init()

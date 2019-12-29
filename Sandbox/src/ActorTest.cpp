@@ -1,11 +1,11 @@
 #include "ActorTest.h"
 
-#include <TextureHandler.h>
+#include <AssetHandler.h>
 
 namespace UTSandbox
 {
     ActorTest::ActorTest()
-        : testTexture(TextureHandler::LoadTextureFromFile("tileset.png"))
+        : testTexture(AssetHandler::LoadTextureFromFile("tileset.png"))
     {
     }
 

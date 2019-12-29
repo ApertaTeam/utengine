@@ -1,6 +1,6 @@
 #include "ObjTestD.h"
 
-#include <TextureHandler.h>
+#include <AssetHandler.h>
 #include <DialogueHandler.h>
 #include <SaveHandler.h>
 
@@ -9,7 +9,7 @@
 namespace UTSandbox
 {
     ObjTestD::ObjTestD()
-        : testAnimatedTexture(TextureHandler::LoadTextureFromFile("tileset.png"))
+        : testAnimatedTexture(AssetHandler::LoadTextureFromFile("tileset.png"))
     {
     }
 

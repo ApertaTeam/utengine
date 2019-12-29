@@ -1,7 +1,7 @@
 #include "BatchHandler.h"
 
 #include <SFML/Graphics/RenderTarget.hpp>
-#include "TextureHandler.h"
+#include "AssetHandler.h"
 
 #define BATCH_SIZE 512
 
@@ -76,7 +76,7 @@ namespace UT
     void BatchHandler::DrawBatch()
     {
         sf::RenderStates states = sf::RenderStates();
-        if(currentTexID != -1) states.texture = TextureHandler::GetTextureById(currentTexID).get();
+        if(currentTexID != -1) states.texture = AssetHandler::GetTextureById(currentTexID).get();
         if (offset != verticesSize) vertices.resize(offset);
         target->draw(vertices, states);
         verticesInitialized = false;

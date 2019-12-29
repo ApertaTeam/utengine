@@ -1,11 +1,11 @@
 #include "ObjTestB.h"
 
-#include <TextureHandler.h>
+#include <AssetHandler.h>
 
 namespace UTSandbox
 {
     ObjTestB::ObjTestB()
-        : testRectTexture(TextureHandler::LoadTextureFromFile("rectslice.png"))
+        : testRectTexture(AssetHandler::LoadTextureFromFile("rectslice.png"))
     {
     }
 
