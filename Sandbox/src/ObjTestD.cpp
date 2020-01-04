@@ -45,7 +45,7 @@ namespace UTSandbox
             std::pair<std::string, Datatype>("lv", Datatype(20LL))
         }, FileEncryption::Standard);
 
-        auto x = SaveHandler::LoadData("save01", FileEncryption::Standard);
+        auto x = SaveHandler::LoadData("save01", FileEncryption::Standard);*/
 
         
         SaveHandler::SaveData("save02", {
@@ -58,8 +58,8 @@ namespace UTSandbox
 
         std::cout << "name: " << std::get<std::string>(y["name"].variant).c_str() << std::endl;
         std::cout << "hp: " << std::get<double>(y["hp"].variant) << std::endl;
-        std::cout << "lv: " << std::get<int64_t>(y["lv"].variant) << std::endl;*/
-
+        std::cout << "lv: " << std::get<int64_t>(y["lv"].variant) << std::endl;
+        
 
         
         // Setting up dialogue

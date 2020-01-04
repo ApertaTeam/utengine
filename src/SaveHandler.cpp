@@ -2,6 +2,7 @@
 
 #include "Game.h"
 #include "Logger.h"
+#include "BinaryReader.h"
 
 #include <fstream>
 #include <stdlib.h>
@@ -164,46 +165,40 @@ namespace UT
                     }
                 }
             }
+
+            fs.close();
         }
         else if (encryption == FileEncryption::Binary)
         {
-            fs.open(instance->basePath + filepath, std::ios::binary);
+            BinaryFileReader bfr = BinaryFileReader(instance->basePath + filepath);
 
-            while (!fs.eof() && errno == 0)
+            while (!bfr.IsAtEOF())
             {
                 Datatype dat;
                 std::string key = "";
-                char ch;
-                while (!fs.eof() && (ch = fs.get()) != '\0') key += ch;
+                key = bfr.ReadString();
 
-                dat.type = (Datatype::ValueType)fs.get();
+                dat.type = (Datatype::ValueType)bfr.ReadUInt8();
 
                 if (dat.type == Datatype::ValueType::valtype_string)
                 {
-                    std::string val = "";
-                    while (!fs.eof() && (ch = fs.get()) != '\0') val += ch;
-
-                    dat.variant = val;
+                    dat.variant = bfr.ReadString();
                 }
                 else if (dat.type == Datatype::ValueType::valtype_double)
                 {
-                    double val = 0;
-                    fs.read((char*)&val, sizeof(double));
-                    dat.variant = val;
+                    dat.variant = bfr.ReadDouble();
+
                 }
                 else if (dat.type == Datatype::ValueType::valtype_int64)
                 {
-                    int64_t val = 0;
-                    fs.read((char*)&val, sizeof(int64_t));
-                    dat.variant = val;
+                    dat.variant = bfr.ReadInt64();
+
                 }
+
 
                 data.insert(std::pair(key, dat));
             }
         }
-
-
-        fs.close();
 
         if (errno != 0)
         {

@@ -86,7 +86,7 @@ namespace UT
             string.push_back(ch);
             Read(&ch, 1);
         }
-        string.push_back('\0');
+
         return string;
     }
 
@@ -138,6 +138,8 @@ namespace UT
     BinaryFileReader::BinaryFileReader(std::string filePath)
     {
         fd = fopen(filePath.c_str(), "rb");
+        atEOF = false;
+        
         if (fd == NULL)
         {
             canRead = false;
@@ -145,7 +147,11 @@ namespace UT
         } else
         {
             canRead = true;
-        }
+
+            fseek(fd, 0L, SEEK_END);
+            fileSize = ftell(fd);
+            rewind(fd);
+        }        
     }
 
     BinaryFileReader::~BinaryFileReader()
@@ -158,9 +164,14 @@ namespace UT
         return canRead;
     }
 
+    bool BinaryFileReader::IsAtEOF()
+    {
+        return atEOF;
+    }
+
     int BinaryFileReader::Read(void* ptr, size_t size)
     {
-        if (!canRead) return 0;
+        if (!canRead || atEOF) return 0;
         if (this->endian == BIG_ENDIAN)
         {
             switch (size)
@@ -192,6 +203,14 @@ namespace UT
                     return (int)fread(ptr, size, 1, fd);
             }
         }
+
+
+        if (ftell(fd) >= fileSize)
+        {
+            atEOF = true;
+        }
+
+
         return (int)fread(ptr, size, 1, fd);
     }
 }

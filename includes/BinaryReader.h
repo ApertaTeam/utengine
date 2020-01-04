@@ -52,8 +52,11 @@ namespace UT
         ~BinaryFileReader();
         
         bool CanRead();
+        bool IsAtEOF();
     private:
         FILE* fd;
+        bool atEOF;
+        size_t fileSize;
         bool canRead;
         virtual int Read(void* ptr, size_t size);
     };
