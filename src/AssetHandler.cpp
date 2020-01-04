@@ -110,56 +110,40 @@ namespace UT
         return 0;
     }
 
-    int AssetHandler::LoadFontFromFile(const std::string& path)
+    int AssetHandler::LoadFontFromFile(const std::string& texturePath, const std::string& path)
     {
-        std::vector<Font> fonts;
-        std::ifstream fs;
-        fs.open(path, std::ios::binary);
+        std::map<char, Glyph> glyphs;
+        BinaryFileReader bfr = BinaryFileReader(path);
 
         // Read length
-        uint8_t len = 0;
-        fs.read(reinterpret_cast<char*>(&len), sizeof(len));
+        uint8_t len = bfr.ReadUInt8();
 
         for (int i = 0; i < len; i++)
         {
             // Read data
-            uint8_t character;
-            fs.read(reinterpret_cast<char*>(&character), sizeof(character));
+            uint8_t character = bfr.ReadUInt8();
+            uint16_t x = bfr.ReadUInt16();
+            uint16_t y = bfr.ReadUInt16();
+            uint16_t w = bfr.ReadUInt16();
+            uint16_t h = bfr.ReadUInt16();
+            uint8_t shift = bfr.ReadUInt8();
+            uint8_t offset = bfr.ReadUInt8();
 
-            uint16_t x;
-            fs.read(reinterpret_cast<char*>(&x), sizeof(x));
-
-            uint16_t y;
-            fs.read(reinterpret_cast<char*>(&y), sizeof(y));
-
-            uint16_t w;
-            fs.read(reinterpret_cast<char*>(&w), sizeof(w));
-
-            uint16_t h;
-            fs.read(reinterpret_cast<char*>(&h), sizeof(h));
-
-            uint8_t shift;
-            fs.read(reinterpret_cast<char*>(&shift), sizeof(shift));
-
-            uint8_t offset;
-            fs.read(reinterpret_cast<char*>(&offset), sizeof(offset));
-
+            // Add glyph
+            Glyph glyph;
+            glyph.character = character;
+            glyph.offset = offset;
+            glyph.shift = shift;
+            glyph.texture = sf::IntRect(x, y, w, h);
             
-            // Reverse
-            if (BinaryReader::IsBigEndian())
-            {
-                BinaryReader::ReverseUInt16(&x);
-                BinaryReader::ReverseUInt16(&y);
-                BinaryReader::ReverseUInt16(&w);
-                BinaryReader::ReverseUInt16(&h);
-            }
-
-            // Debug output
-            std::cout << "Character: " << character << ", X: " << (int)x << ", Y: " << (int)y << ", Width: " << (int)w << ", Height: " << (int)h << ", Shift: " << (int)shift << ", Offset: " << (int)offset << std::endl;
-
-            
+            glyphs.insert(std::pair<char, Glyph>(character, glyph));
         }
 
+        std::shared_ptr<Font> font = std::make_shared<Font>();
+        font->SetGlyphs(glyphs);
+        font->SetTexId(AssetHandler::LoadTextureFromFile(texturePath));
+
+        fonts.push_back(font);
         
         return fonts.size() - 1;
     }

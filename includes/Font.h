@@ -31,6 +31,10 @@ namespace UT
         Glyph GetGlyph(char character) const { return glyphs.at(character); }
         Sprite GetGlyphSprite(char character);
         Sprite GetGlyphAsColor(char character, sf::Color color);
+
+        inline void SetTexId(int texId) { this->texId = texId; }
+        inline void SetGlyphs(std::map<char, Glyph> glyphs) { this->glyphs = glyphs; }
+        inline void AddGlyph(char character, Glyph glyph) { this->glyphs.insert(std::pair<char, Glyph>(character, glyph)); }
     private:
         int texId;
         std::map<char, Glyph> glyphs; // Not an std::vector due to not having a 0-indexed range

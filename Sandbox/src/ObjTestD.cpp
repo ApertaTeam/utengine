@@ -86,7 +86,7 @@ namespace UTSandbox
         if (isRunning) return;
 
         isRunning = true;
-        AssetHandler::LoadFontFromFile("font.dat");
+        AssetHandler::LoadFontFromFile("font.png", "font.dat");
         //DialogueHandler::GetInstance()->StartDialogue();
     }
 

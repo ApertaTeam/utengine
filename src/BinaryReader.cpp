@@ -194,24 +194,4 @@ namespace UT
         }
         return (int)fread(ptr, size, 1, fd);
     }
-
-
-    bool BinaryReader::IsBigEndian()
-    {
-        union
-        {
-            uint32_t i;
-            char c[4];
-        } bint = { 0x01020304 };
-
-        return bint.c[0] == 1;
-    }
-
-    void BinaryReader::ReverseUInt16(uint16_t* num)
-    {
-        unsigned char* a = ((unsigned char*)num);
-        char temp = a[0];
-        a[0] = a[1];
-        a[1] = temp;
-    }
 }

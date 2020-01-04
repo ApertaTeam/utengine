@@ -31,9 +31,6 @@ namespace UT
         float ReadFloat();
         double ReadDouble();
 
-        static bool IsBigEndian();
-        static void ReverseUInt16(uint16_t* num);
-
         std::string ReadString();
         Buffer ReadBuffer();
         Buffer ReadBuffer(uint32_t length);

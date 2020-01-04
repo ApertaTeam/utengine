@@ -27,7 +27,7 @@ namespace UT
         // Font handling
         static std::shared_ptr<Font> GetFontById(int fontID);
         static int LoadFontFromMemory(const void* data, size_t size);
-        static int LoadFontFromFile(const std::string& path);
+        static int LoadFontFromFile(const std::string& texturePath, const std::string& path);
         static void ClearFonts();
     };
 }
