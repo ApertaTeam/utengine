@@ -86,7 +86,8 @@ namespace UTSandbox
         if (isRunning) return;
 
         isRunning = true;
-        DialogueHandler::GetInstance()->StartDialogue();
+        AssetHandler::LoadFontFromFile("font.dat");
+        //DialogueHandler::GetInstance()->StartDialogue();
     }
 
     void ObjTestD::draw(sf::RenderTarget& target, sf::RenderStates states) const

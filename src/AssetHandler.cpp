@@ -1,9 +1,11 @@
 #include "AssetHandler.h"
+#include "BinaryReader.h"
 
 #include <vector>
 
 static std::vector<std::shared_ptr<sf::Texture>> textures;
 static std::vector<std::shared_ptr<sf::SoundBuffer>> sounds;
+static std::vector<std::shared_ptr<UT::Font>> fonts;
 static std::vector<std::string> paths;
 
 namespace UT
@@ -91,5 +93,83 @@ namespace UT
         }
 
         paths.erase(paths.begin(), paths.end());
+    }
+
+    // Font handling
+    std::shared_ptr<Font> AssetHandler::GetFontById(int fontID)
+    {
+        if (fontID >= fonts.size())
+            return nullptr;
+        return fonts[fontID];
+    }
+
+    int AssetHandler::LoadFontFromMemory(const void* data, size_t size)
+    {
+
+
+        return 0;
+    }
+
+    int AssetHandler::LoadFontFromFile(const std::string& path)
+    {
+        std::vector<Font> fonts;
+        std::ifstream fs;
+        fs.open(path, std::ios::binary);
+
+        // Read length
+        uint8_t len = 0;
+        fs.read(reinterpret_cast<char*>(&len), sizeof(len));
+
+        for (int i = 0; i < len; i++)
+        {
+            // Read data
+            uint8_t character;
+            fs.read(reinterpret_cast<char*>(&character), sizeof(character));
+
+            uint16_t x;
+            fs.read(reinterpret_cast<char*>(&x), sizeof(x));
+
+            uint16_t y;
+            fs.read(reinterpret_cast<char*>(&y), sizeof(y));
+
+            uint16_t w;
+            fs.read(reinterpret_cast<char*>(&w), sizeof(w));
+
+            uint16_t h;
+            fs.read(reinterpret_cast<char*>(&h), sizeof(h));
+
+            uint8_t shift;
+            fs.read(reinterpret_cast<char*>(&shift), sizeof(shift));
+
+            uint8_t offset;
+            fs.read(reinterpret_cast<char*>(&offset), sizeof(offset));
+
+            
+            // Reverse
+            if (BinaryReader::IsBigEndian())
+            {
+                BinaryReader::ReverseUInt16(&x);
+                BinaryReader::ReverseUInt16(&y);
+                BinaryReader::ReverseUInt16(&w);
+                BinaryReader::ReverseUInt16(&h);
+            }
+
+            // Debug output
+            std::cout << "Character: " << character << ", X: " << (int)x << ", Y: " << (int)y << ", Width: " << (int)w << ", Height: " << (int)h << ", Shift: " << (int)shift << ", Offset: " << (int)offset << std::endl;
+
+            
+        }
+
+        
+        return fonts.size() - 1;
+    }
+
+    void AssetHandler::ClearFonts()
+    {
+        for (int i = fonts.size() - 1; i >= 0; i--)
+        {
+            fonts[i].reset();
+            fonts.erase(fonts.begin() + i);
+        }
     }
 }
