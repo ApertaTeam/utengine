@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "Logger.h"
 #include "BinaryReader.h"
+#include "BinaryWriter.h"
 
 #include <fstream>
 #include <stdlib.h>
@@ -71,32 +72,32 @@ namespace UT
 
                 fs << key << "=" << value << "," << std::endl;
             }
+
+            fs.close();
         }
         else if (encryption == FileEncryption::Binary)
         {
-            fs.open(instance->basePath + filepath, std::ios::trunc | std::ios::binary);
-            fs.seekp(0);
+            BinaryFileWriter bfw = BinaryFileWriter(instance->basePath + filepath);
 
             for (auto const& [key, val] : datatype)
             {
-                fs.write(key.c_str(), (unsigned char)(key.length() + 1));
-                fs.write((char*)&val.type, sizeof(unsigned char));
+                bfw.WriteString(key);
+                bfw.WriteUInt8((uint8_t)val.type);
 
                 if (val.type == Datatype::ValueType::valtype_string)
                 {
-                    fs.write(std::get<std::string>(val.variant).c_str(), std::get<std::string>(val.variant).length() + 1);
+                    bfw.WriteString(std::get<std::string>(val.variant));
                 }
                 else if (val.type == Datatype::ValueType::valtype_double)
                 {
-                    fs.write((char*)&std::get<double>(val.variant), sizeof(double));
+                    bfw.WriteDouble(std::get<double>(val.variant));
                 }
                 else if (val.type == Datatype::ValueType::valtype_int64)
                 {
-                    fs.write((char*)&std::get<int64_t>(val.variant), sizeof(int64_t));
+                    bfw.WriteInt64(std::get<int64_t>(val.variant));
                 }
             }
         }
-        fs.close();
 
         if (errno != 0)
         {
@@ -192,7 +193,6 @@ namespace UT
                 else if (dat.type == Datatype::ValueType::valtype_int64)
                 {
                     dat.variant = bfr.ReadInt64();
-
                 }
 
 
