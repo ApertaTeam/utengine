@@ -21,16 +21,16 @@ namespace UT
 
     struct DialogueCharacter
     {
-        Font font;
+        std::shared_ptr<Font> font;
         std::map<std::string_view, AnimatedSprite&> sprites;
     };
 
     struct DialogueItem
     {
-        std::string text;
+        std::string_view text;
         int speed;
-        DialogueCharacter character;
-        AnimatedSprite sprite;
+        std::string_view character;
+        std::string_view sprite;
         std::function<void ()> script;
     };
 
@@ -51,7 +51,7 @@ namespace UT
 
         int writerPos;
         std::vector<DialogueItem> items;
-        std::vector<DialogueCharacter> characters;
+        std::map<std::string_view, DialogueCharacter> characters;
         int textboxTexture;
 
     private:

@@ -34,7 +34,7 @@ namespace UT
         #endif
     }
 
-    void SaveHandler::SaveData(std::string filepath, std::map<std::string, Datatype> datatype, FileEncryption encryption)
+    void SaveHandler::SaveData(std::string filepath, std::map<std::string, DataType> DataType, FileEncoding encoding)
     {
         if (!std::filesystem::exists(instance->basePath))
         {
@@ -43,25 +43,25 @@ namespace UT
 
         std::ofstream fs;
 
-        if (encryption == FileEncryption::Standard)
+        if (encoding == FileEncoding::Standard)
         {
             fs.open(instance->basePath + filepath, std::ios::trunc);
 
-            for (auto const& [key, val] : datatype)
+            for (auto const& [key, val] : DataType)
             {
                 std::string value;
 
                 switch (val.type)
                 {
-                case Datatype::ValueType::valtype_string:
+                case DataType::ValueType::valtype_string:
                     value = std::get<std::string>(val.variant);
                     break;
 
-                case Datatype::ValueType::valtype_double:
+                case DataType::ValueType::valtype_double:
                     value = std::to_string(std::get<double>(val.variant));
                     break;
 
-                case Datatype::ValueType::valtype_int64:
+                case DataType::ValueType::valtype_int64:
                     value = std::to_string(std::get<int64_t>(val.variant));
                     break;
 
@@ -75,24 +75,24 @@ namespace UT
 
             fs.close();
         }
-        else if (encryption == FileEncryption::Binary)
+        else if (encoding == FileEncoding::Binary)
         {
             BinaryFileWriter bfw = BinaryFileWriter(instance->basePath + filepath);
 
-            for (auto const& [key, val] : datatype)
+            for (auto const& [key, val] : DataType)
             {
                 bfw.WriteString(key);
                 bfw.WriteUInt8((uint8_t)val.type);
 
-                if (val.type == Datatype::ValueType::valtype_string)
+                if (val.type == DataType::ValueType::valtype_string)
                 {
                     bfw.WriteString(std::get<std::string>(val.variant));
                 }
-                else if (val.type == Datatype::ValueType::valtype_double)
+                else if (val.type == DataType::ValueType::valtype_double)
                 {
                     bfw.WriteDouble(std::get<double>(val.variant));
                 }
-                else if (val.type == Datatype::ValueType::valtype_int64)
+                else if (val.type == DataType::ValueType::valtype_int64)
                 {
                     bfw.WriteInt64(std::get<int64_t>(val.variant));
                 }
@@ -123,12 +123,12 @@ namespace UT
         }
     }
 
-    std::map<std::string, Datatype> SaveHandler::LoadData(std::string filepath, FileEncryption encryption)
+    std::map<std::string, DataType> SaveHandler::LoadData(std::string filepath, FileEncoding encoding)
     {
-        std::map<std::string, Datatype> data;
+        std::map<std::string, DataType> data;
         std::ifstream fs;
 
-        if (encryption == FileEncryption::Standard)
+        if (encoding == FileEncoding::Standard)
         {
             fs.open(instance->basePath + filepath);
             char c;
@@ -146,8 +146,8 @@ namespace UT
                 {
                     keyFound = false;
 
-                    Datatype dat;
-                    dat.type = Datatype::ValueType::valtype_string;
+                    DataType dat;
+                    dat.type = DataType::ValueType::valtype_string;
                     dat.variant = val;
                     data.insert(std::pair(key, dat));
 
@@ -169,28 +169,28 @@ namespace UT
 
             fs.close();
         }
-        else if (encryption == FileEncryption::Binary)
+        else if (encoding == FileEncoding::Binary)
         {
             BinaryFileReader bfr = BinaryFileReader(instance->basePath + filepath);
 
             while (!bfr.IsAtEOF())
             {
-                Datatype dat;
+                DataType dat;
                 std::string key = "";
                 key = bfr.ReadString();
 
-                dat.type = (Datatype::ValueType)bfr.ReadUInt8();
+                dat.type = (DataType::ValueType)bfr.ReadUInt8();
 
-                if (dat.type == Datatype::ValueType::valtype_string)
+                if (dat.type == DataType::ValueType::valtype_string)
                 {
                     dat.variant = bfr.ReadString();
                 }
-                else if (dat.type == Datatype::ValueType::valtype_double)
+                else if (dat.type == DataType::ValueType::valtype_double)
                 {
                     dat.variant = bfr.ReadDouble();
 
                 }
-                else if (dat.type == Datatype::ValueType::valtype_int64)
+                else if (dat.type == DataType::ValueType::valtype_int64)
                 {
                     dat.variant = bfr.ReadInt64();
                 }

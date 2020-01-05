@@ -15,17 +15,20 @@ namespace UT
         void Update(float delta);
         void RawDataCheck();
 
+        inline void SetFont(Font* font) { this->font = font; richText.font = font; }
+        inline Font* GetFont() { return font;  }
+
         inline RichText* GetRichText() { return &richText; };
         
         inline void SetRenderPosition(sf::Vector2f renderPosition) { this->renderPosition = renderPosition; richText.renderPosition = renderPosition; };
         inline sf::Vector2f GetRenderPosition() { return renderPosition; }
 
 
-        Font* font;
         std::string rawText;
         int textPosition;
 
     private:
+        Font* font;
         RichText richText;
         
         sf::Vector2f renderPosition;

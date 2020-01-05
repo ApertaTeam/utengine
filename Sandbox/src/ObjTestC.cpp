@@ -12,7 +12,7 @@ namespace UTSandbox
 
     void ObjTestC::Init()
     {
-        std::map testFontMap = std::map<char, Glyph>();
+        /*std::map testFontMap = std::map<char, Glyph>();
 
         testFontMap.insert(std::pair<char, Glyph>(' ', Glyph(' ', { 440, 158, 6, 32 }, 6, 0)));
         testFontMap.insert(std::pair<char, Glyph>('!', Glyph('!', { 430, 158, 8, 26 }, 12, 2)));
@@ -248,18 +248,18 @@ namespace UTSandbox
         testTextWriter.GetRichText()->monospacing = 3;
         testTextWriter.GetRichText()->textTypeFlags = static_cast<char>(TextType::Wavy);
 
-        testTextWriter.rawText = "* Just [c:00FF00]testing [c:Yellow]this system[/c] [c:0000FF]when\\i\\[[c:Yellow]THE WORLD[/c]] attacks[/c].[/c]";
+        testTextWriter.rawText = "* Just [c:00FF00]testing [c:Yellow]this system[/c] [c:0000FF]when\\i\\[[c:Yellow]THE WORLD[/c]] attacks[/c].[/c]";*/
     }
 
     void ObjTestC::Update(float delta)
     {
-        testTextWriter.Update(delta);
+        //testTextWriter.Update(delta);
     }
 
     void ObjTestC::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
         states.transform *= getTransform();
         
-        target.draw(testTextWriter, states);
+        //target.draw(testTextWriter, states);
     }
 }

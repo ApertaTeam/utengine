@@ -40,31 +40,52 @@ namespace UTSandbox
 
         // Testing the SaveHandler
         /*SaveHandler::SaveData("save01", {
-            std::pair<std::string, Datatype>("name", Datatype("Frisk")),
-            std::pair<std::string, Datatype>("hp", Datatype(20.0)),
-            std::pair<std::string, Datatype>("lv", Datatype(20LL))
-        }, FileEncryption::Standard);
+            std::pair<std::string, DataType>("name", DataType("Frisk")),
+            std::pair<std::string, DataType>("hp", DataType(20.0)),
+            std::pair<std::string, DataType>("lv", DataType(20LL))
+        }, FileEncoding::Standard);
 
-        auto x = SaveHandler::LoadData("save01", FileEncryption::Standard);*/
+        auto x = SaveHandler::LoadData("save01", FileEncoding::Standard);*/
 
         
-        SaveHandler::SaveData("save02", {
-            std::pair<std::string, Datatype>("name", Datatype("Frisk")),
-            std::pair<std::string, Datatype>("hp", Datatype(20.0)),
-            std::pair<std::string, Datatype>("lv", Datatype(20LL))
-            }, FileEncryption::Binary);
+        /*SaveHandler::SaveData("save02", {
+            std::pair<std::string, DataType>("name", DataType("Frisk")),
+            std::pair<std::string, DataType>("hp", DataType(20.0)),
+            std::pair<std::string, DataType>("lv", DataType(20LL))
+            }, FileEncoding::Binary);
             
-        auto y = SaveHandler::LoadData("save02", FileEncryption::Binary);
+        auto y = SaveHandler::LoadData("save02", FileEncoding::Binary);
 
         std::cout << "name: " << std::get<std::string>(y["name"].variant).c_str() << std::endl;
         std::cout << "hp: " << std::get<double>(y["hp"].variant) << std::endl;
-        std::cout << "lv: " << std::get<int64_t>(y["lv"].variant) << std::endl;
+        std::cout << "lv: " << std::get<int64_t>(y["lv"].variant) << std::endl;*/
         
 
         
         // Setting up dialogue
-        DialogueCharacter dcTest; dcTest.sprites = {};
-        DialogueHandler::GetInstance()->characters.push_back(dcTest);
+        AnimatedSprite characterSprite = AnimatedSprite(AssetHandler::LoadTextureFromFile("sans_faces.png"), {
+            sf::IntRect(0, 0, 42, 44)
+            });
+
+        DialogueHandler* dhInstance = DialogueHandler::GetInstance();
+
+        // Font
+        int fontId = AssetHandler::LoadFontFromFile("font.png", "font.dat");
+
+        // Character
+        DialogueCharacter character = DialogueCharacter();
+        character.font = AssetHandler::GetFontById(fontId);
+        character.sprites.insert(std::pair<std::string_view, AnimatedSprite&>("idle", characterSprite));
+        dhInstance->characters.insert(std::pair<std::string_view, DialogueCharacter>("sans", character));
+        
+
+        // Item 01
+        DialogueItem item_01 = DialogueItem();
+        item_01.character = "sans";
+        //item_01.text = "* hey, this ain't my font";
+        item_01.text = "test";
+        item_01.sprite = "idle";
+        dhInstance->items.push_back(item_01);
     }
 
     void ObjTestD::Update(float delta)
@@ -84,10 +105,11 @@ namespace UTSandbox
     {
         std::cout << "Interation confirmed." << std::endl;
         if (isRunning) return;
-
         isRunning = true;
-        AssetHandler::LoadFontFromFile("font.png", "font.dat");
-        //DialogueHandler::GetInstance()->StartDialogue();
+
+        DialogueHandler* dhInstance = DialogueHandler::GetInstance();
+
+        dhInstance->StartDialogue();
     }
 
     void ObjTestD::draw(sf::RenderTarget& target, sf::RenderStates states) const

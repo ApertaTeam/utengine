@@ -6,7 +6,7 @@
 
 namespace UT
 {
-    struct Datatype
+    struct DataType
     {
         enum class ValueType
         {
@@ -18,13 +18,13 @@ namespace UT
         ValueType type;
         std::variant<std::string, double, int64_t> variant;
         
-        Datatype() : type(Datatype::ValueType::valtype_string) {}
-        Datatype(std::string variant) : type(Datatype::ValueType::valtype_string), variant(variant) {}
-        Datatype(double variant) : type(Datatype::ValueType::valtype_double), variant(variant) {}
-        Datatype(int64_t variant) : type(Datatype::ValueType::valtype_int64), variant(variant) {}
+        DataType() : type(DataType::ValueType::valtype_string) {}
+        DataType(std::string variant) : type(DataType::ValueType::valtype_string), variant(variant) {}
+        DataType(double variant) : type(DataType::ValueType::valtype_double), variant(variant) {}
+        DataType(int64_t variant) : type(DataType::ValueType::valtype_int64), variant(variant) {}
     };
 
-    enum class FileEncryption
+    enum class FileEncoding
     {
         Standard,
         Binary
@@ -36,9 +36,9 @@ namespace UT
     public:
         SaveHandler();
 
-        static void SaveData(std::string filepath, std::map<std::string, Datatype> data, FileEncryption encryption = FileEncryption::Standard);
+        static void SaveData(std::string filepath, std::map<std::string, DataType> data, FileEncoding encoding = FileEncoding::Standard);
         static bool DeleteFile(std::string filepath);
-        static std::map<std::string, Datatype> LoadData(std::string filepath, FileEncryption encryption = FileEncryption::Standard);
+        static std::map<std::string, DataType> LoadData(std::string filepath, FileEncoding encoding = FileEncoding::Standard);
 
         static void Reset();
         

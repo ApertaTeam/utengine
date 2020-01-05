@@ -1,4 +1,5 @@
 #include "DialogueHandler.h"
+#include "Logger.h"
 
 namespace UT
 {
@@ -9,7 +10,7 @@ namespace UT
         this->characters = {};
         this->collisionBox = { 0, 0, 0, 0 };
         this->depth = 0;
-        this->isDone = CompletionState::Incomplete;
+        this->isDone = CompletionState::CompletedAll;
         this->items = {};
         this->objectType = ObjectType::Object;
         this->writerPos = 0;
@@ -27,11 +28,21 @@ namespace UT
 
     void DialogueHandler::Update(float delta)
     {
-
+        if (isDone == CompletionState::Incomplete)
+        {
+            writer.Update(delta);
+        }
     }
 
     void DialogueHandler::StartDialogue()
     {
+        if (items.size() == 0)
+        {
+            GlobalLogger->Log(Logger::Error, "DialogueHandler::items array is empty.");
+            return;
+        }
+
+
         std::array<Sprite, 9> textboxSlices = {
             Sprite(textboxTexture, {0, 0, 25, 25}),
             Sprite(textboxTexture, {25, 0, 25, 25}),
@@ -49,8 +60,9 @@ namespace UT
         textbox.rect = { 0, 0, 0, 0 };
         textbox.slice = textboxSlices;
 
-        writer.font = &items[curItem].character.font;
-
+        writer.SetFont(&(*characters[items[curItem].character].font));
+        writer.rawText = items[curItem].text;
+        
 
         isDone = CompletionState::Incomplete;
         writerPos = 0;
