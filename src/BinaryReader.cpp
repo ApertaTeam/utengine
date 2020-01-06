@@ -213,4 +213,104 @@ namespace UT
 
         return (int)fread(ptr, size, 1, fd);
     }
+
+    BinaryBufferReader::BinaryBufferReader(Buffer buffer)
+    {
+        this->buffer = (char*)buffer.GetData();
+        this->bufferPos = 0;
+        this->bufferSize = buffer.GetLength();
+        this->atEOF = false;
+        this->canRead = true;
+    }
+
+    BinaryBufferReader::BinaryBufferReader(void* ptr, size_t size)
+    {
+        this->buffer = (char*)ptr;
+        this->bufferPos = 0;
+        this->bufferSize = size;
+        this->atEOF = false;
+        this->canRead = true;
+    }
+
+    bool BinaryBufferReader::CanRead()
+    {
+        return canRead;
+    }
+
+    bool BinaryBufferReader::IsAtEOF()
+    {
+        return atEOF;
+    }
+
+    int BinaryBufferReader::Read(void* ptr, size_t size)
+    {
+        if (!canRead || atEOF) return 0;
+        if (bufferPos >= bufferSize)
+        {
+            canRead = false;
+            atEOF = true;
+            return 0;
+        }
+
+        if (this->endian == BIG_ENDIAN)
+        {
+            switch (size)
+            {
+                case 1:
+                {
+                    *(char*)ptr = *buffer++;
+                    bufferPos++;
+                    return 1;
+                }
+                case 2:
+                {
+                    uint16_t res = 0;
+                    char* p = (char*)&res;
+                    p[0] = *buffer++;
+                    p[1] = *buffer++;
+                    bufferPos += 2;
+                    *((uint16_t*)ptr) = swapbits(res);
+                    return 2;
+                }
+                case 4:
+                {
+                    uint32_t res = 0;
+                    char* p = (char*)&res;
+                    for (int i = 0; i < size; i++)
+                    {
+                        p[i] = *buffer++;
+                        bufferPos++;
+                    }
+                    *((uint32_t*)ptr) = swapbits(res);
+                    return 4;
+                }
+                case 8:
+                {
+                    uint64_t res = 0;
+                    char* p = (char*)&res;
+                    for (int i = 0; i < size; i++)
+                    {
+                        p[i] = *buffer++;
+                        bufferPos++;
+                    }
+                    *((uint64_t*)ptr) = swapbits(res);
+                    return 8;
+                }
+            }
+        }
+
+        int wrote = 0;
+        for (int i = 0; i < size && (canRead && !atEOF); i++)
+        {
+            ((char*)ptr)[i] = *buffer++;
+            bufferPos++;
+            wrote++;
+            if (bufferPos >= bufferSize)
+            {
+                atEOF = true;
+                canRead = false;
+            }
+        }
+        return wrote;
+    }
 }

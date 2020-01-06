@@ -61,6 +61,23 @@ namespace UT
         virtual int Read(void* ptr, size_t size);
     };
 
+    class BinaryBufferReader : public BinaryReader
+    {
+    public:
+        BinaryBufferReader(Buffer buffer);
+        BinaryBufferReader(void* ptr, size_t size);
+
+        bool CanRead();
+        bool IsAtEOF();
+    private:
+        char* buffer;
+        bool atEOF;
+        size_t bufferPos;
+        size_t bufferSize;
+        bool canRead;
+        virtual int Read(void* ptr, size_t size);
+    };
+
     // TODO: BinaryBufferReader
 }
 
