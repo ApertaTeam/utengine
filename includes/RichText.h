@@ -33,7 +33,7 @@ namespace UT
 
         float wavyAngle = 0;
 
-        std::map<std::string, int32_t> colorPresets;
+        std::unordered_map<std::string, int32_t> colorPresets;
 
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     };

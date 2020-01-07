@@ -8,7 +8,7 @@ namespace UT
         this->glyphs = {};
     }
 
-    Font::Font(int texId, std::map<char, Glyph> glyphs)
+    Font::Font(int texId, std::unordered_map<char, Glyph> glyphs)
     {
         this->texId = texId;
         this->glyphs = glyphs;

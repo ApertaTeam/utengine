@@ -2,7 +2,7 @@
 #define UT_FONT_H
 
 #include <Sprite.h>
-#include <map>
+#include <unordered_map>
 
 namespace UT
 {
@@ -26,18 +26,18 @@ namespace UT
     {
     public:
         Font();
-        Font(int texId, std::map<char, Glyph> glyphs);
+        Font(int texId, std::unordered_map<char, Glyph> glyphs);
 
         Glyph GetGlyph(char character) const { return glyphs.at(character); }
         Sprite GetGlyphSprite(char character);
         Sprite GetGlyphAsColor(char character, sf::Color color);
 
         inline void SetTexId(int texId) { this->texId = texId; }
-        inline void SetGlyphs(std::map<char, Glyph> glyphs) { this->glyphs = glyphs; }
+        inline void SetGlyphs(std::unordered_map<char, Glyph> glyphs) { this->glyphs = glyphs; }
         inline void AddGlyph(char character, Glyph glyph) { this->glyphs.insert(std::pair<char, Glyph>(character, glyph)); }
     private:
         int texId;
-        std::map<char, Glyph> glyphs; // Not an std::vector due to not having a 0-indexed range
+        std::unordered_map<char, Glyph> glyphs; // Not an std::vector due to not having a 0-indexed range
     };
 }
 

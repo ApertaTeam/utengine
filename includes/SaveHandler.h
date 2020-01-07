@@ -1,7 +1,7 @@
 #ifndef UT_SAVE_HANDLER_H
 #define UT_SAVE_HANDLER_H
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <variant>
 
 namespace UT
@@ -36,9 +36,9 @@ namespace UT
     public:
         SaveHandler();
 
-        static void SaveData(std::string filepath, std::map<std::string, DataType> data, FileEncoding encoding = FileEncoding::Standard);
+        static void SaveData(std::string filepath, std::unordered_map<std::string, DataType> data, FileEncoding encoding = FileEncoding::Standard);
         static bool DeleteFile(std::string filepath);
-        static std::map<std::string, DataType> LoadData(std::string filepath, FileEncoding encoding = FileEncoding::Standard);
+        static std::unordered_map<std::string, DataType> LoadData(std::string filepath, FileEncoding encoding = FileEncoding::Standard);
 
         static void Reset();
         

@@ -7,7 +7,7 @@
 #include <SFML/Window/Joystick.hpp>
 
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <array>
 
 #define LSAXIS_NEGX 101
@@ -57,9 +57,9 @@ namespace UT
     private:
         InputHandler();
 
-        std::map<InputActions, std::array<sf::Keyboard::Key, 2>> keyboardAliases;
-        std::map<InputActions, std::array<unsigned int, 2>> gamepadAliases;
-        std::map<InputActions, InputState> keyStates;
+        std::unordered_map<InputActions, std::array<sf::Keyboard::Key, 2>> keyboardAliases;
+        std::unordered_map<InputActions, std::array<unsigned int, 2>> gamepadAliases;
+        std::unordered_map<InputActions, InputState> keyStates;
     };
 }
 

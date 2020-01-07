@@ -5,6 +5,8 @@
 #include "Object.h"
 #include "Interactable.h"
 
+#include <unordered_map>
+
 namespace UT
 {
     enum class PlayerDirection
@@ -23,7 +25,7 @@ namespace UT
     class Player : public Object
     {
     public:
-        Player(std::map<std::string, std::vector<sf::IntRect>> frames = {});
+        Player(std::unordered_map<std::string, std::vector<sf::IntRect>> frames = {});
 
         void Init() override;
         void Update(float delta) override;
@@ -36,7 +38,7 @@ namespace UT
         sf::Vector2f position;
         int speed;
 
-        std::map<std::string, std::vector<sf::IntRect>> textureRects;
+        std::unordered_map<std::string, std::vector<sf::IntRect>> textureRects;
         int texture;
 
         bool canMove;

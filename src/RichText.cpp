@@ -16,7 +16,7 @@ namespace UT
         this->renderOffset = { 0, 0 };
         this->textTypeFlags = static_cast<char>(TextType::Normal);
 
-        this->colorPresets = std::map<std::string, int32_t>();
+        this->colorPresets = std::unordered_map<std::string, int32_t>();
         colorPresets.insert(std::pair<std::string, int32_t>("Yellow", 0xFFFF00FF));
         colorPresets.insert(std::pair<std::string, int32_t>("Black", 0x000000FF));
         colorPresets.insert(std::pair<std::string, int32_t>("White", 0xFFFFFFFF));

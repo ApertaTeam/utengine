@@ -34,7 +34,7 @@ namespace UT
         #endif
     }
 
-    void SaveHandler::SaveData(std::string filepath, std::map<std::string, DataType> DataType, FileEncoding encoding)
+    void SaveHandler::SaveData(std::string filepath, std::unordered_map<std::string, DataType> DataType, FileEncoding encoding)
     {
         if (!std::filesystem::exists(instance->basePath))
         {
@@ -123,9 +123,9 @@ namespace UT
         }
     }
 
-    std::map<std::string, DataType> SaveHandler::LoadData(std::string filepath, FileEncoding encoding)
+    std::unordered_map<std::string, DataType> SaveHandler::LoadData(std::string filepath, FileEncoding encoding)
     {
-        std::map<std::string, DataType> data;
+        std::unordered_map<std::string, DataType> data;
         std::ifstream fs;
 
         if (encoding == FileEncoding::Standard)

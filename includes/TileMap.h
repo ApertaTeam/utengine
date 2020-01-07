@@ -1,6 +1,7 @@
 #ifndef UT_TILE_MAP_H
 #define UT_TILE_MAP_H
 
+#include <unordered_map>
 #include <vector>
 
 #include <SFML/Graphics.hpp>
@@ -10,7 +11,7 @@
 namespace UT
 {
     using TileGrid = std::vector<std::vector<unsigned short>>;
-    using TileSet = std::map<unsigned short, sf::IntRect>;
+    using TileSet = std::unordered_map<unsigned short, sf::IntRect>;
 
     class EmptyTileException : public std::exception
     {

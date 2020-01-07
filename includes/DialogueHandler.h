@@ -19,10 +19,17 @@ namespace UT
         CompletedAll
     };
 
+    enum class DialogueBoxPos
+    {
+        Bottom,
+        Top,
+        Custom
+    };
+
     struct DialogueCharacter
     {
         std::shared_ptr<Font> font;
-        std::map<std::string_view, AnimatedSprite&> sprites;
+        std::unordered_map<std::string_view, AnimatedSprite&> sprites;
     };
 
     struct DialogueItem
@@ -45,13 +52,15 @@ namespace UT
         void StartDialogue();
 
         inline CompletionState GetIsDone() { return isDone; }
+        void MoveToRect(sf::IntRect rect, int time = 1000);
 
         static DialogueHandler* GetInstance();
 
 
+
         int writerPos;
         std::vector<DialogueItem> items;
-        std::map<std::string_view, DialogueCharacter> characters;
+        std::unordered_map<std::string_view, DialogueCharacter> characters;
         int textboxTexture;
 
     private:

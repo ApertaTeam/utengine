@@ -9,7 +9,7 @@ namespace UT
     {
         this->characters = {};
         this->collisionBox = { 0, 0, 0, 0 };
-        this->depth = 0;
+        this->depth = 999999999;
         this->isDone = CompletionState::CompletedAll;
         this->items = {};
         this->objectType = ObjectType::Object;
@@ -30,6 +30,7 @@ namespace UT
     {
         if (isDone == CompletionState::Incomplete)
         {
+            textbox.Update(delta);
             writer.Update(delta);
         }
     }
@@ -67,6 +68,11 @@ namespace UT
         isDone = CompletionState::Incomplete;
         writerPos = 0;
         curItem = 0;
+    }
+
+    void DialogueHandler::MoveToRect(sf::IntRect rect, int time)
+    {
+        textbox.MoveToRect(rect, time);
     }
 
     DialogueHandler* DialogueHandler::GetInstance()

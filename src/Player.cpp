@@ -5,7 +5,7 @@
 
 namespace UT
 {
-    Player::Player(std::map<std::string, std::vector<sf::IntRect>> frames)
+    Player::Player(std::unordered_map<std::string, std::vector<sf::IntRect>> frames)
         : textureRects(frames), texture(-1), speed(3), direction(PlayerDirection::South), isMoving(false), canMove(true)
     {
 
