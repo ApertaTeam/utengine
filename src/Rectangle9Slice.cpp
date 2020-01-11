@@ -37,7 +37,7 @@ namespace UT
         }
     }
 
-    void Rectangle9Slice::MoveToRect(sf::IntRect rect, int time)
+    void Rectangle9Slice::MoveToRect(sf::FloatRect rect, int time)
     {
         resizeRect = rect;
         int resizeTime = time;
@@ -55,15 +55,26 @@ namespace UT
 
     void Rectangle9Slice::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
+        // Convert positions from full resolution to current resolution
+        sf::IntRect convertedRect;
+        sf::Vector2f tempRect = target.mapPixelToCoords({ (int)rect.left, (int)rect.top });
+        convertedRect.left = tempRect.x;
+        convertedRect.top = tempRect.y;
+        
+        tempRect = target.mapPixelToCoords({ (int)rect.width, (int)rect.height});
+        convertedRect.width = tempRect.x;
+        convertedRect.height = tempRect.y;
+
+        // Texture slices
         auto upperLeft = slice[0], upperCenter = slice[1], upperRight = slice[2];
         auto middleLeft = slice[3], middleCenter = slice[4], middleRight = slice[5];
         auto lowerLeft = slice[6], lowerCenter = slice[7], lowerRight = slice[8];
 
-        int x = rect.left;
+        int x = convertedRect.left;
         int origx = x;
-        int y = rect.top;
-        int endx = (rect.width) - upperRight.textureRect.width;
-        int endy = (rect.height) - lowerLeft.textureRect.height;
+        int y = convertedRect.top;
+        int endx = (convertedRect.width) - upperRight.textureRect.width;
+        int endy = (convertedRect.height) - lowerLeft.textureRect.height;
 
         // Upper line
         upperLeft.setPosition(x, y);
@@ -104,7 +115,7 @@ namespace UT
 
         while (x < endx)
         {
-            localy = rect.top + mcRect.height;
+            localy = convertedRect.top + mcRect.height;
 
             // If width cut off
             if (x + mcRect.width > endx)
@@ -188,7 +199,7 @@ namespace UT
             x += mcRect.width;
         }
 
-        localy = rect.top + mcRect.height;
+        localy = convertedRect.top + mcRect.height;
         x = endx;
 
         // Right side of middle line

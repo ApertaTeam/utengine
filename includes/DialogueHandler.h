@@ -52,7 +52,7 @@ namespace UT
         void StartDialogue();
 
         inline CompletionState GetIsDone() { return isDone; }
-        void MoveToRect(sf::IntRect rect, int time = 1000);
+        void MoveToRect(sf::FloatRect rect, int time = 1000);
 
         static DialogueHandler* GetInstance();
 

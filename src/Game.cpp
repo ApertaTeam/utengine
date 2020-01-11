@@ -30,7 +30,7 @@ namespace UT
         this->globalObjects = {};
 
         // Add global objects
-        globalObjects.push_back(&dialogueHandler);
+        globalObjects.push_back(&dialogueHandler); UIObjects.push_back(&dialogueHandler);
         globalObjects.push_back(&doorHandler);
 
         instance = this;
@@ -105,9 +105,20 @@ namespace UT
         {
             return x->depth < y->depth;
         });
+        
+        sf::View windowView = window->getView();
         for (int i = 0; i < objects.size(); i++)
         {
-            window->draw(*objects[i]);
+            if (std::find(UIObjects.begin(), UIObjects.end(), objects[i]) != UIObjects.end())
+            {
+                window->setView(window->getDefaultView());
+                window->draw(*objects[i]);
+                window->setView(windowView);
+            }
+            else
+            {
+                window->draw(*objects[i]);
+            }
         }
 
         if (BatchHandler::getInstance().BatchExists()) BatchHandler::getInstance().DrawBatch();

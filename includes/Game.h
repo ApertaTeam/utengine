@@ -32,6 +32,7 @@ namespace UT
         void LoadRoomInternal(Room* room);
 
         inline void AddGlobalObject(Object* object) { globalObjects.push_back(object); }
+        inline void AddUIObject(Object* object) { UIObjects.push_back(object); }
 
         // TODO: Replace with a method to load the room
         // from our binary file format.
@@ -64,6 +65,7 @@ namespace UT
 		sf::Clock FPStimeObj;
 
         std::vector<Object*> globalObjects;
+        std::vector<Object*> UIObjects;
 
         Room* room;
 

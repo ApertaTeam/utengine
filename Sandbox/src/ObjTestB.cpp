@@ -26,7 +26,7 @@ namespace UTSandbox
             Sprite(testRectTexture, {50, 50, 25, 25}),
         };
 
-        sf::Rect rect = {20, 20, 620, 460};
+        sf::FloatRect rect = {0.1, 0.1, 0.9, 0.9};
 
         testRectangle9Slice = Rectangle9Slice(rect, set);
 

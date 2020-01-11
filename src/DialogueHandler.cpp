@@ -30,6 +30,7 @@ namespace UT
     {
         if (isDone == CompletionState::Incomplete)
         {
+            writer.SetRenderPosition({ 20, 150 });
             textbox.Update(delta);
             writer.Update(delta);
         }
@@ -70,7 +71,7 @@ namespace UT
         curItem = 0;
     }
 
-    void DialogueHandler::MoveToRect(sf::IntRect rect, int time)
+    void DialogueHandler::MoveToRect(sf::FloatRect rect, int time)
     {
         textbox.MoveToRect(rect, time);
     }
