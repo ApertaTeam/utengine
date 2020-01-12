@@ -46,7 +46,7 @@ namespace UT
             switch (rawText.at(i))
             {
             case '\n':
-                y += font->GetGlyph('A').texture.height + font->GetGlyph('A').offset;
+                y += font->GetGlyph('A').texture.height + font->GetGlyph('A').offset + (monospacing == -1 ? 5 : monospacing * 2);
                 x = renderPosition.x;
                 verifiedTag = true;
                 break;

@@ -8,13 +8,13 @@ namespace UT
 {
     struct Glyph
     {
-        char character;
+        wchar_t character;
         sf::IntRect texture;
         int shift; // Probably used for the horizontal offset to the next glyph relative to the starting x of the current glyph
         int offset;
 
         Glyph() : character(' '), texture({}), shift(0), offset(0) {};
-        Glyph(char character, sf::IntRect texture, int shift, int offset)
+        Glyph(wchar_t character, sf::IntRect texture, int shift, int offset)
             : character(character),
             texture(texture),
             shift(shift),
