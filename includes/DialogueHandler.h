@@ -53,6 +53,7 @@ namespace UT
 
         inline CompletionState GetIsDone() { return isDone; }
         void MoveToRect(sf::FloatRect rect, int time = 1000);
+        void ResetRect(int time = 1);
 
         static DialogueHandler* GetInstance();
 
@@ -62,6 +63,7 @@ namespace UT
         std::vector<DialogueItem> items;
         std::unordered_map<std::string_view, DialogueCharacter> characters;
         int textboxTexture;
+        sf::FloatRect defaultRect;
 
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

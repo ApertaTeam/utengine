@@ -69,7 +69,7 @@ namespace UTSandbox
 
         DialogueHandler* dhInstance = DialogueHandler::GetInstance();
         dhInstance->textboxTexture = AssetHandler::LoadTextureFromFile("rectslice.png");
-        dhInstance->MoveToRect(sf::FloatRect(0, 350, 640, 480), 1);
+        dhInstance->ResetRect();
 
         // Font
         int fontId = AssetHandler::LoadFontFromFile("font.png", "font.dat");

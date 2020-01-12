@@ -16,6 +16,14 @@ namespace UT
         this->writerPos = 0;
         this->curItem = 0;
         this->writer = TextWriter();
+
+        /*
+        *   left: 32
+        *   top: 480 - 160
+        *   right: 640 - 32
+        *   bottom: 480 - 8
+        */
+        this->defaultRect = sf::FloatRect(32, 320, 608, 472);
         this->textbox = Rectangle9Slice();
 
         instance = this;
@@ -43,7 +51,6 @@ namespace UT
             GlobalLogger->Log(Logger::Error, "DialogueHandler::items array is empty.");
             return;
         }
-
 
         std::array<Sprite, 9> textboxSlices = {
             Sprite(textboxTexture, {0, 0, 25, 25}),
@@ -74,6 +81,11 @@ namespace UT
     void DialogueHandler::MoveToRect(sf::FloatRect rect, int time)
     {
         textbox.MoveToRect(rect, time);
+    }
+
+    void DialogueHandler::ResetRect(int time)
+    {
+        textbox.MoveToRect(defaultRect, time);
     }
 
     DialogueHandler* DialogueHandler::GetInstance()
