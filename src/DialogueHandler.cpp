@@ -38,7 +38,7 @@ namespace UT
     {
         if (isDone == CompletionState::Incomplete)
         {
-            writer.SetRenderPosition({ 20, 150 });
+            writer.SetRenderPosition({ 35, 170 });
             textbox.Update(delta);
             writer.Update(delta);
         }

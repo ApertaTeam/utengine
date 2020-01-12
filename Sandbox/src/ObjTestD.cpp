@@ -84,8 +84,7 @@ namespace UTSandbox
         // Item 01
         DialogueItem item_01 = DialogueItem();
         item_01.character = "sans";
-        //item_01.text = "* hey, this ain't my font";
-        item_01.text = "test";
+        item_01.text = "* hey buddy\n* i dont think this is my font";
         item_01.sprite = "idle";
         dhInstance->items.push_back(item_01);
     }
