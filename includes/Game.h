@@ -44,6 +44,7 @@ namespace UT
         double GetFPS();
         std::string GetTitle();
         Room* GetRoom();
+        static Player* GetPlayer();
         static Game* GetInstance();
 
         // TODO: Replace this map into a map of memory locations
@@ -53,6 +54,7 @@ namespace UT
 
         Window window;
         Camera* camera;
+        Player* player;
         Shader shaderProgram;
 
     private:

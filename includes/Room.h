@@ -19,11 +19,9 @@ namespace UT
 
         inline void AddElement(Object* object) { objects.push_back(object); isInitialized = false; }
         inline void AddElement(Zone* zone) { zones.push_back(zone); isInitialized = false; }
-        inline void AddElement(Player* player) { this->player = player; objects.push_back(player); isInitialized = false; }
 
         inline std::vector<Object*>& GetObjects() { return objects; }
         inline std::vector<Zone*>& GetZones() { return zones; }
-        inline Player* GetPlayer() { return player; }
 
         inline sf::Vector2i GetSize() { return size; };
 
@@ -36,7 +34,6 @@ namespace UT
         sf::Vector2i size = {};
         std::vector<Object*> objects = {};
         std::vector<Zone*> zones = {};
-        Player* player;
     };
 }
 #endif

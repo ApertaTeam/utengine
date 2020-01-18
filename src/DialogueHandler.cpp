@@ -1,5 +1,7 @@
 #include "DialogueHandler.h"
 #include "Logger.h"
+#include "Input.h"
+#include "Game.h"
 
 namespace UT
 {
@@ -13,9 +15,9 @@ namespace UT
         this->isDone = CompletionState::CompletedAll;
         this->items = {};
         this->objectType = ObjectType::Object;
-        this->writerPos = 0;
         this->curItem = 0;
         this->writer = TextWriter();
+        this->shouldPausePlayer = true;
 
         /*
         *   left: 32
@@ -36,11 +38,54 @@ namespace UT
 
     void DialogueHandler::Update(float delta)
     {
+        textbox.Update(delta);
+
         if (isDone == CompletionState::Incomplete)
         {
-            writer.SetRenderPosition({ 35, 170 });
-            textbox.Update(delta);
+            if (InputHandler::IsInputPressed(InputActions::Skip))
+            {
+                writer.textPosition = writer.rawText.length();
+            }
+
             writer.Update(delta);
+
+            if (writer.textPosition >= writer.rawText.length())
+            {
+                isDone = CompletionState::CompletedSingle;
+                writer.RawDataCheck();
+            }
+        }
+        else if(isDone == CompletionState::CompletedSingle)
+        {
+            if (InputHandler::IsInputPressed(InputActions::Confirm))
+            {
+                curItem++;
+
+                if (items.size() > curItem)
+                {
+                    writer.textPosition = 0;
+                    writer.SetFont(&(*characters[items[curItem].character].font));
+                    writer.rawText = items[curItem].text;
+
+
+                    isDone = CompletionState::Incomplete;
+                }
+                else
+                {
+                    isDone = CompletionState::CompletedAll;
+
+                    ResetRect();
+
+                    if (shouldPausePlayer)
+                    {
+                        Game::GetPlayer()->canMove = true;
+                    }
+                    else
+                    {
+                        shouldPausePlayer = true;
+                    }
+                }
+            }
         }
     }
 
@@ -66,16 +111,22 @@ namespace UT
             Sprite(textboxTexture, {50, 50, 25, 25}),
         };
 
-        textbox.rect = { 0, 0, 0, 0 };
         textbox.slice = textboxSlices;
+        curItem = 0;
 
+        writer.textPosition = 0;
         writer.SetFont(&(*characters[items[curItem].character].font));
         writer.rawText = items[curItem].text;
+        writer.RawDataCheck();
+        writer.SetRenderPosition({ 35, 170 });
         
 
         isDone = CompletionState::Incomplete;
-        writerPos = 0;
-        curItem = 0;
+
+        if (shouldPausePlayer)
+        {
+            Game::GetPlayer()->canMove = false;
+        }
     }
 
     void DialogueHandler::MoveToRect(sf::FloatRect rect, int time)
@@ -95,6 +146,8 @@ namespace UT
 
     void DialogueHandler::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
+        if (isDone == CompletionState::CompletedAll) return;
+
         target.draw(textbox);
         target.draw(writer);
     }

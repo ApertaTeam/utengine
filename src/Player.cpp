@@ -211,21 +211,31 @@ namespace UT
         sprite.setPosition(position - sf::Vector2f(std::floor(sprite.GetSize().x / 2.f), std::floor(sprite.GetSize().y / 2.f)));
 
         // Check interactions
-        std::vector<Interactable*> interactables = CollisionHandler::CheckAllInteractables({
-            (int)tempPosition.x + collisionBox.left,
-            (int)tempPosition.y + collisionBox.top,
-            collisionBox.width,
-            collisionBox.height
-            }, 1);
-
-        bool confirmPressed = InputHandler::IsInputPressed(InputActions::Confirm);
-        for (int i = 0; i < interactables.size(); i++)
+        if (canMove)
         {
-            if (interactables[i] != nullptr)
+            std::vector<Interactable*> interactables = CollisionHandler::CheckAllInteractables({
+                (int)tempPosition.x + collisionBox.left,
+                (int)tempPosition.y + collisionBox.top,
+                collisionBox.width,
+                collisionBox.height
+                }, 1);
+
+            bool confirmPressed = InputHandler::IsInputPressed(InputActions::Confirm);
+
+            if (interactables.size() > 0 && confirmPressed)
             {
-                if (interactables[i]->isAction || confirmPressed)
+                InputHandler::Reset();
+            }
+
+            for (int i = 0; i < interactables.size(); i++)
+            {
+                if (interactables[i] != nullptr)
                 {
-                    interactables[i]->Run();
+                    if (interactables[i]->isAction || confirmPressed)
+                    {
+                        interactables[i]->Run();
+                        InputHandler::Reset(true);
+                    }
                 }
             }
         }

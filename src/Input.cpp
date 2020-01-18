@@ -218,4 +218,24 @@ namespace UT
             _instance->gamepadAliases[action][0] = button;
         }
     }
+
+    void InputHandler::Reset(InputActions action, bool clear)
+    {
+        if (_instance->keyStates[action] == InputState::Held && !clear)
+        {
+            _instance->keyStates[action] = InputState::Pressed;
+        }
+        else if (clear)
+        {
+            _instance->keyStates[action] = InputState::None;
+        }
+    }
+
+    void InputHandler::Reset(bool clear)
+    {
+        for (auto const& [key, val] : _instance->keyStates)
+        {
+            Reset(key);
+        }
+    }
 }

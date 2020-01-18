@@ -59,11 +59,11 @@ namespace UT
 
 
 
-        int writerPos;
         std::vector<DialogueItem> items;
         std::unordered_map<std::string_view, DialogueCharacter> characters;
         int textboxTexture;
         sf::FloatRect defaultRect;
+        bool shouldPausePlayer;
 
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

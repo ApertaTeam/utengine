@@ -73,8 +73,9 @@ namespace UT
 
             // Run main update method for all objects
             std::vector<Object*> objects = room->GetObjects();
-            objects.reserve(objects.size() + globalObjects.size());
+            objects.reserve(objects.size() + globalObjects.size() + 1);
             objects.insert(objects.end(), globalObjects.begin(), globalObjects.end());
+            objects.insert(objects.end(), player);
             for (int i = 0; i < objects.size(); i++)
             {
                 objects[i]->Update((float)delta);
@@ -99,8 +100,9 @@ namespace UT
 
         // Render all objects
         std::vector<Object*> objects = room->GetObjects();
-        objects.reserve(objects.size() + globalObjects.size());
+        objects.reserve(objects.size() + globalObjects.size() + 1);
         objects.insert(objects.end(), globalObjects.begin(), globalObjects.end());
+        objects.insert(objects.end(), player);
         std::sort(objects.begin(), objects.end(), [](const Object* x, const Object* y)
         {
             return x->depth < y->depth;
@@ -213,6 +215,11 @@ namespace UT
     Room* Game::GetRoom()
     {
         return this->room;
+    }
+
+    Player* Game::GetPlayer()
+    {
+        return instance->player;
     }
 
     Game* Game::GetInstance()

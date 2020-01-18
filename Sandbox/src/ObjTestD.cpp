@@ -1,5 +1,6 @@
 #include "ObjTestD.h"
 
+#include <Game.h>
 #include <AssetHandler.h>
 #include <DialogueHandler.h>
 #include <SaveHandler.h>
@@ -79,14 +80,6 @@ namespace UTSandbox
         character.font = AssetHandler::GetFontById(fontId);
         character.sprites.insert(std::pair<std::string_view, AnimatedSprite&>("idle", characterSprite));
         dhInstance->characters.insert(std::pair<std::string_view, DialogueCharacter>("sans", character));
-        
-
-        // Item 01
-        DialogueItem item_01 = DialogueItem();
-        item_01.character = "sans";
-        item_01.text = "* hey buddy\n* i dont think this is my font";
-        item_01.sprite = "idle";
-        dhInstance->items.push_back(item_01);
     }
 
     void ObjTestD::Update(float delta)
@@ -104,11 +97,21 @@ namespace UTSandbox
 
     void ObjTestD::Run()
     {
+        if (!Game::GetPlayer()->canMove) return;
         std::cout << "Interation confirmed." << std::endl;
+
         if (isRunning) return;
         isRunning = true;
 
         DialogueHandler* dhInstance = DialogueHandler::GetInstance();
+        dhInstance->items.clear();
+
+        // Item 01
+        DialogueItem item_01 = DialogueItem();
+        item_01.character = "sans";
+        item_01.text = "* hey buddy\n* i dont think this is my font";
+        item_01.sprite = "idle";
+        dhInstance->items.push_back(item_01);
 
         dhInstance->StartDialogue();
     }

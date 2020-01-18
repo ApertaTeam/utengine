@@ -125,8 +125,7 @@ int main()
 
     player.position = {140, 140};
     player.collisionBox = { -8, 5, 17, 10 };
-    mainRoom.AddElement(&player);
-    secondaryRoom.AddElement(&player);
+    mainGame.player = &player;
 
     //-- Main room objects end --//
 

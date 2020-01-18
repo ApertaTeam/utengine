@@ -8,6 +8,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <map>
 #include <array>
 
 #define LSAXIS_NEGX 101
@@ -52,6 +53,9 @@ namespace UT
         static void Set(InputActions action, sf::Keyboard::Key key, bool alt = false);
         static void Set(InputActions action, unsigned int button, bool alt = false);
 
+        static void Reset(InputActions action, bool clear = false);
+        static void Reset(bool clear = false);
+
         void Update(bool focused);
 
     private:
@@ -59,7 +63,7 @@ namespace UT
 
         std::unordered_map<InputActions, std::array<sf::Keyboard::Key, 2>> keyboardAliases;
         std::unordered_map<InputActions, std::array<unsigned int, 2>> gamepadAliases;
-        std::unordered_map<InputActions, InputState> keyStates;
+        std::map<InputActions, InputState> keyStates;
     };
 }
 
