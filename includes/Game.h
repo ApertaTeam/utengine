@@ -12,6 +12,8 @@
 #include "DoorHandler.h"
 #include "SaveHandler.h"
 
+#include "Terminal.h"
+
 namespace UT
 {
     // Handles a running instance of the game.
@@ -75,6 +77,8 @@ namespace UT
         SaveHandler saveHandler;
         DialogueHandler dialogueHandler;
         DoorHandler doorHandler;
+
+        Terminal terminal;
     };
 }
 

@@ -8,7 +8,6 @@ namespace UT
     Player::Player(std::unordered_map<std::string, std::vector<sf::IntRect>> frames)
         : textureRects(frames), texture(-1), speed(3), direction(PlayerDirection::South), isMoving(false), canMove(true)
     {
-
     }
 
     void Player::Init()
@@ -224,7 +223,7 @@ namespace UT
 
             if (interactables.size() > 0 && confirmPressed)
             {
-                InputHandler::Reset();
+                InputHandler::Reset(InputActions::Confirm);
             }
 
             for (int i = 0; i < interactables.size(); i++)
@@ -234,7 +233,7 @@ namespace UT
                     if (interactables[i]->isAction || confirmPressed)
                     {
                         interactables[i]->Run();
-                        InputHandler::Reset(true);
+                        InputHandler::Reset(InputActions::Confirm, true);
                     }
                 }
             }

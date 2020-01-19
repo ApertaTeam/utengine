@@ -57,14 +57,14 @@ namespace UT
     {
         // Convert positions from full resolution to current resolution
         sf::IntRect convertedRect;
-        sf::Vector2f tempRect = target.mapPixelToCoords({ (int)rect.left, (int)rect.top });
+        /*sf::Vector2f tempRect = target.mapPixelToCoords({ (int)rect.left, (int)rect.top });
         convertedRect.left = tempRect.x;
         convertedRect.top = tempRect.y;
         
-        tempRect = target.mapPixelToCoords({ (int)rect.width, (int)rect.height});
+        tempRect = target.mapPixelToCoords({ (int)rect.width, (int)rect.height });
         convertedRect.width = tempRect.x;
-        convertedRect.height = tempRect.y;
-
+        convertedRect.height = tempRect.y;*/
+        convertedRect = (sf::IntRect)rect;
         // Texture slices
         auto upperLeft = slice[0], upperCenter = slice[1], upperRight = slice[2];
         auto middleLeft = slice[3], middleCenter = slice[4], middleRight = slice[5];

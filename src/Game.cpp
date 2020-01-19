@@ -33,6 +33,10 @@ namespace UT
         globalObjects.push_back(&dialogueHandler); UIObjects.push_back(&dialogueHandler);
         globalObjects.push_back(&doorHandler);
 
+        #ifdef UT_DEBUG
+        globalObjects.push_back(&terminal); UIObjects.push_back(&terminal);
+        #endif
+
         instance = this;
     }
 
@@ -159,6 +163,8 @@ namespace UT
 
         // Initialize room
         room->Initialize();
+
+        player->Init();
 
 
         // Start update loop
