@@ -47,19 +47,20 @@ namespace UT
 
     void Game::Update()
     {
-        inputHandler.Update(!window->hasFocus());
-
         sf::Int32 FPStime = FPStimeObj.getElapsedTime().asMilliseconds();
 
         // Event polling
         sf::Event event;
         while (window->pollEvent(event))
         {
+            inputHandler.Update(event, !window->hasFocus());
+
             if (event.type == sf::Event::KeyPressed)
             {
                 if (event.key.code == sf::Keyboard::Escape) window->close();
             }
-            else if (event.type == sf::Event::Closed) {
+            else if (event.type == sf::Event::Closed)
+            {
                 window->close();
             }
         }
@@ -111,7 +112,7 @@ namespace UT
         {
             return x->depth < y->depth;
         });
-        
+
         sf::View windowView = window->getView();
         for (int i = 0; i < objects.size(); i++)
         {
@@ -128,7 +129,7 @@ namespace UT
         }
 
         if (BatchHandler::getInstance().BatchExists()) BatchHandler::getInstance().DrawBatch();
-        
+
         window->display();
     }
 
@@ -147,7 +148,7 @@ namespace UT
         // Create & initialize main window
         window.Init(title, { 640, 480 }, sf::Style::Close | sf::Style::Titlebar , icon); // Standard
         //window.Init(title, { 640, 480 }, sf::Style::Fullscreen , icon); // Fullscreen test
-        
+
         if (!window.GetWin())
         {
             GlobalLogger->Log(Logger::Error, "Failed to create main game window.");

@@ -3,6 +3,7 @@
 
 #include <functional>
 #include <string>
+#include <memory>
 
 #include "AnimatedSprite.h"
 #include "Font.h"

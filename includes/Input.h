@@ -5,11 +5,14 @@
 
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Joystick.hpp>
+#include <SFML/Window/Event.hpp>
 
 #include <string>
 #include <unordered_map>
+#include <functional>
 #include <map>
 #include <array>
+#include <vector>
 
 #define LSAXIS_NEGX 101
 #define LSAXIS_NEGY 102
@@ -56,7 +59,9 @@ namespace UT
         static void Reset(InputActions action, bool clear = false);
         static void Reset(bool clear = false);
 
-        void Update(bool focused);
+        static void RegisterCallback(InputState state, std::function<void(sf::Event::KeyEvent)> func);
+
+        void Update(sf::Event event, bool focused);
 
     private:
         InputHandler();
@@ -64,6 +69,7 @@ namespace UT
         std::unordered_map<InputActions, std::array<sf::Keyboard::Key, 2>> keyboardAliases;
         std::unordered_map<InputActions, std::array<unsigned int, 2>> gamepadAliases;
         std::map<InputActions, InputState> keyStates;
+        std::map<InputState, std::vector<std::function<void(sf::Event::KeyEvent)>>> callbacks;
     };
 }
 

@@ -3,6 +3,7 @@
 static UT::InputHandler* _instance;
 namespace UT
 {
+    typedef std::function<void(sf::Event::KeyEvent)> CallbackSignature;
     InputHandler::InputHandler()
     {
         keyboardAliases = {
@@ -29,12 +30,33 @@ namespace UT
             { InputActions::Right, {LSAXIS_POSX,15} }
         };
 
+        callbacks = std::map<InputState, std::vector<CallbackSignature>>
+        {
+            { InputState::Pressed, std::vector<CallbackSignature>() },
+            { InputState::Released, std::vector<CallbackSignature>() }
+        };
+
         _instance = this;
     }
 
-    void InputHandler::Update(bool focused)
+    void InputHandler::Update(sf::Event event, bool focused)
     {
         if (focused) return;
+
+        if (event.type == sf::Event::KeyPressed)
+        {
+            for (auto& callback : callbacks[InputState::Pressed])
+            {
+                callback(event.key);
+            }
+        }
+        else if (event.type == sf::Event::KeyReleased)
+        {
+            for (auto& callback : callbacks[InputState::Released])
+            {
+                callback(event.key);
+            }
+        }
 
         std::map<InputActions, bool> actionHandled =
         {
@@ -48,7 +70,7 @@ namespace UT
             {InputActions::Left, false},
             {InputActions::Right, false}
         };
-        
+
         for (auto &&keyAlias : keyboardAliases)
         {
             if (actionHandled[keyAlias.first]) continue;
@@ -149,7 +171,7 @@ namespace UT
                 {
                     alias2 = sf::Joystick::isButtonPressed(0, gamepadAlias.second[0]);
                 }
-                
+
                 if (alias1 || alias2)
                 {
                     if (keyStates[gamepadAlias.first] != InputState::Pressed && keyStates[gamepadAlias.first] != InputState::Held)
@@ -237,5 +259,12 @@ namespace UT
         {
             Reset(key);
         }
+    }
+
+    // TODO: Some way of unregistering a callback
+    // TODO: Check for duplicate callback
+    void InputHandler::RegisterCallback(InputState state, CallbackSignature func)
+    {
+        _instance->callbacks[state].push_back(func);
     }
 }
