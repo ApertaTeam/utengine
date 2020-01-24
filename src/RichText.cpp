@@ -14,6 +14,7 @@ namespace UT
         this->renderPosition = { 0, 0 };
         this->monospacing = -1;
         this->renderOffset = { 0, 0 };
+        this->scale = 1.0;
         this->textTypeFlags = static_cast<char>(TextType::Normal);
 
         this->colorPresets = std::unordered_map<std::string, int32_t>();
@@ -46,7 +47,7 @@ namespace UT
             switch (rawText.at(i))
             {
             case '\n':
-                y += font->GetGlyph('A').texture.height + font->GetGlyph('A').offset + (monospacing == -1 ? 5 : monospacing * 2);
+                y += (font->GetGlyph('A').texture.height + font->GetGlyph('A').offset + (monospacing == -1 ? 5 : monospacing * 2)) * scale;
                 x = renderPosition.x;
                 verifiedTag = true;
                 break;
@@ -56,15 +57,15 @@ namespace UT
                 {
                     if (rawText[(size_t)i + 1] == 'i')
                     {
-                        y += font->GetGlyph('A').texture.height + font->GetGlyph('A').offset;
+                        y += (font->GetGlyph('A').texture.height + font->GetGlyph('A').offset) * scale;
 
                         if (monospacing == -1)
                         {
-                            x = renderPosition.x + font->GetGlyph('*').shift + font->GetGlyph(' ').shift;
+                            x = renderPosition.x + (font->GetGlyph('*').shift + font->GetGlyph(' ').shift) * scale;
                         }
                         else
                         {
-                            x = renderPosition.x + font->GetGlyph('*').texture.width + font->GetGlyph(' ').texture.width + monospacing * 2;
+                            x = renderPosition.x + (font->GetGlyph('*').texture.width + font->GetGlyph(' ').texture.width + monospacing * 2) * scale;
                         }
                         i += 1;
                         verifiedTag = true;
@@ -152,15 +153,16 @@ namespace UT
                 auto glyph = font->GetGlyph(rawText.at(i));
                 auto sprite = font->GetGlyphSprite(rawText.at(i));
                 sprite.setPosition(x + localRenderOffset.x, y + localRenderOffset.y);
+                sprite.setScale({ scale, scale });
                 sprite.color = formatColor;
 
                 if (monospacing == -1)
                 {
-                    x += glyph.shift;
+                    x += (glyph.shift) * scale;
                 }
                 else
                 {
-                    x += glyph.texture.width + monospacing;
+                    x += (glyph.texture.width + monospacing) * scale;
                 }
 
                 localWavyAngle--;

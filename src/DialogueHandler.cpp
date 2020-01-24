@@ -118,7 +118,8 @@ namespace UT
         writer.SetFont(&(*characters[items[curItem].character].font));
         writer.rawText = items[curItem].text;
         writer.RawDataCheck();
-        writer.SetRenderPosition({ 35, 170 });
+        writer.SetRenderPosition({ 70, 340 });
+        writer.GetRichText()->scale = 2.0;
         
 
         isDone = CompletionState::Incomplete;

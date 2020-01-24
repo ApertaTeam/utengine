@@ -25,6 +25,7 @@ namespace UT
         std::string rawText;
         sf::Vector2f renderPosition;
         short monospacing;
+        float scale;
 
         char textTypeFlags;
 

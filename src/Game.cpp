@@ -120,6 +120,8 @@ namespace UT
             {
                 window->setView(window->getDefaultView());
                 window->draw(*objects[i]);
+
+                if (BatchHandler::getInstance().BatchExists()) BatchHandler::getInstance().DrawBatch();
                 window->setView(windowView);
             }
             else
