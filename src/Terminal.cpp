@@ -31,10 +31,21 @@ namespace UT
 
         inputBox.slice = terminalSlices;
         outputBox.slice = terminalSlices;
-        inputBox.MoveToRect(sf::FloatRect(8, 8, 300, 200), 1);
-        outputBox.MoveToRect(sf::FloatRect(320, 8, 630, 200), 1);
+        inputBox.MoveToRect(sf::FloatRect(8, 8, 640 - 8, 480 - 8), 1);
+        outputBox.MoveToRect(sf::FloatRect(8, 480 - 8 - 60, 640 - 8, 480 - 8), 1);
 
         instance = this;
+
+        InputHandler::RegisterCallback(InputState::Pressed, [&](sf::Event::KeyEvent keyEvent)
+            {
+                if (keyEvent.code < 24)
+                {
+                    std::cout << (char)(keyEvent.code + 65) << std::endl;
+                }
+
+                
+                buttonsPressed.push_back(keyEvent.code);
+            });
     }
 
     void Terminal::Init()
@@ -44,10 +55,13 @@ namespace UT
 
     void Terminal::Update(float delta)
     {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tilde))
+        if (std::find(buttonsPressed.begin(), buttonsPressed.end(), sf::Keyboard::Tilde) - buttonsPressed.begin() != buttonsPressed.end() - buttonsPressed.begin())
         {
             isVisible = !isVisible;
         }
+        
+
+        buttonsPressed.clear();
 
         if (!isVisible) return;
         inputBox.Update(delta);

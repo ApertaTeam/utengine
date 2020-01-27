@@ -2,6 +2,7 @@
 #define UT_TERMINAL_H
 #include "Object.h"
 #include "Rectangle9Slice.h"
+#include "TextWriter.h"
 
 namespace UT
 {
@@ -18,6 +19,11 @@ namespace UT
 
         Rectangle9Slice inputBox;
         Rectangle9Slice outputBox;
+
+        TextWriter inputWriter;
+        TextWriter outputWriter;
+
+        std::vector<sf::Keyboard::Key> buttonsPressed;
 
         bool isVisible;
     };
