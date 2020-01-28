@@ -2,7 +2,7 @@
 #define UT_TERMINAL_H
 #include "Object.h"
 #include "Rectangle9Slice.h"
-#include "TextWriter.h"
+#include "RichText.h"
 
 namespace UT
 {
@@ -20,8 +20,8 @@ namespace UT
         Rectangle9Slice inputBox;
         Rectangle9Slice outputBox;
 
-        TextWriter inputWriter;
-        TextWriter outputWriter;
+        RichText inputText;
+        RichText outputText;
 
         std::vector<sf::Keyboard::Key> buttonsPressed;
 

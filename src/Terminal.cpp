@@ -34,13 +34,46 @@ namespace UT
         inputBox.MoveToRect(sf::FloatRect(8, 8, 640 - 8, 480 - 8), 1);
         outputBox.MoveToRect(sf::FloatRect(8, 480 - 8 - 60, 640 - 8, 480 - 8), 1);
 
-        instance = this;
+        inputText.renderPosition = { 16, 420 };
+        inputText.font = &*AssetHandler::GetFontById(AssetHandler::LoadFontFromFile("font.png", "font.dat"));
+        inputText.rawText = "";
 
+
+        instance = this;
+        
         InputHandler::RegisterCallback(InputState::Pressed, [&](sf::Event::KeyEvent keyEvent)
             {
-                if (keyEvent.code < 24)
+                std::cout << keyEvent.code << ":" << (char)(keyEvent.code + 65) << std::endl;
+                if (keyEvent.code < 26)
                 {
-                    std::cout << (char)(keyEvent.code + 65) << std::endl;
+                    if (keyEvent.shift) inputText.rawText += (char)(keyEvent.code + 65);
+                    else inputText.rawText += (char)(keyEvent.code + 97);
+                }
+                else
+                {
+                    switch (keyEvent.code)
+                    {
+                    case 26: inputText.rawText += '0'; break;
+                    case 27: inputText.rawText += '1'; break;
+                    case 28: inputText.rawText += '2'; break;
+                    case 29: inputText.rawText += '3'; break;
+                    case 30: inputText.rawText += '4'; break;
+                    case 31: inputText.rawText += '5'; break;
+                    case 32: inputText.rawText += '6'; break;
+                    case 33: inputText.rawText += '7'; break;
+                    case 34: inputText.rawText += '8'; break;
+                    case 35: inputText.rawText += '9'; break;
+                    case 49: inputText.rawText += ','; break;
+                    case 50: inputText.rawText += '.'; break;
+                    case 56:
+                        if(keyEvent.shift) inputText.rawText += '_';
+                        else inputText.rawText += '-';
+                        break;
+                    case 57: inputText.rawText += ' '; break;
+                    case 59:
+                        if(inputText.rawText.length() > 0) inputText.rawText = inputText.rawText.substr(0, inputText.rawText.length() - 1);
+                        break;
+                    }
                 }
 
                 
@@ -74,5 +107,8 @@ namespace UT
 
         target.draw(inputBox);
         target.draw(outputBox);
+
+        target.draw(inputText);
+        target.draw(outputText);
     }
 }
