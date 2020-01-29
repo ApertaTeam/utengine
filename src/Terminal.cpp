@@ -2,6 +2,9 @@
 #include "Input.h"
 #include "AssetHandler.h"
 
+#include <string>
+#include <locale>
+
 namespace UT
 {
     static Terminal* instance;
@@ -43,64 +46,6 @@ namespace UT
         
         InputHandler::RegisterCallback(InputState::Pressed, [&](sf::Event::KeyEvent keyEvent)
             {
-                std::cout << keyEvent.code << ":" << (char)(keyEvent.code + 65) << std::endl;
-                if (keyEvent.code < 26)
-                {
-                    if (keyEvent.shift) inputText.rawText += (char)(keyEvent.code + 65);
-                    else inputText.rawText += (char)(keyEvent.code + 97);
-                }
-                else
-                {
-                    switch (keyEvent.code)
-                    {
-                    case 26:
-                        if (keyEvent.shift) inputText.rawText += '=';
-                        else if (keyEvent.alt) inputText.rawText += '}';
-                        else inputText.rawText += '0';
-                        break;
-                    case 27: inputText.rawText += '1'; break;
-                    case 28: inputText.rawText += '2'; break;
-                    case 29: inputText.rawText += '3'; break;
-                    case 30: inputText.rawText += '4'; break;
-                    case 31: inputText.rawText += '5'; break;
-                    case 32: inputText.rawText += '6'; break;
-                    case 33:
-                        if (keyEvent.alt) inputText.rawText += '{';
-                        else inputText.rawText += '7';
-                        break;
-                    case 34:
-                        if (keyEvent.shift) inputText.rawText += '(';
-                        else inputText.rawText += '8';
-                        break;
-                    case 35:
-                        if (keyEvent.shift) inputText.rawText += ')';
-                        else inputText.rawText += '9';
-                        break;
-                    case 49:
-                        if (keyEvent.shift) inputText.rawText += ';';
-                        else inputText.rawText += ',';
-                        break;
-                    case 50:
-                        if (keyEvent.shift) inputText.rawText += ':';
-                        else inputText.rawText += '.';
-                        break;
-                    case 52:
-                        inputText.rawText += '\'';
-                        break;
-                    case 56:
-                        if(keyEvent.shift) inputText.rawText += '_';
-                        else inputText.rawText += '-';
-                        break;
-                    case 57: inputText.rawText += ' '; break;
-                    case 59:
-                        if(inputText.rawText.length() > 0) inputText.rawText = inputText.rawText.substr(0, inputText.rawText.length() - 1);
-                        break;
-                    case 67: inputText.rawText += '+'; break;
-                    case 68: inputText.rawText += '-'; break;
-                    }
-                }
-
-                
                 buttonsPressed.push_back(keyEvent.code);
             });
     }
@@ -124,6 +69,28 @@ namespace UT
         inputBox.Update(delta);
         outputBox.Update(delta);
     }
+
+	void Terminal::OnTextEntered(sf::Event::TextEvent evt)
+	{
+        if (!isVisible) return;
+        std::wcout << L"Unicode Input: " << evt.unicode << std::endl;
+        switch (evt.unicode)
+        {
+        case 8:
+            if (inputText.rawText.length() > 0) inputText.rawText = inputText.rawText.substr(0, inputText.rawText.length() - 1);
+            break;
+        case 9:
+            inputText.rawText += "  ";
+            break;
+        default:
+        {
+            std::wstring_convert<std::codecvt<wchar_t, char, std::mbstate_t>> converter;
+            const std::wstring widestr = std::wstring(1, evt.unicode);
+            inputText.rawText += converter.to_bytes(widestr);
+            break;
+        }
+        }
+	}
 
     void Terminal::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {

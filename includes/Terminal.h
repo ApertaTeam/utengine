@@ -14,6 +14,8 @@ namespace UT
         void Init();
         void Update(float delta);
 
+        void OnTextEntered(sf::Event::TextEvent evt);
+
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

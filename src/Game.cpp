@@ -59,6 +59,10 @@ namespace UT
             {
                 if (event.key.code == sf::Keyboard::Escape) window->close();
             }
+            else if (event.type == sf::Event::TextEntered)
+            {
+                terminal.OnTextEntered(event.text);
+            }
             else if (event.type == sf::Event::Closed)
             {
                 window->close();

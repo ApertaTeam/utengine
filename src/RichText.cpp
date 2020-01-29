@@ -137,7 +137,7 @@ namespace UT
                 continue;
             }
 
-            if(i < rawText.length()) {
+            if(i < rawText.length() && font->HasGlyph(rawText.at(i))) {
                 sf::Vector2f localRenderOffset = { 0, 0 };
                 if (textTypeFlags & static_cast<char>(TextType::Shaky))
                 {

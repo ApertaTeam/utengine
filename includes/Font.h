@@ -28,6 +28,7 @@ namespace UT
         Font();
         Font(int texId, std::unordered_map<char, Glyph> glyphs);
 
+        bool HasGlyph(char character) const { return glyphs.find(character) != glyphs.end(); }
         Glyph GetGlyph(char character) const { return glyphs.at(character); }
         Sprite GetGlyphSprite(char character);
         Sprite GetGlyphAsColor(char character, sf::Color color);
