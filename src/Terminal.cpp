@@ -53,18 +53,40 @@ namespace UT
                 {
                     switch (keyEvent.code)
                     {
-                    case 26: inputText.rawText += '0'; break;
+                    case 26:
+                        if (keyEvent.shift) inputText.rawText += '=';
+                        else if (keyEvent.alt) inputText.rawText += '}';
+                        else inputText.rawText += '0';
+                        break;
                     case 27: inputText.rawText += '1'; break;
                     case 28: inputText.rawText += '2'; break;
                     case 29: inputText.rawText += '3'; break;
                     case 30: inputText.rawText += '4'; break;
                     case 31: inputText.rawText += '5'; break;
                     case 32: inputText.rawText += '6'; break;
-                    case 33: inputText.rawText += '7'; break;
-                    case 34: inputText.rawText += '8'; break;
-                    case 35: inputText.rawText += '9'; break;
-                    case 49: inputText.rawText += ','; break;
-                    case 50: inputText.rawText += '.'; break;
+                    case 33:
+                        if (keyEvent.alt) inputText.rawText += '{';
+                        else inputText.rawText += '7';
+                        break;
+                    case 34:
+                        if (keyEvent.shift) inputText.rawText += '(';
+                        else inputText.rawText += '8';
+                        break;
+                    case 35:
+                        if (keyEvent.shift) inputText.rawText += ')';
+                        else inputText.rawText += '9';
+                        break;
+                    case 49:
+                        if (keyEvent.shift) inputText.rawText += ';';
+                        else inputText.rawText += ',';
+                        break;
+                    case 50:
+                        if (keyEvent.shift) inputText.rawText += ':';
+                        else inputText.rawText += '.';
+                        break;
+                    case 52:
+                        inputText.rawText += '\'';
+                        break;
                     case 56:
                         if(keyEvent.shift) inputText.rawText += '_';
                         else inputText.rawText += '-';
@@ -73,6 +95,8 @@ namespace UT
                     case 59:
                         if(inputText.rawText.length() > 0) inputText.rawText = inputText.rawText.substr(0, inputText.rawText.length() - 1);
                         break;
+                    case 67: inputText.rawText += '+'; break;
+                    case 68: inputText.rawText += '-'; break;
                     }
                 }
 
