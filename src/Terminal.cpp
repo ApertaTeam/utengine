@@ -1,3 +1,4 @@
+#ifdef UT_DEBUG
 #include "Terminal.h"
 #include "Input.h"
 #include "AssetHandler.h"
@@ -43,11 +44,6 @@ namespace UT
 
 
         instance = this;
-        
-        InputHandler::RegisterCallback(InputState::Pressed, [&](sf::Event::KeyEvent keyEvent)
-            {
-                buttonsPressed.push_back(keyEvent.code);
-            });
     }
 
     void Terminal::Init()
@@ -57,14 +53,6 @@ namespace UT
 
     void Terminal::Update(float delta)
     {
-        if (std::find(buttonsPressed.begin(), buttonsPressed.end(), sf::Keyboard::Tilde) - buttonsPressed.begin() != buttonsPressed.end() - buttonsPressed.begin())
-        {
-            isVisible = !isVisible;
-        }
-        
-
-        buttonsPressed.clear();
-
         if (!isVisible) return;
         inputBox.Update(delta);
         outputBox.Update(delta);
@@ -72,8 +60,13 @@ namespace UT
 
 	void Terminal::OnTextEntered(sf::Event::TextEvent evt)
 	{
+        if (evt.unicode == 230)
+        {
+            isVisible = !isVisible;
+            return;
+        }
+
         if (!isVisible) return;
-        std::wcout << L"Unicode Input: " << evt.unicode << std::endl;
         switch (evt.unicode)
         {
         case 8:
@@ -81,6 +74,9 @@ namespace UT
             break;
         case 9:
             inputText.rawText += "  ";
+            break;
+        case 13:
+            inputText.rawText += "\n";
             break;
         default:
         {
@@ -103,3 +99,4 @@ namespace UT
         target.draw(outputText);
     }
 }
+#endif

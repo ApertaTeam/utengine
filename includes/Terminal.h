@@ -1,3 +1,4 @@
+#ifdef UT_DEBUG
 #ifndef UT_TERMINAL_H
 #define UT_TERMINAL_H
 #include "Object.h"
@@ -25,10 +26,8 @@ namespace UT
         RichText inputText;
         RichText outputText;
 
-        std::vector<sf::Keyboard::Key> buttonsPressed;
-
         bool isVisible;
     };
 }
-
+#endif
 #endif

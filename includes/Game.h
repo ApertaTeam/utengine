@@ -78,7 +78,9 @@ namespace UT
         DialogueHandler dialogueHandler;
         DoorHandler doorHandler;
 
+        #ifdef UT_DEBUG
         Terminal terminal;
+        #endif
     };
 }
 
