@@ -16,6 +16,8 @@ namespace UT
         void Update(float delta);
 
         void OnTextEntered(sf::Event::TextEvent evt);
+        void OnKeyPressed(sf::Event::KeyEvent evt);
+        void OnKeyReleased(sf::Event::KeyEvent evt);
 
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -27,6 +29,14 @@ namespace UT
         RichText outputText;
 
         bool isVisible;
+        bool isShiftHeld;
+
+        uint8_t outputScroll;
+
+        std::string outputRawText;
+
+        std::vector<std::string> inputHistory;
+        int inputHistoryIndex = 0;
     };
 }
 #endif

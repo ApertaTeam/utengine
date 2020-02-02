@@ -58,10 +58,22 @@ namespace UT
             if (event.type == sf::Event::KeyPressed)
             {
                 if (event.key.code == sf::Keyboard::Escape) window->close();
+
+                #ifdef UT_DEBUG
+                terminal.OnKeyPressed(event.key);
+                #endif
+            }
+            else if (event.type == sf::Event::KeyReleased)
+            {
+                #ifdef UT_DEBUG
+                terminal.OnKeyReleased(event.key);
+                #endif
             }
             else if (event.type == sf::Event::TextEntered)
             {
+                #ifdef UT_DEBUG
                 terminal.OnTextEntered(event.text);
+                #endif
             }
             else if (event.type == sf::Event::Closed)
             {

@@ -16,6 +16,11 @@ namespace UT
         this->outputBox = Rectangle9Slice();
         this->isVisible = true;
         this->depth = 999999998;
+        this->isShiftHeld = false;
+        this->outputRawText = "";
+        this->outputScroll = 0;
+        this->inputHistory = {};
+        this->inputHistoryIndex = 0;
 
 
         int terminalTexture = AssetHandler::LoadTextureFromFile("terminal.png");
@@ -54,6 +59,7 @@ namespace UT
     void Terminal::Update(float delta)
     {
         if (!isVisible) return;
+
         inputBox.Update(delta);
         outputBox.Update(delta);
     }
@@ -72,11 +78,19 @@ namespace UT
         case 8:
             if (inputText.rawText.length() > 0) inputText.rawText = inputText.rawText.substr(0, inputText.rawText.length() - 1);
             break;
+
         case 9:
             inputText.rawText += "  ";
             break;
+
+            // Enter
         case 13:
-            inputText.rawText += "\n";
+            if (isShiftHeld) inputText.rawText += "\n";
+            else
+            {
+                inputHistory.push_back(inputText.rawText);
+                inputText.rawText = "";
+            }
             break;
         default:
         {
@@ -87,6 +101,50 @@ namespace UT
         }
         }
 	}
+
+    void Terminal::OnKeyPressed(sf::Event::KeyEvent evt)
+    {
+        std::cout << evt.code << std::endl;
+        isShiftHeld = evt.shift;
+
+        // Output history
+        if (evt.code == 61)
+        {
+            outputScroll++;
+        }
+        else if (evt.code == 62)
+        {
+            if (outputScroll > 0)
+            {
+                outputScroll--;
+            }
+        }
+
+        // Input history
+        if (evt.code == 73)
+        {
+            if (inputHistoryIndex < inputHistory.size())
+            {
+                inputHistoryIndex++;
+            }
+
+            inputText.rawText = inputHistory[inputHistoryIndex];
+        }
+        else if (evt.code == 74)
+        {
+            if (inputHistoryIndex > 0)
+            {
+                inputHistoryIndex--;
+            }
+
+            inputText.rawText = inputHistory[inputHistoryIndex];
+        }
+    }
+
+    void Terminal::OnKeyReleased(sf::Event::KeyEvent evt)
+    {
+        isShiftHeld = evt.shift;
+    }
 
     void Terminal::draw(sf::RenderTarget& target, sf::RenderStates states) const
     {
