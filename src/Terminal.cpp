@@ -88,10 +88,12 @@ namespace UT
             if (isShiftHeld) inputText.rawText += "\n";
             else
             {
+                BeginCodeExecution(inputText.rawText);
                 inputHistory.push_back(inputText.rawText);
                 inputText.rawText = "";
             }
             break;
+
         default:
         {
             std::wstring_convert<std::codecvt<wchar_t, char, std::mbstate_t>> converter;
@@ -101,6 +103,11 @@ namespace UT
         }
         }
 	}
+
+    void Terminal::BeginCodeExecution(std::string_view code)
+    {
+        // TODO: Implement processing/execution here (looking at you, Shad)
+    }
 
     void Terminal::OnKeyPressed(sf::Event::KeyEvent evt)
     {

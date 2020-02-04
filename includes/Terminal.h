@@ -15,6 +15,8 @@ namespace UT
         void Init();
         void Update(float delta);
 
+        void BeginCodeExecution(std::string_view code);
+
         void OnTextEntered(sf::Event::TextEvent evt);
         void OnKeyPressed(sf::Event::KeyEvent evt);
         void OnKeyReleased(sf::Event::KeyEvent evt);
