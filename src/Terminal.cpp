@@ -47,6 +47,8 @@ namespace UT
         inputText.font = &*AssetHandler::GetFontById(AssetHandler::LoadFontFromFile("font.png", "font.dat"));
         inputText.rawText = "";
 
+        inputText.ignoreTags = true;
+
 
         instance = this;
     }
@@ -111,7 +113,7 @@ namespace UT
 
     void Terminal::OnKeyPressed(sf::Event::KeyEvent evt)
     {
-        std::cout << evt.code << std::endl;
+        if (!isVisible) return;
         isShiftHeld = evt.shift;
 
         // Output history
@@ -150,6 +152,7 @@ namespace UT
 
     void Terminal::OnKeyReleased(sf::Event::KeyEvent evt)
     {
+        if (!isVisible) return;
         isShiftHeld = evt.shift;
     }
 

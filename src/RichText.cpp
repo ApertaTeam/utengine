@@ -14,6 +14,8 @@ namespace UT
         this->renderPosition = { 0, 0 };
         this->monospacing = -1;
         this->renderOffset = { 0, 0 };
+        this->ignoreTags = false;
+        this->wavyAngle = 0;
         this->scale = 1.0;
         this->textTypeFlags = static_cast<char>(TextType::Normal);
 
@@ -53,32 +55,36 @@ namespace UT
                 break;
 
             case '\\':
-                if ((size_t)i + 1 < rawText.size())
+                if (!ignoreTags)
                 {
-                    if (rawText[(size_t)i + 1] == 'i')
+                    if ((size_t)i + 1 < rawText.size())
                     {
-                        y += (font->GetGlyph('A').texture.height + font->GetGlyph('A').offset) * scale;
+                        if (rawText[(size_t)i + 1] == 'i')
+                        {
+                            y += (font->GetGlyph('A').texture.height + font->GetGlyph('A').offset) * scale;
 
-                        if (monospacing == -1)
-                        {
-                            x = renderPosition.x + (font->GetGlyph('*').shift + font->GetGlyph(' ').shift) * scale;
+                            if (monospacing == -1)
+                            {
+                                x = renderPosition.x + (font->GetGlyph('*').shift + font->GetGlyph(' ').shift) * scale;
+                            }
+                            else
+                            {
+                                x = renderPosition.x + (font->GetGlyph('*').texture.width + font->GetGlyph(' ').texture.width + monospacing * 2) * scale;
+                            }
+                            i += 1;
+                            verifiedTag = true;
+                            break;
                         }
-                        else
-                        {
-                            x = renderPosition.x + (font->GetGlyph('*').texture.width + font->GetGlyph(' ').texture.width + monospacing * 2) * scale;
-                        }
-                        i += 1;
-                        verifiedTag = true;
-                        break;
                     }
+
+                    cancelNext = true;
+                    verifiedTag = true;
                 }
 
-                cancelNext = true;
-                verifiedTag = true;
                 break;
 
             case '[':
-                if (!cancelNext)
+                if (!cancelNext && !ignoreTags)
                 {
                     std::string temp = rawText.substr((size_t)i + 1, rawText.substr((size_t)i + 1).find_first_of(']'));
                     std::string tempData = temp.substr(temp.find_first_of(":") + 1);

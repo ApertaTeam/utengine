@@ -40,8 +40,15 @@ namespace UT
     {
         textbox.Update(delta);
 
+
         if (isDone == CompletionState::Incomplete)
         {
+            if (items[curItem].sprite != "")
+            {
+                writer.SetRenderPosition({ 120, 340 });
+            }
+
+
             if (InputHandler::IsInputPressed(InputActions::Skip))
             {
                 writer.textPosition = writer.rawText.length();
@@ -151,5 +158,11 @@ namespace UT
 
         target.draw(textbox);
         target.draw(writer);
+
+
+        if (items[curItem].sprite != "")
+        {
+            target.draw(characters.at(items[curItem].character).sprites.at(items[curItem].sprite));
+        }
     }
 }

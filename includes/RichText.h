@@ -28,12 +28,13 @@ namespace UT
         float scale;
 
         char textTypeFlags;
+        bool ignoreTags;
 
     private:
         sf::Vector2f renderOffset;
 
-        float wavyAngle = 0;
-
+        float wavyAngle;
+        
         std::unordered_map<std::string, int32_t> colorPresets;
 
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
