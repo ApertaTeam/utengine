@@ -18,6 +18,7 @@ namespace UT
         this->curItem = 0;
         this->writer = TextWriter();
         this->shouldPausePlayer = true;
+        this->curSprite = nullptr;
 
         /*
         *   left: 32
@@ -36,6 +37,28 @@ namespace UT
         
     }
 
+    void DialogueHandler::RunDialogueItem()
+    {
+        writer.textPosition = 0;
+        writer.SetFont(&(*characters[items[curItem].character].font));
+        writer.rawText = items[curItem].text;
+        
+        isDone = CompletionState::Incomplete;
+
+        if (items[curItem].sprite != "" && items[curItem].character != "")
+        {
+            curSprite = &characters.at(items[curItem].character).sprites.at(items[curItem].sprite);
+            curSprite->setScale({ 2, 2 });
+            curSprite->setPosition(56, 320 + 30);
+            writer.SetRenderPosition({ 32 + 145, 320 + 20 });
+        }
+        else
+        {
+            curSprite = nullptr;
+            writer.SetRenderPosition({ 32 + 28, 320 + 20 });
+        }
+    }
+
     void DialogueHandler::Update(float delta)
     {
         textbox.Update(delta);
@@ -43,9 +66,9 @@ namespace UT
 
         if (isDone == CompletionState::Incomplete)
         {
-            if (items[curItem].sprite != "")
+            if (items[curItem].sprite != "" && items[curItem].character != "")
             {
-                writer.SetRenderPosition({ 120, 340 });
+                curSprite->Update(delta);
             }
 
 
@@ -70,12 +93,7 @@ namespace UT
 
                 if (items.size() > curItem)
                 {
-                    writer.textPosition = 0;
-                    writer.SetFont(&(*characters[items[curItem].character].font));
-                    writer.rawText = items[curItem].text;
-
-
-                    isDone = CompletionState::Incomplete;
+                    RunDialogueItem();
                 }
                 else
                 {
@@ -121,15 +139,12 @@ namespace UT
         textbox.slice = textboxSlices;
         curItem = 0;
 
-        writer.textPosition = 0;
-        writer.SetFont(&(*characters[items[curItem].character].font));
-        writer.rawText = items[curItem].text;
         writer.RawDataCheck();
-        writer.SetRenderPosition({ 70, 340 });
         writer.GetRichText()->scale = 2.0;
         
 
-        isDone = CompletionState::Incomplete;
+
+        RunDialogueItem();
 
         if (shouldPausePlayer)
         {
@@ -157,12 +172,12 @@ namespace UT
         if (isDone == CompletionState::CompletedAll) return;
 
         target.draw(textbox);
-        target.draw(writer);
 
-
-        if (items[curItem].sprite != "")
+        if (curSprite != nullptr)
         {
-            target.draw(characters.at(items[curItem].character).sprites.at(items[curItem].sprite));
+            target.draw(*curSprite);
         }
+
+        target.draw(writer);
     }
 }

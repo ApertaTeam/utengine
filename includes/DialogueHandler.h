@@ -50,6 +50,7 @@ namespace UT
         void Init() override;
         void Update(float delta) override;
 
+        void RunDialogueItem();
         void StartDialogue();
 
         inline CompletionState GetIsDone() { return isDone; }
@@ -72,6 +73,7 @@ namespace UT
         Rectangle9Slice textbox;
         TextWriter writer;
         int curItem;
+        AnimatedSprite* curSprite;
     };
 }
 #endif

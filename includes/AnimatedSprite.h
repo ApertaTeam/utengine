@@ -39,10 +39,10 @@ namespace UT
 
 
         int speed;
+        float curFrame;
 
     private:
         std::vector<sf::IntRect> frames;
-        float curFrame;
         EndAction action;
         int textureId;
 

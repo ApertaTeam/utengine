@@ -64,7 +64,7 @@ namespace UTSandbox
 
         
         // Setting up dialogue
-        AnimatedSprite characterSprite = AnimatedSprite(AssetHandler::LoadTextureFromFile("sans_faces.png"), {
+        characterSprite = AnimatedSprite(AssetHandler::LoadTextureFromFile("sans_faces.png"), {
             sf::IntRect(0, 0, 42, 44)
             });
 
@@ -109,8 +109,8 @@ namespace UTSandbox
         // Item 01
         DialogueItem item_01 = DialogueItem();
         item_01.character = "sans";
-        item_01.text = "* hey buddy\n* i dont think this is my font";
         item_01.sprite = "idle";
+        item_01.text = "* hey buddy.\n* i don't think this\n  is my font.";
         dhInstance->items.push_back(item_01);
 
         dhInstance->StartDialogue();
