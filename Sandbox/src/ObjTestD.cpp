@@ -108,11 +108,7 @@ namespace UTSandbox
         dhInstance->ResetRect(0);
 
         // Item 01
-        DialogueItem item_01 = DialogueItem();
-        item_01.character = "sans";
-        item_01.sprite = "idle";
-        item_01.text = "* hey buddy.\n* i don't think this\n  is my font.";
-        dhInstance->items.push_back(item_01);
+        dhInstance->items.push_back(DialogueItem("* hey buddy.\n* i don't think this\n  is my font.", "sans", "idle"));
 
         dhInstance->StartDialogue();
     }

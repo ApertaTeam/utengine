@@ -45,7 +45,12 @@ namespace UT
         if (items[curItem].sprite != "" && items[curItem].character != "")
         {
             curSprite = &characters.at(items[curItem].character).sprites.at(items[curItem].sprite);
-            curSprite->setScale({ 2, 2 });
+
+            if (!characters.at(items[curItem].character).isSpriteDoubled)
+            {
+                curSprite->setScale({ 2, 2 });
+            }
+
             curSprite->setPosition(defaultRects[defaultRect].left + 24, defaultRects[defaultRect].top + 30);
             writer.SetRenderPosition({ defaultRects[defaultRect].left + 145, defaultRects[defaultRect].top + 20 });
         }

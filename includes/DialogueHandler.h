@@ -31,6 +31,14 @@ namespace UT
     {
         std::shared_ptr<Font> font;
         std::unordered_map<std::string_view, AnimatedSprite&> sprites;
+        bool isSpriteDoubled;
+
+        DialogueCharacter(std::shared_ptr<Font> font = nullptr, std::unordered_map<std::string_view, AnimatedSprite&> sprites = {}, bool isSpriteDoubled = false) :
+            font(font),
+            sprites(sprites),
+            isSpriteDoubled(isSpriteDoubled)
+        {
+        };
     };
 
     struct DialogueItem
@@ -40,6 +48,15 @@ namespace UT
         std::string_view character;
         std::string_view sprite;
         std::function<void ()> script;
+
+        DialogueItem(std::string_view text = "", std::string_view character = "", std::string_view sprite = "", std::function<void()> script = []() {}, int speed = 0) :
+            text(text),
+            character(character),
+            sprite(sprite),
+            script(script),
+            speed(speed)
+        {
+        };
     };
 
     class DialogueHandler : public Object
