@@ -19,14 +19,11 @@ namespace UT
         this->writer = TextWriter();
         this->shouldPausePlayer = true;
         this->curSprite = nullptr;
-
-        /*
-        *   left: 32
-        *   top: 480 - 160
-        *   right: 640 - 32
-        *   bottom: 480 - 8
-        */
-        this->defaultRect = sf::FloatRect(32, 320, 608, 472);
+        this->defaultRect = 0;
+        this->defaultRects = {
+            sf::FloatRect(32, 320, 608, 472),
+            sf::FloatRect(32, 8, 608, 160)
+        };
         this->textbox = Rectangle9Slice();
 
         instance = this;
@@ -49,13 +46,13 @@ namespace UT
         {
             curSprite = &characters.at(items[curItem].character).sprites.at(items[curItem].sprite);
             curSprite->setScale({ 2, 2 });
-            curSprite->setPosition(56, 320 + 30);
-            writer.SetRenderPosition({ 32 + 145, 320 + 20 });
+            curSprite->setPosition(defaultRects[defaultRect].left + 24, defaultRects[defaultRect].top + 30);
+            writer.SetRenderPosition({ defaultRects[defaultRect].left + 145, defaultRects[defaultRect].top + 20 });
         }
         else
         {
             curSprite = nullptr;
-            writer.SetRenderPosition({ 32 + 28, 320 + 20 });
+            writer.SetRenderPosition({ defaultRects[defaultRect].left + 28, defaultRects[defaultRect].top + 20 });
         }
     }
 
@@ -139,12 +136,12 @@ namespace UT
         textbox.slice = textboxSlices;
         curItem = 0;
 
+        RunDialogueItem();
         writer.RawDataCheck();
         writer.GetRichText()->scale = 2.0;
         
 
 
-        RunDialogueItem();
 
         if (shouldPausePlayer)
         {
@@ -152,14 +149,21 @@ namespace UT
         }
     }
 
-    void DialogueHandler::MoveToRect(sf::FloatRect rect, int time)
+    void DialogueHandler::ResetRect(unsigned int rectId, int time)
     {
-        textbox.MoveToRect(rect, time);
+        SetDefaultRect(rectId);
+        textbox.MoveToRect(defaultRects[defaultRect], time);
+        textbox.Update(1);
     }
 
-    void DialogueHandler::ResetRect(int time)
+    void DialogueHandler::SetDefaultRect(unsigned int rectId)
     {
-        textbox.MoveToRect(defaultRect, time);
+        defaultRect = rectId;
+        if (rectId >= defaultRects.size())
+        {
+            GlobalLogger->Log(Logger::Error, "Rectangle ID does not exist.");
+            defaultRect = 0;
+        }
     }
 
     DialogueHandler* DialogueHandler::GetInstance()

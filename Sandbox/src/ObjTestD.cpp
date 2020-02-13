@@ -105,6 +105,7 @@ namespace UTSandbox
 
         DialogueHandler* dhInstance = DialogueHandler::GetInstance();
         dhInstance->items.clear();
+        dhInstance->ResetRect(0);
 
         // Item 01
         DialogueItem item_01 = DialogueItem();

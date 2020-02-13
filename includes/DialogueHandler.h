@@ -54,8 +54,10 @@ namespace UT
         void StartDialogue();
 
         inline CompletionState GetIsDone() { return isDone; }
-        void MoveToRect(sf::FloatRect rect, int time = 1000);
-        void ResetRect(int time = 1);
+        void ResetRect(unsigned int rectId = 0, int time = 1);
+        
+        void SetDefaultRect(unsigned int rectId);
+        inline unsigned int GetDefaultRect() { return defaultRect; }
 
         static DialogueHandler* GetInstance();
 
@@ -64,12 +66,13 @@ namespace UT
         std::vector<DialogueItem> items;
         std::unordered_map<std::string_view, DialogueCharacter> characters;
         int textboxTexture;
-        sf::FloatRect defaultRect;
+        std::vector<sf::FloatRect> defaultRects;
         bool shouldPausePlayer;
 
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
         CompletionState isDone;
+        unsigned int defaultRect;
         Rectangle9Slice textbox;
         TextWriter writer;
         int curItem;
