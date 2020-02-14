@@ -63,11 +63,7 @@ namespace UTSandbox
         
 
         
-        // Setting up dialogue
-        characterSprite = AnimatedSprite(AssetHandler::LoadTextureFromFile("sans_faces.png"), {
-            sf::IntRect(0, 0, 42, 44)
-            });
-
+        // Setting up dialogue handler
         DialogueHandler* dhInstance = DialogueHandler::GetInstance();
         dhInstance->textboxTexture = AssetHandler::LoadTextureFromFile("rectslice.png");
         dhInstance->ResetRect();
@@ -75,11 +71,19 @@ namespace UTSandbox
         // Font
         int fontId = AssetHandler::LoadFontFromFile("font.png", "font.dat");
 
-        // Character
-        DialogueCharacter character = DialogueCharacter();
-        character.font = AssetHandler::GetFontById(fontId);
-        character.sprites.insert(std::pair<std::string_view, AnimatedSprite&>("idle", characterSprite));
-        dhInstance->characters.insert(std::pair<std::string_view, DialogueCharacter>("sans", character));
+        // Narrator - Character
+        DialogueCharacter narratorCharacter = DialogueCharacter(AssetHandler::GetFontById(fontId));
+        dhInstance->characters.insert(std::pair<std::string_view, DialogueCharacter>("narrator", narratorCharacter));
+
+        // Sans - Character
+        sansCharacterSprite = AnimatedSprite(AssetHandler::LoadTextureFromFile("sans_faces.png"), {
+            sf::IntRect(0, 0, 42, 44)
+            });
+
+        DialogueCharacter sansCharacter = DialogueCharacter();
+        sansCharacter.font = AssetHandler::GetFontById(fontId);
+        sansCharacter.sprites.insert(std::pair<std::string_view, AnimatedSprite&>("idle", sansCharacterSprite));
+        dhInstance->characters.insert(std::pair<std::string_view, DialogueCharacter>("sans", sansCharacter));
     }
 
     void ObjTestD::Update(float delta)
@@ -108,7 +112,9 @@ namespace UTSandbox
         dhInstance->ResetRect(0);
 
         // Item 01
-        dhInstance->items.push_back(DialogueItem("* hey buddy.\n* i don't think this\n  is my font.", "sans", "idle"));
+        dhInstance->items.push_back(DialogueItem("* hey pal.\n* i don't think this\n  is my font.", "sans", "idle"));
+        dhInstance->items.push_back(DialogueItem("* Are you entirely certain about\n  that, \"buddy\"?", "narrator"));
+        dhInstance->items.push_back(DialogueItem("* i guess we'll see.", "sans", "idle"));
 
         dhInstance->StartDialogue();
     }

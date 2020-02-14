@@ -39,6 +39,7 @@ namespace UT
         writer.textPosition = 0;
         writer.SetFont(&(*characters[items[curItem].character].font));
         writer.rawText = items[curItem].text;
+        writer.RawDataCheck();
         
         isDone = CompletionState::Incomplete;
 

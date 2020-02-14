@@ -82,16 +82,17 @@ namespace UT
 
         std::vector<DialogueItem> items;
         std::unordered_map<std::string_view, DialogueCharacter> characters;
-        int textboxTexture;
         std::vector<sf::FloatRect> defaultRects;
+        int textboxTexture;
         bool shouldPausePlayer;
 
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
         CompletionState isDone;
-        unsigned int defaultRect;
         Rectangle9Slice textbox;
         TextWriter writer;
+
+        unsigned int defaultRect;
         int curItem;
         AnimatedSprite* curSprite;
     };
