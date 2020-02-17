@@ -14,7 +14,7 @@ namespace UT
     {
         this->inputBox = Rectangle9Slice();
         this->outputBox = Rectangle9Slice();
-        this->isVisible = true;
+        this->isVisible = false;
         this->depth = 999999998;
         this->isShiftHeld = false;
         this->outputRawText = "";

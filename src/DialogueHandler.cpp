@@ -20,6 +20,7 @@ namespace UT
         this->shouldPausePlayer = true;
         this->curSprite = nullptr;
         this->defaultRect = 0;
+        this->autoSwitch = true;
         this->defaultRects = {
             sf::FloatRect(32, 320, 608, 472),
             sf::FloatRect(32, 8, 608, 160)
@@ -60,6 +61,8 @@ namespace UT
             curSprite = nullptr;
             writer.SetRenderPosition({ defaultRects[defaultRect].left + 28, defaultRects[defaultRect].top + 20 });
         }
+
+        
     }
 
     void DialogueHandler::Update(float delta)
@@ -142,6 +145,18 @@ namespace UT
         textbox.slice = textboxSlices;
         curItem = 0;
 
+        if (autoSwitch)
+        {
+            if (Game::GetInstance()->camera->trackedObject->getPosition().y > Game::GetInstance()->camera->GetView()->getCenter().y)
+            {
+                ResetRect(1);
+            }
+            else
+            {
+                ResetRect(0);
+            }
+        }
+            
         RunDialogueItem();
         writer.RawDataCheck();
         writer.GetRichText()->scale = 2.0;
