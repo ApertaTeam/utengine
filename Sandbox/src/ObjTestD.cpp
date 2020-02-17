@@ -31,8 +31,9 @@ namespace UTSandbox
         };
 
         testAnimatedSprite = AnimatedSprite(testAnimatedTexture, testRects, 10);
-        testAnimatedSprite.setPosition(200, 160);
+        testAnimatedSprite.setPosition(200, 120);
         setPosition(testAnimatedSprite.getPosition());
+        depth = getPosition().y - 1;
 
         collisionBox = { 0, 15, 20, 5 };
 

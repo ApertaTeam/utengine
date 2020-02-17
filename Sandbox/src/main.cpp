@@ -57,7 +57,6 @@ int main()
     //-- Main room objects start --//
     // Test object D (Animated Sprite)
     UTSandbox::ObjTestD testObjectD = UTSandbox::ObjTestD();
-    testObjectD.depth = 160;
     mainRoom.AddElement(&testObjectD);
 
     // Test TileMap
