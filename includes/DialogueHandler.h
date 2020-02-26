@@ -41,15 +41,29 @@ namespace UT
         };
     };
 
+    struct DialogueStepInfo
+    {
+        std::string text;
+        int position;
+        CompletionState state;
+
+        DialogueStepInfo(std::string_view text = "", int position = 0, CompletionState state = CompletionState::Incomplete) :
+            text(text),
+            position(position),
+            state(state)
+        {
+        };
+    };
+
     struct DialogueItem
     {
         std::string_view text;
         int speed;
         std::string_view character;
         std::string_view sprite;
-        std::function<void ()> script;
+        std::function<void (DialogueStepInfo)> script;
 
-        DialogueItem(std::string_view text = "", std::string_view character = "", std::string_view sprite = "", std::function<void()> script = []() {}, int speed = 0) :
+        DialogueItem(std::string_view text = "", std::string_view character = "", std::string_view sprite = "", std::function<void (DialogueStepInfo)> script = [](DialogueStepInfo e) {}, int speed = 0) :
             text(text),
             character(character),
             sprite(sprite),
@@ -86,6 +100,7 @@ namespace UT
         int textboxTexture;
         bool shouldPausePlayer;
         bool autoSwitch;
+        int curItem;
 
     private:
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -94,7 +109,6 @@ namespace UT
         TextWriter writer;
 
         unsigned int defaultRect;
-        int curItem;
         AnimatedSprite* curSprite;
     };
 }

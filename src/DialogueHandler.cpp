@@ -67,8 +67,15 @@ namespace UT
 
     void DialogueHandler::Update(float delta)
     {
+        if (isDone == CompletionState::CompletedAll) return;
         textbox.Update(delta);
 
+        items[curItem].script({
+            writer.rawText,
+            writer.textPosition,
+            isDone
+            });
+        
 
         if (isDone == CompletionState::Incomplete)
         {

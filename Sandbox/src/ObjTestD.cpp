@@ -113,7 +113,13 @@ namespace UTSandbox
         dhInstance->ResetRect(0);
 
         // Item 01
-        dhInstance->items.push_back(DialogueItem("* hey pal.\n* i don't think this\n  is my font.", "sans", "idle"));
+        dhInstance->items.push_back(DialogueItem("* hey pal.\n* i don't think this\n  is my font", "sans", "idle", [](DialogueStepInfo e) {
+            if (e.state == CompletionState::CompletedSingle)
+            {
+                DialogueHandler::GetInstance()->curItem++;
+                DialogueHandler::GetInstance()->RunDialogueItem();
+            }
+            }));
         dhInstance->items.push_back(DialogueItem("* Are you entirely certain about\n  that, \"buddy\"?", "narrator"));
         dhInstance->items.push_back(DialogueItem("* i guess we'll see.", "sans", "idle"));
 
