@@ -13,6 +13,8 @@
 
 namespace UT
 {
+    class DialogueHandler;
+
     enum class CompletionState
     {
         Incomplete,
@@ -46,8 +48,10 @@ namespace UT
         std::string text;
         int position;
         CompletionState state;
+        DialogueHandler* handler;
 
-        DialogueStepInfo(std::string_view text = "", int position = 0, CompletionState state = CompletionState::Incomplete) :
+        DialogueStepInfo(DialogueHandler* handler = nullptr, std::string_view text = "", int position = 0, CompletionState state = CompletionState::Incomplete) :
+            handler(handler),
             text(text),
             position(position),
             state(state)
@@ -71,6 +75,15 @@ namespace UT
             speed(speed)
         {
         };
+
+        DialogueItem(std::string_view text = "", std::string_view character = "", std::function<void(DialogueStepInfo)> script = [](DialogueStepInfo e) {}, int speed = 0) :
+            text(text),
+            character(character),
+            sprite(""),
+            script(script),
+            speed(speed)
+        {
+        };
     };
 
     class DialogueHandler : public Object
@@ -89,6 +102,8 @@ namespace UT
         
         void SetDefaultRect(unsigned int rectId);
         inline unsigned int GetDefaultRect() { return defaultRect; }
+
+        inline TextWriter* GetWriter() { return &writer; }
 
         static DialogueHandler* GetInstance();
 

@@ -69,12 +69,6 @@ namespace UT
     {
         if (isDone == CompletionState::CompletedAll) return;
         textbox.Update(delta);
-
-        items[curItem].script({
-            writer.rawText,
-            writer.textPosition,
-            isDone
-            });
         
 
         if (isDone == CompletionState::Incomplete)
@@ -97,6 +91,14 @@ namespace UT
                 isDone = CompletionState::CompletedSingle;
                 writer.RawDataCheck();
             }
+
+
+            items[curItem].script({
+                this,
+                writer.rawText,
+                writer.textPosition,
+                isDone
+            });
         }
         else if(isDone == CompletionState::CompletedSingle)
         {

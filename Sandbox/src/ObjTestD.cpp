@@ -113,15 +113,41 @@ namespace UTSandbox
         dhInstance->ResetRect(0);
 
         // Item 01
-        dhInstance->items.push_back(DialogueItem("* hey pal.\n* i don't think this\n  is my font", "sans", "idle", [](DialogueStepInfo e) {
-            if (e.state == CompletionState::CompletedSingle)
+        dhInstance->items.push_back(DialogueItem("* hey pal.\n* i don't think this\n  is my font", "sans", "idle", [](DialogueStepInfo e)
             {
-                DialogueHandler::GetInstance()->curItem++;
-                DialogueHandler::GetInstance()->RunDialogueItem();
-            }
+                if (e.state == CompletionState::CompletedSingle)
+                {
+                    e.handler->curItem++;
+                    e.handler->RunDialogueItem();
+                }
             }));
-        dhInstance->items.push_back(DialogueItem("* Are you entirely certain about\n  that, \"buddy\"?", "narrator"));
+
+        dhInstance->items.push_back(DialogueItem("* Are you entirely certain about\n  that, \"buddy\"?", "narrator", [](DialogueStepInfo e)
+            {
+                if (e.handler->GetWriter()->timeout <= 0)
+                {
+                    int foundSpace = -1;
+                    for (int i = e.position; i < e.text.length(); i++)
+                    {
+                        if (e.text[i] == ' ')
+                        {
+                            foundSpace = i;
+                        }
+                        else if (foundSpace != -1)
+                        {
+                            break;
+                        }
+                    }
+                    
+                    e.handler->GetWriter()->textPosition = ((foundSpace != -1) ? foundSpace : e.text.length());
+                    e.handler->GetWriter()->RawDataCheck();
+                    e.handler->GetWriter()->timeout = 10;
+                }
+            }));
+
+
         dhInstance->items.push_back(DialogueItem("* i guess we'll see.", "sans", "idle"));
+
 
         dhInstance->StartDialogue();
     }

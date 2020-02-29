@@ -100,11 +100,6 @@ namespace UT
                     timeout = textSpeed;
                 }
             }
-            else if (rawText[textPosition] == ' ')
-            {
-                textPosition++;
-                RawDataCheck();
-            }
             else
             {
                 cancelNext = false;

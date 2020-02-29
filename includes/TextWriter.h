@@ -26,6 +26,7 @@ namespace UT
 
         std::string rawText;
         int textPosition;
+        float timeout;
 
     private:
         Font* font;
@@ -33,7 +34,6 @@ namespace UT
         
         sf::Vector2f renderPosition;
 
-        float timeout;
 
         bool cancelNext;
         int textSpeed = 1;
